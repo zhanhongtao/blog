@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>after</title>
+  <style>
+    section {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -250px;
+      width: 500px;
+      height: 100px;
+      font-size: 28px;
+      line-height: 100px;
+      text-align: center;
+      color: #fff;
+      background-color: #000;
+      border: 1px solid #000;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <section>敲击键盘 sogou 字符, 有惊喜</section>
+  <script src="../scripts/after.js"></script>
+  <script>
+  ;(function() {
+    var func = (function() {
+      var space = [];
+      var keycodes = [ 83, 79, 71, 79, 85 ];
+      var ok5;
+      var timer;
+      function check() {
+        if ( keycodes.join() === space.join() ) {
+          alert( '\u60CA\u559C' );
+        }
+      }
+      function init() {
+        space.length = 0;
+        ok5 = after( 5, function() {
+          check();
+          init();
+        });
+      }
+      function later() {
+        init();
+        timer = null;
+      }
+      init();
+      return function( keycode ) {
+        if ( !timer ) {
+          timer = setTimeout( later, 1000 );
+        }
+        if ( keycodes.indexOf(keycode) === -1 ) {
+          init();
+          return;
+        }
+        space[ space.length ] = keycode;
+        ok5();
+      };
+    })();
+
+    document.onkeydown = function( event ) {
+      event = event || window.event;
+      func( event.keyCode );
+    };
+  })();
+  </script>
+</body>
+</html>
