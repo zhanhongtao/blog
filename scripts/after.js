@@ -1,8 +1,5 @@
-
-
 // 调用多少次后, 再执行函数.
-// ex:
-// 多个键做入口.
+// ex: http://zhanhongtao.github.io/blog/html/after.html
 function after( count, func ) {
   var n = ~~count;
   var old = n;

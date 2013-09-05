@@ -1,3 +1,4 @@
+// 依赖 type.js
 // 函数递归.
 function flatArray( array ) {
   var result = [];
@@ -7,3 +8,4 @@ function flatArray( array ) {
   }
   return result;
 }
+
