@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>queue</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #000;
+    }
+    #box {
+      position: relative;
+      height: 500px;
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .ball {
+      width: 1px;
+      height: 1px;
+      background-color: yellow;
+      position: absolute;
+      box-shadow: 1px 1px 2px #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script src="../scripts/queue.js"></script>
+<script>
+  var centerPoint = {x: 250, y: 250};
+  var radius = 100;
+  var xRadius = 100;
+  var yRadius = 100;
+  var box = document.getElementById( 'box' )
+  var sin = Math.sin;
+  var cos = Math.cos;
+  var pi = Math.PI;
+
+  function createPoint( x, y ) {
+    var element = document.createElement( 'div' );
+    element.setAttribute( 'class', 'ball' );
+    element.style.left = x + 'px';
+    element.style.top = y + 'px';
+    box.appendChild( element );
+  }
+
+  function convertToDegree( radius ) {
+    return radius * 180 / Math.PI;
+  }
+
+  function convertToRadians( degree ) {
+    return degree / 180 * Math.PI;
+  }
+
+  function arc2( angle, xRadius, yRadius, point ) {
+    var x = point[0] + xRadius * cos( angle );
+    var y = point[1] + yRadius * sin( angle );
+    return [x, y];
+  }
+
+  function rotate( degree, xRadius, yRadius, next ) {
+    var degree = degree || 0;
+    if ( degree > 365 ) return next();
+    var point = arc2( convertToRadians(degree), xRadius, yRadius, [centerPoint.x, centerPoint.y] );
+    createPoint( point[0], point[1] );
+    point = null;
+    var timer = setTimeout(function() {
+      rotate( degree + 1, xRadius, yRadius, next );
+      degree = null;
+    }, 16);
+  }
+
+  queue( [{
+    x: 100,
+    y: 100
+  },
+  {
+    x: 200,
+    y: 100
+  },
+  {
+    x: 100,
+    y: 200
+  }], function( radius, next ) {
+    rotate( 0, radius.x, radius.y, next );
+  }, function() {
+    alert( 'end' );
+  });
+</script>
+</body>
+</html>
