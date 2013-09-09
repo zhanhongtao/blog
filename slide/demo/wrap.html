@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wrap</title>
+</head>
+<body>
+    <script src="../js/functional.js"></script>
+    <script>
+var aop = wrap;
+// ------------------------------------------------
+// 支持多次包装.
+function a11() {
+    console.log( '原处理函数' );
+}
+// before 包装
+a11 = aop( a11, function( self ) {
+    console.log( 'before 包装' );
+    self();
+});
+// after 包装
+a11 = aop( a11, function( self ) {
+    self();
+    console.log( 'after 包装' );
+});
+a11();
+// ------------------------------------------------
+// 职责链.
+// 员工a(如果搞不定) -> 组长a(如果搞不定) -> 经理a(搞不定) -> abort.
+// 默认使用 html5 方法, 不支持时, 使用 flash.
+function s5( method ) {
+    if ( method === 'flash' ) {
+        return console.log( '使用 flash 方法' );
+    }
+}
+
+s5 = aop(s5, function( method, old ) {
+    if ( old == null ) {
+        old = method;
+        method = 'html5';
+    }
+    if ( method === 'html5' ) {
+        return console.log( '支持 html5 方法' );
+    }
+    return old();
+});
+
+s5();
+// ------------------------------------------------
+// 修改参数配置.
+function s4( setting ) {
+    console.log( '最终配置: ', setting );
+}
+
+s4 = aop( s4, function( old ) {
+    var setting = {};
+    setting.name = 'redky';
+    setting.haha = 'haha';
+    console.log( '更新配置: ', JSON.stringify(setting) );
+    old( setting );
+});
+
+console.log( '无参数调用' );
+s4();
+
+// ------------------------------------------------
+// 函数处理前做检查.
+function s3( message ) {
+    console.log( message );
+}
+
+s3 = aop( s3, function( message, old ) {
+    if ( message === 'haha' ) {
+        console.log( '不支持, 提前结束' );
+        return false;
+    }
+});
+s3( 'haha' );
+
+// ------------------------------------------------
+// 做性能统计.
+function s2() {
+    var dom, div; //fragment = document.createDocumentFragment();
+    for ( var i = 0, l = 10000; i < l; i++ ) {
+        div = document.createElement( 'div' );
+        // fragment.appendChild( div );
+        document.getElementsByTagName( 'body' )[0].appendChild( div );
+    }
+    // document.getElementsByTagName( 'body' )[0].appendChild( fragment );
+}
+
+s2 = aop( s2, function( old ) {
+    var t = Date.now();
+    old();
+    var te = Date.now();
+    console.log( '创建 10000个元素, 每创建就添加到 body 中: ', te - t );
+});
+
+s2();
+
+// ------------------------------------------------
+// 在不修改原函数基础上, 添加新功能.
+window.onload = function() {
+    console.log( 'onload' );
+};
+
+window.onload = aop(( window.onload || function() {} ), function( old ) {
+    old();
+    console.log( '2 onload' );
+});
+
+window.onload = aop(( window.onload || function() {}), function( old ) {
+    old();
+    console.log( '3 onload' );
+});
+
+window.onload = aop(( window.onload || function() {}), function( old ) {
+    old();
+    console.log( '4 onload' );
+});
+    </script>
+</body>
+</html>

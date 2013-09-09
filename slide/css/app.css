@@ -1,0 +1,109 @@
+
+
+body {
+  font: 16px/1.5 'Microsoft JhengHei', 'Microsoft Yahei', tahoma, arial, \5b8b\4f53, sans-serif;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1, .h1 {
+  font-size: 24px;
+}
+
+h2, .h2 {
+  font-size: 22px;
+}
+
+h3, .h3 {
+  font-size: 20px;
+}
+
+h4, .h4 {
+  font-size: 18px;
+}
+
+h5, .h5 {
+  font-size: 16px;
+}
+
+h6, .h6 {
+  font-size: 12px;
+}
+
+p, ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-position: inside;
+  margin: 5px 0;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+code, mark, pre {
+  line-height: 1.5;
+  font-size: 12px;
+  font-family: 'Bodoni MT', Simsun, sans-serif;
+}
+
+code {
+  display: inline-block;
+  vertical-align: middle;
+  background: #f1f1f1;
+  color: #030303;
+  padding: 0 6px;
+  border-radius: 2px;
+}
+
+mark,
+.mark {
+  display: inline-block;
+  color: #000;
+  padding: 0 6px;
+}
+
+.codebox {
+  position: relative;
+  resize: horizontal;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+div::-webkit-resizer,
+textarea::-webkit-resizer {
+  background: red;
+}
+
+pre {
+  margin: 0;
+  display: block;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #EBEBEB;
+  padding: 5px 10px;
+}
+
+.runcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  cursor: pointer;
+  background-color: #92B0F0;
+  color: #0C0B11;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.slide {
+  padding: 10px 40px;
+}

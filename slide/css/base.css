@@ -1,0 +1,63 @@
+
+
+.ppt .slide {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 500px;
+  height: 300px;
+  top: 50%;
+  display: none;
+  border-radius: 5px;
+  margin: -150px auto;
+  box-sizing: border-box;
+}
+
+.ppt .slide-target,
+.ppt .slide:target {
+  display: block;
+}
+
+#navigator {
+  display: none;
+}
+
+.ppt #navigator {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 0;
+  background: rgb(91, 231, 56);
+  height: 1px;
+}
+
+
+.ppt .slide-cover {
+  text-align: center;
+}
+
+.ppt .slide-cover h1 {
+  margin-top: 80px;
+  font-size: 28px;
+}
+
+.ppt .slide-cover h2,
+.ppt .slide-cover h3 {
+  color: #999;
+  font-weight: normal;
+}
+
+/* @TODO */
+.logo-helper-layer {
+  position: fixed;
+  display: none;
+  bottom: 0;
+  width: 100px;
+  height: 100px;
+  background: url(../images/sogou-logo-128.jpg) no-repeat left top;
+  background-size: 100px 100px;
+}
+
+

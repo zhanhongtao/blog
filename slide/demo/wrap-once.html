@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>wrap - once</title>
+</head>
+<body>
+<script src="../js/functional.js"></script>
+<script>
+
+  function onclick() {
+    alert( 'onclick' );
+  }
+
+  function bindEvents() {
+    document.addEventListener( 'click', function() {
+      alert( 'addEventListener' );
+    }, false );
+    document.addEventListener( 'click', onclick, false );
+    document.onclick = function() {
+      alert( 'document.onclick' );
+    };
+  }
+
+  bindEvents = wrap( bindEvents, function bindEvents( next ) {
+    if ( bindEvents.tag ) {
+      return bindEvents.cache;
+    }
+    bindEvents.tag = true;
+    return bindEvents.cache = next();
+  });
+
+  bindEvents();
+  bindEvents();
+</script>
+</body>
+</html>
