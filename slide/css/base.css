@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  width: 500px;
+  width: 560px;
   height: 300px;
   top: 50%;
   display: none;
@@ -48,16 +48,4 @@
   color: #999;
   font-weight: normal;
 }
-
-/* @TODO */
-.logo-helper-layer {
-  position: fixed;
-  display: none;
-  bottom: 0;
-  width: 100px;
-  height: 100px;
-  background: url(../images/sogou-logo-128.jpg) no-repeat left top;
-  background-size: 100px 100px;
-}
-
 

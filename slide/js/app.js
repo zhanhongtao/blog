@@ -1,5 +1,6 @@
 
 
+// 自执行函数.
 ;(function() {
 
   // 无 new 实例化.
@@ -120,16 +121,6 @@
       default:
         break;
     }
-  }, false );
-
-  document.addEventListener( 'mousewheel', function( event ) {
-    // only support webkit.
-    var wheel = event.wheelDelta;
-    var direction = {
-      '-1': nextSlide,
-      '1': prevSlide
-    };
-    direction[ wheel / 120 ]();
   }, false );
 
   updatePage( page );

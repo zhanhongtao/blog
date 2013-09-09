@@ -2,6 +2,7 @@
 
 body {
   font: 16px/1.5 'Microsoft JhengHei', 'Microsoft Yahei', tahoma, arial, \5b8b\4f53, sans-serif;
+  font: 16px/1.5 "lucida Grande", Verdana;
   color: #333;
 }
 
@@ -50,7 +51,7 @@ dd {
 code, mark, pre {
   line-height: 1.5;
   font-size: 12px;
-  font-family: 'Bodoni MT', Simsun, sans-serif;
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
 
 code {
