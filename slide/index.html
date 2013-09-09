@@ -64,7 +64,6 @@
       <li><code>element.addEventListener('click', function() {}, false );// callback</code></li>
       <li><code>setTimeout(function() {}, 100); // setInterval</code></li>
       <li><code>'?path=p1'.replace(/[^?&]path=[^#&]*/i,function() {});</code></li>
-<!--      <li><code>[1,2,3].forEach(function(item, index, array) {});</code></li>-->
       <li><code>[1,3,2].sort(function( a, b ) { return a - b;});</code></li>
       <li><code>function func(){return function() {};}</code></li>
       <li><code>promise().done(function() {}).fail(function() {}); // jQuery</code></li>
@@ -90,6 +89,8 @@
   /**
     指定运行时 this.
     Function.prototype.bind
+    * 修正 ie 早期版本 this 指向.
+    * 函数作为回调时, 保证 this 指向.
   */
   function bind( func, context ) {
     return function() {
@@ -182,15 +183,44 @@ alert( getBrowserDataFromServer( system.runcase ) );
 </pre>
   <div class="runcase">Run</div>
   </div>
-
   </section>
   <section class="slide">
     <h1>其它</h1>
     <ul>
-      <li>创建私有变量</li>
-      <li>单元测试</li>
       <li>只读 name 属性 - 返回函数名; 匿名函数返回''</li>
       <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
+    </ul>
+    <div class="codebox">
+      <pre contenteditable="true">
+function getName( user ) {
+    alert( arguments.callee.name );
+}
+getName();
+      </pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>其它</h1>
+    <ul>
+      <li>
+        严格模式不支持 arguments.callee
+    <div class="codebox">
+<pre contenteditable="true">
+'use strict';
+function getName( user ) {
+  try { var self = arguments.callee; }
+  catch(e) {
+    alert( 'error' );
+  }
+}
+getName();
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+      </li>
+      <li>创建私有变量</li>
+      <li>单元测试</li>
     </ul>
   </section>
   <section class="slide">
@@ -233,16 +263,17 @@ alert( getBrowserDataFromServer( system.runcase ) );
     <h1>其它 - 递归</h1>
     <div data-run="1" class="codebox">
 <pre contenteditable="true">
-  // concat 仅支持一级. ex: [].concat( 1, [2, 3, [4]]  ); // [1, 2, 3, [4]]
-  function flatArray( array ) {
-    var i = 0, l = array.length, result = [], current;
-    for ( ; i < l; i++ ) {
-      current = array[i];
-      result = result.concat(type(current) ==='array' ? flatArray(current) : current );
-    }
-    return result;
+// concat 仅支持一级. ex: [].concat( 1, [2, 3, [4]]  ); // [1, 2, 3, [4]]
+function flatArray( array ) {
+  var i = 0, l = array.length, result = [], current;
+  for ( ; i < l; i++ ) {
+    current = array[i];
+    result = result.concat(type(current) ==='array' ?
+        flatArray(current) : current );
   }
-  alert( flatArray( [1,2,[3],[4,[5],6],7] ) ); // [ 1, 2, 3, 4, 5, 6, 7 ]
+  return result;
+}
+alert( flatArray( [1,2,[3],[4,[5],6],7] ) ); // [ 1, 2, 3, 4, 5, 6, 7 ]
 </pre>
   <div class="runcase">Run</div>
   </div>
@@ -447,6 +478,9 @@ a();
     <ul>
       <li>权威指南 6</li>
       <li><a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a></li>
+      <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a></li>
+      <li><a href="http://www.zhihu.com/question/19805411" target="_blank">如何防止重复提交?</a></li>
+      <li><a href="http://osteele.com/sources/javascript/functional/" target="_blank">functional</a></li>
     </ul>
   </section>
   <section class="slide slide-cover">

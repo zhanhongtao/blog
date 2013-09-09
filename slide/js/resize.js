@@ -9,6 +9,9 @@
   // 窗口 resize 时, 仅对当前 slide 做绽放处理.
   // 因此在转换文档显示模式时, 需处理.
   var resize = function( page ) {
+    // 不支持 classList 浏览器, 不提供 resize 功能.
+    if ( !body.classList ) return;
+
     if ( !body.classList.contains('ppt') ) {
         return;
     }
@@ -24,8 +27,10 @@
     };
     var w = winsize.w / slidesize.w;
     var h = winsize.h / slidesize.h;
-    var scale = Math.min.call( Math, w, h );
+    // x 0.9 防止 slide page 过大.
+    var scale = Math.min.call( Math, w, h ) * 0.9;
     slides[ page ].style.webkitTransform = 'scale(' + scale + ')';
+    slides[ page ].style.MozTransform = 'scale(' + scale + ')'; // Moz 中的 m 大写.
   };
 
   var resize2 = throttle( resize, 150 );

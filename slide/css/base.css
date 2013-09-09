@@ -49,15 +49,3 @@
   font-weight: normal;
 }
 
-/* @TODO */
-.logo-helper-layer {
-  position: fixed;
-  display: none;
-  bottom: 0;
-  width: 100px;
-  height: 100px;
-  background: url(../images/sogou-logo-128.jpg) no-repeat left top;
-  background-size: 100px 100px;
-}
-
-

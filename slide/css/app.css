@@ -5,6 +5,15 @@ body {
   color: #333;
 }
 
+a, a:active {
+  text-decoration: none;
+  color: #2988B4;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
