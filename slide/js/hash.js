@@ -17,19 +17,23 @@
     // 就不再 pushState.
     if ( message.from === 'hash' ) return;
 
-    var uri = '';
-    var page = message.page;
-    var href = location.href;
-    if ( href.indexOf('#') === -1 ) {
-      uri = href + '#' + page;
-    }
-    else {
-      uri = href.replace( /#([^&]*)/i, function () {
-        return '#' + page;
-      });
+    // 修正 ie 不支持 pushState 问题.
+    if ( history.pushState ) {
+      var uri = '';
+      var page = message.page;
+      var href = location.href;
+      if ( href.indexOf('#') === -1 ) {
+        uri = href + '#' + page;
+      }
+      else {
+        uri = href.replace( /#([^&]*)/i, function () {
+          return '#' + page;
+        });
+      }
+
+      history.pushState( {}, document.title, uri );
     }
 
-    history.pushState( {}, document.title, uri );
   });
 
 })();

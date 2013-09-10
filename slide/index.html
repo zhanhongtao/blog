@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/app.css">
 </head>
-<body class="ppt">
+<body>
   <section class="slide slide-cover">
     <h1>深入浅出 JavaScript 函数</h1>
     <h2 class="h6">Sogou Browser - REDKY@qq.com</h2>
@@ -89,6 +89,8 @@
   /**
     指定运行时 this.
     Function.prototype.bind
+    * 修正 ie 早期版本 this 指向.
+    * 函数作为回调时, 保证 this 指向.
   */
   function bind( func, context ) {
     return function() {
@@ -179,15 +181,44 @@ alert( getBrowserDataFromServer( system.runcase ) );
 </pre>
   <div class="runcase">Run</div>
   </div>
-
   </section>
   <section class="slide">
     <h1>其它</h1>
     <ul>
-      <li>创建私有变量</li>
-      <li>单元测试</li>
       <li>只读 name 属性 - 返回函数名; 匿名函数返回''</li>
       <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
+    </ul>
+    <div class="codebox">
+      <pre contenteditable="true">
+function getName( user ) {
+    alert( arguments.callee.name );
+}
+getName();
+      </pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>其它</h1>
+    <ul>
+      <li>
+        严格模式不支持 arguments.callee
+    <div class="codebox">
+<pre contenteditable="true">
+'use strict';
+function getName( user ) {
+  try { var self = arguments.callee; }
+  catch(e) {
+    alert( 'error' );
+  }
+}
+getName();
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+      </li>
+      <li>创建私有变量</li>
+      <li>单元测试</li>
     </ul>
   </section>
   <section class="slide">
@@ -230,16 +261,16 @@ alert( getBrowserDataFromServer( system.runcase ) );
     <h1>其它 - 递归</h1>
     <div data-run="1" class="codebox">
 <pre contenteditable="true">
-  function flatArray( array ) {
-    var i = 0, l = array.length, result = [], current;
-    for ( ; i < l; i++ ) {
-      current = array[i];
-      result = result.concat( type(current) ==='array' ?
+function flatArray( array ) {
+  var i = 0, l = array.length, result = [], current;
+  for ( ; i < l; i++ ) {
+    current = array[i];
+    result = result.concat(type(current) ==='array' ?
         flatArray(current) : current );
-    }
-    return result;
   }
-  alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
+  return result;
+}
+alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
 </pre>
   <div class="runcase">Run</div>
   </div>
@@ -317,7 +348,6 @@ function wrap( self, func ) {
 }
 </pre>
     <div class="runcase"></div>
-<pre>
   </section>
   <section class="slide">
     <h1>函数转换 - 面向切面</h1>
@@ -374,36 +404,29 @@ a();
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - ?</h1>
-    <h2 class="h4">实用场景</h2>
+    <h1>函数转换 - 实用场景</h1>
+    <p>短时间内(100ms)多次发生相同事件, 但仅需要执行最后一次.</p>
     <ul>
-      <li>频繁点击生成快捷方式按钮</li>
-      <li>相同事件同时发生多次, 但仅需要处理一次</li>
-      <li>blur和submit都是提交操作, 两者存在同时发生可能</li>
+      <li>频繁点击按钮, 提交表单</li>
+      <li>多次点击生成快捷方式按钮</li>
+      <li>font-size-changed-event 同时发生多次</li>
+      <li>blur和submit 提交操作, 两不同事触发同一操作</li>
+      <li>频繁点击 ctrl + s 快捷键(?)</li>
+    </ul>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - 实用场景</h1>
+    <p>短时间内(100ms)n次发生相同事件, 但需要执行m(m<=n)次.</p>
+    <ul>
       <li>window窗口 resize 时, 频繁重新渲染 DOM</li>
       <li>mousemove 事件频繁触发</li>
       <li>scroll 事件频繁触发</li>
+      <li>扩展1: 网页中搜索建议, 发送的请求如何处理?</li>
+      <li>扩展2: 如何防止表单重复提交?</li>
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - ?</h1>
-    <h2 class="h4">实用场景</h2>
-    <ul>
-      <li>如何防止表单重复提交?</li>
-      <li>按住 ctrl + s 快捷键, 是否一直进行 save 操作?</li>
-      <li>网页中搜索建议, 发送的请求如何处理?</li>
-    </ul>
-  </section>
-  <section class="slide">
-    <h1>函数转换</h1>
-    <ul>
-      <li>一定时间内, 只执行一次</li>
-      <li>一定时间内, 只执行最后一次</li>
-    </ul>
-  </section>
-  <section class="slide">
-    <h1>函数转换 - ?</h1>
-    <h2 class="h4">实用场景</h2>
+    <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>window7/8 Area 效果</li>
       <li>? hover 上以后等待100ms 后再显示帮助</li>
@@ -412,16 +435,14 @@ a();
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - after</h1>
-    <h2 class="h4">实用场景</h2>
+    <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>需求: 按键盘 sogou 字符, 出现惊喜.</li>
       <li><a href="http://zhanhongtao.github.io/blog/html/after.html" target="_blank">实例</a></li>
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - 队列</h1>
-    <h2 class="h4">实用场景</h2>
+    <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>元素a, 从位置[0,0] 先移到到[0, 100], 再到[100, 100]</li>
       <li>需求: 对 n 个服务接口, 做单元测试.</li>
@@ -430,8 +451,7 @@ a();
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - 同步</h1>
-    <h2 class="h4">实用场景</h2>
+    <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>同时请求模板和数据, 计算结果, 渲染页面</li>
       <li><a href="http://zhanhongtao.github.io/blog/html/sync.html" target="_blank">动画实例</a></li>
@@ -443,6 +463,9 @@ a();
     <ul>
       <li>权威指南 6</li>
       <li><a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a></li>
+      <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a></li>
+      <li><a href="http://www.zhihu.com/question/19805411" target="_blank">如何防止重复提交?</a></li>
+      <li><a href="http://osteele.com/sources/javascript/functional/" target="_blank">functional</a></li>
     </ul>
   </section>
   <section class="slide slide-cover">

@@ -17,14 +17,18 @@
 
     // 更新内容
     var target = slides[ page ] || slides[0];
-    target.classList.add( TARGET_CLASS );
+    if ( target ) target.classList.add( TARGET_CLASS );
 
     // 让元素可见.
     target.scrollIntoView();
 
     // 更新 title.
     var h1 = target.querySelector( 'h1' );
-    if ( h1 ) document.title = h1.innerText;
+    if ( h1 ) {
+      eventemitter.emit( 'innerText', h1, function( title ) {
+        document.title = title;
+      });
+    }
 
     // 更新进度条.
     nav.style.width = ( (page+1) / pages ) * 100 + '%';
