@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jquery.on</title>
+</head>
+<body>
+  <script src="jquery-1.10.2.min.js"></script>
+<script>
+  function once( func ) {
+    var flag, result;
+    return function() {
+      if ( flag ) return result;
+      flag = true;
+      result = func.apply( this, arguments );
+      return result;
+    };
+  }
+
+  // 仅执行一次.
+  // 和 jQuery 中的 one 不太一样.
+  // jQuery 中的 one, 在绑定多次时, 依然会执行多次.
+  // @note: 多次绑定和多次执行本身是两个问题.
+  var a = once(function() {
+    alert( 'one' );
+  });
+
+  var b = once(function() {
+    alert( 'on' );
+  });
+
+  // 浏览器默认绑定函数不重复.
+  // 重复绑定在 jQuery 中出现.
+  var c = function() {
+    alert( 'addEventListener' );
+  };
+
+  var body = $( document );
+
+  function onclick() {
+    body.one( 'click', a );
+    body.on( 'click', b );
+    document.addEventListener( 'click', c, false );
+  }
+
+  var onOnceClick = once( onclick );
+
+  // 模拟重复绑定.
+  var i = 4;
+  while ( i-- > 0 ) {
+    onclick();
+  }
+
+  i = 4;
+  while ( i-- > 0 ) {
+    onOnceClick();
+  }
+
+</script>
+</body>
+</html>
