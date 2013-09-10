@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>flex item</title>
+  <style>
+    section {
+      display: -webkit-flex;
+      display: flex;
+      height: 400px;
+    }
+
+    div:first-child {
+      width: 100px;
+    }
+
+    div:nth-child(n + 2) {
+      -webkit-flex: 1;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="first"></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</section>
+<script>
+  var box = document.querySelector( 'section' );
+
+  // 给各个伸缩项目添加背景色.
+  ;(function( box ) {
+    var divs = box.querySelectorAll( 'div' );
+    for ( var i = 0, l = divs.length; i < l; i++ ) {
+      var div = divs[i];
+      var r = Math.floor( Math.random() * 255 );
+      var g = Math.floor( Math.random() * 255 );
+      var b = Math.floor( Math.random() * 255 );
+      div.style.backgroundColor = 'rgb('+r+','+g+','+b+')';
+    }
+  })( box );
+
+</script>
+</body>
+</html>

@@ -38,6 +38,7 @@
     }
   });
 
+  // element.matches
   function matchesSelector( element, target ) {
     if ( element.webkitMatchesSelector ) {
       return element.webkitMatchesSelector( target );

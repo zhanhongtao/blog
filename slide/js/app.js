@@ -100,21 +100,7 @@
         break;
       case 80: // alt + p
         if ( event.altKey ) {
-          body.classList.toggle( 'ppt' );
-          slides[page].scrollIntoView();
-          if ( !body.classList.contains('ppt') ) {
-            ;(function() {
-              var i = 0;
-              while ( i < pages ) {
-                var slide = slides[i];
-                slide.style.webkitTransform = 'scale(1)';
-                i++;
-              }
-            })();
-          }
-          else {
-            eventemitter.emit( 'on-resize' );
-          }
+          eventemitter.emit( 'on-page-pattern-changed', page );
           event.preventDefault();
           break;
         }
@@ -123,7 +109,21 @@
     }
   }, false );
 
+  document.addEventListener( 'mousewheel', function( event ) {
+    if ( event.wheelDelta ) {
+      event.wheelDelta < 0 ? nextSlide() : prevSlide();
+    }
+  }, false );
+
+  document.addEventListener( 'DOMMouseScroll', function( event ) {
+    console.log( event );
+    if ( event.detail ) {
+      -1 * event.detail < 0 ? nextSlide() : prevSlide();
+    }
+  }, false );
+
   updatePage( page );
+  eventemitter.emit( 'ppt-init', page );
 
 })();
 
