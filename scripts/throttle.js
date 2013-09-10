@@ -1,7 +1,4 @@
 // 指定时间内仅执行一次.
-// ex: 100ms 执行一次, 那么 1s 里 10 次.
-// ctrl + s.
-// search - 即时搜索. 上次还没完成, 这次又发送请求, 可以执行 abort 上次请求.
 function throttle( func, wait ) {
   var timer;
   var previous = 0;

@@ -50,6 +50,20 @@
     <h2 class="h4">返回值</h2>
     <p>可返回何意数据类型</p>
     <p>提前结束函数 (forEach怎么提前退出?)</p>
+    <div class="codebox">
+<pre>
+function foreach( array, func ) {
+  try { array.forEach( func );}
+  catch(e) {}
+}
+foreach( [1, 2, 3, 4], function( item, index ) {
+  if ( index === 2 ) throw new Error( 'error' );
+  alert( 'item value: ' + item );
+});
+alert( 'end' );
+</pre>
+  <div class="runcase">Run</div>
+  </div>
   </section>
   <section class="slide">
     <h1>函数调用</h1>
@@ -146,6 +160,7 @@ alert( getBrowserDataFromServer( system.runcase ) );
   </section>
   <section class="slide">
     <h1>实例 - call/apply</h1>
+    <div class="codebox">
 <pre>
   // 设置字体值.
   // 要求: 最大值为 200, 最小值为 100
@@ -154,9 +169,14 @@ alert( getBrowserDataFromServer( system.runcase ) );
   function setFontSize( value ) {
     value = Math.max.call( Math, FONT_SIZE_MIN_VALUE, value );
     value = Math.min.apply( Math, [FONT_SIZE_MAX_VALUE, value] );
-    system.font.set( value );
+    alert( value );
   }
+  setFontSize( 120 );
+  setFontSize( 50 );
+  setFontSize( 240 );
 </pre>
+  <div class="runcase">Run</div>
+  </div>
   </section>
   <section class="slide">
     <h1>变量作用域 - 闭包</h1>
@@ -249,8 +269,6 @@ getName();
 </pre>
         <div class="runcase">Run</div>
       </div>
-    <a href="https://github.com/jtyjty99999/astral/tree/master/src" target="_blank">转换静态函数库.</a>
-    <p>把静态方法(ex: Array.max)转成 _.prototype.max 即可.</p>
   </section>
   <section class="slide">
     <h1>其它 - 递归</h1>
@@ -260,6 +278,7 @@ function flatArray( array ) {
   var i = 0, l = array.length, result = [], current;
   for ( ; i < l; i++ ) {
     current = array[i];
+    // concat 支持单层合并.
     result = result.concat(type(current) ==='array' ?
         flatArray(current) : current );
   }
@@ -316,11 +335,13 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
   </section>
   <section class="slide">
     <h1>函数转换 - once</h1>
-    <p>用途: 防止重复绑定事件. (伪命题)</p>
+    <p>用途: 防止重复绑定事件 - jQuery</p>
 <pre>
-  element.addEventListener( 'click', function() {
-    // ...
-  }, false );
+var bindEvents = once(function() {
+  $( element ).on( 'click', function() {
+    //...
+  });
+});
 </pre>
   </section>
   <section class="slide">
@@ -365,7 +386,8 @@ sendRequest(); // 1;
   </section>
   <section class="slide">
     <h1>函数转换 - 扩展方法</h1>
-<pre contenteditable="true"«>
+    <div class="codebox">
+<pre contenteditable="true">
 function $( selector ) {
   return document.querySelectorAll( selector );
 };
@@ -379,13 +401,15 @@ $ = wrap( $, function(selector, next) {
     }
   };
 });
+$('.slide-cover').each(function(slide) {alert(slide.innerHTML)});
 </pre>
+    <div class="runcase">Run</div>
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - 仅执行一次[once]</h1>
+    <h1>函数转换 - 模拟once</h1>
     <div class="codebox">
-    <pre contenteditable="true">
+<pre contenteditable="true">
 var a = function() { alert(1); }
 a = wrap( a, function a( next ) {
   if ( a.tag ) return a.cache;
@@ -394,7 +418,7 @@ a = wrap( a, function a( next ) {
 });
 a();
 a();
-    </pre>
+</pre>
     <div class="runcase">Run</div>
     </div>
   </section>
@@ -410,6 +434,24 @@ a();
     </ul>
   </section>
   <section class="slide">
+    <h1>懒惰型函数</h1>
+<pre>
+function debounce( func, wait ) {
+  var old = new Date;
+  var timer;
+  function ret() {
+    if ( timer ) { clearTimeout( timer ); timer = null;}
+    var argus = arguments;
+    timer = setTimeout(function() {
+      timer = null;
+      func.apply( null, argus );
+    }, wait);
+  };
+  return ret;
+}
+</pre>
+  </section>
+  <section class="slide">
     <h1>函数转换 - 实用场景</h1>
     <p>短时间内(100ms)n次发生相同事件, 但需要执行m(m<=n)次.</p>
     <ul>
@@ -419,6 +461,11 @@ a();
       <li>扩展1: 网页中搜索建议, 发送的请求如何处理?</li>
       <li>扩展2: 如何防止表单重复提交?</li>
     </ul>
+  </section>
+  <section class="slide">
+    <h1>节制性函数</h1>
+    <a href="../scripts/throttle.js" target="_blank">查看源文件</a>
+</pre>
   </section>
   <section class="slide">
     <h1>函数转换 - 实用场景</h1>
@@ -433,7 +480,7 @@ a();
     <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>需求: 按键盘 sogou 字符, 出现惊喜.</li>
-      <li><a href="http://zhanhongtao.github.io/blog/html/after.html" target="_blank">实例</a></li>
+      <li><a href="../html/after.html" target="_blank">实例</a></li>
     </ul>
   </section>
   <section class="slide">
@@ -442,14 +489,14 @@ a();
       <li>元素a, 从位置[0,0] 先移到到[0, 100], 再到[100, 100]</li>
       <li>需求: 对 n 个服务接口, 做单元测试.</li>
       <li>请求A数据, 根据A数据计算, 再请求B数据, 最后渲染页面.</li>
-      <li><a href="http://zhanhongtao.github.io/blog/html/queue.html" target="_blank">动画实例</a></li>
+      <li><a href="../html/queue.html" target="_blank">动画实例</a></li>
     </ul>
   </section>
   <section class="slide">
     <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>同时请求模板和数据, 计算结果, 渲染页面</li>
-      <li><a href="http://zhanhongtao.github.io/blog/html/sync.html" target="_blank">动画实例</a></li>
+      <li><a href="../html/sync.html" target="_blank">动画实例</a></li>
       <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">继续优化?x?</a></li>
     </ul>
   </section>
