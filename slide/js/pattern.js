@@ -29,7 +29,6 @@
   ee.on( 'on-page-pattern-changed', onPatternChanged );
   ee.on( 'ppt-init', function( page ) {
     var pattern = localStorage.pattern;
-    console.log( pattern );
     if ( pattern === 'ppt' && !body.classList.contains('ppt') ) {
       onPatternChanged( page );
     }

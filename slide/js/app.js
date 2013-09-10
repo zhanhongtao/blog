@@ -109,18 +109,17 @@
     }
   }, false );
 
-  document.addEventListener( 'mousewheel', function( event ) {
-    if ( event.wheelDelta ) {
-      event.wheelDelta < 0 ? nextSlide() : prevSlide();
-    }
-  }, false );
+  var mousewheel = throttle(function( event ) {
+      if ( event.wheelDelta ) {
+        event.wheelDelta < 0 ? nextSlide() : prevSlide();
+      }
+      else if ( event.detail ) {
+        -1 * event.detail < 0 ? nextSlide() : prevSlide();
+      }
+  }, 50 );
 
-  document.addEventListener( 'DOMMouseScroll', function( event ) {
-    console.log( event );
-    if ( event.detail ) {
-      -1 * event.detail < 0 ? nextSlide() : prevSlide();
-    }
-  }, false );
+  document.addEventListener( 'mousewheel', mousewheel, false );
+  document.addEventListener( 'DOMMouseScroll', mousewheel, false );
 
   updatePage( page );
   eventemitter.emit( 'ppt-init', page );
