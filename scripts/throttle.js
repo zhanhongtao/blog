@@ -13,7 +13,7 @@ function throttle( func, wait ) {
     if ( previous === 0 ) previous = new Date;
     args = arguments;
     context = this;
-    var remaining = wait - now + previous;
+    var remaining = wait - ( now - previous );
     if ( remaining <= 0 ) {
       func.apply( this, arguments );
       timer = null;

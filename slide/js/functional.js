@@ -75,11 +75,6 @@ function debounce( func, wait ) {
   return ret;
 }
 
-
-// 指定时间内仅执行一次.
-// ex: 100ms 执行一次, 那么 1s 里 10 次.
-// ctrl + s.
-// search - 即时搜索. 上次还没完成, 这次又发送请求, 可以执行 abort 上次请求.
 function throttle( func, wait ) {
   var timer;
   var previous = 0;
@@ -89,12 +84,12 @@ function throttle( func, wait ) {
     previous = new Date;
     func.apply( context, args );
   };
-  var ret = function() {
+  return function() {
     var now = new Date;
     if ( previous === 0 ) previous = new Date;
     args = arguments;
     context = this;
-    var remaining = wait - now + previous;
+    var remaining = wait - ( now - previous );
     if ( remaining <= 0 ) {
       func.apply( this, arguments );
       timer = null;
@@ -104,12 +99,8 @@ function throttle( func, wait ) {
       timer = setTimeout( later, remaining );
     }
   };
-  return ret;
 }
 
-// 调用多少次后, 再执行函数.
-// ex:
-// 多个键做入口.
 function after( count, func ) {
   var n = ~~count;
   var old = n;
