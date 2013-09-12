@@ -200,16 +200,17 @@ alert( getBrowserDataFromServer( system.runcase ) );
   <section class="slide">
     <h1>其它</h1>
     <ul>
+      <li>函数调试 - console.trace</li>
       <li>只读 name 属性 - 返回函数名; 匿名函数返回空字符串</li>
       <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
     </ul>
     <div class="codebox">
-      <pre contenteditable="true">
+<pre contenteditable="true">
 function getName( user ) {
     alert( arguments.callee.name );
 }
 getName();
-      </pre>
+</pre>
       <div class="runcase">Run</div>
     </div>
   </section>
