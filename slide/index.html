@@ -474,7 +474,7 @@ function debounce( func, wait ) {
       <li>window7/8 Area 效果</li>
       <li>? hover 上以后等待100ms 后再显示帮助</li>
       <li>sogou图片搜索, 图片放大效果</li>
-      <li>hover 来切换标签</li>
+      <li>hover 切换标签</li>
     </ul>
   </section>
   <section class="slide">
@@ -494,12 +494,52 @@ function debounce( func, wait ) {
     </ul>
   </section>
   <section class="slide">
+    <h1>函数转换 - queue</h1>
+<div class="codebox">
+<pre contenteditable="true">
+console.time( 'queue' );
+queue( [1, 2], function( item, index, ret, next ) {
+  if ( index === 1 ) {
+    setTimeout(function() { next(item);}, 1000 );
+  }
+  else {
+    setTimeout(function() { next(item);}, 2000 );
+  }
+}, function( a, b ) {
+  console.timeEnd( 'queue' );
+  alert( [ 'result', a, b ].join('-') );
+});
+</pre>
+<div class="runcase">Run</div>
+</div>
+  </section>
+  <section class="slide">
     <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>同时请求模板和数据, 计算结果, 渲染页面</li>
       <li><a href="../html/sync.html" target="_blank">动画实例</a></li>
       <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">继续优化?x?</a></li>
     </ul>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - sync</h1>
+<div class="codebox">
+<pre contenteditable="true">
+console.time( 'sync' );
+sync( [1, 2], function( item, index, ret, done ) {
+  if ( index === 1 ) {
+    setTimeout(function() {done( item );}, 1000 );
+  }
+  else {
+    setTimeout(function() {done( item );}, 2 * 1000 );
+  }
+}, function( a, b ) {
+  console.timeEnd( 'sync' );
+  alert( [ 'result', a, b ].join('-') );
+});
+</pre>
+<div class="runcase">Run</div>
+</div>
   </section>
   <section class="slide">
     <h1>参考</h1>
