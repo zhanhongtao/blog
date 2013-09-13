@@ -5,8 +5,8 @@
   <title>scroll</title>
   <style>
     * { margin: 0;padding: 0;}
-    .box { height: 500px; overflow: auto; width: 500px; margin: 0 auto; background-color: #eee; }
-    .box .inner { height: 1000px; width: 1000px;}
+    .box { height: 500px; overflow: auto; width: 500px; margin: 0 auto; border: 1px solid #b2c8d8;border-right: none; }
+    .box .inner { height: 1000px;}
 
     /* 滚动条 */
     ::-webkit-scrollbar {}
@@ -39,8 +39,8 @@
 
     /* 水平和垂直滚动条样式 */
     ::-webkit-scrollbar {
-      width: 13px;
-      height: 13px;
+      width: 6px;
+      height: 6px;
       background-color: #fef;
     }
 
@@ -51,6 +51,7 @@
 
     ::-webkit-scrollbar-button:vertical {
       background-color: yellow;
+      display: none;
     }
 
     ::-webkit-scrollbar-button:vertical:start {
@@ -65,33 +66,35 @@
     ::-webkit-scrollbar-button:vertical:increment {
       background-color: rgba( 0, 0, 0, 0.1 );
       display: block;
+      display: none;
     }
 
     ::-webkit-scrollbar-button:vertical:end:decrement {
       background-color: rgba( 0, 0, 0, 0.9 );
       display: block;
+      display: none;
     }
 
     /* 垂直滚动条的第一层轨道 */
     ::-webkit-scrollbar-track {
-      border: 1px solid #000;
+      /*border: 1px solid #000;*/
     }
 
     /* 滚动条滑块两侧轨道 */
     ::-webkit-scrollbar-track-piece {
-      background-color: #999;
       border-radius: 5px;
+      background-color: rgba(136,178,203,.25);
     }
 
     /* 支持滑块两侧轨道样式自定义 */
     ::-webkit-scrollbar-track-piece:start {
-      background-color: #000;
-      border-radius: 5px;
+      /*background-color: #000;*/
+      /*border-radius: 5px;*/
     }
 
     ::-webkit-scrollbar-track-piece:vertical:start {
-      background-color: #777;
-      border-radius: 5px;
+/*      background-color: #777;
+      border-radius: 5px;*/
     }
 
     /* 滚动条滑块样式 */
@@ -109,8 +112,8 @@
     }
 
     ::-webkit-scrollbar-thumb:vertical {
-      background-color: #aae;
-      border-radius: 10px;
+      background-color: rgba(136,178,203,.5);
+      border-radius: 5px;
     }
 
     /* 右下角 */
