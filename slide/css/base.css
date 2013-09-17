@@ -49,3 +49,11 @@
   font-weight: normal;
 }
 
+.ppt .sub-slide {
+  display: none;
+}
+
+.ppt .sub-slide-block {
+  display: block;
+}
+

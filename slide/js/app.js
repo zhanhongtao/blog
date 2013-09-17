@@ -11,6 +11,7 @@
   var body = document.querySelector( 'body' );
   var rotate = false;
   var pages = slides.length;
+  var debug = true;
 
   // 自执行函数.
   var page = (function() {
@@ -20,7 +21,9 @@
 
   // 自定义函数
   var updatePage = function( p, hash ) {
-    if ( p != null ) page = p;
+    if ( p === 'next' ) page++;
+    else if ( p === 'prev' ) page--;
+
     if ( rotate ) {
       page = page >= pages ? 0 : page;
       page = page <= -1 ? pages - 1 : page;
@@ -38,14 +41,46 @@
 
   eventemitter.on( 'on-update-page', updatePage );
 
+  updatePage = wrap( updatePage, function( target, next ) {
+    if ( typeof target === 'number' ) {
+      return next();
+    }
+
+    if ( debug )
+      console.trace( 'updatepage' );
+
+    var slide = slides[ page ];
+    var sections = slide.querySelectorAll( '.sub-slide' );
+
+    // 不存在 sub-slide
+    // 直接翻页.
+    if ( !sections ) {
+      return next();
+    }
+
+    var blockSections = slide.querySelectorAll( '.sub-slide-block' );
+    var blockLength = blockSections ? blockSections.length : -1;
+
+    // 已经是首个/最后一个 sub-slide
+    // 直接翻页.
+    if ( (target === 'next' && blockLength === sections.length) ||
+        ( target === 'prev' && blockLength <= 0 )
+    ) {
+      return next();
+    }
+
+    // 否则更新相应 sub-slide 样式.
+    var direction = target === 'next' ? blockLength : --blockLength;
+    sections[ direction ].classList.toggle( 'sub-slide-block' );
+
+  });
+
   var nextSlide = function() {
-    page++;
-    updatePage( page );
+    updatePage( 'next' );
   };
 
   var prevSlide = function() {
-    page--;
-    updatePage( page );
+    updatePage( 'prev' );
   };
 
   var isPreventSystemKey = function( target ) {

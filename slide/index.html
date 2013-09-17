@@ -79,22 +79,24 @@
   </section>
   <section class="slide">
     <h1>匿名函数</h1>
-<div class="codebox">
-<pre>
-  var onClick = function() { alert('onClick'); };
-  document.addEventListener( 'click', onClick, false );
-  document.addEventListener( 'click', onClick, false );
+<div class="codebox sub-slide">
+<pre id="anonymous-function-1">
+var element = document.getElementById( 'anonymous-function-1' );
+var onClick = function() { alert('onClick'); };
+element.addEventListener( 'click', onClick, false );
+element.addEventListener( 'click', onClick, false );
 </pre>
   <div class="runcase">Run</div>
 </div>
-<div class="codebox">
-<pre>
-  document.addEventListener( 'click', function() {
-    alert('click');
-  }, false );
-  document.addEventListener( 'click', function() {
-    alert('click');
-  }, false );
+<div class="codebox sub-slide">
+<pre id="anonymous-function-2">
+var element = document.getElementById( 'anonymous-function-2' );
+element.addEventListener( 'click', function() {
+  alert('click');
+}, false );
+element.addEventListener( 'click', function() {
+  alert('click');
+}, false );
 </pre>
   <div class="runcase">Run</div>
 </div>
