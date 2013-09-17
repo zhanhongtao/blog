@@ -117,10 +117,6 @@ function after( count, func ) {
 }
 
 // 队列
-// 存在依赖关系时使用 queue.
-// ex:
-// * 类似 jQuery 中的 queue.
-// * http 相关的单元测试.
 function queue( list, fn, callback, ret ) {
     var length = list.length;
     // 在 ret 中记录原始长度.
@@ -152,9 +148,6 @@ function queue( list, fn, callback, ret ) {
 }
 
 // 同步.
-// 不存在依赖关系, 可同时执行, 最后返回结果.
-// ex:
-// * 类似 jQuery 中的 when.
 function sync( list, fn, callback ) {
     var n = list.length;
     var times = 0;
@@ -175,6 +168,75 @@ function sync( list, fn, callback ) {
             wrapper();
         };
     };
+    if ( n === 0 ) {
+        wrapper();
+        return;
+    }
+    var i = 0;
+    var item;
+    while ( i < n ) {
+        item = list[ i ];
+        var argus = [ item, i, ret ];
+        var cb = done( i );
+        if ( fn.length ) argus = argus.slice( 0, fn.length - 1 );
+        argus[argus.length] = cb;
+        fn.apply( null, argus );
+        i++;
+    }
+}
+
+// 同步, 提前把结果抛出.
+function syncEX( list, fn, callback, tag ) {
+    var n = list.length;
+    var times = 0;
+    var ret = [];
+    var current = 0;
+    var wrapper = function () {
+        if ( times === n && callback ) {
+            callback.apply( null, ret );
+        }
+    };
+
+    var checkDoneList = function ( list, results ) {
+        var ret = [];
+        var i = 0;
+        while ( 1 ) {
+            if ( list[i] === -1 ) {
+                i++;
+            }
+            else if ( list[i] === i ) {
+                ret.push( results[i] );
+                list[ i ] = -1;
+            }
+            else {
+                break;
+            }
+        }
+        return ret;
+    };
+
+    var createDone = function( func ) {
+        var donelist = [];
+        return function( index ) {
+            return func.call( null, index, donelist );
+        };
+    };
+
+    var done = createDone(function( index, donelist ) {
+        return function( result ) {
+            times++;
+            ret[ index ] = result;
+            donelist[ index ] = index;
+            if ( tag ) {
+                var list = checkDoneList( donelist, ret );
+                if ( list.length ) callback.apply( null, list );
+            }
+            else {
+                wrapper();
+            }
+        };
+    });
+
     if ( n === 0 ) {
         wrapper();
         return;

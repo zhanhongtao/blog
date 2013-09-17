@@ -49,21 +49,6 @@
     <h1>函数参数和返回值</h1>
     <h2 class="h4">返回值</h2>
     <p>可返回何意数据类型</p>
-    <p>提前结束函数 (forEach怎么提前退出?)</p>
-    <div class="codebox">
-<pre>
-function foreach( array, func ) {
-  try { array.forEach( func );}
-  catch(e) {}
-}
-foreach( [1, 2, 3, 4], function( item, index ) {
-  if ( index === 2 ) throw new Error( 'error' );
-  alert( 'item value: ' + item );
-});
-alert( 'end' );
-</pre>
-  <div class="runcase">Run</div>
-  </div>
   </section>
   <section class="slide">
     <h1>函数调用</h1>
@@ -91,6 +76,28 @@ alert( 'end' );
       <li><code>function func(){return function() {};}</code></li>
       <li><code>promise().done(function() {}).fail(function() {}); // jQuery</code></li>
     </ul>
+  </section>
+  <section class="slide">
+    <h1>匿名函数</h1>
+<div class="codebox">
+<pre>
+  var onClick = function() { alert('onClick'); };
+  document.addEventListener( 'click', onClick, false );
+  document.addEventListener( 'click', onClick, false );
+</pre>
+  <div class="runcase">Run</div>
+</div>
+<div class="codebox">
+<pre>
+  document.addEventListener( 'click', function() {
+    alert('click');
+  }, false );
+  document.addEventListener( 'click', function() {
+    alert('click');
+  }, false );
+</pre>
+  <div class="runcase">Run</div>
+</div>
   </section>
   <section class="slide">
     <h1>实例 - bind</h1>
@@ -537,6 +544,22 @@ sync( [1, 2], function( item, index, ret, done ) {
   console.timeEnd( 'sync' );
   alert( [ 'result', a, b ].join('-') );
 });
+</pre>
+<div class="runcase">Run</div>
+</div>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - syncEX</h1>
+<div class="codebox">
+<pre contenteditable="true">
+syncEX( [1, 2], function( item, done ) {
+  setTimeout(function() {
+    done( item );
+  }, Math.random() * 1000 );
+}, function( a, b ) {
+  var argus = [].slice.call( arguments );
+  alert( argus );
+}, true);
 </pre>
 <div class="runcase">Run</div>
 </div>

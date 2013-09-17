@@ -84,6 +84,7 @@ mark,
   resize: horizontal;
   overflow: auto;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 div::-webkit-resizer,

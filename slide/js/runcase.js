@@ -88,6 +88,7 @@
       var pre = codebox.querySelector( 'pre' );
       if ( pre ) {
         runcode( innerText(pre) );
+        event.stopImmediatePropagation();
       }
     }
   }, false );
