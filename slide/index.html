@@ -15,6 +15,7 @@
       <li>上/下/左/右/PageUp/PageDown键切换ppt</li>
       <li>Home/End 切换到文档开头/结尾</li>
       <li>ctrl+g 手动指定到页数</li>
+      <li>联系 QQ: 295143921</li>
     </ul>
   </section>
   <section class="slide slide-cover">
@@ -52,12 +53,12 @@
       <li>实参[实际调用时参数]: 参数个数 <code>arguments.length</code></li>
       <li>调用时参数可为任意数据类型(包含 function)</li>
     </ul>
-    <mark>参数传递值和引用 - JavaScript 和 c++</mark>
+    <mark>参数传递值和引用</mark>
   </section>
   <section class="slide">
     <h1>函数参数和返回值</h1>
     <h2 class="h4">返回值</h2>
-    <p>可返回何意数据类型</p>
+    <p>可返回任意数据类型</p>
   </section>
   <section class="slide">
     <h1>函数调用</h1>
@@ -69,7 +70,7 @@
       <dt>使用 call/apply</dt>
       <dd><code>getUserName.call( extension, user );</code> </dd>
       <dd><code>getUserName.apply( extensioin, [user] );</code></dd>
-      <dt>使用 new 关键字 - 常用于实例化对象</dt>
+      <dt>使用 new 关键字 - 函数称为构造函数, 用于实例化对象</dt>
       <dd><code>new System();</code></dd>
     </dl>
   </section>
@@ -87,28 +88,23 @@
     </ul>
   </section>
   <section class="slide">
-    <h1>匿名函数</h1>
-<div class="codebox sub-slide">
-<pre id="anonymous-function-1">
-var element = document.getElementById( 'anonymous-function-1' );
-var onClick = function() { alert('onClick'); };
-element.addEventListener( 'click', onClick, false );
-element.addEventListener( 'click', onClick, false );
+    <h1>变量作用域 - 闭包</h1>
+    <p>函数产生作用域, 作用域链包裹变量 - 闭包.</p>
+    <p>作用: 延长变量在内存中的时间. <a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
+  <div class="codebox">
+<pre contenteditable="true">
+function createCount(){
+  var count = 1;
+  return function() {
+    return ++count;
+  };
+}
+var count = createCount();
+count(); count(); // 3
+alert( count() ); // 4;
 </pre>
   <div class="runcase">Run</div>
-</div>
-<div class="codebox sub-slide">
-<pre id="anonymous-function-2">
-var element = document.getElementById( 'anonymous-function-2' );
-element.addEventListener( 'click', function() {
-  alert('click');
-}, false );
-element.addEventListener( 'click', function() {
-  alert('click');
-}, false );
-</pre>
-  <div class="runcase">Run</div>
-</div>
+  </div>
   </section>
   <section class="slide">
     <h1>实例 - bind</h1>
@@ -197,23 +193,28 @@ setFontSize( 240 );
   </div>
   </section>
   <section class="slide">
-    <h1>变量作用域 - 闭包</h1>
-    <p>函数产生作用域, 作用域链包裹变量 - 闭包.</p>
-    <p>作用: 延长变量在内存中的时间. <a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
-  <div class="codebox">
-<pre contenteditable="true">
-function createCount(){
-  var count = 1;
-  return function() {
-    return ++count;
-  };
-}
-var count = createCount();
-count(); count(); // 3
-alert( count() ); // 4;
+    <h1>实例 - 匿名函数</h1>
+<div class="codebox sub-slide">
+<pre id="anonymous-function-1">
+var element = document.getElementById( 'anonymous-function-1' );
+var onClick = function() { alert('onClick'); };
+element.addEventListener( 'click', onClick, false );
+element.addEventListener( 'click', onClick, false );
 </pre>
   <div class="runcase">Run</div>
-  </div>
+</div>
+<div class="codebox sub-slide">
+<pre id="anonymous-function-2">
+var element = document.getElementById( 'anonymous-function-2' );
+element.addEventListener( 'click', function() {
+  alert('click');
+}, false );
+element.addEventListener( 'click', function() {
+  alert('click');
+}, false );
+</pre>
+  <div class="runcase">Run</div>
+</div>
   </section>
   <section class="slide">
     <h1>其它</h1>

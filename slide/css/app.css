@@ -19,27 +19,27 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-h1, .h1 {
+h1, .ppt .h1 {
   font-size: 24px;
 }
 
-h2, .h2 {
+h2, .ppt .h2 {
   font-size: 22px;
 }
 
-h3, .h3 {
+h3, .ppt .h3 {
   font-size: 20px;
 }
 
-h4, .h4 {
+h4, .ppt .h4 {
   font-size: 18px;
 }
 
-h5, .h5 {
+h5, .ppt .h5 {
   font-size: 16px;
 }
 
-h6, .h6 {
+h6, .ppt .h6 {
   font-size: 12px;
 }
 
@@ -57,10 +57,15 @@ dd {
   margin-left: 2em;
 }
 
-code, mark, pre {
+code, pre {
   line-height: 1.5;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
+
+.ppt code,
+.ppt pre {
+  font-size: 14px;
 }
 
 code {
@@ -74,9 +79,9 @@ code {
 
 mark,
 .mark {
-  display: inline-block;
   color: #000;
   padding: 0 6px;
+  font-size: 14px;
 }
 
 .codebox {
@@ -116,3 +121,7 @@ pre {
 .slide {
   padding: 0 10px;
 }
+
+
+
+
