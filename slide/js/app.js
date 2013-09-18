@@ -144,13 +144,15 @@
     }
   }, false );
 
+  // 不再支持 mousewheel
   var mousewheel = throttle(function( event ) {
-      if ( event.wheelDelta ) {
-        event.wheelDelta < 0 ? nextSlide() : prevSlide();
-      }
-      else if ( event.detail ) {
-        -1 * event.detail < 0 ? nextSlide() : prevSlide();
-      }
+    return;
+    if ( event.wheelDelta ) {
+      event.wheelDelta < 0 ? nextSlide() : prevSlide();
+    }
+    else if ( event.detail ) {
+      -1 * event.detail < 0 ? nextSlide() : prevSlide();
+    }
   }, 50 );
 
   document.addEventListener( 'mousewheel', mousewheel, false );

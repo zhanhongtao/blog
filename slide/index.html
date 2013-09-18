@@ -104,31 +104,31 @@ element.addEventListener( 'click', function() {
   <section class="slide">
     <h1>实例 - bind</h1>
 <pre>
-  /**
-    指定运行时 this.
-    Function.prototype.bind
-    * 修正 ie 早期版本 this 指向.
-    * 函数作为回调时, 保证 this 指向.
-  */
-  function bind( func, context ) {
-    return function() {
-      return func.apply( context || this, arguments );
-    };
-  }
+/**
+  指定运行时 this.
+  Function.prototype.bind
+  * 修正 ie 早期版本 this 指向.
+  * 函数作为回调时, 保证 this 指向.
+*/
+function bind( func, context ) {
+  return function() {
+    return func.apply( context || this, arguments );
+  };
+}
 </pre>
   </section>
   <section class="slide">
     <h1>实例 - bind</h1>
 <pre contenteditable="true">
-  if ( document.attachEvent ) {
-    // ie 早期版本的事件绑定.
-    document.attachEvent( 'onclick', function() {
-      alert( this );
-    });
-    document.attachEvent( 'onclick', bind(function() {
-      alert( this );
-    }, document);
-  }
+if ( document.attachEvent ) {
+  // ie 早期版本的事件绑定.
+  document.attachEvent( 'onclick', function() {
+    alert( this );
+  });
+  document.attachEvent( 'onclick', bind(function() {
+    alert( this );
+  }, document);
+}
 </pre>
   </section>
   <section class="slide">
@@ -154,14 +154,14 @@ alert( getBrowserDataFromServer( system.runcase ) );
     <h1>实例 - type</h1>
     <div class="codebox">
 <pre contenteditable="true">
-  // 求数据类型.
-  function type( s ) {
-    var classtype = Object.prototype.toString.call( s );
-    return classtype.slice(8, -1).toLowerCase();
-  }
-  alert( [ type(1), type('')] );
-  alert( [ type(void(0)), type(null), type([]), type({}) ] );
-  alert( [ type(new Date), type(/h/g) ] );
+// 求数据类型.
+function type( s ) {
+  var classtype = Object.prototype.toString.call( s );
+  return classtype.slice(8, -1).toLowerCase();
+}
+alert( [ type(1), type('')] );
+alert( [ type(void(0)), type(null), type([]), type({}) ] );
+alert( [ type(new Date), type(/h/g) ] );
 </pre>
     <div class="runcase">Run</div>
     </div>
@@ -171,18 +171,18 @@ alert( getBrowserDataFromServer( system.runcase ) );
     <h1>实例 - call/apply</h1>
     <div class="codebox">
 <pre>
-  // 设置字体值.
-  // 要求: 最大值为 200, 最小值为 100
-  const FONT_SIZE_MIN_VALUE = 100;
-  const FONT_SIZE_MAX_VALUE = 200;
-  function setFontSize( value ) {
-    value = Math.max.call( Math, FONT_SIZE_MIN_VALUE, value );
-    value = Math.min.apply( Math, [FONT_SIZE_MAX_VALUE, value] );
-    alert( value );
-  }
-  setFontSize( 120 );
-  setFontSize( 50 );
-  setFontSize( 240 );
+// 设置字体值.
+// 要求: 最大值为 200, 最小值为 100
+const FONT_SIZE_MIN_VALUE = 100;
+const FONT_SIZE_MAX_VALUE = 200;
+function setFontSize( value ) {
+  value = Math.max.call( Math, FONT_SIZE_MIN_VALUE, value );
+  value = Math.min.apply( Math, [FONT_SIZE_MAX_VALUE, value] );
+  alert( value );
+}
+setFontSize( 120 );
+setFontSize( 50 );
+setFontSize( 240 );
 </pre>
   <div class="runcase">Run</div>
   </div>
@@ -193,15 +193,15 @@ alert( getBrowserDataFromServer( system.runcase ) );
     <p>作用: 延长变量在内存中的时间. <a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
   <div class="codebox">
 <pre contenteditable="true">
-  function createCount(){
-    var count = 1;
-    return function() {
-      return ++count;
-    };
-  }
-  var count = createCount();
-  count(); count(); // 3
-  alert( count() ); // 4;
+function createCount(){
+  var count = 1;
+  return function() {
+    return ++count;
+  };
+}
+var count = createCount();
+count(); count(); // 3
+alert( count() ); // 4;
 </pre>
   <div class="runcase">Run</div>
   </div>
@@ -250,19 +250,19 @@ getName();
     <h1>其它 - 链式调用</h1>
     <div class="codebox">
 <pre contenteditable="true">
-  var _ = function( value ) {
-    if ( value instanceof _ ) return value;
-    if ( !(this instanceof _) ) return new _(value);
-    this.core = value;
-  };
-  _.prototype.max = function() {
-    return Math.max.apply( Math, this.core );
-  };
-  _.chain = function( value ) {
-    return new _( value );
-  };
-  var max = _.chain( [1, 2, 5, 3] ).max();
-  alert( max );
+var _ = function( value ) {
+  if ( value instanceof _ ) return value;
+  if ( !(this instanceof _) ) return new _(value);
+  this.core = value;
+};
+_.prototype.max = function() {
+  return Math.max.apply( Math, this.core );
+};
+_.chain = function( value ) {
+  return new _( value );
+};
+var max = _.chain( [1, 2, 5, 3] ).max();
+alert( max );
 </pre>
     <div class="runcase">Run</div>
   </section>
@@ -270,12 +270,12 @@ getName();
     <h1>其它 - 链式调用</h1>
       <div class="codebox">
 <pre contenteditable="true">
-  // 原理: 函数返回值存在方法
-  [1, 2].map(function( item ) {
-    return item * 2;
-  }).forEach(function( item ) {
-    alert( item );
-  });
+// 原理: 函数返回值存在方法
+[1, 2].map(function( item ) {
+  return item * 2;
+}).forEach(function( item ) {
+  alert( item );
+});
 </pre>
         <div class="runcase">Run</div>
       </div>
@@ -310,16 +310,16 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
     <p>不完全函数 - <a href="http://benalman.com/news/2012/09/partial-application-in-javascript/" target="_blank">更多</a></p>
     <div class="codebox">
 <pre contenteditable="true">
-  function partial( func ) {
-    var argus = [].slice.call( arguments, 1 );
-    return function() {
-      return func.apply( this, argus.concat([].slice.call(arguments)) );
-    };
-  }
-  var add = partial(function( a, b ) {
-    return a + b;
-  }, 5);
-  alert( add(3) ); // 8
+function partial( func ) {
+  var argus = [].slice.call( arguments, 1 );
+  return function() {
+    return func.apply( this, argus.concat([].slice.call(arguments)) );
+  };
+}
+var add = partial(function( a, b ) {
+  return a + b;
+}, 5);
+alert( add(3) ); // 8
 </pre>
       <div class="runcase">Run</div>
     </div>
@@ -328,17 +328,17 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
     <h1>函数转换 - once</h1>
     <div class="codebox">
 <pre contenteditable="true">
-  function once( func ) {
-    var flag, result;
-    return function() {
-      if ( flag ) return result;
-      flag = true;
-      result = func.apply( this, arguments );
-      return result;
-    };
-  }
-  var times = once(function() {alert( 1 );});
-  times();times();
+function once( func ) {
+  var flag, result;
+  return function() {
+    if ( flag ) return result;
+    flag = true;
+    result = func.apply( this, arguments );
+    return result;
+  };
+}
+var times = once(function() {alert( 1 );});
+times();times();
 </pre>
       <div class="runcase">Run</div>
     </div>
@@ -356,7 +356,6 @@ var bindEvents = once(function() {
   </section>
   <section class="slide">
     <h1>函数转换 - wrap</h1>
-    <div class="codebox"></div>
 <pre contenteditable="true">
 function wrap( self, func ) {
   return function() {
@@ -373,12 +372,11 @@ function wrap( self, func ) {
   };
 }
 </pre>
-    <div class="runcase"></div>
   </section>
   <section class="slide">
     <h1>函数转换 - 面向切面</h1>
     <div class="codebox">
-    <pre contenteditable="true">
+<pre contenteditable="true">
 function sendRequest( method ) {
   alert( 'request: ' + method );
   return 1;
@@ -390,7 +388,7 @@ sendRequest = wrap( sendRequest, function( next ) {
   return result;
 });
 sendRequest(); // 1;
-    </pre>
+</pre>
     <div class="runcase">Run</div>
     </div>
   </section>
@@ -474,17 +472,131 @@ function debounce( func, wait ) {
   </section>
   <section class="slide">
     <h1>节制性函数</h1>
-    <a href="../scripts/throttle.js" target="_blank">查看源文件</a>
+<pre contenteditable="true;">
+function throttle( func, wait ) {
+  var timer;
+  var previous = 0;
+  var args;
+  var context;
+  var later = function() {
+    previous = new Date;
+    func.apply( context, args );
+  };
+  return function() {
+    var now = new Date;
+    if ( previous === 0 ) previous = new Date;
+    args = arguments;
+    context = this;
+    var remaining = wait - ( now - previous );
+    if ( remaining <= 0 ) {
+      func.apply( this, arguments );
+      timer = null;
+      previous = now;
+    }
+    else if ( !timer ) {
+      timer = setTimeout( later, remaining );
+    }
+  };
+}
 </pre>
   </section>
   <section class="slide">
     <h1>函数转换 - 实用场景</h1>
     <ul>
       <li>window7/8 Area 效果</li>
-      <li>? hover 上以后等待100ms 后再显示帮助</li>
-      <li>sogou图片搜索, 图片放大效果</li>
-      <li>hover 切换标签</li>
+      <li>sogou图片搜索, 图片放大效果. (<a href="http://pic.sogou.com/pics?query=sogou&p=&dp=&di=2&_asf=pic.sogou.com&_ast=1379479771&w=05009900" target="_blank">实例</a>)</li>
+      <li>hover 切换标签(<a href="http://tv.sohu.com/" target="_blank" title="电视局排行榜">实例</a>)</li>
     </ul>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - 实用场景</h1>
+    <div class="codebox">
+<pre contenteditable="true">
+var door = create(function(person) {
+  alert(person);
+}, true, 3);
+var readerCar = function( id ) {
+  door.on( id );
+  return function() {
+    door.done.apply( door, arguments );
+  }
+};
+var open = readerCar( 'sogou' );
+setTimeout(function() {
+  open( 'sogou' );
+}, 4 * 1000 );
+// open( 'hongtao' );
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - 实用场景</h1>
+    <div class="codebox">
+<pre contenteditable="true">
+var car = create(function(person) {
+    alert(person);
+  }, (function() {
+    var old;
+    return function( id ) {
+      var ret = false;
+      if ( old !== id ) {
+        old = id, ret = true;
+      }
+      return ret;
+    };
+  })()
+);
+var readerCar = function( id ) {
+  car.on( id ).done( id );
+};
+readerCar( 'sogou' );
+readerCar( 'sogou' );
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>函数转换 - 实用场景</h1>
+    <div class="codebox">
+<pre contenteditable="true" id="demo-create">
+var element = document.querySelector( '.demo-case-fixed' );
+var slide = document.querySelector( '#demo-create' );
+var f = create( function() {
+  element.style.display = 'block';
+}, true);
+var onMouseOver = (function() {
+  var timer;
+  return function () {
+    if ( timer ) {
+      clearTimeout( timer );
+    }
+    f.on();
+    timer = setTimeout( f.done, 200 );
+  };
+})();
+var onMouseOut = function() {
+  f.off(function() {
+    element.style.display = 'none';
+  });
+};
+slide.addEventListener( 'mouseover', onMouseOver, false );
+slide.addEventListener( 'mouseout', onMouseOut, false );
+</pre>
+      <div class="runcase">Run</div>
+      <div class="demo-case-fixed"></div>
+      <style>
+        .demo-case-fixed {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50px;
+          height: 50px;
+          background-color: red;
+        }
+      </style>
+    </div>
   </section>
   <section class="slide">
     <h1>函数转换 - 实用场景</h1>

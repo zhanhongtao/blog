@@ -84,23 +84,21 @@ mark,
   resize: horizontal;
   overflow: auto;
   box-sizing: border-box;
+  background-color: #EBEBEB;
   margin-bottom: 10px;
-}
-
-div::-webkit-resizer,
-textarea::-webkit-resizer {
-  background: red;
 }
 
 pre {
   margin: 0;
   display: block;
   outline: none;
+  overflow: auto;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: #EBEBEB;
   padding: 5px 10px;
+  max-height: 260px;
+  background-color: #EBEBEB;
 }
 
 .runcase {
@@ -109,12 +107,12 @@ pre {
   right: 0;
   display: none;
   cursor: pointer;
-  background-color: #92B0F0;
-  color: #0C0B11;
   padding: 0 10px;
   font-size: 12px;
+  background-color: #bbb;
+  color: #666;
 }
 
 .slide {
-  padding: 10px 40px;
+  padding: 0 10px;
 }

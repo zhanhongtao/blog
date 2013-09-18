@@ -33,7 +33,6 @@
   height: 1px;
 }
 
-
 .ppt .slide-cover {
   text-align: center;
 }
@@ -55,5 +54,22 @@
 
 .ppt .sub-slide-block {
   display: block;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(136,178,255,.25);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
 }
 
