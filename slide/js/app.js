@@ -23,6 +23,7 @@
   var updatePage = function( p, hash ) {
     if ( p === 'next' ) page++;
     else if ( p === 'prev' ) page--;
+    else page = p;
 
     if ( rotate ) {
       page = page >= pages ? 0 : page;

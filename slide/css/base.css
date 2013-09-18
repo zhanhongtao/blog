@@ -73,3 +73,11 @@
   background-color: #aaa;
 }
 
+.helper {
+  padding: 0 10px;
+}
+
+.ppt .helper {
+  display: none;
+}
+
