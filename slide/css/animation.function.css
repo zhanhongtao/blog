@@ -1,0 +1,17 @@
+@-webkit-keyframes top2bottom {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@-webkit-keyframes 'opacity' {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

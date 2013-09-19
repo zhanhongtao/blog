@@ -28,7 +28,7 @@
     var w = winsize.w / slidesize.w;
     var h = winsize.h / slidesize.h;
     // x 0.9 防止 slide page 过大.
-    var scale = Math.min.call( Math, w, h ) * 0.9;
+    var scale = Math.min.call( Math, w, h, 2 ) * 0.9;
     slides[ page ].style.webkitTransform = 'scale(' + scale + ')';
     slides[ page ].style.MozTransform = 'scale(' + scale + ')'; // Moz 中的 m 大写.
   };
