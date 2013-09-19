@@ -4,6 +4,8 @@
 
   var slides = document.querySelectorAll( '.slide' );
   var TARGET_CLASS = 'slide-target';
+  var TARGET_FROM_DIRECTION_PREV_CLASS = 'slide-target-prev';
+  var TARGET_FROM_DIRECTION_NEXT_CLASS = 'slide-target-next';
   var nav = document.querySelector( '#navigator' );
 
   var updateui = function( message ) {
@@ -13,11 +15,20 @@
 
     // 隐藏 page.
     var old = document.querySelector( '.' + TARGET_CLASS );
-    if ( old ) old.classList.remove( TARGET_CLASS );
+    if ( old ) {
+      old.classList.remove( TARGET_CLASS );
+      old.classList.remove( TARGET_FROM_DIRECTION_NEXT_CLASS );
+      old.classList.remove( TARGET_FROM_DIRECTION_PREV_CLASS );
+    }
 
     // 更新内容
     var target = slides[ page ] || slides[0];
-    if ( target ) target.classList.add( TARGET_CLASS );
+    if ( target ) {
+      target.classList.add( TARGET_CLASS );
+      if ( [ 'next', 'prev' ].indexOf(message.direction) > -1 ) {
+        target.classList.add( message.direction === 'next' ? TARGET_FROM_DIRECTION_NEXT_CLASS : TARGET_FROM_DIRECTION_PREV_CLASS );
+      }
+    }
 
     // 让元素可见.
     target.scrollIntoView();

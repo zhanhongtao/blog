@@ -5,13 +5,17 @@
   <title>深入浅出 JavaScript 函数</title>
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="./css/fullscreen.css">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/animation.function.css">
 </head>
-<body>
+<body spellcheck="false">
   <section class="helper">
     <h1>文档说明</h1>
     <ul>
-      <li>alt+p 切换文档显示模式</li>
-      <li>在 ppt 显示模式下, ctrl + r 让ppt轮训显示</li>
+      <li>alt+p 切换文档显示模式(文档模式和ppt模式)</li>
+      <li>alt+enter 全屏显示 - ppt模式</li>
+      <li>在 ppt 显示模式下, ctrl + r 让ppt轮循显示</li>
       <li>上/下/左/右/PageUp/PageDown键切换ppt</li>
       <li>Home/End 切换到文档开头/结尾</li>
       <li>ctrl+g 手动指定到页数</li>
@@ -20,7 +24,7 @@
   </section>
   <section class="slide slide-cover">
     <h1>深入浅出 JavaScript 函数</h1>
-    <h2 class="h6">Sogou Browser - REDKY@qq.com</h2>
+    <h2 class="h6">REDKY@qq.com</h2>
   </section>
   <section class="slide">
     <h1>函数基础</h1>
@@ -574,7 +578,7 @@ var element = document.querySelector( '.demo-case-fixed' );
 var slide = document.querySelector( '#demo-create' );
 var f = create( function() {
   element.style.display = 'block';
-}, true);
+}, true, 0);
 var onMouseOver = (function() {
   var timer;
   return function () {

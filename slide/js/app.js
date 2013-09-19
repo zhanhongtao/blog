@@ -9,7 +9,7 @@
   // 浏览器扩展函数
   var slides = document.querySelectorAll( '.slide' );
   var body = document.querySelector( 'body' );
-  var rotate = false;
+  var rotate = localStorage.rotate === 'true' || false;
   var pages = slides.length;
   var debug = true;
 
@@ -36,6 +36,7 @@
     eventemitter.emit( 'on-page-changed', {
       page: page,
       pages: pages,
+      direction: p,
       from: hash
     });
   };
@@ -131,6 +132,7 @@
       case 82: // ctrl + r
         if ( event.ctrlKey ) {
           rotate = !rotate;
+          localStorage.rotate = rotate;
           event.preventDefault();
         }
         break;
@@ -140,13 +142,24 @@
           event.preventDefault();
           break;
         }
+      case 13:
+        if ( event.altKey ) {
+          if ( body.webkitIsFullScreen ) {
+            body.webkitCancelFullScreen();
+          }
+          else {
+            body.webkitRequestFullScreen();
+          }
+          event.preventDefault();
+        }
       default:
         break;
     }
   }, false );
 
-  // 不再支持 mousewheel
+  // @note: 不再支持 mousewheel
   var mousewheel = throttle(function( event ) {
+    // if ( body.classList.contains('ppt') )
     return;
     if ( event.wheelDelta ) {
       event.wheelDelta < 0 ? nextSlide() : prevSlide();

@@ -1,83 +1,114 @@
 
 
-.ppt .slide {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 560px;
-  height: 300px;
-  top: 50%;
-  display: none;
-  border-radius: 5px;
-  margin: -150px auto;
+body {
+  font: 16px/1.5 "lucida Grande", Verdana;
+  color: #34362E;
+}
+
+a, a:active {
+  text-decoration: none;
+  color: #2988B4;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1, .ppt .h1 {
+  font-size: 24px;
+}
+
+h2, .ppt .h2 {
+  font-size: 22px;
+}
+
+h3, .ppt .h3 {
+  font-size: 20px;
+}
+
+h4, .ppt .h4 {
+  font-size: 18px;
+}
+
+h5, .ppt .h5 {
+  font-size: 16px;
+}
+
+h6, .ppt .h6 {
+  font-size: 12px;
+}
+
+p, ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-position: inside;
+  margin: 5px 0;
+}
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+code, pre {
+  line-height: 1.5;
+  font-size: 14px;
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
+
+code {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 6px;
+  border-radius: 2px;
+  background-color: #EBEBEB;
+}
+
+mark,
+.mark {
+  padding: 0 6px;
+  font-size: 14px;
+}
+
+.codebox {
+  position: relative;
+  resize: horizontal;
+  overflow: auto;
   box-sizing: border-box;
+  background-color: #EBEBEB;
+  margin-bottom: 10px;
 }
 
-.ppt .slide-target,
-.ppt .slide:target {
+pre {
+  margin: 0;
   display: block;
+  outline: none;
+  overflow: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  max-height: 260px;
+  background-color: #EBEBEB;
 }
 
-#navigator {
-  display: none;
-}
-
-.ppt #navigator {
-  position: fixed;
-  display: block;
+.runcase {
+  position: absolute;
   top: 0;
-  left: 0;
-  width: 0;
-  background: rgb(91, 231, 56);
-  height: 1px;
-}
-
-.ppt .slide-cover {
-  text-align: center;
-}
-
-.ppt .slide-cover h1 {
-  margin-top: 80px;
-  font-size: 28px;
-}
-
-.ppt .slide-cover h2,
-.ppt .slide-cover h3 {
-  color: #999;
-  font-weight: normal;
-}
-
-.ppt .sub-slide {
+  right: 0;
   display: none;
-}
-
-.ppt .sub-slide-block {
-  display: block;
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-button {
-  display: none;
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: rgba(136,178,255,.25);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #aaa;
-}
-
-.helper {
+  cursor: pointer;
   padding: 0 10px;
-}
-
-.ppt .helper {
-  display: none;
+  font-size: 12px;
 }
 

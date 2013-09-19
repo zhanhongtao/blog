@@ -261,7 +261,7 @@ function create( func, check, time ) {
   var done = function( array ) {
     func.apply( this, array );
     hasDone = true;
-    if ( time == null || time === 0 ) {
+    if ( time == null ) {
       reset();
     }
   };
@@ -284,7 +284,7 @@ function create( func, check, time ) {
       return this;
     },
     off: function( callback ) {
-      if ( hasDone || time == null || time == 0 ) {
+      if ( hasDone || time == null ) {
         if ( typeof callback == 'function' ) {
           callback();
         }
