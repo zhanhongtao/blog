@@ -11,7 +11,7 @@
   var body = document.querySelector( 'body' );
   var rotate = localStorage.rotate === 'true' || false;
   var pages = slides.length;
-  var debug = true;
+  var debug = false;
 
   // 自执行函数.
   var page = (function() {

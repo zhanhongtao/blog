@@ -33,7 +33,7 @@
     slides[ page ].style.MozTransform = 'scale(' + scale + ')'; // Moz 中的 m 大写.
   };
 
-  var resize2 = throttle( resize, 150 );
+  var resize2 = debounce( resize, 150 );
 
   window.addEventListener( 'resize', function() {
     resize2( page );

@@ -93,5 +93,15 @@
     }
   }, false );
 
+  // @todo: 实现 tab 插入 空格.
+  document.addEventListener( 'keydown', function( event ) {
+    var target = event.target;
+    if ( event.which === 9 || event.keyCode === 9 ) {
+      if ( matchesSelector(target, 'pre[contenteditable=true]') ) {
+        event.preventDefault();
+      }
+    }
+  }, false );
+
 })();
 

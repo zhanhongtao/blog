@@ -72,8 +72,6 @@
   display: none;
 }
 
-
-
 .ppt .slide-target-prev {
   -webkit-animation: opacity .5s linear;
 }
@@ -84,5 +82,10 @@
 
 .ppt .slide-cover {
   -webkit-animation: top2bottom .5s linear;
+}
+
+.ppt .slide-function-info {
+  background: url(./function.png) no-repeat right center;
+  background-size: 350px;
 }
 
