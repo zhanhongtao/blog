@@ -40,6 +40,15 @@
   var cos = Math.cos;
   var pi = Math.PI;
 
+  var requestAnimationFrame = window.requestAnimationFrame ||
+    function( func ) {
+      setTimeout( func, 1000 / 60 );
+    };
+  var cancelAnimationFrame = window.cancelAnimationFrame ||
+    function (timer) {
+      clearTimeout( timer );
+    };
+
   function createPoint( x, y ) {
     var element = document.createElement( 'div' );
     element.setAttribute( 'class', 'ball' );
@@ -62,16 +71,21 @@
     return [x, y];
   }
 
-  function rotate( degree, xRadius, yRadius, next ) {
+  function rotate( degree, xRadius, yRadius, next, timer ) {
     var degree = degree || 0;
-    if ( degree > 365 ) return next();
+    if ( degree > 365 ) {
+      if ( timer ) {
+        cancelAnimationFrame( timer );
+      }
+      return next();
+    }
     var point = arc2( convertToRadians(degree), xRadius, yRadius, [centerPoint.x, centerPoint.y] );
     createPoint( point[0], point[1] );
     point = null;
-    var timer = setTimeout(function() {
-      rotate( degree + 1, xRadius, yRadius, next );
+    timer = requestAnimationFrame( function() {
+      rotate( degree + 1, xRadius, yRadius, next, timer );
       degree = null;
-    }, 16);
+    });
   }
 
   queue( [{
