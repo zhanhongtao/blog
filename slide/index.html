@@ -28,14 +28,14 @@
   </section>
   <section class="slide">
     <h1>函数基础</h1>
-    <ul>
+    <ol>
       <li>函数定义</li>
       <li>函数参数和返回值</li>
       <li>函数调用</li>
       <li>匿名函数</li>
       <li>变量作用域 - 闭包</li>
       <li>其它 - 递归, 链式调用等</li>
-    </ul>
+    </ol>
   </section>
   <section class="slide">
     <h1>函数定义</h1>
@@ -58,6 +58,25 @@
       <li>调用时参数可为任意数据类型(包含 function)</li>
     </ul>
     <mark>参数传递值和引用</mark>
+  </section>
+  <section class="slide">
+    <h1>实例</h1>
+    <div class="codebox">
+<pre contenteditable="true">
+function getUserName( user, boolean ) {
+  alert( 'arguments.length: ' + arguments.length );
+  user.name = 'browser';
+  boolean = false;
+}
+alert( 'getUserName.length: ' + getUserName.length );
+var user = {name: 'sogo' }, boolean = true;;
+getUserName( user, boolean, function() {} );
+alert( 'user: ' + JSON.stringify(user) );
+alert( 'boolean: ' + boolean );
+
+</pre>
+      <div class="runcase">Run</div>
+    </div>
   </section>
   <section class="slide">
     <h1>函数参数和返回值</h1>
@@ -85,16 +104,16 @@
       <li><code>var getUserName = function/*getUserName*/() {};</code></li>
       <li><code>element.addEventListener('click', function() {}, false );</code></li>
       <li><code>requestAnimationFrame(function() {}, 100); // setInterval</code></li>
+      <li><code>promise().done(function() {}).fail(function() {}); // jQuery</code></li>
       <li><code>'?path=p1'.replace(/[^?&]path=[^#&]*/i,function() {});</code></li>
       <li><code>[1,3,2].sort(function( a, b ) { return a - b;});</code></li>
       <li><code>function func(){return function() {};}</code></li>
-      <li><code>promise().done(function() {}).fail(function() {}); // jQuery</code></li>
     </ul>
   </section>
   <section class="slide">
     <h1>变量作用域 - 闭包</h1>
-    <p><strong>函数创建作用域</strong>, 作用域包裹变量 - 闭包.</p>
-    <p>作用: 延长变量在内存中的时间. <a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
+    <p><strong>函数创建作用域</strong>, 作用域包裹变量.</p>
+    <p><a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
   <div class="codebox">
 <pre contenteditable="true">
 function createCount(){
@@ -114,13 +133,12 @@ alert( count() ); // 4;
     <h1>实例</h1>
     <div class="codebox">
 <pre contenteditable="true">
-// 设置字体值.
-// 要求: 最大值为 200, 最小值为 100
-const FONT_SIZE_MIN_VALUE = 100;
-const FONT_SIZE_MAX_VALUE = 200;
+// 设置字体值. 要求: 最大值为 200, 最小值为 100
+var MIN_FONT_SIZE = 100;
+var MAX_FONT_SIZE = 200;
 function setFontSize( value ) {
-  value = Math.max.call( Math, FONT_SIZE_MIN_VALUE, value );
-  value = Math.min.apply( Math, [FONT_SIZE_MAX_VALUE, value] );
+  value = Math.max.call( Math, MIN_FONT_SIZE, value );
+  value = Math.min.call( Math, MAX_FONT_SIZE, value );
   alert( value );
 }
 setFontSize( 120 );
@@ -222,14 +240,18 @@ element.addEventListener( 'click', function() {
   <section class="slide">
     <h1>其它</h1>
     <ul>
-      <li>函数调试 - console.trace</li>
       <li>只读 name 属性 - 返回函数名; 匿名函数返回空字符串</li>
       <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
     </ul>
     <div class="codebox">
 <pre contenteditable="true">
+// 'use strict'
 function getName( user ) {
+  try {
     alert( arguments.callee.name );
+  } catch(e) {
+    alert( 'error' );
+  }
 }
 getName();
 </pre>
@@ -239,25 +261,43 @@ getName();
   <section class="slide">
     <h1>其它</h1>
     <ul>
-      <li>
-        严格模式不支持 arguments.callee
-    <div class="codebox">
-<pre contenteditable="true">
-'use strict';
-function getName( user ) {
-  try { var self = arguments.callee; }
-  catch(e) {
-    alert( 'error' );
-  }
-}
-getName();
-</pre>
-      <div class="runcase">Run</div>
-    </div>
-      </li>
-      <li>创建私有变量</li>
+      <li>函数调试 - console.trace</li>
       <li>单元测试</li>
     </ul>
+  </section>
+  <section class="slide">
+    <h1>其它 - 递归</h1>
+    <div data-run="1" class="codebox">
+<pre contenteditable="true">
+function flatArray( array ) {
+  var i = 0, l = array.length, result = [], current;
+  for ( ; i < l; i++ ) {
+    current = array[i];
+    // concat 支持单层合并.
+    result = result.concat(type(current) ==='array' ?
+        flatArray(current) : current );
+  }
+  return result;
+}
+alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
+</pre>
+  <div class="runcase">Run</div>
+  </div>
+  </section>
+  <section class="slide">
+    <h1>其它 - 链式调用</h1>
+      <div class="codebox">
+<pre contenteditable="true">
+// 原理: 函数返回值存在方法
+[1, 2].map(function( item ) {
+  return item * 2;
+}) // return array.
+.forEach(function( item ) {
+  alert( item );
+});
+</pre>
+        <div class="runcase">Run</div>
+      </div>
   </section>
   <section class="slide">
     <h1>其它 - 链式调用</h1>
@@ -280,48 +320,23 @@ alert( max );
 </pre>
     <div class="runcase">Run</div>
   </section>
-  <section class="slide">
-    <h1>其它 - 链式调用</h1>
-      <div class="codebox">
-<pre contenteditable="true">
-// 原理: 函数返回值存在方法
-[1, 2].map(function( item ) {
-  return item * 2;
-}) // return array.
-.forEach(function( item ) {
-  alert( item );
-});
-</pre>
-        <div class="runcase">Run</div>
-      </div>
-  </section>
-  <section class="slide">
-    <h1>其它 - 递归</h1>
-    <div data-run="1" class="codebox">
-<pre contenteditable="true">
-function flatArray( array ) {
-  var i = 0, l = array.length, result = [], current;
-  for ( ; i < l; i++ ) {
-    current = array[i];
-    // concat 支持单层合并.
-    result = result.concat(type(current) ==='array' ?
-        flatArray(current) : current );
-  }
-  return result;
-}
-alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
-</pre>
-  <div class="runcase">Run</div>
-  </div>
-  </section>
   <section class="slide slide-cover">
     <h1>function !important</h1>
   </section>
-  <section class="slide slide-cover">
+  <section class="slide">
     <h1>函数转换</h1>
+    <ul>
+      <li>partial</li>
+      <li>once</li>
+      <li>wrap</li>
+      <li>debounce/throttle</li>
+      <li>create</li>
+      <li>after</li>
+      <li>queue/sync/syncEX</li>
+    </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - partial</h1>
+    <h1>partial</h1>
     <p>不完全函数 - <a href="http://benalman.com/news/2012/09/partial-application-in-javascript/" target="_blank">更多</a></p>
     <div class="codebox">
 <pre contenteditable="true">
@@ -340,7 +355,7 @@ alert( add(3) ); // 8
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - once</h1>
+    <h1>once</h1>
     <div class="codebox">
 <pre contenteditable="true">
 function once( func ) {
@@ -359,7 +374,7 @@ times();times();
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - once</h1>
+    <h1>once</h1>
     <p>用途: 防止重复绑定事件 - jQuery</p>
 <pre>
 var bindEvents = once(function() {
@@ -370,7 +385,7 @@ var bindEvents = once(function() {
 </pre>
   </section>
   <section class="slide">
-    <h1>函数转换 - wrap</h1>
+    <h1>wrap</h1>
 <pre contenteditable="true">
 function wrap( self, func ) {
   return function() {
@@ -389,7 +404,7 @@ function wrap( self, func ) {
 </pre>
   </section>
   <section class="slide">
-    <h1>函数转换 - 面向切面</h1>
+    <h1>wrap - 面向切面</h1>
     <div class="codebox">
 <pre contenteditable="true">
 function sendRequest( method ) {
@@ -408,7 +423,7 @@ sendRequest(); // 1;
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - 扩展方法</h1>
+    <h1>wrap - 扩展方法</h1>
     <div class="codebox">
 <pre contenteditable="true">
 function $( selector ) {
@@ -432,7 +447,7 @@ $('.slide-cover').each(function(slide) {
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - 模拟once</h1>
+    <h1>wrap - 模拟once</h1>
     <div class="codebox">
 <pre contenteditable="true">
 var a = function() {
@@ -454,14 +469,11 @@ a();
   <section class="slide">
     <h1>实用场景</h1>
     <ul>
-      <li>频繁点击按钮, 提交表单 - 重复提交</li>
-      <li>blur和submit 提交操作 - 不同事件同一时机触发同一操作</li>
-      <li>频繁点击 ctrl + s 快捷键</li>
-      <li>多次点击生成快捷方式按钮</li>
-      <li>font-size-changed-event 同时发生多次</li>
-      <li>window窗口 resize 时, 频繁重新渲染 DOM</li>
-      <li>mousemove 事件频繁触发</li>
-      <li>scroll 事件频繁触发</li>
+      <li>频繁点击按钮, 提交表单</li>
+      <li>blur和submit 重复提交操作</li>
+      <li>频繁按 ctrl + s 快捷键</li>
+      <li>resize 频繁重新渲染 DOM</li>
+      <li>mousemove/scroll 频繁触发</li>
       <li>网页中搜索建议, 发送的请求如何处理?</li>
     </ul>
   </section>
@@ -486,7 +498,7 @@ function debounce( func, wait ) {
   </section>
   <section class="slide">
     <h1>节制性函数</h1>
-    <p>短时间内(100ms)n次发生相同事件, 但需要执行m(m<=n)次.</p>
+    <p>短时间内(100ms)发生n次相同事件, 而仅需执行m(m<=n)次.</p>
 <pre contenteditable="true;">
 function throttle( func, wait ) {
   var timer;
@@ -524,55 +536,7 @@ function throttle( func, wait ) {
     </ul>
   </section>
   <section class="slide">
-    <h1>实用场景</h1>
-    <div class="codebox">
-<pre contenteditable="true">
-var door = create(function(person) {
-  alert(person);
-}, true, 3);
-var readerCar = function( id ) {
-  door.on( id );
-  return function() {
-    door.done.apply( door, arguments );
-  }
-};
-var open = readerCar( 'sogou' );
-setTimeout(function() {
-  open( 'sogou' );
-}, 4 * 1000 );
-// open( 'hongtao' );
-</pre>
-      <div class="runcase">Run</div>
-    </div>
-  </section>
-  <section class="slide">
-    <h1>实用场景</h1>
-    <div class="codebox">
-<pre contenteditable="true">
-var car = create(function(person) {
-    alert(person);
-  }, (function() {
-    var old;
-    return function( id ) {
-      var ret = false;
-      if ( old !== id ) {
-        old = id, ret = true;
-      }
-      return ret;
-    };
-  })()
-);
-var readerCar = function( id ) {
-  car.on( id ).done( id );
-};
-readerCar( 'sogou' );
-readerCar( 'sogou' );
-</pre>
-      <div class="runcase">Run</div>
-    </div>
-  </section>
-  <section class="slide">
-    <h1>实用场景</h1>
+    <h1>create</h1>
     <div class="codebox">
 <pre contenteditable="true" id="demo-create">
 var element = document.querySelector( '.demo-case-fixed' );
@@ -620,7 +584,7 @@ slide.addEventListener( 'mouseout', onMouseOut, false );
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - after</h1>
+    <h1>after</h1>
     <div class="codebox">
 <pre contenteditable="true">
   ;(function() {
@@ -669,7 +633,7 @@ slide.addEventListener( 'mouseout', onMouseOut, false );
     </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - after</h1>
+    <h1>after</h1>
 <div class="codebox">
 <pre contenteditable="true">
 var array = [ 1, 2 ];
@@ -696,14 +660,13 @@ array.forEach(function( item, index ) {
   <section class="slide">
     <h1>实用场景</h1>
     <ul>
-      <li>元素a, 从位置[0,0] 先移到到[0, 100], 再到[100, 100]</li>
+      <li>元素a, 从位置[0,0] 先移到[0, 100], 再到[100, 100] <a href="../html/queue.html" target="_blank">实例</a></li>
       <li>需求: 对 n 个服务接口, 做单元测试.</li>
-      <li>请求A数据, 根据A数据计算, 再请求B数据, 最后渲染页面.</li>
-      <li><a href="../html/queue.html" target="_blank">动画实例</a></li>
+      <li>nodejs 中多表依赖查询</li>
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - queue</h1>
+    <h1>queue</h1>
 <div class="codebox">
 <pre contenteditable="true">
 console.time( 'queue' );
@@ -722,13 +685,12 @@ queue( [1, 2], function( item, index, ret, next ) {
   <section class="slide">
     <h1>实用场景</h1>
     <ul>
-      <li>同时请求模板和数据, 计算结果, 渲染页面</li>
+      <li>同时请求模板和数据, 成功后渲染页面</li>
       <li><a href="../html/sync.html" target="_blank">动画实例</a></li>
-      <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">继续优化?x?</a></li>
     </ul>
   </section>
   <section class="slide">
-    <h1>函数转换 - sync</h1>
+    <h1>sync</h1>
 <div class="codebox">
 <pre contenteditable="true">
 console.time( 'sync' );
@@ -745,7 +707,7 @@ sync( [1, 2], function( item, index, ret, done ) {
 </div>
   </section>
   <section class="slide">
-    <h1>函数转换 - syncEX</h1>
+    <h1>syncEX</h1>
 <div class="codebox">
 <pre contenteditable="true">
 syncEX( [1, 2, 3, 4, 5], function( item, done ) {
@@ -764,10 +726,10 @@ syncEX( [1, 2, 3, 4, 5], function( item, done ) {
     <h1>参考</h1>
     <ul>
       <li>权威指南 6</li>
-      <li><a href="http://lodash.com/" target="_blank">lodash</a></li>
-      <li><a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a></li>
-      <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a></li>
+      <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">前端异步 api 调用</a></li>
       <li><a href="http://www.zhihu.com/question/19805411" target="_blank">如何防止重复提交?</a></li>
+      <li><a href="http://lodash.com/" target="_blank">lodash</a> & <a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a></li>
+      <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a></li>
       <li><a href="http://osteele.com/sources/javascript/functional/" target="_blank">functional</a></li>
     </ul>
   </section>
