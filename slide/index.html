@@ -19,12 +19,20 @@
       <li>上/下/左/右/PageUp/PageDown键切换ppt</li>
       <li>Home/End 切换到文档开头/结尾</li>
       <li>ctrl+g 手动指定到页数</li>
-      <li>联系 QQ: 295143921</li>
     </ul>
   </section>
   <section class="slide slide-cover">
     <h1>深入浅出 JavaScript 函数</h1>
     <h2 class="h6">REDKY@qq.com</h2>
+  </section>
+  <section class="helper">
+    <h1>自我介绍</h1>
+    <ul>
+      <li>占红涛</li>
+      <li>QQ: 295143921</li>
+      <li>github: <a href="http://github.com/zhanhongtao/" target="_blank">@zhanhongtao</a></li>
+      <li>weibo: <a href="http://1.t.qq.com/redead" target="_blank">@redead</a></li>
+    </ul>
   </section>
   <section class="slide">
     <h1>函数基础</h1>
@@ -52,9 +60,9 @@
     <h1>函数参数和返回值</h1>
     <h2 class="h4">参数</h2>
     <ul>
-      <li>定义时, 参数可不写; 调用时, 使用 arguments 访问</li>
-      <li>形参[形式参数]: 参数个数 <code>getUserName.length</code></li>
-      <li>实参[实际调用时参数]: 参数个数 <code>arguments.length</code></li>
+      <li>定义时, 参数可省略; 调用时, 用 arguments 访问</li>
+      <li>形参[形式参数]; 参数个数 <code>getUserName.length</code></li>
+      <li>实参[实际调用时参数]; 参数个数 <code>arguments.length</code></li>
       <li>调用时参数可为任意数据类型(包含 function)</li>
     </ul>
     <mark>参数传递值和引用</mark>
@@ -64,11 +72,11 @@
     <div class="codebox">
 <pre contenteditable="true">
 function getUserName( user, boolean ) {
-  alert( 'arguments.length: ' + arguments.length );
+  alert( '实参长度: ' + arguments.length );
   user.name = 'browser';
   boolean = false;
 }
-alert( 'getUserName.length: ' + getUserName.length );
+alert( '形参长度: ' + getUserName.length );
 var user = {name: 'sogo' }, boolean = true;;
 getUserName( user, boolean, function() {} );
 alert( 'user: ' + JSON.stringify(user) );
@@ -101,13 +109,12 @@ alert( 'boolean: ' + boolean );
     <h1>匿名函数</h1>
     <ul>
       <li><code>;(function() {})(); // 自执行</code></li>
-      <li><code>var getUserName = function/*getUserName*/() {};</code></li>
       <li><code>element.addEventListener('click', function() {}, false );</code></li>
       <li><code>requestAnimationFrame(function() {}, 100); // setInterval</code></li>
       <li><code>promise().done(function() {}).fail(function() {}); // jQuery</code></li>
       <li><code>'?path=p1'.replace(/[^?&]path=[^#&]*/i,function() {});</code></li>
       <li><code>[1,3,2].sort(function( a, b ) { return a - b;});</code></li>
-      <li><code>function func(){return function() {};}</code></li>
+      <li><code>function func(){return function() {};} // return</code></li>
     </ul>
   </section>
   <section class="slide">
