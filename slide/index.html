@@ -333,16 +333,16 @@ alert( max );
   <section class="slide">
     <h1>函数转换</h1>
     <ul>
-      <li>partial</li>
+      <li hidden>partial</li>
       <li>once</li>
+      <li>after</li>
       <li>wrap</li>
       <li>debounce/throttle</li>
       <li>create</li>
-      <li>after</li>
       <li>queue/sync/syncEX</li>
     </ul>
   </section>
-  <section class="slide">
+  <section class="helper">
     <h1>partial</h1>
     <p>不完全函数 - <a href="http://benalman.com/news/2012/09/partial-application-in-javascript/" target="_blank">更多</a></p>
     <div class="codebox">
@@ -390,6 +390,86 @@ var bindEvents = once(function() {
   });
 });
 </pre>
+  </section>
+  <section class="slide">
+    <h1>实用场景</h1>
+    <ul>
+      <li>需求: 按键盘 sogou 字符, 出现惊喜.</li>
+    </ul>
+  </section>
+  <section class="slide">
+    <h1>after</h1>
+    <div class="codebox">
+<pre contenteditable="true">
+  ;(function() {
+    var func = (function() {
+      var space = [];
+      var keycodes = [ 83, 79, 71, 79, 85 ];
+      var ok5;
+      var timer;
+      function check() {
+        if ( keycodes.join() === space.join() ) {
+          alert( '\u60CA\u559C' );
+        }
+      }
+      function init() {
+        space.length = 0;
+        ok5 = after( keycodes.length, function() {
+          check();
+          init();
+        });
+      }
+      function later() {
+        init();
+        timer = null;
+      }
+      init();
+      return function( keycode ) {
+        if ( !timer ) {
+          timer = setTimeout( later, 1000 );
+        }
+        if ( keycodes.indexOf(keycode) === -1 ) {
+          init();
+          return;
+        }
+        space[ space.length ] = keycode;
+        ok5();
+      };
+    })();
+
+    document.onkeydown = function( event ) {
+      event = event || window.event;
+      func( event.keyCode );
+    };
+  })();
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>after</h1>
+<div class="codebox">
+<pre contenteditable="true">
+var array = [ 1, 2 ];
+var func = (function() {
+  var argus = [];
+  var func = after( array.length, function( a, b ) {
+    alert( ['result', a, b ].join('-') );
+    argus.length = 0;
+  });
+  return function( value, index ) {
+    argus[ index ] = value;
+    func.apply( this, argus );
+  };
+})();
+array.forEach(function( item, index ) {
+  setTimeout(function() {
+    func( item, index );
+  }, (index+1) * 1000 );
+});
+</pre>
+<div class="runcase">Run</div>
+</div>
   </section>
   <section class="slide">
     <h1>wrap</h1>
@@ -453,7 +533,7 @@ $('.slide-cover').each(function(slide) {
     <div class="runcase">Run</div>
     </div>
   </section>
-  <section class="slide">
+  <section class="helper">
     <h1>wrap - 模拟once</h1>
     <div class="codebox">
 <pre contenteditable="true">
@@ -583,86 +663,6 @@ slide.addEventListener( 'mouseout', onMouseOut, false );
         }
       </style>
     </div>
-  </section>
-  <section class="slide">
-    <h1>实用场景</h1>
-    <ul>
-      <li>需求: 按键盘 sogou 字符, 出现惊喜.</li>
-    </ul>
-  </section>
-  <section class="slide">
-    <h1>after</h1>
-    <div class="codebox">
-<pre contenteditable="true">
-  ;(function() {
-    var func = (function() {
-      var space = [];
-      var keycodes = [ 83, 79, 71, 79, 85 ];
-      var ok5;
-      var timer;
-      function check() {
-        if ( keycodes.join() === space.join() ) {
-          alert( '\u60CA\u559C' );
-        }
-      }
-      function init() {
-        space.length = 0;
-        ok5 = after( keycodes.length, function() {
-          check();
-          init();
-        });
-      }
-      function later() {
-        init();
-        timer = null;
-      }
-      init();
-      return function( keycode ) {
-        if ( !timer ) {
-          timer = setTimeout( later, 1000 );
-        }
-        if ( keycodes.indexOf(keycode) === -1 ) {
-          init();
-          return;
-        }
-        space[ space.length ] = keycode;
-        ok5();
-      };
-    })();
-
-    document.onkeydown = function( event ) {
-      event = event || window.event;
-      func( event.keyCode );
-    };
-  })();
-</pre>
-      <div class="runcase">Run</div>
-    </div>
-  </section>
-  <section class="slide">
-    <h1>after</h1>
-<div class="codebox">
-<pre contenteditable="true">
-var array = [ 1, 2 ];
-var func = (function() {
-  var argus = [];
-  var func = after( array.length, function( a, b ) {
-    alert( ['result', a, b ].join('-') );
-    argus.length = 0;
-  });
-  return function( value ) {
-    argus.push( value );
-    func.apply( this, argus );
-  };
-})();
-array.forEach(function( item, index ) {
-  setTimeout(function() {
-    func( item );
-  }, (index+1) * 1000 );
-});
-</pre>
-<div class="runcase">Run</div>
-</div>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
