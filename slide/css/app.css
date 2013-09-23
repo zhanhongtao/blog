@@ -75,6 +75,10 @@
   }
 }
 
+.ppt pre {
+  max-height: 260px;
+}
+
 .ppt .helper {
   display: none;
 }
