@@ -49,8 +49,7 @@ p, ul, ol {
 }
 
 li {
-  list-style-position: inside;
-  margin: 5px 0;
+  margin: 5px 0 0 15px;
 }
 
 dl {

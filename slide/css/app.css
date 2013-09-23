@@ -68,6 +68,13 @@
   padding: 0 10px;
 }
 
+/* 手机下样式 */
+@media screen and ( max-width: 480px ) {
+  .pc-helper {
+    display: none;
+  }
+}
+
 .ppt .helper {
   display: none;
 }
