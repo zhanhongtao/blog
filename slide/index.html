@@ -37,14 +37,14 @@
   </section>
   <section class="slide">
     <h1>函数基础</h1>
-    <ol>
+    <ul>
       <li>函数定义</li>
       <li>函数参数和返回值</li>
       <li>函数调用</li>
       <li>匿名函数</li>
       <li>变量作用域 - 闭包</li>
       <li>其它 - 递归, 链式调用等</li>
-    </ol>
+    </ul>
   </section>
   <section class="slide">
     <h1>函数定义</h1>
@@ -371,34 +371,23 @@ alert( add(3) ); // 8
     </div>
   </section>
   <section class="slide">
-    <h1>once</h1>
+    <h1>实用场景</h1>
+    <p>用途: 防止重复绑定事件</p>
     <div class="codebox">
-<pre contenteditable="true">
-function once( func ) {
-  var flag, result;
-  return function() {
-    if ( flag ) return result;
-    flag = true;
-    result = func.apply( this, arguments );
-    return result;
-  };
-}
-var times = once(function() {alert( 1 );});
-times();times();
+<pre contenteditable="true" id="demo-once">
+var element = document.querySelector( '#demo-once' );
+var bindEvents = function() {
+  element.addEventListener( 'click', function() {
+    alert( element.id );
+  }, false );
+};
+// bindEvents = once( bindEvents );
+bindEvents();
+bindEvents();
 </pre>
       <div class="runcase">Run</div>
     </div>
-  </section>
-  <section class="slide">
-    <h1>once</h1>
-    <p>用途: 防止重复绑定事件 - jQuery</p>
-<pre>
-var bindEvents = once(function() {
-  $( element ).on( 'click', function() {
-    //...
-  });
-});
-</pre>
+
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -407,7 +396,6 @@ var bindEvents = once(function() {
     </ul>
   </section>
   <section class="slide">
-    <h1>after</h1>
     <div class="codebox">
 <pre contenteditable="true">
   ;(function() {
@@ -456,7 +444,7 @@ var bindEvents = once(function() {
     </div>
   </section>
   <section class="slide">
-    <h1>after</h1>
+    <h1>实例</h1>
 <div class="codebox">
 <pre contenteditable="true">
 var array = [ 1, 2 ];
@@ -481,26 +469,14 @@ array.forEach(function( item, index ) {
 </div>
   </section>
   <section class="slide">
-    <h1>wrap</h1>
-<pre contenteditable="true">
-function wrap( self, func ) {
-  return function() {
-    var _arguments = arguments;
-    var next = function() {
-      var argus = arguments.length ? arguments : _arguments;
-      return self.apply( null, argus );
-    };
-    var argus = [].slice.call( arguments );
-    var length = func.length;
-    argus = length < 2 ? [] : argus.slice( 0, length - 1);
-    argus.push( next );
-    return func.apply( null, argus );
-  };
-}
-</pre>
+    <h1>应用场景</h1>
+    <ul>
+      <li>无侵入的统计代码</li>
+      <li>功能逻辑分离</li>
+      <li>函数参数处理</li>
+    </ul>
   </section>
   <section class="slide">
-    <h1>wrap - 面向切面</h1>
     <div class="codebox">
 <pre contenteditable="true">
 function sendRequest( method ) {
@@ -519,7 +495,7 @@ sendRequest(); // 1;
     </div>
   </section>
   <section class="slide">
-    <h1>wrap - 扩展方法</h1>
+    <h1>实例</h1>
     <div class="codebox">
 <pre contenteditable="true">
 function $( selector ) {
@@ -576,52 +552,10 @@ a();
   <section class="slide">
     <h1>懒惰型函数</h1>
     <p>短时间内(100ms)多次发生相同事件, 但仅需要执行最后一次.</p>
-<pre contenteditable="true">
-function debounce( func, wait ) {
-  var old = new Date;
-  var timer;
-  function ret() {
-    if ( timer ) { clearTimeout( timer ); timer = null;}
-    var argus = arguments;
-    timer = setTimeout(function() {
-      timer = null;
-      func.apply( null, argus );
-    }, wait);
-  };
-  return ret;
-}
-</pre>
   </section>
   <section class="slide">
     <h1>节制性函数</h1>
     <p>短时间内(100ms)发生n次相同事件, 而仅需执行m(m<=n)次.</p>
-<pre contenteditable="true;">
-function throttle( func, wait ) {
-  var timer;
-  var previous = 0;
-  var args;
-  var context;
-  var later = function() {
-    previous = new Date;
-    func.apply( context, args );
-  };
-  return function() {
-    var now = new Date;
-    if ( previous === 0 ) previous = new Date;
-    args = arguments;
-    context = this;
-    var remaining = wait - ( now - previous );
-    if ( remaining <= 0 ) {
-      func.apply( this, arguments );
-      timer = null;
-      previous = now;
-    }
-    else if ( !timer ) {
-      timer = setTimeout( later, remaining );
-    }
-  };
-}
-</pre>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -632,7 +566,6 @@ function throttle( func, wait ) {
     </ul>
   </section>
   <section class="slide">
-    <h1>create</h1>
     <div class="codebox">
 <pre contenteditable="true" id="demo-create">
 var element = document.querySelector( '.demo-case-fixed' );
