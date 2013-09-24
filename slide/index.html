@@ -309,13 +309,21 @@ var _ = function( value ) {
   if ( !(this instanceof _) ) return new _(value);
   this.core = value;
 };
+_.prototype.map = function( func ) {
+  for ( var i = 0, l = this.core.length; i < l; i++ ) {
+    this.core[i] = func.call( this, this.core[i], i, this.core);
+  }
+  return this;
+};
 _.prototype.max = function() {
   return Math.max.apply( Math, this.core );
 };
 _.chain = function( value ) {
   return new _( value );
 };
-var max = _( [1, 2, 5, 3 ] ).max();
+var max = _( [1, 2, 5, 3 ] ).map(function( item ) {
+  return item * 2;
+}).max();
 // var max = _.chain( [1, 2, 5, 3] ).max();
 alert( max );
 </pre>
