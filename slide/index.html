@@ -396,6 +396,7 @@ bindEvents();
     </ul>
   </section>
   <section class="slide">
+    <h1>after 实现</h1>
     <div class="codebox">
 <pre contenteditable="true">
   ;(function() {
@@ -439,6 +440,56 @@ bindEvents();
       func( event.keyCode );
     };
   })();
+</pre>
+      <div class="runcase">Run</div>
+    </div>
+  </section>
+  <section class="slide">
+    <h1>状态机实现</h1>
+    <div class="codebox">
+<pre contenteditable="true">
+function test( callback ) {
+  var index = 0;
+  var key = '83,79,71,79,85';
+  var length = key.length;
+  var wait = 1000;
+
+  var timer;
+  return function( code ) {
+    code = '' + code;
+
+    // 相对孤立的 timer 处理.
+    if ( !timer ) {
+      timer = setTimeout(function() {
+        index = 0;
+      }, wait);
+    }
+    else {
+      if ( timer ) {
+        clearTimeout( timer );
+        timer = null;
+      }
+    }
+
+    var k = key.indexOf( '' + code, index );
+    if ( k === index ) {
+      index += code.length + 1;
+      if ( index >= length ) {
+        return callback();
+      }
+    }
+    else {
+      index = 0;
+    }
+  };
+}
+var func = test(function() {
+  alert( '\u60CA\u559C' );
+});
+document.onkeydown = function( event ) {
+  event = event || window.event;
+  func( event.keyCode );
+};
 </pre>
       <div class="runcase">Run</div>
     </div>
