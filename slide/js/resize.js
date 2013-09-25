@@ -29,8 +29,9 @@
     var h = winsize.h / slidesize.h;
     // x 0.9 防止 slide page 过大.
     var scale = Math.min.call( Math, w, h, 2 ) * 0.9;
-    slides[ page ].style.webkitTransform = 'scale(' + scale + ')';
-    slides[ page ].style.MozTransform = 'scale(' + scale + ')'; // Moz 中的 m 大写.
+    slides[ page ].style.zoom = scale;
+    // slides[ page ].style.webkitTransform = 'scale(' + scale + ')';
+    // slides[ page ].style.MozTransform = 'scale(' + scale + ')'; // Moz 中的 m 大写.
   };
 
   var resize2 = debounce( resize, 150 );
@@ -42,6 +43,20 @@
   var eventemitter = eventEmitter();
   eventemitter.on( 'on-page-changed', function( message ) {
     resize( page = message.page );
+  });
+
+  eventemitter.on( 'on-resize-to', function( zoom ) {
+    var i = 0;
+    var pages = slides.length;
+    while ( i < pages ) {
+      var slide = slides[i];
+      slide.style.zoom = zoom;
+      // slide.style.webkitTransform = 'scale(1)';
+      // slide.style.MozTransform = 'scale(1)';
+      // slide.style.msTransform = 'scale(1)';
+      // slide.style.oTransform = 'scale(1)';
+      i++;
+    }
   });
 
   eventemitter.on( 'on-resize', function() {

@@ -175,5 +175,12 @@
   updatePage( page );
   eventemitter.emit( 'ppt-init', page );
 
+  eventemitter.on( 'ppt-next', nextSlide );
+  eventemitter.on( 'ppt-prev', prevSlide );
+  eventemitter.on( 'change-pattern', function( pattern ) {
+    pattern = pattern === 'ppt' ? 'ppt' : 'document';
+    eventemitter.emit( 'on-page-pattern-changed', page, pattern );
+  });
+
 })();
 
