@@ -23,7 +23,6 @@
     }
   };
   var ontouchend = function( event ) {
-    console.log( 'touchend: ', event );
     if ( event.touches.length === 0 ) {
       var x = event.changedTouches[0].pageX;
       var y = event.changedTouches[0].pageY;
