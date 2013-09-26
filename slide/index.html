@@ -196,7 +196,7 @@ if ( document.attachEvent ) {
   document.attachEvent( 'onclick', function() {
     alert( this );
   });
-  document.attachEvent( 'onclick', bind(function() {
+  document.attachEvent( 'onclick', se.bind(function() {
     alert( this );
   }, document);
 }
@@ -214,7 +214,7 @@ var system = {
 };
 function getBrowserDataFromServer( cb ) {
   var data = { name: 'chrome' };
-  return bind( cb, data )();
+  return se.bind( cb, data )();
 }
 alert( getBrowserDataFromServer( system.runcase ) );
 </pre>
@@ -381,7 +381,7 @@ var bindEvents = function() {
     alert( element.id );
   }, false );
 };
-// bindEvents = once( bindEvents );
+// bindEvents = se.once( bindEvents );
 bindEvents();
 bindEvents();
 </pre>
@@ -412,7 +412,7 @@ bindEvents();
       }
       function init() {
         space.length = 0;
-        ok5 = after( keycodes.length, function() {
+        ok5 = se.after( keycodes.length, function() {
           check();
           init();
         });
@@ -501,7 +501,7 @@ document.onkeydown = function( event ) {
 var array = [ 1, 2 ];
 var func = (function() {
   var argus = [];
-  var func = after( array.length, function( a, b ) {
+  var func = se.after( array.length, function( a, b ) {
     alert( ['result', a, b ].join('-') );
     argus.length = 0;
   });
@@ -534,7 +534,7 @@ function sendRequest( method ) {
   alert( 'request: ' + method );
   return 1;
 }
-sendRequest = wrap( sendRequest, function( next ) {
+sendRequest = se.wrap( sendRequest, function( next ) {
   alert( 'before request' );
   var result = next( 'POST' );
   alert( 'after request' );
@@ -552,7 +552,7 @@ sendRequest(); // 1;
 function $( selector ) {
   return document.querySelectorAll( selector );
 }
-$ = wrap( $, function(selector, next) {
+$ = se.wrap( $, function(selector, next) {
   var core = next();
   return {
     each: function( func ) {
@@ -577,7 +577,7 @@ var a = function() {
   alert(1);
 };
 
-a = wrap( a, function a( next ) {
+a = se.wrap( a, function a( next ) {
   if ( a.tag ) return a.cache;
   a.tag = true;
   return a.cache = next();
@@ -621,7 +621,7 @@ a();
 <pre contenteditable="true" id="demo-create">
 var element = document.querySelector( '.demo-case-fixed' );
 var slide = document.querySelector( '#demo-create' );
-var f = create( function() {
+var f = se.create( function() {
   element.style.display = 'block';
 }, true, 0);
 var onMouseOver = (function() {
@@ -670,7 +670,7 @@ slide.addEventListener( 'mouseout', onMouseOut, false );
 <div class="codebox">
 <pre contenteditable="true">
 console.time( 'queue' );
-queue( [1, 2], function( item, index, ret, next ) {
+se.queue( [1, 2], function( item, index, ret, next ) {
   setTimeout(function() {
     next( item );
   }, (index+1) * 1000 );
@@ -694,7 +694,7 @@ queue( [1, 2], function( item, index, ret, next ) {
 <div class="codebox">
 <pre contenteditable="true">
 console.time( 'sync' );
-sync( [1, 2], function( item, index, ret, done ) {
+se.sync( [1, 2], function( item, index, ret, done ) {
   setTimeout( function() {
     done( item );
   }, (index+1) * 1000 );
@@ -707,14 +707,14 @@ sync( [1, 2], function( item, index, ret, done ) {
 </div>
   </section>
   <section class="slide">
-    <h1>syncEX</h1>
+    <h1>sync 增强版</h1>
 <div class="codebox">
 <pre contenteditable="true">
-syncEX( [1, 2, 3, 4, 5], function( item, done ) {
+se.sync( [1, 2, 3, 4, 5], function( item, done ) {
   setTimeout(function() {
     done( item );
   }, Math.random() * 1000 );
-}, function( a, b ) {
+}, function() {
   var argus = [].slice.call( arguments );
   alert( argus );
 }, true);
@@ -738,7 +738,7 @@ syncEX( [1, 2, 3, 4, 5], function( item, done ) {
   </section>
   <nav id="navigator"></nav>
   <script src="./js/event.js"></script>
-  <script src="./js/functional.js"></script>
+  <script src="../scripts/se.js"></script>
   <script src="./js/hash.js"></script>
   <script src="./js/runcase.js"></script>
   <script src="./js/resize.js"></script>

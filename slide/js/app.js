@@ -43,7 +43,7 @@
 
   eventemitter.on( 'on-update-page', updatePage );
 
-  updatePage = wrap( updatePage, function( target, next ) {
+  updatePage = se.wrap( updatePage, function( target, next ) {
     if ( typeof target === 'number' ) {
       return next();
     }
@@ -158,7 +158,7 @@
   }, false );
 
   // @note: 不再支持 mousewheel
-  var mousewheel = throttle(function( event ) {
+  var mousewheel = se.throttle(function( event ) {
     // if ( body.classList.contains('ppt') )
     return;
     if ( event.wheelDelta ) {

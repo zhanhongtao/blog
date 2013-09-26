@@ -11,6 +11,6 @@
     once2();
     i++;
   }
-  test( n === 1, 'test once' );
+  console.assert( n === 1, 'test once' );
 })();
 

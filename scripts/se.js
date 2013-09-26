@@ -1,22 +1,28 @@
 ;(function( name, definition ) {
-  // this is considered "safe":
   var hasDefine = typeof define === 'function',
-    // hasDefine = typeof define === 'function',
     hasExports = typeof module !== 'undefined' && module.exports;
 
-  if ( hasDefine ) { // AMD Module or CMD Module
+  if ( hasDefine ) {
     define(definition);
-  } else if (hasExports) { // Node.js Module
+  } else if (hasExports) {
     module.exports = definition();
-  } else { // Assign to common namespaces or simply the global object (window)
+  } else {
     this[name] = definition();
   }
 })( 'se', function() {
+
+  var root = this;
+  var previousSe = this.se;
 
   var se = function( value ) {
     if ( value instanceof se ) return value;
     if ( !(this instanceof se) ) return new se( value );
     this.core = value;
+  };
+
+  se.noConflict = function() {
+    root.se = previousSe;
+    return this;
   };
 
   var result = function( obj ) {
@@ -222,71 +228,71 @@
 
   // 同步, 提前把结果抛出.
   se.sync = function( list, fn, callback, tag ) {
-      var n = list.length;
-      var times = 0;
+    var n = list.length;
+    var times = 0;
+    var ret = [];
+    var current = 0;
+    var wrapper = function () {
+        if ( times === n && callback ) {
+            callback.apply( null, ret );
+        }
+    };
+
+    var checkDoneList = function ( list, results ) {
       var ret = [];
-      var current = 0;
-      var wrapper = function () {
-          if ( times === n && callback ) {
-              callback.apply( null, ret );
-          }
-      };
-
-      var checkDoneList = function ( list, results ) {
-          var ret = [];
-          var i = 0;
-          while ( 1 ) {
-              if ( list[i] === -1 ) {
-                  i++;
-              }
-              else if ( list[i] === i ) {
-                  ret.push( results[i] );
-                  list[ i ] = -1;
-              }
-              else {
-                  break;
-              }
-          }
-          return ret;
-      };
-
-      var createDone = function( func ) {
-          var donelist = [];
-          return function( index ) {
-              return func.call( null, index, donelist );
-          };
-      };
-
-      var done = createDone(function( index, donelist ) {
-          return function( result ) {
-              times++;
-              ret[ index ] = result;
-              donelist[ index ] = index;
-              if ( tag ) {
-                  var list = checkDoneList( donelist, ret );
-                  if ( list.length ) callback.apply( null, list );
-              }
-              else {
-                  wrapper();
-              }
-          };
-      });
-
-      if ( n === 0 ) {
-          wrapper();
-          return;
-      }
       var i = 0;
-      var item;
-      while ( i < n ) {
-          item = list[ i ];
-          var argus = [ item, i, ret ];
-          var cb = done( i );
-          if ( fn.length ) argus = argus.slice( 0, fn.length - 1 );
-          argus[argus.length] = cb;
-          fn.apply( null, argus );
-          i++;
+      while ( 1 ) {
+          if ( list[i] === -1 ) {
+              i++;
+          }
+          else if ( list[i] === i ) {
+              ret.push( results[i] );
+              list[ i ] = -1;
+          }
+          else {
+              break;
+          }
       }
+      return ret;
+    };
+
+    var createDone = function( func ) {
+        var donelist = [];
+        return function( index ) {
+            return func.call( null, index, donelist );
+        };
+    };
+
+    var done = createDone(function( index, donelist ) {
+        return function( result ) {
+            times++;
+            ret[ index ] = result;
+            donelist[ index ] = index;
+            if ( tag ) {
+                var list = checkDoneList( donelist, ret );
+                if ( list.length ) callback.apply( null, list );
+            }
+            else {
+                wrapper();
+            }
+        };
+    });
+
+    if ( n === 0 ) {
+        wrapper();
+        return;
+    }
+    var i = 0;
+    var item;
+    while ( i < n ) {
+        item = list[ i ];
+        var argus = [ item, i, ret ];
+        var cb = done( i );
+        if ( fn.length ) argus = argus.slice( 0, fn.length - 1 );
+        argus[argus.length] = cb;
+        fn.apply( null, argus );
+        i++;
+    }
   }
 
   se.create = function( func, check, time ) {
@@ -354,16 +360,16 @@
     return ret;
   };
 
-  se.sandbox = function( func ) {
+  se.identity = function( value ) {
+    return value;
+  };
+
+  se.memoize = function(func, hasher) {
+    var memo = {};
+    hasher || (hasher = se.identity);
     return function() {
-      try {
-        return func.apply( this, arguments );
-      }
-      catch(e) {
-        setTimeout(function() {
-          throw e;
-        }, 0);
-      }
+      var key = hasher.apply(this, arguments);
+      return memo[key] ? memo[key] : (memo[key] = func.apply(this, arguments));
     };
   };
 
