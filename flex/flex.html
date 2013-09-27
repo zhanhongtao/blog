@@ -88,9 +88,9 @@
     var divs = box.querySelectorAll( 'div' );
     for ( var i = 0, l = divs.length; i < l; i++ ) {
       var div = divs[i];
-      var r = Math.floor( Math.random() * 255 );
-      var g = Math.floor( Math.random() * 255 );
-      var b = Math.floor( Math.random() * 255 );
+      var r = Math.floor( Math.random() * ( 255 -140 ) + 140 );
+      var g = Math.floor( Math.random() * ( 255 -140 ) + 140 );
+      var b = Math.floor( Math.random() * ( 255 -140 ) + 140 );
       div.style.backgroundColor = 'rgb('+r+','+g+','+b+')';
       div.style.lineHeight = Math.floor( Math.random() * 2 );
     }

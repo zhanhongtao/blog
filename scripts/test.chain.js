@@ -19,6 +19,10 @@
 
   var s = se( [1, 3, 4, 6] );
 
+  var max = se.chain( [ 1, 3, 4, 6 ] ).map(function( item ) {
+    return item * 2;
+  }).max().value();
+
   var max = s.max();
   console.assert( max === 6, 'test mixin - max' );
 
