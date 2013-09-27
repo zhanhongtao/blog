@@ -5,19 +5,19 @@
 }
 
 .ppt .slide {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 560px;
-  height: 280px;
-  top: 50%;
   display: none;
-  margin: -180px auto;
   box-sizing: border-box;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 560px;
+  height: 280px;
+  margin: 15px auto;
 }
 
 .ppt .slide-target,
