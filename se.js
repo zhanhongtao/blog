@@ -33,11 +33,11 @@
     return new se( value ).chain();
   };
 
-  var type = function( s ) {
+  var type = se.type = function( s ) {
     return Object.prototype.toString.call( s ).slice( 8, -1 ).toLowerCase();
   };
 
-  var toArray = function( argus, index ) {
+  var toArray = se.toArray = function( argus, index ) {
     return [].slice.call( argus, index );
   };
 
