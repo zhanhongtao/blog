@@ -14,12 +14,13 @@
   // @note: 仅考虑了元素节点和文本节点.
   // @TODO: firefox 支持 textContent
   // @note: 使用 pre, 然后再 innerText 和 直接使用 textarea.
+  // @note: 块状元素时, 取文本添加换行符 - runcode 特殊处理.
   var innerText = function( element ) {
     var text = '';
     var node = element.firstChild;
     while ( node ) {
       if ( node.nodeType === 1 ) {
-        text += innerText( node );
+        text += '\n' + innerText( node );
       }
       else if ( node.nodeType === 3 ) {
         text += node.nodeValue;
@@ -57,7 +58,7 @@
   }
 
   var runcode = function( code ) {
-    var fixCode = '(function() {' + code + '})()';
+    var fixCode = '(function() {\n' + code + '\n})()';
     var f = new Function( 'return ' + fixCode );
     f();
   };
