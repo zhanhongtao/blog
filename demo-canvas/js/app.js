@@ -7,6 +7,22 @@
   * 处理浏览器支持程度.
 */
 
+
+/*
+  事件支持:
+  mouse:down
+  mouse:move
+  mouse:up
+
+  object:moving
+  object:scaling
+  object:rotating
+  object:selected
+  object:modified
+
+  after:render
+*/
+
 var canvas = new fabric.Canvas('c');
 var body = document.querySelector( 'body' );
 
@@ -37,6 +53,7 @@ function removeSelectedLayer() {
 
 function save( type ) {
   var ret;
+  type == null || ( type = 'image' );
   switch( type ) {
     case 'image':
       ret = canvas.toDataURL( 'png' );

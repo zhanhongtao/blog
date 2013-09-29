@@ -23,7 +23,16 @@
 <button id="lock-scale-x">禁止水平方向缩放</button>
 <button id="lock-scale-y">禁止垂直方向缩放</button>
 <button id="toggle-edit-pattern">切换 canvas 编辑模式</button>
-<image hidden="" src="http://www.baidu.com/img/bdlogo.gif" id="logo-baidu" />
+
+<div>
+  <button id="up-layer">向上一层</button>
+  <button id="up-to-top-layer">最上层</button>
+  <button id="down-layer">向下一层</button>
+  <button id="down-to-low-layer">最下层</button>
+</div>
+
+<image hidden src="./11.jpg" id="test-image-demo"></image>
+<image hidden src="http://www.baidu.com/img/bdlogo.gif" id="logo-baidu" />
 
 <section>
   <button id="add-text">添加到画布</button>
@@ -74,6 +83,7 @@
 </section>
 
 <script src="./js/text,cufon,gestures,parser,freedrawing,interaction,image_filters,gradient,pattern,shadow.min.js"></script>
+<script src="./js/canvas-toBlob.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/test.js"></script>
 <script src="./js/text.js"></script>
