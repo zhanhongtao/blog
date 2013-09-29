@@ -19,7 +19,7 @@
   ee.on( 'on-page-pattern-changed', onPatternChanged );
   ee.on( 'ppt-init', function( page ) {
     var pattern = localStorage.pattern;
-    onPatternChanged( page, pattern );
+    onPatternChanged( page, pattern ? 'ppt' : '' );
   });
 
 })();
