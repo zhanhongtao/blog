@@ -1,5 +1,4 @@
 
-
 ## EventEmitter
 
 使用
@@ -7,16 +6,13 @@
 * bind
 * listen
 * addEventListener
-
 * emit
 * notify
 * trigger
 * dispatch
-
 * removeListener
 * unbind
 * off
-
 * once
 * one
 
