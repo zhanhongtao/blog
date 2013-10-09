@@ -14,17 +14,42 @@
 })( 'EventEmitter', function() {
 
   var globalEventEmitter;
+  var debug = false;
+
   var eventEmitter = function () {
 
     if ( arguments.length == 0 ) {
       return globalEventEmitter || ( globalEventEmitter = new eventEmitter( 'eventEmitter_global' ) );
     }
+
+    function flat( array ) {
+      var i = 0, l = array.length, result = [], current;
+      for ( ; i < l; i++ ) {
+        current = array[i];
+        result = result.concat( current instanceof Array ? flat(current) : current );
+      }
+      return result;
+    }  
     
     var callbacks = {};
     var ckeys = {};
-    function listen( key, fn ) {
-      callbacks[key] = callbacks[key] || [];
-      callbacks[key].push( fn );
+
+    function _bind( key, func ) {
+      callbacks[ key ] = callbacks[ key ] || [];
+      [].push.apply( callbacks[key], func );
+    }
+
+    // listen( name, func );
+    // listen( name, func1, func2 );
+    // listen( name, [f1, f2] );
+    // listen( [n1, n2], func );
+    // listen( [n1, n2], [f1, f2] );
+    function listen( key ) { 
+      var funcs = flat( [].slice.call( arguments, 1 ) );
+      var keys = [].concat( key );
+      for ( var i = 0, l = keys.length; i < l; i++ ) {
+        _bind( keys[i], funcs );
+      }
     }
 
     function notify( key ) {
@@ -42,8 +67,15 @@
           var callback = callbacks[key][index++];
           ckeys[ key ] = [];
           // 当函数返回 false 时, 不再执行队列中函数.
-          if ( callback.apply( null, argus ) === false ) {
-            return;
+          try {
+            if ( callback.apply( null, argus ) === false ) {
+              return;
+            }
+          }
+          catch(e) {
+            if ( debug ) {
+              console.log( e );
+            }
           }
           // 在 callback 执行过程中, 去删除已处理过的 callback时,
           // index 需要向后退.
@@ -113,7 +145,11 @@
       removeListener: removeListener,
 
       once: once,
-      one: once
+      one: once,
+
+      debug: function( isDebug ) {
+        debug = !!isDebug;
+      }
     };
 
   };
