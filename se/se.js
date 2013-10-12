@@ -62,6 +62,46 @@
     }
   };
 
+  se.flat = function flat( array ) {
+    var i = 0, l = array.length, result = [], current;
+    for ( ; i < l; i++ ) {
+      current = array[i];
+      result = result.concat( current instanceof Array ? flat(current) : current );
+    }
+    return result;
+  };
+
+  se.reduce = Array.prototype.reduce || function( array, f, base ) {
+    var length = array.length;
+    var i = 0;
+    var ret = base == null ? (i++, array[0]) : base;
+    for ( ; i < length; i++ ) {
+      ret = f( ret, array[i], i );
+    }
+    return ret;
+  };
+
+  se.reduceRight = Array.prototype.reduceRight || function( array, f, base ) {
+    var length = array.length;
+    var ret = base == null ? (length--, array[length]) : base;
+    while ( length-- ) {
+      ret = f( ret, array[length], length );
+    }
+    return ret;
+  };
+
+  se.zip = function zip( x, y, f ) {
+    f = typeof f === 'function' ? f : function ( a, b ) {
+      return [ a, b ];
+    };
+    var xl = x.length;
+    var yl = y.length; 
+    var i = xl > yl ? yl : xl;
+    var ret = [];
+    while (i--) ret[i] = f( x[i], y[i] );
+    return ret;
+  };
+
   se.extend = function extend( base ) {
     base = type(base) === 'object' ? base : {};
     var argus = se.toArray( arguments, 1 );
@@ -94,21 +134,35 @@
     };
   };
 
-  se.flat = function flat( array ) {
-    var i = 0, l = array.length, result = [], current;
-    for ( ; i < l; i++ ) {
-      current = array[i];
-      result = result.concat( current instanceof Array ? flat(current) : current );
-    }
-    return result;
-  };
-
   se.partial = function( func ) {
     var argus = [].slice.call( arguments, 1 );
     return function() {
       return func.apply( this, argus.concat([].slice.call(arguments)) );
     };
   };
+
+  se.compose = function() {
+    var methods = [].slice.call(arguments);
+    return function() {
+      var ret = methods[0].apply( this, arguments );
+      for ( var i = 1, l = methods.length; i < l; i++ ) {
+        ret = methods[i].call( this, ret );
+      }
+      return ret;
+    };
+  };
+
+/**
+  se.compose = function() {
+    var methods = [].slice.call(arguments);
+    return function() {
+      var argus = arguments;
+      return se.reduce( methods, function( base, item, index ) {
+        return item.call( this, index === 0 ? argus : base );
+      });
+    };
+  };
+*/
 
   se.once = function( func ) {
     var flag, result;
