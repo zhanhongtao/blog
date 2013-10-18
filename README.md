@@ -8,5 +8,5 @@
 * [usual](http://meigong.org/)
 * [静静](http://blog.sina.com.cn/2010jouick)
 * [司马](https://github.com/bravf)
-* [离谱](http://www.cnblogs.com/anychem/)
+* [离谱](http://jsfiddle.net/user/ganksolo/fiddles/) [(原)](http://www.cnblogs.com/anychem/)
 * [Eric](http://www.zuoby.com/)
