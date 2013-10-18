@@ -322,12 +322,15 @@
             times++;
             ret[ index ] = result;
             donelist[ index ] = index;
-            if ( tag ) {
-                var list = checkDoneList( donelist, ret );
-                if ( list.length ) callback.apply( null, list );
+            if ( tag === true || tag === 1 ) {
+              var list = checkDoneList( donelist, ret );
+              if ( list.length ) callback.apply( null, list );
+            }
+            else if ( tag === 2 ) {
+              callback.call( null, {index: index, data: result});
             }
             else {
-                wrapper();
+              wrapper();
             }
         };
     });
