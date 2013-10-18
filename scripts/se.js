@@ -224,7 +224,7 @@
       else if ( callback && ret.shift() === ret.length ) {
           callback.apply( null, ret );
       }
-  }
+  };
 
   // 同步, 提前把结果抛出.
   se.sync = function( list, fn, callback, tag ) {
@@ -268,9 +268,12 @@
             times++;
             ret[ index ] = result;
             donelist[ index ] = index;
-            if ( tag ) {
+            if ( tag === true || tag === 1 ) {
                 var list = checkDoneList( donelist, ret );
                 if ( list.length ) callback.apply( null, list );
+            }
+            else if ( tag === 2 ) {
+              callback.call( null, {index: index, data: result});
             }
             else {
                 wrapper();
