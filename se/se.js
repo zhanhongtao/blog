@@ -128,8 +128,8 @@
     return base;
   };
 
-  se.bind = Function.prototype.bind || function( f, content ) {
-    return function() {
+  se.bind = function( f, context ) {
+    return Function.prototype.bind ? f.bind(context) : function() {
       return f.apply( context || this, arguments );
     };
   };
@@ -278,7 +278,7 @@
       else if ( callback && ret.shift() === ret.length ) {
           callback.apply( null, ret );
       }
-  }
+  };
 
   // 同步, 提前把结果抛出.
   se.sync = function( list, fn, callback, tag ) {
@@ -350,7 +350,7 @@
         fn.apply( null, argus );
         i++;
     }
-  }
+  };
 
   se.create = function( func, check, time ) {
     var flag = false;
@@ -358,9 +358,6 @@
     var done = function( array ) {
       func.apply( this, array );
       hasDone = true;
-      if ( time == null ) {
-        reset();
-      }
     };
     var reset = function() {
       flag = hasDone = false;
@@ -371,17 +368,21 @@
         return !!old;
       };
     }
+    function timeout() {
+      if ( typeof time == 'number' && time > 0 ) {
+        setTimeout( reset, time * 1000 );
+      }
+    }
     return {
       on: function() {
         if ( !flag && check.apply(this, arguments) ) {
           flag = true;
-          if ( typeof time == 'number' && time > 0 )
-            setTimeout( reset, time * 1000 );
+          timeout();
         }
         return this;
       },
       off: function( callback ) {
-        if ( hasDone || time == null ) {
+        if ( hasDone || (typeof time != 'number' || time <= 0 ) ) {
           if ( typeof callback == 'function' ) {
             callback();
           }
@@ -390,13 +391,21 @@
         return this;
       },
       done: function() {
-        if ( flag && !hasDone ) {
-          done( [].slice.call(arguments) );
+        if ( flag ) {
+          if ( !hasDone ) {
+            done( [].slice.call(arguments) );
+          }
         }
         return this;
+      },
+      state: function() {
+        return {
+          flag: flag,
+          done: hasDone
+        };
       }
     };
-  }
+  };
 
   se.delay = function ( func, wait ) {
     var timer;
