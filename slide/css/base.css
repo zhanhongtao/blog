@@ -65,7 +65,7 @@ dd {
 code, pre {
   line-height: 1.5;
   font-size: 14px;
-  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  /*font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;*/
 }
 
 code {
@@ -73,7 +73,16 @@ code {
   vertical-align: middle;
   padding: 0 6px;
   border-radius: 2px;
-  background-color: #EBEBEB;
+  /*background-color: #EBEBEB;*/
+  outline: none;
+}
+
+code.block {
+  margin-top: -18px;
+}
+
+pre code {
+  padding: 0 6px;
 }
 
 mark,
@@ -87,8 +96,9 @@ mark,
   resize: horizontal;
   overflow: auto;
   box-sizing: border-box;
-  background-color: #EBEBEB;
+  /*background-color: #EBEBEB;*/
   margin-bottom: 10px;
+  zoom: 1;
 }
 
 pre {
@@ -98,8 +108,8 @@ pre {
   overflow: auto;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 10px;
-  background-color: #EBEBEB;
+  /*padding: 10px;
+  background-color: #EBEBEB;*/*/
 }
 
 .runcase {

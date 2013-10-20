@@ -76,6 +76,10 @@
 }
 
 .ppt pre {
+  background-color: #F0F0F0;
+}
+
+.ppt pre code {
   max-height: 260px;
 }
 

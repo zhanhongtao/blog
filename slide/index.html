@@ -4,11 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>深入浅出 JavaScript 函数</title>
+  <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/base.css?v=1">
   <link rel="stylesheet" href="./css/app.css?v=1">
   <link rel="stylesheet" href="./css/fullscreen.css">
   <link rel="stylesheet" href="./css/scrollbar.css">
   <link rel="stylesheet" href="./css/animation.function.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+  </script>
 </head>
 <body spellcheck="false">
   <section class="pc-helper content-toggle">
@@ -70,22 +76,19 @@
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code contenteditable="true" class="javascript block">
 function getUserName( user, boolean ) {
   alert( '实参长度: ' + arguments.length );
   user.name = 'browser';
   boolean = false;
 }
 alert( '形参长度: ' + getUserName.length );
-var user = {name: 'sogo' }, boolean = true;;
-getUserName( user, boolean, function() {} );
-alert( 'user: ' + JSON.stringify(user) );
-alert( 'boolean: ' + boolean );
-
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+// var user = {name: 'sogo' }, boolean = true;;
+// getUserName( user, boolean, function() {} );
+// alert( 'user: ' + JSON.stringify(user) );
+// alert( 'boolean: ' + boolean );
+</code>
+<div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>函数参数和返回值</h1>
@@ -122,8 +125,7 @@ alert( 'boolean: ' + boolean );
     <h1>变量作用域 - 闭包</h1>
     <p><strong>函数创建作用域</strong>, 作用域包裹变量.</p>
     <p><a href="https://github.com/zhanhongtao/blog/issues/6" target="_blank">讨论此话题</a></p>
-  <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code contenteditable="true" class="javascript block">
 function createCount(){
   var count = 1;
   return function() {
@@ -133,14 +135,13 @@ function createCount(){
 var count = createCount();
 count(); count(); // 3
 alert( count() ); // 4;
-</pre>
-  <div class="runcase">Run</div>
-  </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+    <div>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
 // 设置字体值. 要求: 最大值为 200, 最小值为 100
 var MIN_FONT_SIZE = 100;
 var MAX_FONT_SIZE = 200;
@@ -152,14 +153,11 @@ function setFontSize( value ) {
 setFontSize( 120 );
 setFontSize( 50 );
 setFontSize( 240 );
-</pre>
-  <div class="runcase">Run</div>
-  </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code contenteditable="true" class="javascript block">
 // 求数据类型.
 function type( s ) {
   var classtype = Object.prototype.toString.call( s );
@@ -168,13 +166,11 @@ function type( s ) {
 alert( [ type(1), type('')] );
 alert( [ type(void(0)), type(null), type([]), type({}) ] );
 alert( [ type(new Date), type(/h/g) ] );
-</pre>
-    <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-<pre>
+<pre><code class="javascript block" contenteditable="true">
 /**
   指定运行时 this.
   Function.prototype.bind
@@ -186,12 +182,12 @@ function bind( func, context ) {
     return func.apply( context || this, arguments );
   };
 }
-</pre>
+</code></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
 <a href="./demo/bind-ie.html" target="_blank">实例(only ie)</a>
-<pre contenteditable="true">
+<pre><code class="javascript block" contenteditable="true">
 if ( document.attachEvent ) {
   document.attachEvent( 'onclick', function() {
     alert( this );
@@ -200,12 +196,11 @@ if ( document.attachEvent ) {
     alert( this );
   }, document);
 }
-</pre>
+</code></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code class="javascript block" contenteditable="true">
 var system = {
   name: 'sogou',
   runcase: function() {
@@ -217,23 +212,21 @@ function getBrowserDataFromServer( cb ) {
   return se.bind( cb, data )();
 }
 alert( getBrowserDataFromServer( system.runcase ) );
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例 - 匿名函数</h1>
-<div class="codebox sub-slide">
-<pre id="anonymous-function-1" contenteditable="true">
+<div class="sub-slide">
+<pre id="anonymous-function-1" class="codebox ">
+<code class="javascript block" contenteditable="true">
 var element = document.getElementById( 'anonymous-function-1' );
 var onClick = function() { alert('onClick'); };
 element.addEventListener( 'click', onClick, false );
 element.addEventListener( 'click', onClick, false );
-</pre>
-  <div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
 <div class="codebox sub-slide">
-<pre id="anonymous-function-2" contenteditable="true">
+<pre id="anonymous-function-2">
+<code class="javascript block" contenteditable="true">
 var element = document.getElementById( 'anonymous-function-2' );
 element.addEventListener( 'click', function() {
   alert('click');
@@ -241,9 +234,7 @@ element.addEventListener( 'click', function() {
 element.addEventListener( 'click', function() {
   alert('click');
 }, false );
-</pre>
-  <div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>其它</h1>
@@ -251,8 +242,8 @@ element.addEventListener( 'click', function() {
       <li>只读 name 属性 - 返回函数名; 匿名函数返回空字符串</li>
       <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
     </ul>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 // 'use strict'
 function getName( user ) {
   try {
@@ -262,33 +253,31 @@ function getName( user ) {
   }
 }
 getName();
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>其它 - 递归</h1>
-    <div data-run="1" class="codebox">
-<pre contenteditable="true">
+    <div>
+<pre data-run="1" class="codebox">
+<code class="javascript block" contenteditable="true">
 function flatArray( array ) {
   var i = 0, l = array.length, result = [], current;
   for ( ; i < l; i++ ) {
     current = array[i];
     // concat 支持单层合并.
-    result = result.concat(type(current) ==='array' ?
+    result = result.concat(se.type(current) ==='array' ?
         flatArray(current) : current );
   }
   return result;
 }
 alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
-</pre>
-  <div class="runcase">Run</div>
-  </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>其它 - 链式调用</h1>
-      <div class="codebox">
-<pre contenteditable="true">
+      <div >
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 // 原理: 函数返回值存在方法
 [1, 2].map(function( item ) {
   return item * 2;
@@ -296,14 +285,13 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
 .forEach(function( item ) {
   alert( item );
 });
-</pre>
-        <div class="runcase">Run</div>
-      </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>其它 - 链式调用</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+    <div>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
 var _ = function( value ) {
   if ( value instanceof _ ) return value;
   if ( !(this instanceof _) ) return new _(value);
@@ -326,8 +314,7 @@ var max = _( [1, 2, 5, 3 ] ).map(function( item ) {
 }).max();
 // var max = _.chain( [1, 2, 5, 3] ).max();
 alert( max );
-</pre>
-    <div class="runcase">Run</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>其它</h1>
@@ -354,8 +341,8 @@ alert( max );
   <section class="content-toggle">
     <h1>partial</h1>
     <p>不完全函数 - <a href="http://benalman.com/news/2012/09/partial-application-in-javascript/" target="_blank">更多</a></p>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 function partial( func ) {
   var argus = [].slice.call( arguments, 1 );
   return function() {
@@ -366,15 +353,13 @@ var add = partial(function( a, b ) {
   return a + b;
 }, 5);
 alert( add(3) ); // 8
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
     <p>用途: 防止重复绑定事件</p>
-    <div class="codebox">
-<pre contenteditable="true" id="demo-once">
+<pre class="codebox" id="demo-once">
+<code contenteditable="true" class="javascript block">
 var element = document.querySelector( '#demo-once' );
 var bindEvents = function() {
   element.addEventListener( 'click', function() {
@@ -384,10 +369,7 @@ var bindEvents = function() {
 // bindEvents = se.once( bindEvents );
 bindEvents();
 bindEvents();
-</pre>
-      <div class="runcase">Run</div>
-    </div>
-
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -397,9 +379,8 @@ bindEvents();
   </section>
   <section class="slide">
     <h1>after 实现</h1>
-    <div class="codebox">
-<pre contenteditable="true">
-  ;(function() {
+<pre class="codebox"><code class="javascript block" contenteditable="true">
+;(function() {
     var func = (function() {
       var space = [];
       var keycodes = [ 83, 79, 71, 79, 85 ];
@@ -439,15 +420,13 @@ bindEvents();
       event = event || window.event;
       func( event.keyCode );
     };
-  })();
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+})();
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>状态机实现</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
 function test( callback ) {
   var index = 0;
   var key = '83,79,71,79,85';
@@ -490,14 +469,12 @@ document.onkeydown = function( event ) {
   event = event || window.event;
   func( event.keyCode );
 };
-</pre>
-      <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-<div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 var array = [ 1, 2 ];
 var func = (function() {
   var argus = [];
@@ -515,9 +492,7 @@ array.forEach(function( item, index ) {
     func( item, index );
   }, (index+1) * 1000 );
 });
-</pre>
-<div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>应用场景</h1>
@@ -529,8 +504,7 @@ array.forEach(function( item, index ) {
   </section>
   <section class="slide">
     <h1>面向切面</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code class="javascript block" contenteditable="true">
 function sendRequest( method ) {
   alert( 'request: ' + method );
   return 1;
@@ -542,14 +516,12 @@ sendRequest = se.wrap( sendRequest, function( next ) {
   return result;
 });
 sendRequest(); // 1;
-</pre>
-    <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 function $( selector ) {
   return document.querySelectorAll( selector );
 }
@@ -566,14 +538,11 @@ $ = se.wrap( $, function(selector, next) {
 $('.slide-cover').each(function(slide) {
   alert(slide.innerHTML);
 });
-</pre>
-    <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="content-toggle">
     <h1>wrap - 模拟once</h1>
-    <div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code contenteditable="true" class="javascript block">
 var a = function() {
   alert(1);
 };
@@ -586,9 +555,7 @@ a = se.wrap( a, function a( next ) {
 
 a();
 a();
-</pre>
-    <div class="runcase">Run</div>
-    </div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -619,45 +586,58 @@ a();
   </section>
   <section class="slide">
     <h1>实例</h1>
-    <div class="codebox">
-<pre contenteditable="true" id="demo-create">
+<div style="position:relative">
+<pre class="codebox"><code id="demo-create" contenteditable="true" class="javascript block">
 var element = document.querySelector( '.demo-case-fixed' );
 var slide = document.querySelector( '#demo-create' );
 var f = se.create( function() {
   element.style.display = 'block';
 }, true, 0);
+var fd = se.create(function() {
+  f.off(function() {
+    element.style.display = 'none';
+  });
+}, true, 0);
+
 var onMouseOver = (function() {
   var timer;
   return function () {
     if ( timer ) {
       clearTimeout( timer );
     }
+    fd.off();
     f.on();
     timer = setTimeout( f.done, 200 );
   };
 })();
-var onMouseOut = function() {
-  f.off(function() {
-    element.style.display = 'none';
-  });
-};
-slide.addEventListener( 'mouseover', onMouseOver, false );
-slide.addEventListener( 'mouseout', onMouseOut, false );
-</pre>
-      <div class="runcase">Run</div>
-      <div class="demo-case-fixed"></div>
-      <style>
-        .demo-case-fixed {
-          display: none;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 50px;
-          height: 50px;
-          background-color: red;
-        }
-      </style>
-    </div>
+var onMouseOut = (function( e ) {
+  var timer;
+  return function() {
+    if ( timer ) clearTimeout( timer );
+    fd.on();
+    timer = setTimeout(function() {
+      fd.done();
+    }, 10);
+  };
+})();
+slide.addEventListener( 'mouseenter', onMouseOver, false );
+slide.addEventListener( 'mouseleave', onMouseOut, false );
+element.addEventListener( 'mouseenter', onMouseOver, false );
+element.addEventListener( 'mouseleave', onMouseOut, false );
+</code><div class="runcase">Run</div></pre>
+  <div class="demo-case-fixed"></div>
+  <style>
+    .demo-case-fixed {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+    }
+  </style>
+</div>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -669,8 +649,7 @@ slide.addEventListener( 'mouseout', onMouseOut, false );
   </section>
   <section class="slide">
     <h1>queue</h1>
-<div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox"><code class="javascript block" contenteditable="true">
 console.time( 'queue' );
 se.queue( [1, 2], function( item, index, ret, next ) {
   setTimeout(function() {
@@ -680,9 +659,7 @@ se.queue( [1, 2], function( item, index, ret, next ) {
   console.timeEnd( 'queue' );
   alert( [ 'result', a, b ].join('-') );
 });
-</pre>
-<div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>实用场景</h1>
@@ -693,8 +670,8 @@ se.queue( [1, 2], function( item, index, ret, next ) {
   </section>
   <section class="slide">
     <h1>sync</h1>
-<div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 console.time( 'sync' );
 se.sync( [1, 2], function( item, index, ret, done ) {
   setTimeout( function() {
@@ -704,14 +681,12 @@ se.sync( [1, 2], function( item, index, ret, done ) {
   console.timeEnd( 'sync' );
   alert( [ 'result', a, b ].join('-') );
 });
-</pre>
-<div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>sync 增强版</h1>
-<div class="codebox">
-<pre contenteditable="true">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
 se.sync( [1, 2, 3, 4, 5], function( item, done ) {
   setTimeout(function() {
     done( item );
@@ -720,9 +695,7 @@ se.sync( [1, 2, 3, 4, 5], function( item, done ) {
   var argus = [].slice.call( arguments );
   alert( argus );
 }, true);
-</pre>
-<div class="runcase">Run</div>
-</div>
+</code><div class="runcase">Run</div></pre>
   </section>
   <section class="slide">
     <h1>参考</h1>

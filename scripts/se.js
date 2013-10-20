@@ -88,8 +88,8 @@
     return base;
   };
 
-  se.bind = Function.prototype.bind || function( f, content ) {
-    return function() {
+  se.bind = function( f, context ) {
+    return f.bind ? f.bind(context) : function() {
       return f.apply( context || this, arguments );
     };
   };
@@ -298,15 +298,15 @@
     }
   }
 
+  // func
+  // check -> 可接收 function/boolean.
+  // time -> 时间区间.
   se.create = function( func, check, time ) {
     var flag = false;
     var hasDone = false;
     var done = function( array ) {
       func.apply( this, array );
       hasDone = true;
-      if ( time == null ) {
-        reset();
-      }
     };
     var reset = function() {
       flag = hasDone = false;
@@ -317,17 +317,21 @@
         return !!old;
       };
     }
+    function timeout() {
+      if ( typeof time == 'number' && time > 0 ) {
+        setTimeout( reset, time * 1000 );
+      }
+    }
     return {
       on: function() {
         if ( !flag && check.apply(this, arguments) ) {
           flag = true;
-          if ( typeof time == 'number' && time > 0 )
-            setTimeout( reset, time * 1000 );
+          timeout();
         }
         return this;
       },
       off: function( callback ) {
-        if ( hasDone || time == null ) {
+        if ( hasDone || (typeof time != 'number' || time <= 0 ) ) {
           if ( typeof callback == 'function' ) {
             callback();
           }
@@ -336,10 +340,18 @@
         return this;
       },
       done: function() {
-        if ( flag && !hasDone ) {
-          done( [].slice.call(arguments) );
+        if ( flag ) {
+          if ( !hasDone ) {
+            done( [].slice.call(arguments) );
+          }
         }
         return this;
+      },
+      state: function() {
+        return {
+          flag: flag,
+          done: hasDone
+        };
       }
     };
   }

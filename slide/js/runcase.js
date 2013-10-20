@@ -20,7 +20,8 @@
     var node = element.firstChild;
     while ( node ) {
       if ( node.nodeType === 1 ) {
-        text += '\n' + innerText( node );
+        // contenteditable 会创建 div.
+        text += ( node.nodeName.toLowerCase() === 'div' ? '\n' : '' ) + innerText( node );
       }
       else if ( node.nodeType === 3 ) {
         text += node.nodeValue;
@@ -86,7 +87,8 @@
     var target = event.target;
     if ( matchesSelector(target, '.runcase') ) {
       var codebox = cloest(target, '.codebox');
-      var pre = codebox.querySelector( 'pre' );
+      // var pre = codebox.querySelector( 'pre' );
+      var pre = codebox.querySelector( 'code' );
       if ( pre ) {
         runcode( innerText(pre) );
         event.stopImmediatePropagation();
@@ -94,15 +96,36 @@
     }
   }, false );
 
+  /*
+    iframe
+    if ( window.document.designMode !== 'on' ) {
+      window.document.designMode = 'on';
+    }
+  */
+
   // @todo: 实现 tab 插入 空格.
   document.addEventListener( 'keydown', function( event ) {
     var target = event.target;
     if ( event.which === 9 || event.keyCode === 9 ) {
-      if ( matchesSelector(target, 'pre[contenteditable=true]') ) {
+      if ( matchesSelector(target, 'code[contenteditable=true]') ) {
+        insertTextAtCursor( '  ' );
         event.preventDefault();
       }
     }
   }, false );
+
+  // from: http://91r.net/ask/16601934.html
+  function insertTextAtCursor(text) {
+    var sel, range, html;
+    sel = window.getSelection();
+    range = sel.getRangeAt(0);
+    range.deleteContents();
+    var textNode = document.createTextNode(text);
+    range.insertNode(textNode);
+    range.setStartAfter(textNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
 
 })();
 
