@@ -95,7 +95,7 @@
       return [ a, b ];
     };
     var xl = x.length;
-    var yl = y.length; 
+    var yl = y.length;
     var i = xl > yl ? yl : xl;
     var ret = [];
     while (i--) ret[i] = f( x[i], y[i] );
@@ -190,8 +190,8 @@
   };
 
   se.debounce = function ( func, wait ) {
-    var old = new Date;
-    var func = typeof func === 'function' ? func : function() {};
+    var old = new Date();
+    func = typeof func === 'function' ? func : function() {};
     var timer;
     function ret() {
       if ( timer ) {
@@ -204,7 +204,7 @@
         func.apply( null, argus );
       }, wait);
       return ret;
-    };
+    }
     return ret;
   };
 
@@ -214,12 +214,12 @@
     var args;
     var context;
     var later = function() {
-      previous = new Date;
+      previous = new Date();
       func.apply( context, args );
     };
     return function() {
-      var now = new Date;
-      if ( previous === 0 ) previous = new Date;
+      var now = new Date();
+      if ( previous === 0 ) previous = new Date();
       args = arguments;
       context = this;
       var remaining = wait - ( now - previous );
@@ -350,7 +350,7 @@
         fn.apply( null, argus );
         i++;
     }
-  }
+  };
 
   se.create = function( func, check, time ) {
     var flag = false;
@@ -396,7 +396,7 @@
         return this;
       }
     };
-  }
+  };
 
   se.delay = function ( func, wait ) {
     var timer;
