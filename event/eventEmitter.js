@@ -18,7 +18,7 @@
 
   var eventEmitter = function () {
 
-    if ( arguments.length == 0 ) {
+    if ( arguments.length === 0 ) {
       return globalEventEmitter || ( globalEventEmitter = new eventEmitter( 'eventEmitter_global' ) );
     }
 
@@ -29,8 +29,8 @@
         result = result.concat( current instanceof Array ? flat(current) : current );
       }
       return result;
-    }  
-    
+    }
+
     var callbacks = {};
     var ckeys = {};
 
@@ -44,7 +44,7 @@
     // listen( name, [f1, f2] );
     // listen( [n1, n2], func );
     // listen( [n1, n2], [f1, f2] );
-    function listen( key ) { 
+    function listen( key ) {
       var funcs = flat( [].slice.call( arguments, 1 ) );
       var keys = [].concat( key );
       for ( var i = 0, l = keys.length; i < l; i++ ) {

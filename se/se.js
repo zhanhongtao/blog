@@ -95,7 +95,7 @@
       return [ a, b ];
     };
     var xl = x.length;
-    var yl = y.length; 
+    var yl = y.length;
     var i = xl > yl ? yl : xl;
     var ret = [];
     while (i--) ret[i] = f( x[i], y[i] );
