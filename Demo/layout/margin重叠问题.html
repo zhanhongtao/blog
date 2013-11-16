@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+	.wrap, .notes{width:400px;margin:0 auto;}
+	.wrap h1{margin:50px 0;color:#64AC0B;border:1px solid #64AC0B}
+	.wrap h2{margin-top:-25px;border:1px solid #6417CC; color:#6417CC}
+	.wrap p{border:1px solid #1BC9AE;margin:40px 0;}
+	.wrap h1+p+p+p{margin:60px 0;}
+	.notes{margin-top:20px;color:#ff7700;}
+    </style>
+</head>
+<body>
+	<div class="wrap">
+		<h1>这里是這些版块的新闻标题</h1>
+		<p>这里是报纸，第一版块</p>
+		<p>这里是报纸，第二版块</p>
+		<p>这里是报纸，第三版块</p>
+		<p>这里是报纸，第四版块</p>
+		<p>这里是报纸，第五版块</p>
+		<h2>这里是这些板块的底部</h2>
+	</div>
+	<p class="notes">
+		Notes:首先在规范中，margin叠加是正常行为，而不是什么bug！通常block元素会出现这种情况！<br />
+		1.先说为什么，假如你把现在这个布局看作一个报纸页面的布局，如果不叠加，那么头部h1就会和下面的第一个板块出现90px的边距，所以叠加是正常的，
+		权威指南里就这么说的。<br />
+		2.2个block元素叠加的时候会取最大值作为二者之间的间距。所以h1和第一个P的间距是50px 而不是40px；或者看第三个p和第二个p的间距<br />
+		3.如果二个叠加block元素中出现一个负值！此时就会是一个的元素的正值外边距减去这个负值外边距的<b>绝对值</b>后的结果，作为二者之间的间距！看h2和最后一个p的间距
+	</p>
+</body>
+</html>

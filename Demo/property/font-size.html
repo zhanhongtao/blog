@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>*font</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 100px;
+    }
+
+    p {
+        *font-size: small; /* IE7 标准模式下, 使用 small */
+        *font: x-small;    /* IE7 quick 模式下, 使用 x-small */
+    }
+
+    span {
+        font-size: x-small;
+    }
+
+    div {
+        font-size: small;
+    }
+    </style>
+</head>
+<body>
+    <span>这里是测试文本, This is test text.</span>
+	<p>这里是测试文本, This is test text.</p>
+    <div>这里是测试文本, This is test text.</div>
+</body>
+</html>

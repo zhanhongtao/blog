@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Margin</title>
+    <style>
+        * { margin: 0;padding: 0;}
+        .box {
+            width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .side {
+            float: left;
+            width: 200px;
+            height: 400px;
+            background: #ff9;
+            padding-bottom: 10000px;
+            margin-bottom: -10000px;
+        }
+
+        .main {
+            overflow: hidden;
+            background: #99f;
+            padding-bottom: 10000px;
+            margin-bottom: -10000px;
+        }
+
+        .test {
+            width: 800px;
+            height: 50px;
+            margin: 0 auto;
+            background: #f90;
+            /* 让附近元素向上移动 */
+            margin-bottom: -25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test"></div>
+    <div class="box">
+        <div class="side"></div>
+        <div class="main"></div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  var foreach = function( array, func ) {
+    try {
+      array.forEach( func );
+    }
+    catch(e) {}
+  }
+  foreach( [1, 2, 3], function( item, index ) {
+    if ( index === 1 ) {
+      throw new Error();
+    }
+    console.log( item, index );
+  });
+
+  console.log( 'haha' );
+</script>
+</body>
+</html>

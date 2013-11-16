@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>background</title>
+<style type="text/css">
+.multi-bg {
+    height: 750px;
+    background-image: url(images/bird.png), url(images/tree.png), url(images/flower.png), url(images/bg.jpg);
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat-x;
+    background-position: 20% 423px, 0 0, 100% 146px, 0 0;
+}
+
+.multi-bg:hover {
+    background-position: -100% 423px, -500% 0, -200% 146px, -600% 0;
+    -moz-transition: background-position 30s linear;
+    -webkit-transition: background-position 30s linear;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="multi-bg"></div>
+</body>
+</html>

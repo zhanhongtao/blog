@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification</title>
+</head>
+<body>
+    <button class="show">Single</button>
+    <button class="author">Multiple</button>
+    <script>
+        var Notification = window.Notification || window.webkitNotification || window.MozNotification;
+        if ( Notification ) {
+
+            // Notification.close();
+            // notification.permission != 'denied'
+            // denied, default, granted
+
+            // 确认是否允许弹窗.
+            function authorize( tag ) {
+                if ( Notification.permission === 'granted' ) {
+                    display( tag );
+                }
+                else if ( Notification.permission != 'denied' ) {
+                    Notification.requestPermission(function( perm ) {
+                        if ( perm === 'granted' ) {
+                            display( tag );
+                        }
+                        else if ( perm === 'denied' ) {
+                            // @todo...
+                        }
+                    });
+                }
+            }
+
+            function display( single ) {
+                var n = new Notification( 'Title', {
+                    titleDir: 'rtl',
+                    icon: './notification.png',
+                    body: 'Maxthon Blog - ' + Math.random(),
+                    bodyDir: 'rtl',
+                    tag: single ? 'single' : '' + Math.random(),
+                    dir: "auto", // auto/ltr/rtl
+                    lang: ""
+                });
+
+                n.onclose = function ( event ) {
+                    console.log( 'close', event );
+                };
+
+                n.onshow = function ( event ) {
+                    console.log( 'show', event );
+                };
+
+                n.onclick = function ( event ) {
+                    window.focus();
+                    console.log( 'click', event );
+                    n.close();
+                };
+
+                n.onerror = function ( event ) {
+                    console.log( 'error', event );
+                };
+            }
+
+            document.querySelector( '.show' ).onclick = function () {
+                authorize( 'single' );
+            };
+
+            document.querySelector( '.author' ).onclick = function () {
+                setTimeout(function() {
+                    authorize();
+                }, 1000 * 5 );
+                // authorize();
+            };
+        }
+
+    </script>
+</body>
+</html>

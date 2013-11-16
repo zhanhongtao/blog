@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>属性选择器样式演示</title>
+    <style type="text/css">
+
+
+        .t1 [foo],                /* 具有 foo 属性的元素 */
+        .t2 [foo="bar"],        /* 具有 foo 属性, 并且属性值为 bar */
+        .t3 [foo~="bar"],        /* 具有 foo 属性, 并且属性使用空格分隔后, 其中有值等于 bar */
+        .t4 [foo^="bar"],        /* 具有 foo 属性, 并且以 start 字符开头 */
+        .t5 [foo$="bar"],        /* 具有 foo 属性, 并且以 end 字符结束 */
+        .t6 [foo*="bar"],        /* 具有 foo 属性, 并且其值包含 contain 字符 */
+        .t7 [foo|="bar"]        /* 具有 foo 属性, 并且以 - 线分隔, 并且 en 开头 */
+        {
+            background-color: #BBB;
+            color: #000;
+            padding: 10px;
+        }
+        body {
+            font-size: 14px;
+        }
+        .wrap {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>属性选择器样式演示</h1>
+    测试属性选择器：
+    <select name="" id="property">
+        <option value="t1">[foo]</option>
+        <option value="t2">[foo="bar"]</option>
+        <option value="t3">[foo~="bar"]</option>
+        <option value="t4">[foo^="bar"]</option>
+        <option value="t5">[foo$="bar"]</option>
+        <option value="t6">[foo*="bar"]</option>
+        <option value="t7">[foo|="bar"]</option>
+    </select>
+    <div class="wrap">
+        <p foo>当前元素为： p[foo]</p>
+        <p foo="bar">当前元素为： p[foo=bar]</p>
+        <p foo="en bar cn">当前元素为: p[foo="en bar cn"]</p>
+        <p foo="bartest">当前元素：p[foo=bartest]</p>
+        <p foo="testbar">当前元素： p[foo=testbar]</p>
+        <p foo="abbarc">当前元素： p[abbarc]</p>
+        <p foo="bar-ab">当前元素： p[foo=bar-ab]</p>
+        <p foo="ab bar-ab">当前元素： p[foo="ab bar-ab"]</p>
+    </div>
+
+    <div class="wrap">
+    <pre>
+	[foo],              /* 具有 foo 属性的元素 */
+	[foo="bar"],        /* 具有 foo 属性, 并且属性值为 bar */
+	[foo~="bar"],       /* 具有 foo 属性, 并且属性使用空格分隔后, 其中有值等于 bar */
+	[foo^="bar"],       /* 具有 foo 属性, 并且以 start 字符开头 */
+	[foo$="bar"],       /* 具有 foo 属性, 并且以 end 字符结束 */
+	[foo*="bar"],       /* 具有 foo 属性, 并且其值包含 contain 字符 */
+	[foo|="bar"]        /* 具有 foo 属性, 并且以 - 线分隔, 并且 en 开头 */
+    </pre>
+    </div>
+
+    <script type="text/javascript">
+        var select = document.getElementById('property');
+        var body = document.getElementsByTagName('body')[0];
+
+        function setClass(cls) {
+            body.className = cls;
+        }
+
+        var cls = select.value;
+        setClass(cls);
+
+        select.onchange = function (e) {
+            var cls = this.value;
+            setClass(cls);
+        };
+
+    </script>
+</body>
+</html>

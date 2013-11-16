@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>center</title>
+  <style>
+  * { margin: 0; padding: 0 }
+  .box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba( 0, 0, 0, 0.6 );
+    text-align: center;
+  }
+  .outer {
+    width: 100%;
+    height: 100%;
+  }
+  .outer:after {
+    content: '';
+    display: inline-block;
+    zoom: 1;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+  }
+  .inner {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="outer">
+      <div class="helper"></div>
+      <div class="inner">
+        github.com <br />
+        <img src="http://www.baidu.com/img/bdlogo.gif" alt="百度 logo">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

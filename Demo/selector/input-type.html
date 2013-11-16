@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>form style</title>
+    <style type="text/css">
+    :disabled {
+        color: #FFF;
+        background: #000;
+        border: 0 none;
+        padding: 5px 10px;
+    }
+
+    :enabled {
+        padding: 4px 9px;
+        border: 1px solid green;
+        font-weight: 700;
+    }
+
+    :enabled:focus {
+        outline: none;
+    }
+
+    :checked + label {
+        font-weight: 700;
+    }
+
+    </style>
+</head>
+<body>
+	<form action="/">
+        <input type="text" value="disable" disabled />
+        <input type="text" value="enabled" />
+        <input id="check1" type="radio" name="rd" checked />
+            <label for="check1">@redky</label>
+        <input type="radio" id="check2" name="rd" />
+            <label for="check2">@ad</label>
+    </form>
+</body>
+</html>

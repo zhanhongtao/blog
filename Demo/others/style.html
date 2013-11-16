@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>cssText</title>
+    <style>
+        .wrap {
+            /* style 中样式, 不会被 cssText 冲掉 */
+            font-weight: 700;
+        }
+    </style>
+    <link rel="stylesheet" href="csstext.css" />
+</head>
+<body>
+    <!--
+        elem.style.cssText 修改元素的全部行内样式
+        elem.style.display 仅修正行内样式中的 display 属性.
+    -->
+    <div class="wrap">.wrap [cssText 方式设置: color: red; background: #888;]</div>
+    <button>Click-> 修改 cssText. 为 color: red;</button>
+    <button>click-> 修正 .wrap style.color -> black</button>
+    <button>click-> 还原为默认样式</button>
+	<script>
+        var wrap = document.querySelector('.wrap');
+        wrap.style.cssText = 'color: red; background: #888;';
+
+        var btn = document.querySelectorAll('button');
+        btn[0].addEventListener('click', function () {
+            wrap.style.cssText = 'color: red;';
+        }, false);
+
+        btn[1].addEventListener('click', function () {
+            wrap.style.color = 'black';
+        }, false);
+
+        btn[2].addEventListener('click', function () {
+            wrap.style.cssText = 'color: red; background: #888;';
+        }, false);
+
+    </script>
+</body>
+</html>

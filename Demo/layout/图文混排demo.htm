@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://ofcss.com/cssdemo/imgtxt.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>图文混排demo</title>
+<style type="text/css">
+    body {text-align:center;margin:0 auto;}
+    body,ul,ol,li,h1,h2,h3,h4,h5,h6,th,td{font-size:12px;line-height:1.2;margin:0;padding:0;}
+    ul,ol,li{list-style:none;line-height:1.6;}
+    ol, ol li {margin-left:1em;list-style:decimal;}
+    ol {margin-bottom:10px;}
+    p {margin:0 0 10px 0;}
+    a:link, a:visited {text-decoration:none;color:#3A8638;}
+    a:hover {text-decoration:underline;}
+    .col {width:550px;margin:20px auto;text-align:left;}
+    .mod {margin: 0 0 10px 0;border:1px solid #ccc;}
+    .mod .hd h3 {line-height:25px;height:25px;font-weight:bold;text-indent:0.5em;background-color:#e9e9e9;}
+    .mod .bd {padding:8px;}
+    pre {width:100%;overflow:hidden;}
+    /* 图文混排模块 */
+    .img-txt:before,
+    .img-txt:after {
+      content: ".";
+      display: block;
+      height: 0;
+      visibility: hidden;
+    }
+    .img-txt:after {clear: both;}
+    .img-txt {zoom: 1;}
+    .img-txt .img {float:left;margin-right:10px;_margin-right:7px;}
+    .img-txt .txt {
+        display:table-cell;
+        #zoom:1;
+    }
+    .img-txt .txt:after {
+        clear: both;
+        display: block;
+        visibility: visible;
+        overflow: hidden;
+        height: 0 !important;
+        line-height: 0;
+        font-size: xx-large;
+        content: " x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";
+    }
+    
+    /* 溢出内容测试 */
+    .card-wrap {position:relative;#zoom:1;}
+    .card-wrap .info {position:absolute;width:400px;left:60px;top:-5px;border:1px solid #ccc;padding:8px;background-color:#DFE4F4}
+    .triangle-border, .triangle {position:absolute;width:0;height:0;line-height:99;font-size:0;overflow:hidden;border-style:dotted solid dotted dotted;border-width:8px 8px 8px 0;}
+    .triangle-border {border-color:transparent #ccc transparent transparent;top:0;left:-8px;}
+    .triangle {border-color:transparent #DFE4F4 transparent;top:0;left:-7px;}
+</style>
+</head>
+<body>
+	<div class="col">
+        <div class="mod">
+            <div class="hd">
+                <h3>图片加大段多行文字</h3>
+            </div>
+            <div class="bd">
+                <div class="img-txt">
+                    <div class="img">
+                        <img src="./图文混排demo_files/100x100.png" alt="demo image">
+                    </div>
+                    <div class="txt">
+                        <p>我们这个自适应两列图文布局模块，要满足以下要求：</p>
+                        <ol>
+                            <li>非浮动栏不会环绕浮动的图片栏</li>
+                            <li>无论非浮动栏内容多少（甚至内容为空），这一栏都要占满浮动元素留下的全部空间</li>
+                            <li>当非浮动栏内有定位元素溢出容器时，要予以显示</li>
+                        </ol>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at leo et velit viverra fringilla. Fusce mollis gravida orci nec vehicula. Morbi congue eros eu nisl gravida volutpat ac molestie diam. Donec luctus justo at erat blandit eleifend. In vel diam vitae elit viverra venenatis. Nulla facilisi. Fusce urna tortor, tincidunt at molestie et, blandit et felis. Praesent eu nulla et massa pellentesque tristique eu non velit. Sed blandit, eros ut fermentum mollis, sem urna ullamcorper eros, et vulputate nisi ante non quam. Donec in massa ut nunc sollicitudin mollis id eget massa. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mod">
+            <div class="hd">
+                <h3>图片加很少量文字</h3>
+            </div>
+            <div class="bd">
+                <div class="img-txt">
+                    <div class="img">
+                        <img src="./图文混排demo_files/100x100.png" alt="demo image">
+                    </div>
+                    <div class="txt">
+                        <p><a href="http://ofcss.com/cssdemo/imgtxt.html#">小李刀刀</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mod">
+            <div class="hd">
+                <h3>图片加复杂结构&amp;定位溢出</h3>
+            </div>
+            <div class="bd">
+                <div class="img-txt">
+                    <div class="img">
+                        <img src="./图文混排demo_files/100x100.png" alt="demo image">
+                    </div>
+                    <div class="txt">
+                        <div class="card-wrap">
+                            <p><a href="http://ofcss.com/cssdemo/imgtxt.html#">小李刀刀</a></p>
+                            <div class="info">
+                                <ul>
+                                    <li><label>英 文 名：</label><span>Kairee Wu</span></li>
+                                    <li><label>博　　客：</label><a href="http://ofcss.com/">http://ofcss.com/</a></li>
+                                    <li><label>行　　业：</label><span>互联网</span></li>
+                                    <li><label>一度人脉：</label><span>329</span></li>
+                                    <li><label>二度人脉：</label><span>13298</span></li>
+                                    <li><label>开通应用：</label><span>58个</span></li>
+                                </ul>
+                                <span class="triangle-border"></span>
+                                <span class="triangle"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body></html>

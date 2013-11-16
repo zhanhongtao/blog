@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>get computedStyle(x, y) style</title>
+    <style type="text/css">
+        #rd {
+            width: 100px;
+            height: 100px;
+            background: #999;
+        }
+        #rd:after {
+            content: '';
+            width: 120px;
+            height: 120px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="rd"></div>
+	<script type="text/javascript">
+        var link = document.getElementById('rd');
+        var style;
+        if (document.defaultView) {
+            style = window.getComputedStyle(link, ':after'); // firefox.
+            console.log(style.width);
+        }
+        else {
+            style = link.currentStyle.width;
+            alert(hoverstyle);
+        }
+    </script>
+</body>
+</html>

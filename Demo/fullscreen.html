@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Full Screen</title>
+</head>
+<body>
+    <button class="toggle">Toggle Full Screen</button>
+    <script>
+        function toggleFullScreen() {
+            if ( !document.fullscreenElement &&
+                !document.webkitFullscreenElement
+            ) {
+                if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                }
+            }
+            else {
+                if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+            }
+        }
+        // @NOTE: 需要用户触发.
+        document.querySelector( '.toggle' ).onclick = toggleFullScreen;
+    </script>
+</body>
+</html>

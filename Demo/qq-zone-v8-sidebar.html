@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>qzone</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 100px;
+    }
+    a:after {
+      content: '.';
+      display: block;
+      height: 0;
+      visibility: hidden;
+      margin-top: -1em;
+    }
+    div {
+      padding: 8px 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="http://www.github.com/">
+    <div>github.com</div>
+  </a>
+  <script>
+    document.querySelector( 'a' ).focus();
+  </script>
+</body>
+</html>

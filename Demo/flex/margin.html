@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>margin</title>
+  <style>
+    section {
+      display: -webkit-flex;
+      background: #eee;
+      margin: 10px;
+    }
+
+    .b1, .b2, .b3 {
+      width: 100px;
+      height: 100px;
+    }
+
+    .b1 { background-color: #333;}
+    .b2 { background-color: #666;}
+    .b3 { background-color: #999;}
+
+    .p1 .b1 {
+      margin: auto;
+    }
+    .p2 .b1 {
+      margin-left: auto;
+    }
+    .p3 .b1 {
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+<section class="p1">
+  <div class="b1"></div>
+  <div class="b2"></div>
+  <div class="b3"></div>
+</section>
+<section class="p2">
+  <div class="b1"></div>
+  <div class="b2"></div>
+  <div class="b3"></div>
+</section>
+<section class="p3">
+  <div class="b1"></div>
+  <div class="b2"></div>
+  <div class="b3"></div>
+</section>
+</body>
+</html>

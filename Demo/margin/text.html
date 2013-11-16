@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>margin + absolute 实现文本内容自适应效果</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        span {
+            position: absolute;
+            margin-left: -24px;
+        }
+
+        li {
+            margin-left: 24px;
+        }
+
+        ul {
+            width: 240px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+	<ul>
+		<li><span>一</span>内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区</li>
+		<li><span>二</span>内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区</li>
+		<li><span>三</span>内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区</li>
+		<li><span>四</span>内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区内容区</li>
+	</ul>
+</body>
+</html>

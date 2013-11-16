@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://ued.koubei.com/wp-content/uploads/2010/08/negative_margin_layout.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>负边距自适应布局</title>
+<style>
+/* clearfix start */
+.clearfix:after{content:'\20';display:block;height:0;clear:both;}
+.clearfix{zoom:1;}
+/* clearfix end */
+.wrap{}
+.section{float:left;margin-right:-40em;width:100%;}
+.g1{margin-right:310px;float:none;width:auto;position:static;}
+.g2{float:right;margin-left:-40em;width:100%;}
+.main{margin-left:210px;float:none;width:auto;position:static;overflow:auto;background:red;}
+.left{float:left;width:200px;position:relative;background:orange;}
+.aside{float:right;width:300px;position:relative;background:lime;}
+</style>
+</head>
+<body>
+<h1>负边距自适应布局</h1>
+<h2>文档结构顺序：主体部分、左侧栏、右侧栏</h2>
+<div class="wrap clearfix">
+	<div class="section">
+	  <div class="g1">
+	    <div class="g2">
+	      <div class="main">
+	        <h3>主体部分</h3>
+	        <p>主体部分自适应填充剩余空间</p>
+	      </div>
+	    </div>
+	    <div class="left">
+	      <h3>左侧栏</h3>
+	      <p>左侧栏默认宽度为 200 像素</p>
+	    </div>
+	  </div>
+	</div>
+	<div class="aside">
+	  <h3>右侧栏</h3>
+	  <p>右侧栏默认宽度为 300 像素</p>
+	</div>
+</div>
+<h2>文档结构顺序：左侧栏、主体部分、右侧栏</h2>
+<div class="wrap clearfix">
+	<div class="section">
+	  <div class="g1">
+	    <div class="left">
+	      <h3>左侧栏</h3>
+	      <p>左侧栏默认宽度为 200 像素</p>
+	    </div>
+	    <div class="g2">
+	      <div class="main">
+	        <h3>主体部分</h3>
+	        <p>主体部分自适应填充剩余空间</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="aside">
+	  <h3>右侧栏</h3>
+	  <p>右侧栏默认宽度为 300 像素</p>
+	</div>
+</div>
+<h2>文档结构顺序：右侧栏、左侧栏、主体部分</h2>
+<div class="wrap clearfix">
+	<div class="aside">
+	  <h3>右侧栏</h3>
+	  <p>右侧栏默认宽度为 300 像素</p>
+	</div>
+	<div class="section">
+	  <div class="g1">
+	    <div class="left">
+	      <h3>左侧栏</h3>
+	      <p>左侧栏默认宽度为 200 像素</p>
+	    </div>
+	    <div class="g2">
+	      <div class="main">
+	        <h3>主体部分</h3>
+	        <p>主体部分自适应填充剩余空间</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+<h2>文档结构顺序：右侧栏、主体部分、左侧栏</h2>
+<div class="wrap clearfix">
+	<div class="aside">
+	  <h3>右侧栏</h3>
+	  <p>右侧栏默认宽度为 300 像素</p>
+	</div>
+	<div class="section">
+	  <div class="g1">
+	    <div class="g2">
+	      <div class="main">
+	        <h3>主体部分</h3>
+	        <p>主体部分自适应填充剩余空间</p>
+	      </div>
+	    </div>
+	    <div class="left">
+	      <h3>左侧栏</h3>
+	      <p>左侧栏默认宽度为 200 像素</p>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+</body></html>

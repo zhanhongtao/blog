@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+        .hack {
+            color: red;
+            color: #BBB\A;
+            color: blue\0; /* ie 8,9 */
+            color: #ffff00\9\0;
+            #color: green;
+            -color: black;
+        }
+    </style>
+
+    <p class="hack">这里的颜色显示情况, 反映浏览器使用情况.</p>
+</body>
+</html>

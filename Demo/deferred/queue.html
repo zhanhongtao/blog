@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Queue</title>
+    <style type="text/css">
+    div {
+        width: 100px;
+        height: 100px;
+        background: #999;
+    }
+    </style>
+</head>
+<body>
+    <div></div>
+	<script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+    var divs = $(document);
+    var list = [
+        function (next) {
+            next();
+        },
+        function (next) {
+            $('div').animate({'margin-top': '100px'}, 2000, function () {
+                next();
+            });
+        },
+        function () {
+            $('div').animate({'margin-left': '100px'}, 2000);
+        }
+    ];
+    divs.queue(list);
+    divs.dequeue();
+    </script>
+</body>
+</html>

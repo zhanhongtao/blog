@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>兄弟相关选择器</title>
+    <style type="text/css">
+    p {
+        margin: 5px 0;
+        padding: 5px;    
+    }
+
+    .t1 .wrap p,
+    .t2 .wrap>p,
+    .t3 .sub+p,
+    .t4 .sub~p {
+        background: #888;
+        color: #FFF;
+    }
+    </style>
+</head>
+<body class="t4">
+    <h1>嵌套, 子元素, 相邻元素, 后兄弟元素选择器演示</h1>
+    测试选择器：
+    <select name="" id="property">
+        <option value="请选择">请选择</option>
+        <option value="t1">E F ----- .wrap p</option>
+        <option value="t2">E>F ----- .wrap>p</option>
+        <option value="t3">E+F ----- sub+p</option>
+        <option value="t4">E~F ----- .sub~p</option>
+    </select>
+    <div class="wrap">
+    	<p>1级元素: .wrap>p</p>
+    	<p>1级元素: .wrap>p</p>
+        <div class="sub">
+            <p>2级元素: .wrap>.sub>p</p>
+            <p>2级元素: .wrap>.sub>p</p>
+            <p>2级元素: .wrap>.sub>p</p>
+            <p>2级元素: .wrap>.sub>p</p>
+        </div>
+    	<p>1级元素: .wrap>p</p>
+    	<p>1级元素: .wrap>p</p>
+    </div>
+    
+    <script type="text/javascript">
+        var select = document.getElementById('property');
+        var body = document.getElementsByTagName('body')[0];
+
+        function setClass(cls) {
+            body.className = cls;
+        }
+
+        var cls = select.value;
+        setClass(cls);
+
+        select.onchange = function (e) {
+            var cls = this.value;
+            setClass(cls);
+        };
+    </script>
+</body>
+</html>

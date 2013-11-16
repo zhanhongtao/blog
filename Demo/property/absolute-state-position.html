@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>行内元素/块内元素, 包含 position: absolute;</title>
+    <style type="text/css">
+        * {margin: 0;padding:0}
+        .wrap {background: #000; overflow: hidden; padding: 100px;}
+        .line {padding: 10px;}
+
+        span {position: absolute; width: 16px; height: 16px;background: red;margin-left: -21px;}
+        a.inline {padding: 4px 0;padding-left: 24px;background: #fdd;}
+        a.inline-block {padding: 4px 0;padding-left: 24px;background: #fdd; display: inline-block; #display: inline; #zoom: 1;}
+        a.block {padding: 4px 0;padding-left: 24px;background: #fdd; display: block;}
+
+        /*
+            webkit 下, 行内元素包含 position: absolute; 时,
+            定位元素从 padding 开始算起;
+            而其它浏览器从 content 开始算起;
+         */
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="#" class="inline"><span></span>Maxthon</a>
+        <div class="line"></div>
+        <a href="#" class="inline-block"><span></span>Maxthon</a>
+        <div class="line"></div>
+        <a href="#" class="block"><span></span>Maxthon</a>
+    </div>
+</body>
+</html>

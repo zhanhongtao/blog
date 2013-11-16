@@ -1,0 +1,18 @@
+
+
+
+
+.list {
+    position: relative;
+}
+
+
+/* 
+ * ZeroClipboard 在绑定样式时, 使用 class 
+ * 和 css 绑定, 默认是打开的.
+ */
+.list li:hover,
+.list .hover {
+    background: #ffa;
+}
+

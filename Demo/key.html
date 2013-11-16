@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+#sq{
+	width:30px;
+	height:30px;
+	background-color:red;
+}
+</style>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight || ( de && de.clientHeight ) ||document.body.clientHeight;
+}
+function windowWidth() {
+    var de = document.documentElement;
+    return self.innerWidth || ( de && de.clientWidth ) ||document.body.clientWidth;
+}
+function conLeft(ele){
+	var xpos=parseInt(ele.style.left,10);
+	xpos=xpos-30;
+	xpos=xpos<0?0:xpos;
+	ele.style.left=xpos+'px';
+}
+function conTop(ele){
+	var xpos=parseInt(ele.style.top,10);
+	xpos=xpos-30;
+	xpos=xpos<0?0:xpos;
+	ele.style.top=xpos+'px';
+}
+function conRight(ele){
+	var xpos=parseInt(ele.style.left,10);
+	xpos=xpos+30;
+	var winWidth=windowWidth();
+	xpos=xpos>(winWidth-30)?(winWidth-30):xpos;
+	ele.style.left=xpos+'px';
+}
+function conBottom(ele){
+	var xpos=parseInt(ele.style.top,10);
+	var winHeight=windowHeight();
+	xpos+=30;
+	xpos=xpos>(winHeight-30)?(winHeight-30):xpos;
+	ele.style.top=xpos+'px';
+}
+
+function keyDown(e){
+	var oSq=document.getElementById('sq');
+	//37 38 39 40;
+	switch(e.keyCode){
+		case 37:conLeft(oSq);break;
+		case 38:conTop(oSq);break;
+		case 39:conRight(oSq);break;
+		case 40:conBottom(oSq);break;
+	}
+}
+window.onload=function(){
+	var oSq=document.getElementById('sq');
+	oSq.style.position='absolute';
+	oSq.style.left='200px';
+	oSq.style.top='200px';
+	document.onkeydown=keyDown;
+};
+</script>
+</head>
+<body>
+<div id="sq"></div>
+</body>
+</html>

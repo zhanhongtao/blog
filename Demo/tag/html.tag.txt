@@ -1,0 +1,254 @@
+
+
+
+
+html tag:
+http://dev.w3.org/html5/markup/iframe.html
+http://www.w3.org/Style/CSS/current-work
+http://dev.w3.org/html5/markup/elements-by-function.html
+http://dev.w3.org/html5/markup/elements.html
+
+
+html - lang, dir[ltr/rtl] - bdo 标签[css]
+    manifest - application cache manifest
+
+document metadata.
+head
+title
+base - href + target[_blank, _self, _top, _parent].
+link[href/rel="stylesheet"/type="text/css"],
+    http://dev.w3.org/html5/spec/links.html#rel-alternate
+    <link rel="shortcut icon" href="xxx.ico" type="image/x-icon">
+    http://dev.w3.org/html5/spec/links.html#linkTypes
+    type: alternate, author, bookmark, help, icon, license, nofollow, noreferrer, prefetch, search, stylesheet, tag, next, prev
+    rel, hreflang, media[http://www.w3.org/TR/css3-mediaqueries/, http://www.w3.org/TR/2009/CR-css3-mediaqueries-20090915/], sizea
+    http://dev.w3.org/html5/markup/link.html#link
+
+    DNS 预解析
+    <link rel="dns-prefetch" href="http://www.google-analytics.com/">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    https://developer.mozilla.org/En/Controlling_DNS_prefetching
+    http://dev.chromium.org/developers/design-documents/dns-prefetching
+
+    <link rel="canonical" href="https://twitter.com/" />
+    规范网页是一组内容高度相似的网页的首选版本。
+    http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=139394
+
+    告诉搜索引擎, es.example.com 是当前版本的复制版本.
+    <link rel="alternate" hreflang="es" href="http://es.example.com/" />
+    http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=189077&topic=2370587&ctx=topic
+
+    <link rel="next" href="http://www.example.com/article-part3.html">
+    <link rel="prev" href="http://www.example.com/article-part1.html">
+meta
+    <meta name="xxx" content="xxx" />
+    http://dev.w3.org/html5/markup/meta.name.html
+    name: keywords, generator, description, author, application-name.
+    <meta http-equiv="refresh" url="xxx" />
+    <meta charset="utf-8" />
+    <meta http-equiv="default-style" content="" />
+    <meta http-equiv="content-type" content="text/html" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">[old]
+
+    "Nofollow"向网站管理员提供了一种方式，即告诉搜索引擎"不要追踪此网页上的链接"或"不要追踪此特定链接"。
+    <a href="signin.php" rel="nofollow">sign in</a>
+    <a href="http://blog.example.com" rel="me">我的博客</a>
+    <meta name="robots" content="nofollow" />
+    http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=96569&topic=2371375&ctx=topic
+
+    <meta name="robots" content="NOODP">为防止所有支持元标记的搜索引擎使用此信息生成网页描述
+    <meta name="googlebot" content="NOODP">要特别防止 Google 使用此信息生成网页描述
+    <meta name="googlebot" content="NOODP, nofollow">如果您使用漫游器元标记提供其他说明，可以结合使用这些元标记
+    http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=35624&topic=2371375&ctx=topic
+
+    防止网页编入索引.
+    <meta name="robots" content="noindex">
+    仅防止 google
+    <meta name="googlebot" content="noindex">
+
+    <meta name="application-name" content="Gmail">
+    <meta name="application-url" content="https://mail.google.com/mail/u/0">
+    <meta name="google" content="notranslate">
+
+    不缓存资源.
+    <meta http-equiv="pragma" content="no-cache" />
+
+    xml/feed:
+    <link rel="alternate" type="application/atom+xml" title="Gmail Atom Feed" href="feed/atom">
+style
+    http://dev.w3.org/html5/markup/style.html#style
+    type[text/css], rel[stylesheet], media[all, screen,], scoped
+
+scripting.
+script
+    type[text/javascript, 非前者时下载不解析-template], src, defer[推迟], async[异步], charset. 注意: language 被废弃.
+noscript
+
+Sections.
+body, section, nav, article, aside, h1-h6, hgroup, header, footer, address.
+body
+    onafterprint, onbeforeprint, onbeforeunload, onblur, onerror, onfocus,
+    onhashchange, onload, onmessage, onoffline, onpopstate, onresize, onstorage, onunload
+section: 文档中一块, 体现在有标题.
+nav: section 中的导航, 链接到其它文档或其它 section.
+article: 内容中块.
+aside: 与主内容不太相关的内容区.
+hgroup: 内嵌 h1-h6, 可多个.
+header: section 中的标题 - 不能存在于 footer, address, header 之中.
+footer: section 中的 foot[页脚].
+address: 联系方式.
+
+grouping content.
+p, hr, br, pre, blockquote, ol, ul, dl, dt, dd, figure, figcaption, div.
+hr: html5 中语义 - (paragraph-level thematic break)
+blockquote:
+    cite: uri.
+ol: start[integer], reversed = "reversed", type[1, a, A, i, I]
+li: value[integer]
+
+Text-Level:
+a, em, strong, small, s, cite, q, dfn, abbr, time, code, var, samp,
+kbd, sub, sup, i, b, u, mark, ruby, rt, rp, bdi, bdo, span.
+a:
+    href[mailto: redky@qq.com, JavaScript:xxx;, #name],
+    title, target, rel[next, prev], media[not print], hreflang,
+    html5: 可内嵌块元素.
+    css:
+        a:link, a:visited {}
+        a:active, a:focus, a:hover {}
+    a[title, href, rel, tabindex, name, type, mailto, target, next, prev, contents, copyright, noflow, bookmark]
+q: cite
+time: datetime[date, time, date&time]
+kbd: 表示用户输入文本.
+mark: 黄色标记.
+dfn: 术语定义.
+ruby + rt + rp -> http://dev.w3.org/html5/markup/ruby.html#ruby
+samp: 与上下文有关, 表示强调.
+
+Edits
+ins, del.
+
+Embedded content:
+img, iframe, embed, object, param, video,, audio, source, track, canvas, map, area.
+img: src, alt, title[global-attributes], height, width, usemap[http://dev.w3.org/html5/markup/datatypes.html#common.data.hash-name], ismap. [onerror]
+    配合 map 标签使用
+    area: http://dev.w3.org/html5/markup/area.html#area
+    <img src="1183247876_VVrDyqwAtlQV.gif" width="100" height="120" border="0" usemap="#Map" />
+    <map name="Map" id="Map">
+        <area shape="rect" coords="36,80,77,119" href="http://www.baidu.com" target="_blank" />
+        <area shape="circle" coords="52,36,24" href="http://www.qq.com" target="_blank" />
+        <area shape="rect" coords="6,51,33,120" href="http://www.iconpng.com/" target="_blank" />
+    </map>
+
+iframe: width, height, sandbox[allow-forms, allow-scripts, allow-top-navigation, allow-same-origin], seamless="seamless"
+
+<object type="application/x-shockwave-flash" data="xxxx" width="280" height="224">
+    <param name="wmode" value="transparent">
+    <param name="movie" value="xxxxxxx" width="280" height="224">
+    <embed src="xxxxxx" width="280" height="224" border="0" align="center" wmode="transparent">
+</object>
+
+<!-- preload: none, metadata, auto -->
+<audio src="nobody.mp3" autoplay preload="metadate" controls loop mediagroup="" muted="">
+    浏览器不支持 Audio 标签.
+</audio>
+muted: 有此属性就会静音.
+controls: 显示音频控制条. [进度/声音等]
+src: 音频文件地址.
+autoplay: 自动播放.
+loop: 循环播放.
+preload: 预加载.
+    none: 默认不加载, 可按需加载; JavaScript 可控制加载.
+    medadata: 加载 meta 信息. 在播放效颦之间, 页面显示元数据.
+    auto: auto 加载.
+
+<audio controls>
+    <source src="xxxx.ogg" type="audio/ogg; codecs=vorbis">
+    <source src="xxxx.mp3" type="audio/mpeg">
+</audio>
+source: 浏览器会从中选择资源, 从上到下, 直到找到合适的音频.
+注: 可以通过  JavaScript 来操作控制条.
+
+track: 表示字幕. + 跟 video + source 使用. [default, kind, label, src, srclang]
+
+
+
+Tables:
+table, caption, colgroup, col, tbody, thead, tfoot, tr, th, td
+
+Forms:
+form, fieldset, legend, label, input, select, datalist, optgroup, option,
+textarea, keygen, output, progress, meter.
+
+datalist: input 中的 list 属性与 datalist 的id 属性绑定.
+<input list="test" name="username" />
+<datalist id="test">
+    <option value="zhan"></option>
+    <option value="redky"></option>
+</datalist>
+
+output: 操作结果值.(语义) [name, value, for(表示与 output 关联的元素), form[id]]
+
+https://developer.mozilla.org/en/HTML/Element/keygen
+<keygen name="name" challenge="challenge string" keytype="type" keyparams="pqg-params">
+
+progress: 表示进度.
+    <progress value="10" max="100"></progress>
+
+meter: 表示容量; 空间, 电池等;
+    <meter min="1" max="100" low="15" high="75" optimum="80" value="40"></meter>
+    最小值, 最大值, 临界值, 最适合值[越接近越好], 当前值.
+    low 值下, 黄色提示.
+    正常为绿色.
+    不在 optimum 范围内, 红色.
+    http://dev.w3.org/html5/markup/meter.html#meter
+input:
+    text/password/hidden/checkbox/radio/submit/reset/image/file/
+    datetime/datetime-local/date/month/time/week/number/range/email/url/search/tel/color/search
+form[method/target/action/accept-charset/enctype(enctype="multipart/form-data")]
+    action="///i/tweet/create_with_media.iframe".
+button[submit, reset, button]
+option[seleced/label/innerHTML]
+label[for]
+
+Interactive elements:
+details, summary, command, menu.
+
+http://dev.w3.org/html5/markup/common-models.html#common.elem.phrasing
+
+<!--[if IE 6]>
+    if lte ie 8
+    xxxx
+<![endif]-->
+
+一些属性:
+http://dev.w3.org/html5/markup/global-attributes.html
+global: spellcheck, draggable, hidden, id, style, class, lang, dir, title,
+tabindex, contextmenu, contenteditable, accesskey, dropzone[copy/move/link]
+hidefocus[ie], itemid, itemprop, itemref, itemscope, itemtype
+
+autocomplete, checked, disabled, autofocus, size,
+readonly, placeholder, required, novalidate, maxlength, email,
+url, min, max, month, week, time, datetime, range, number[step, min, max]
+
+浏览器相关:
+<!--[if IE 9 ]>
+<meta name="application-name" content="淘宝网 - 淘！我喜欢" />
+<meta name="msapplication-tooltip" content="淘宝网 - 淘！我喜欢" />
+<meta name="msapplication-task" content="name=淘宝商城;action-uri=http://www.tmall.com/;icon-uri=http://img02.taobaocdn.com/tps/i2/T1bZNxXjXjXXXXXXXX.png" />
+<meta name="msapplication-task" content="name=聚划算;action-uri=http://ju.taobao.com/index.htm;icon-uri=http://www.taobao.com/favicon.ico" />
+<meta name="msapplication-task" content="name=登录;action-uri=https://login.taobao.com/member/login.jhtml;icon-uri=http://www.taobao.com/favicon.ico" />
+<meta name="msapplication-navbutton-color" content="#FF6600" />
+<link rel="shortcut icon" href="http://www.taobao.com/favicon2.ico" type="image/x-icon" />
+<![endif]-->
+
+其它:
+链接中 #!/  google 会以 ajax 网站抓取.
+http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=174992
+aria-hidden 属性. gmail 有用到.
+http://www.w3.org/TR/wai-aria/states_and_properties
+
+
+

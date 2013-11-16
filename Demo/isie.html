@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title> IE 条件注释 </title>
+</head>
+<body>
+    <h1>正在使用浏览器</h1>
+    <!--
+        条件注释测试.
+        使用 ie 10 浏览器测试
+        IE10 浏览器模式:
+            文档模式:
+                标准模式, Quirks: 非 IE.
+                IE9, IE8, IE7, IE5 Quirks: IE 10.
+        IE10 兼容性视图模式:
+            文档模式:
+                标准模式, Quirks: 非 IE.
+                IE9, IE8, IE7, IE5 Quirks: IE 7.
+
+        IE9/8/7 浏览器模式:
+            文档模式:
+                标准模式, Quirks: 非 IE.
+                IE9, IE8, IE7, IE5 Quirks: IE 9/8/7.
+
+
+        使用 IE 9 浏览器测试
+        IE 9 兼容模式下:
+            文档模式:
+                IE9, IE8, IE7, Quirks: IE7.
+        IE 9,8,7 标准模式下：
+            文档模式:
+                IE9, IE8, IE7, Quirks: IE9.
+
+        使用 IE 6 浏览器测试(201)
+        IE6 浏览器模式: IE6.
+    -->
+    <!--[if IE 6]>
+        <h2>IE 6</h2>
+    <![endif]-->
+
+    <!--[if IE 7]>
+        <h2>IE 7</h2>
+    <![endif]-->
+
+    <!--[if IE 8]>
+        <h2>IE 8</h2>
+    <![endif]-->
+
+    <!--[if IE 9]>
+        <h2>IE9</h2>
+    <![endif]-->
+
+    <!--[if IE 10]>
+        <h2>IE 10</h2>
+    <![endif]-->
+
+    <!--[if gt IE 6]>
+        <h2>IE 版本高于 6</h2>
+    <![endif]-->
+
+    <!--[if gt IE 10]>
+        <h2>IE 版本高于 10</h2>
+    <![endif]-->
+
+    <!--[if lt IE 10]>
+        <h2>IE 版本低于 10</h2>
+    <![endif]-->
+
+    <!--
+        使用 /*@cc_on @*/ 是否可处理 JavaScript来判断是否为 IE 系列浏览器.
+    -->
+
+    <!--[if !IE]><!-->
+        <script type="text/javascript">
+            var html = '<h2>非 IE </h2>';
+            if (/*@cc_on !@*/0) {
+                html = '<h2>IE 浏览器( version >= 10 )</h2>';
+            }
+            document.write( html );
+        </script>
+    <!--<![endif]-->
+
+    <!--[if IE]>
+        <h2>IE 系列浏览器</h2>
+    <![endif]-->
+
+</body>
+</html>
