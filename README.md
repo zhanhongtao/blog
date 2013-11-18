@@ -10,3 +10,4 @@
 * [司马](https://github.com/bravf)
 * [离谱](http://jsfiddle.net/user/ganksolo/fiddles/) [(原)](http://www.cnblogs.com/anychem/)
 * [Eric](http://www.zuoby.com/)
+* [石头](https://github.com/zhanhongtao/blog)
