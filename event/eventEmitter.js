@@ -1,5 +1,3 @@
-
-
 ;(function( name, definition ) {
   var hasDefine = typeof define === 'function',
     hasExports = typeof module !== 'undefined' && module.exports;
@@ -15,11 +13,16 @@
 
   var globalEventEmitter;
   var debug = false;
+  var eventsMap = {};
 
-  var eventEmitter = function () {
+  var eventEmitter = function ( name ) {
 
-    if ( arguments.length === 0 ) {
-      return globalEventEmitter || ( globalEventEmitter = new eventEmitter( 'eventEmitter_global' ) );
+    if ( typeof name !== 'string' ) {
+      name = '';
+    }
+
+    if ( eventsMap[name] ) {
+      return eventsMap[ name ];
     }
 
     function flat( array ) {
@@ -129,7 +132,7 @@
       listen( key, wrap );
     }
 
-    return {
+    eventsMap[ name ] = {
       on: listen,
       bind: listen,
       listen: listen,
@@ -152,7 +155,9 @@
       }
     };
 
+    return eventsMap[ name ];
   };
+
   return eventEmitter;
 });
 
