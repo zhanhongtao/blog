@@ -47,6 +47,8 @@
       </ul>
     </div>
   </section>
+  <section class="slide" style="background:url(./css.png) no-repeat 50% 50%; background-size: contain">
+  </section>
   <section class="slide">
     <div class="head">
       <h1>HTML 编码</h1>
@@ -65,9 +67,9 @@
     </div>
     <div class="body">
       <ul>
-        <li><a href="http://0334.0265.0157.0125">0334.0265.0157.0125(八进制表示)</a></li>
-        <li><a href="&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;">&amp;#x0068;&amp;#x0074;...(十六进制)</a></li>
-        <li><a href="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;">&amp;#104;&amp;#116;&amp;#116;&amp;#112;&amp;#58;...(八进制)</a></li>
+        <li><a href="http://0334.0265.0157.0125">0334.0265.0157.0125(8进制表示)</a></li>
+        <li><a href="&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;">&amp;#x0068;&amp;#x0074;...(16进制)</a></li>
+        <li><a href="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;">&amp;#104;&amp;#116;&amp;#116;&amp;#112;&amp;#58;...(10进制)</a></li>
         <li><a href="http://033455267525">http://033455267525(ip - 8 -join- 16)</a></li>
         <li><a href="http://www.sogou.com/web?query=京东">http://www.sogou.com/web?query=京东</a></li>
         <li><a href="http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C">http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C (encodeURI)</a></li>
@@ -80,11 +82,10 @@
     </div>
     <div class="body">
       <ul>
-        <li>以 \x 开头的十六进制表示.</li>
-        <li>支持 c 语言编码: \b 表示退格. \t, \n ...</li>
-        <li>支持三位数字: \145 -> 8进制表示. [!ECMAScript]</li>
-        <li>支持两位数字: \x64 -> 16进制.[!ECMAScript]</li>
-        <li>支持四位数字: unicode 编码. \u0065 [ECMAScript]</li>
+        <li title="前导为 \u, 且长度为 4 位的 16 进制表示">支持 unicode 表示 - \u0065. [ECMAScript]</li>
+        <li>支持以 \x 开头的十六进制表示.</li>
+        <li>支持以 \ 开头的 8 进制表示.</li>
+        <li>支持 c 语言编码: \b 表示退格. \n ...</li>
       </ul>
     </div>
   </section>
@@ -98,10 +99,11 @@
   </section>
   <section class="slide">
     <div class="head">
-      <h1>参考</h1>
+      <h1>其它</h1>
     </div>
     <div class="body">
       <ul>
+        <li><a href="./utils.html" target="_blank">编码相关工具</a>
         <li><a href="http://webdesign.about.com/od/localization/l/blhtmlcodes-ascii.htm">HTML实体</a></li>
         <li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">腾讯实例教程：那些年我们一起学XSS</a></li>
         <li><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" target="_blank">XSS_Filter_Evasion_Cheat_Sheet</a></li>
