@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>html-css-javascript</title>
+  <style>
+    body { 
+      width: 800px;
+      margin: 0 auto; 
+      font: 18px Verdana,Microsoft YaHei,Helvetica,Arial,Sans-Serif; 
+      line-height: 1.5
+    }
+    h1, h2, h3 { margin: 20px 0 }
+    h2 { color: #61809c }
+    h3 { color: #375b7d }
+    code { background: #617c97; color: #fff; border-radius: 3px; padding: 2px 4px}
+    code.block { display: block; padding: 10px }
+    a, a:visited { color: #333; text-decoration: none }
+    a:hover, a:active { text-decoration: underline }
+  </style>
+  <script src="../jquery-1.11.0.min.js"></script>
+  <script src="../template/rTemplate.js"></script>
+</head>
+<body>
+  <!--
+    * 多个 body 标签会合并.
+    * 多个 type 属性时使用首个.
+    * 标签和属性之间的分隔符有并且有多个空格,/等.
+    * 属性和属性值中的 = 号两边可以存在空格.
+    * 属性值可使用 ', ", `(ie) 包含, 或者不让任何字符包含.
+    * javascript: 伪协议之间可以有空格. javascript: javas   cript:
+    * javascript 中, function 关键字和函数名之间可以有 /* */ 注释. function/*xxx*/name() {}
+  -->
+  <!-- html -->
+  <h1>Web 前端之编码</h1>
+  
+  <h2>URL 编码</h2>
+  <!-- 
+    / ? # 
+    @ :
+    URL 解析 
+    
+    1. 除层级url标记符 - 字符串 // 应该算跟在协议名后面的 如果发现有该字符 则会跳过该字符 如果没有找到便不管了！
+        http:baidu.com 可访问.
+    2. 以 / ? # (谁先出现就以谁为准)来截取信息 - 得到授权信息.
+    2.1 授权部分信息提取出来后，在截取出来的信息里再来查找 @ 如果找到了 那么他前面的部分便是登陆信息！登陆信息再查找 : (冒号) 冒号前面的便是账号 后面便是密码！
+    2.2 提取目标地址: 授权信息部分剩下的便是目标地址, 第一个冒号分开的就算主机名跟端口！用方括号括起来的就是ipv6地址，这也是个特例！
+            ftp://admin:admin@192.168.1.100:21
+            使用 ftp: 协议, 以 admin/admin 登录主机 192.168.1.100, 端口号为 21.
+    3. 确定路径信息. 以(?#结尾)结束, 最后以unix路径语义进行规范化整理.
+       bug: 授权信息后可存在 / 和 . 字符.
+    4. 提取 Query 部分. 遇到 # 或字符串结束为止.
+    5. 提取 hash 部分.
+    @NOTE: 
+    部分浏览器会把 \ 当作 / 解析. 而 firefox 不会.
+    http://xss.com;.baidu.com -> 会被解析为 http://xss.com/;.baidu.com/
+    @NOTE:
+    //www.baidu.com/ ->
+    根据当前页面协议适配 - > http://www.baidu.com/
+    
+    使用 ip 地址直接访问.
+    使用 ip 地址的 16 进制直接访问.
+    使用 ip 地十的 8 进制直接访问.
+    
+    url 可使用编码.
+    1、http://example.com/
+    2、http://%65xample.%63om/
+    3、http://%65%78%61%6d%70%6c%65%2e%63%6f%6d/
+
+    下面地址解析
+    http://xss1.com&action=test@www.baidu.com
+    -> http://www.baidu.com/
+  -->
+  <ul>
+    <li><a href="http://www.sogou.com/">http://www.sogou.com/</a></li>
+    <li><a href="http://www.sogou.com/.">http://www.sogou.com/.</a></li>
+    <li><a href="http://www.sogou.com/..">http://www.sogou.com/..</a></li>
+    <li><a href="http:www.sogou.com/">http:www.sogou.com/</a></li>
+    <li><a href="http://baidu.com@www.sogou.com/">http://baidu.com@www.sogou.com/</a></li>
+    <li><a href="http://220.181.111.85/">http://220.181.111.85/</a></li>
+    <li><a href="http://0334.0265.0157.0125">0334.0265.0157.0125</a></li>
+    <li><a href="&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;">&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;</li>
+    <li><a href="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;">&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;</li>
+    <li><a href="//www.sogou.com/">//www.sogou.com/</a></li>
+    <li><a href="http://033455267525">033455267525</a></li>
+    <li><a href="http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C">http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C</a></li>
+    <li><a href="http://www.sogou.com/web?query=京东">http://www.sogou.com/web?query=京东</a></li>
+  </ul>
+    
+  <h2>HTML 编码</h2>
+  <ul>
+    <li>支持实体表示 - <code>&amp;copy;</code>(&copy;)</li>
+    <li>十六进制表示 - <code>&amp;#xa9;</code>(&#xa9;)</li>
+    <li>十进制表示 - <code>&amp;#169;</code>(&#169;)</li>
+    <li>十进制/十六进制表示后的 ; 可以省略. <code>&amp;#169&amp;#xa9</code>(&#169&#xa9)</li>
+  </ul>
+  <!--
+    过滤 <, > ', ", &, /, #, \ 字符
+    & -> &amp;
+    < -> &lt;
+    > -> &gt;
+    " -> &quot;
+    ' -> &#39;
+    / -> &#x2F;
+    \ -> &#x5C;
+  -->
+  <h2>HTML 中的 JavaScript 代码</h2>
+  <h3>在 html 属性中</h3>
+  <ul>
+    <li><code>&lt;a href="javascript:alert('&amp;lt;&amp;gt;');">click&lt;/a></code> <a href="javascript:alert('&lt;&gt;');">click</a></li>
+    <li><code>&lt;a href="jav&amp;#x09;ascript:alert(1);">click&lt;/a></code><a href="java&#x09;script:alert(1);">click</a></li>
+    <li><code>&lt;a href="jav&amp;#9;ascript:alert(1);">click&lt;/a></code><a href="javas&#9;cript:alert(1)">click</a></li>
+    <li><code>&lt;a href="&amp;#32;javascript:alert(1);">click&lt;/a></code><a href="&#32;javascript:alert(1);">click</a></li>
+    <li><code>&lt;a href="&amp;#9;javascript:alert(1);">click&lt;/a></code><a href="&#9;javascript:alert(1);">click</a></li>
+    <li><code>&lt;a href="javascript:alert&amp;#40;1&amp;#41;">click&lt;/a></code><a href="javascript:alert&#40;1&#41;">click</a></li>
+    <li><code>&lt;a href="javascript:alert&amp;#40;'\&amp;#x27;'&amp;#41;">click&lt;/a></code><a href="javascript:alert&#40;'\&#x27;'&#41;">click</a></li>
+    <li><code>&lt;a href="javascript:alert&amp;#40;'\u0073\u006f\u0067\u006f\u0075'&amp;#41;">click&lt;/a></code><a href="javascript:alert&#40;'\u0073\u006f\u0067\u006f\u0075'&#41;">click</a></li>
+    <li><code>&lt;a href="" onclick="alert('&amp;lt;&amp;gt;')">click&lt;/a></code><a onclick="alert('&lt;&gt;')">click</a></li>
+    <li><code>&lt;script src=data&amp;colon;,alert('&amp;lt;')>&lt;/script></code><scri\pt src=data&colon;,alert('&lt;')></script></li>
+  </ul>
+
+  <h3>在 script 标签中</h3>
+<pre><code class="block">&lt;script>
+  var element = document.getElementById('htmljs');
+  var a = '&amp;lt;img src=http://ie.sogou.com/app/images/app/user.png /&amp;gt;';
+  var b = '&lt;img src=http://ie.sogou.com/app/images/app/user.png />';
+  element.innerHTML = a + b;
+&lt;/script></code>
+</pre>
+<div id="htmljs"></div>
+<script>
+  var element = document.getElementById('htmljs');
+  var a = '&lt;img src=http://ie.sogou.com/app/images/app/user.png /&gt;';
+  var b = '<img src=http://ie.sogou.com/app/images/app/user.png />';
+  element.innerHTML = a + b;
+</script>
+
+  <h3>不解析的标签</h3>
+  <code>title/textarea/iframe/noscript/noframes</code>
+
+  <h3>实例</h3>
+  <img src="http://www.baidu.com/img/bdlogo.gif" alt="">
+  <img src="&#x68;&#x74;&#x74;&#x70;&#x3a;&#x2f;&#x2f;&#x77;&#x77;&#x77;&#x2e;&#x62;&#x61;&#x69;&#x64;&#x75;&#x2e;&#x63;&#x6f;&#x6d;&#x2f;&#x69;&#x6d;&#x67;&#x2f;&#x62;&#x64;&#x6c;&#x6f;&#x67;&#x6f;&#x2e;&#x67;&#x69;&#x66; " alt="">
+  <img src="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#98;&#97;&#105;&#100;&#117;&#46;&#99;&#111;&#109;&#47;&#105;&#109;&#103;&#47;&#98;&#100;&#108;&#111;&#103;&#111;&#46;&#103;&#105;&#102;" alt="">
+  
+  <h2>CSS</h2>
+  <p>支持 \65, \065, \000065 格式编码 - 16 进制</p>
+  
+  <h2>JavaScript</h2>
+  <ul>
+    <li>以 \x 开头的十六进制表示.</li>
+    <li>支持 c 语言编码: \b 表示退格. \t ...</li>
+    <li>支持三位数字: \145 -> 8进制表示. [!ECMAScript]</li>
+    <li>支持两位数字: \x64 -> 16进制. c 语言支持.[!ECMAScript]</li>
+    <li>支持四位数字: unicode 编码. \u0065 [ECMAScript]</li>
+  </ul>
+  <p> unicode 编码方式, 不止在字符串中可用, 还可以在代码中使用. ex: <code>\u0061lert('alert');</code> </p>
+
+  <h3>实例：行内 JavaScript</h3>
+<pre>
+  <code class="block"><!--  
+-->&lt;a href="javascript:alert(1)//alert(2);">click!&lt;/a> 
+&lt;a href="javascript:alert(1)-test">click!&lt;/a></code>
+</pre>
+<ul>
+  <li><a href="javascript:alert(1)//alert(2);">javascript:alert(1);//alert(2)</a></li>
+  <li><a href="javascript:alert(1)-test">javascript:alert(1)-test</a></li>
+</ul>
+
+<script type="text/javascript">
+  function encode( string, base, left, right, digit, filter ) {
+    left = left || '';
+    right = right || '';
+    digit = digit || 0;
+    var ret = '';
+    var i = 0, padding = 0;
+    typeof filter !== 'function' && (filter = function() {
+      return 1;
+    });
+    for ( var l = string.length; i < l; i++ ) {
+      var char = string.charCodeAt(i);
+      if ( filter(char) ) {
+        char = char.toString( base );
+        padding = digit - String(char).length + 1;
+        if ( padding < 1 ) padding = 0;
+        ret += left + new Array(padding).join('0') + char + right;      
+      }
+      else {
+        ret += char;
+      }
+    }
+    return ret;
+  }
+</script>
+
+<script type="text/html">
+  var a = 'sogou';
+  // JavaScript 支持 8, 10, 16, unicode 编码.
+  var a8 = eval( '"' + encode( a, 8, '\\', '', 0 ) + '"' );
+  var a10 = encode( a, 10, '&#', ';', 0 );
+  var a16 = encode( a, 16, '&#x', ';', 0 );
+  var a162 = eval( '"' + encode( a, 16, '\\x', '', 0 ) + '"' );
+  var au = eval( '"' + encode( a, 16, '\\u', '', 4 ) + '"' );
+  document.write( [ a, a8, a10, a16, a162, au ].join( '<br />' ) );
+</script>
+
+<h3>实例： href/src 编码</h3>
+<script id="js-tmpl" type="text/html">
+  <ul>
+    <% for ( var i = 0, l = context.length; i < l; i++ ) { %>
+      <% var item = context[i]; %>
+      <li><a href="<%&item.href%>" target="_blank"><%=item.text%></a></li>
+    <%}%>
+  </ul>
+</script>
+<div id="js-result"></div>
+
+<script 2type="text/html">
+  var htmlEncode = function( code ) {
+    var entityMap = {
+      // @NOTE: 防止 html 实体, 以及其它进制表示.
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': '&quot;',
+      // @NOTE: &apos; 不是标准 HTML 标签.
+      // 使用 16 进制表示.
+      "'": '&#x27;',
+      // @NOTE: / 字符是 html 标签结束字符.
+      // 需要编码, 防止把数据写在 html 标签属性部分.
+      "/": '&#x2F;',
+      "\\": '&#x5c;'
+    };
+    return String(code).replace(/[&<>"'\/\\]/g, function( key ) {
+      return entityMap[ key ];
+    });
+  };
+  var href = 'http://www.baidu.com/" onclick=alert(1)//';
+  var section = document.getElementById('js-tmpl');
+  var data = [
+    { href: href, text: 'replace' },
+    { href: href.replace(/['"]/g, '\\$&'), text: 'Reg\\' },
+    { href: encodeURIComponent(href), text: 'encodeURIComponent' },
+    { href: htmlEncode(href), text: 'htmlEncode' }
+  ];
+  document.getElementById('js-result').innerHTML = rTemplate.render( section.innerHTML, data );
+</script>
+  
+</body>
+</html>

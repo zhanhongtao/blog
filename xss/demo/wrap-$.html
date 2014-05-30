@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>wrap - $</title>
+</head>
+<body>
+<div class="slide"></div>
+<div class="slide"></div>
+<div class="slide"></div>
+<div class="slide"></div>
+<script src="../js/functional.js"></script>
+  <script>
+    var $ = function( selector ) {
+      return document.querySelectorAll( selector );
+    };
+    $ = wrap( $, function(selector, next) {
+      var core = next();
+      return {
+        each: function( func ) {
+          for( var i = 0, l = core.length; i < l; i++ ) {
+            func( core[i], i );
+          }
+          return this;
+        }
+      };
+    });
+    $ = wrap( $, function(next) {
+      var prototype = next();
+      prototype.log = function() {
+        console.log.apply( console, arguments );
+      }
+      return prototype;
+    });
+
+    $( '.slide' ).each(function( item ) {
+      console.log( item );
+    }).log( 'haha' );
+  </script>
+</body>
+</html>

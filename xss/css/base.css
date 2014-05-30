@@ -1,0 +1,130 @@
+
+
+body {
+  font: 16px/1.5 "lucida Grande", Verdana;
+  color: #34362E;
+}
+
+a, a:active {
+  text-decoration: none;
+  color: #2988B4;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1, .ppt .h1 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.ppt h1 {
+  font-size: 6vh;
+}
+
+h2, .ppt .h2 {
+  font-size: 22px;
+}
+
+h3, .ppt .h3 {
+  font-size: 20px;
+}
+
+h4, .ppt .h4 {
+  font-size: 18px;
+}
+
+h5, .ppt .h5 {
+  font-size: 16px;
+}
+
+h6, .ppt .h6 {
+  font-size: 12px;
+}
+
+p, ul, ol {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 5px 0 0 20px;
+}
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dd {
+  margin: 0 0 5px;
+}
+
+code, pre {
+  line-height: 1.5;
+  font-size: 14px;
+  /*font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;*/
+}
+
+code {
+  font-size: 2.5vh;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px 10px;
+  border-radius: 2px;
+  outline: none;
+}
+
+code.block {
+  margin-top: -18px;
+}
+
+pre code {
+  padding: 5px 10px;
+}
+
+mark,
+.mark {
+  padding: 0 6px;
+  font-size: 14px;
+}
+
+.codebox {
+  position: relative;
+  resize: horizontal;
+  overflow: auto;
+  box-sizing: border-box;
+  background-color: #EBEBEB;
+  zoom: 1;
+}
+
+pre {
+  margin: 0;
+  display: block;
+  outline: none;
+  overflow: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /*padding: 10px;
+  background-color: #EBEBEB;*/*/
+}
+
+.runcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+
+.body {
+  margin-left: 20px;
+}

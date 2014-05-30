@@ -1,0 +1,30 @@
+textarea {
+  float: left;
+  height: 200px;
+  width: calc( 50% - 10px );
+  box-sizing: border-box;
+  resize: vertical;
+}
+textarea#result {
+  margin-left: 20px;
+}
+
+#body:after {
+  content: '\20';
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+#body { zoom: 1 }
+
+#foot {
+  margin: 20px 0
+}
+
+#foot style { 
+  display: block;
+  padding: 10px 0;
+}
+
+button  { margin: 5px 0; padding: 4px 10px; cursor: pointer }

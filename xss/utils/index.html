@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>utils</title>
+  <link rel="stylesheet" href="all.css">
+</head>
+<body>
+  <section id="head">
+    <h1>编码</h1>
+    <div class="encode">
+      <button id="encode216">encode216</button>
+      <button id="encode210">encode210</button>
+      <button id="encode28">encode28</button>
+      <button id="encodeX">encodex216</button><br />
+      <button id="decode" data-base="16" data-left="&#x" data-right=";">decode216</button>
+      <button id="decode" data-base="10" data-left="&#" data-right=";">decode210</button>
+      <button id="decode" data-base="8" data-left="\\" data-right="">decode28</button>
+      <button id="decode" data-base="16" data-left="\\x" data-right="">decode2x16</button>
+    </div>
+    <div class="base64">
+      <button id="base64Encode">base64Encode</button>
+      <button id="base64Decode">base64Decode</button>
+    </div>
+    <div class="html">
+      <button id="htmlEncode">htmlEncode</button>
+      <button id="htmlDecode">htmlDecode</button>
+    </div>
+    <div class="system">
+      <button id="escape">escape</button>
+      <button id="unescape">unescape</button>
+    </div>
+    <div class="unicode">
+      <button id="unicode">unicode</button>
+      <button id="decode" data-base="16" data-left="\\u" data-right="">decode</button>
+    </div>
+    <div class="ip">
+      <button id="ipcode">ip28</button>
+    </div>
+  </section>
+  <section id="body">
+    <textarea id="code"></textarea>
+    <textarea id="result"></textarea>
+  </section>
+  <section id="foot">
+    <h1>CSS editor</h1>
+    <style contenteditable>
+      body { background-color: #ffa }
+    </style>
+  </section>
+  <script src="jquery-1.11.0.min.js"></script>
+  <script src="system.js"></script>
+  <script src="base64.js"></script>
+  <script src="ip.js"></script>
+  <script src="jscode.js"></script>
+  <script src="decode.js"></script>
+  <script src="htmlcode.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
