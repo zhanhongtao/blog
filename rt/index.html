@@ -35,7 +35,8 @@
 
 <script type="text" id="tmpl-js">
   <%# 支持使用 JavaScript 内置方法 %>
-  <%= it.toUpperCase() + '_' + $.now() %>
+  <%= it.toUpperCase() + '_' + $.now() 
+  %>
 </script>
 
 <script type="text" id="tmpl-array">
@@ -72,12 +73,44 @@
 
 <script type="text" id="tmpl-usertag">
   {{#支持用户自定义 tag}}
-  {{=it}}
+  {{=it}}<br />
+  {{# 或在模板中直接转回去 }}{{@<% %>@}}
+  <%= it %>
 </script>
 
 <script src="../jquery-1.11.0.min.js"></script>
-  <script src="rt.js"></script>
+<script src="rt.js"></script>
 <script>
+
+if ( typeof JSON === 'undefined' ) {
+  jQuery.extend({
+    stringify: function stringify(obj) {
+      var t = typeof (obj);
+      if (t != "object" || obj === null) {
+        // simple data type
+        if (t == "string") obj = '"' + obj + '"';
+        return String(obj);
+      } else {
+        // recurse array or object
+        var n, v, json = [], arr = (obj && obj.constructor == Array);
+        
+        for (n in obj) {
+          v = obj[n];
+          t = typeof(v);
+          if (obj.hasOwnProperty(n)) {
+            if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = jQuery.stringify(v);
+            json.push((arr ? "" : '"' + n + '":') + String(v));
+          }
+        }
+        return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+      }
+    }
+  });
+  var JSON = {
+    parse: $.parseJSON,
+    stringify: $.stringify
+  };
+}
 
 rt.prefix = function( string ) {
   return '@' + string;
@@ -137,9 +170,6 @@ var cases = [
     data: 'rt javascript template',
     before: function() {
       rt.tags = [ '{{', '}}' ];
-    },
-    after: function() {
-      rt.tags = [ '<%', '%>' ];
     }
   }
 ];
@@ -155,19 +185,21 @@ var create = function( tmpl, data, index ) {
 
 $.each( cases, function( index, item ) {
   if ( item.before ) item.before();
-  create( $(item.tmpl).html().trim(), item.data, index );
+  create( $.trim($(item.tmpl).html()), item.data, index );
   if ( item.after ) item.after();
 });
 
 $( '.demo' ).on( 'input', 'textarea', function(e) {
   var wrap = $( e.delegateTarget );
   var tmpl = wrap.find( '.tmpl' ).val();
-  var data = JSON.parse( wrap.find( '.data' ).val().trim() );
+  var data = JSON.parse( $.trim(wrap.find( '.data' ).val()) );
   var result = wrap.find( '.result' );
   try {
     result.html( rt.render(tmpl, data) );
   }
-  catch(e) {}
+  catch(e) {
+    console.log( e );
+  }
 });
 
 </script>
