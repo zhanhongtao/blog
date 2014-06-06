@@ -1,0 +1,14 @@
+dd { margin-left: 10px }
+body { margin: 0; background-color: #eee;}
+li, p { line-height: 1.4 }
+h1 { margin: 0.5em 0; font-size: 1.4em; }
+h2 { margin: 0.3em 0; font-size: 1.2em; }
+#box {
+  padding: 10px 20px;
+}
+#blog dl {
+  overflow: hidden;
+}
+#blog dd, #blog dt { 
+  float: left;
+}

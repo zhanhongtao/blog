@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>note</title>
+  <link rel="stylesheet" href="index/index.css">
+  <meta name="viewport" content="width=device-width" />  
+  <base target="_blank" />
+</head>
+<body>
+  <div id="box"></div>
+  <script type="text" id="tmpl-about">
+  <div id="about">
+    <h1><%= it.title %></h1>
+    <ul>
+    <% for ( var i = 0, l = it.list.length; i < l; ++i ) { %>
+      <% var item = it.list[i]; %>
+      <li><%= item.label %>: 
+        <% if ( !item.type || item.type === "text" ) { %>
+          <%= item.value %>
+        <% } else if ( item.type === "email" ) { %>
+          <a href="mailto:<%= item.value %>" target="_self"><%= item.value %></a>
+        <% } else if ( item.type === "link" ) { %>
+          <a href="<%= item.value %>"><%= item.value %></a>
+        <% } %>
+      </li>
+    <% } %>
+      <li>Tags: <%= it.label.join( "," ) %></li>
+    </ul>  
+  </div>
+</script>
+  
+  <script type="text" id="tmpl-blog">
+  <div id="blog">
+    <h1><%= it.title %></h1>
+    <p><%= it.description %></p>
+    <dl>
+      <dt>标签:</dt>
+      <% for ( var i = 0, l = it.labels.length; i < l; ++i ) { %>
+        <dd><a href="<%= 
+          it.address + '&labels=' + it.labels[i] 
+        %>"><%= it.labels[i] %></a></dd>
+      <% } %>
+    </dl>
+    <ul>
+      <% var shares =it.shares; %>
+      <% for ( var i = 0, l = shares.length; i < l; ++i ) { %>
+        <% var item = shares[i]; %>
+        <li><a href="<%= item.address %>"><%= item.title %></a>
+          <% if ( item.code ) { %>
+            (<a href="<%= item.code %>">code</a>)
+          <% } %>        
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</script>
+
+<script type="text" id="tmpl-github">
+  <div id="github">
+    <h1>Github</h1>
+    <% var repositories = it.repositories %>
+    <% for ( var i = 0, l = repositories.length; i < l; ++i ) { %>
+    <% var item = repositories[i]; %>
+      <div class="git-item">
+        <h2><%= item.title %></h2>
+        <p><%= item.description %></p>
+        <ul>
+          <li>address: <a href="<%= item.address %>"><%= item.address %></a></li>
+          <li>demo: <a href="<%= item.demo %>"><%= item.demo %></a></li>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+</script>
+<script src="index/rt.js"></script>
+<script src="index/index.js"></script>
+</body>
+</html>
