@@ -42,6 +42,7 @@
         %>"><%= it.labels[i] %></a></dd>
       <% } %>
     </dl>
+    <h2>分享</h2>
     <ul>
       <% var shares =it.shares; %>
       <% for ( var i = 0, l = shares.length; i < l; ++i ) { %>
@@ -66,8 +67,8 @@
         <h2><%= item.title %></h2>
         <p><%= item.description %></p>
         <ul>
-          <li>address: <a href="<%= item.address %>"><%= item.address %></a></li>
-          <li>demo: <a href="<%= item.demo %>"><%= item.demo %></a></li>
+          <li>address: <a href="<%= item.address %>"><%= item.title %></a></li>
+          <li>demo: <a href="<%= item.demo %>">demo</a></li>
         </ul>
       </div>
     <% } %>

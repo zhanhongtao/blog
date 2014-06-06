@@ -26,7 +26,7 @@ var about = {
 };
 
 var blog = {
-  title: 'blog',
+  title: 'Blog',
   description: '记录工作生活的点点滴滴',
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'css', 'node', 'other', 'xss' ],
@@ -36,7 +36,7 @@ var blog = {
       address: 'http://zhanhongtao.github.io/blog/xss/#0'
     },
     {
-      title: 'queue - javascript-es3/promise/coroutine',
+      title: 'queue - promise/coroutine',
       address: 'http://zhanhongtao.github.io/blog/queue/'
     },
     {

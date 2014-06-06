@@ -1,6 +1,8 @@
-dd { margin-left: 10px }
+dd { margin: 5px 10px 0 0 }
 body { margin: 0; background-color: #eee;}
-li, p { line-height: 1.4 }
+ul { padding: 0; margin: 0 }
+li { list-style-position: inside }
+li, p { line-height: 1.4;}
 h1 { margin: 0.5em 0; font-size: 1.4em; }
 h2 { margin: 0.3em 0; font-size: 1.2em; }
 #box {
@@ -9,6 +11,6 @@ h2 { margin: 0.3em 0; font-size: 1.2em; }
 #blog dl {
   overflow: hidden;
 }
-#blog dd, #blog dt { 
+#blog dd { 
   float: left;
 }

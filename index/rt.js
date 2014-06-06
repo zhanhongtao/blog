@@ -235,7 +235,7 @@
       
       // @remove.
       // @only for test!
-      value = value.trim();
+      // value = value.trim();
       
       if ( textReg.test(token[0]) ) {
         value = value.replace( escaper, function( match ) {
