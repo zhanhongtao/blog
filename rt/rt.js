@@ -12,8 +12,6 @@
   }
 }(this, function ( rt ) {
   'use strict';
-
-  // Scanner 对象 - 来自 Mustache.js
   /**
    * A simple string scanner that is used by the template parser to find
    * tokens in template strings.
@@ -106,31 +104,10 @@
     ];
   }
 
-  var entityMap = {
-    // @NOTE: 防止 html 实体, 以及其它进制表示.
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    // @NOTE: &apos; 不是标准 HTML 标签.
-    // 使用 16 进制表示.
-    "'": '&#x27;',
-    // @NOTE: / 字符是 html 标签结束字符.
-    // 需要编码, 防止把数据写在 html 标签属性部分.
-    "/": '&#x2F;',
-    "\\": '&#x5c;',
-    '%': '&#x0025;'
-  };
-  function escapeHtml(string) {
-    return ('' + string).replace(/[&<>"'\/\\%]/g, function( key ) {
-      return entityMap[key];
-    });
-  }
-
   var whiteRe = /\s*/;
   var spaceRe = /\s+/;
   var changeTagRe = /\s*@/;
-  var tagRe = /#|&|=|@|>|%/;
+  var tagRe = /#|&|=|@|>/;
   function parseTemplate(template, tags) {
     tags = tags || rt.tags;
     template = template || '';
@@ -167,7 +144,6 @@
       // & -> 转义
       // = -> 输出
       // # -> 注释
-      // % -> 原样输出
       type = scanner.scan(tagRe) || 'name';
 
       // 跳过空白字符.
@@ -204,27 +180,6 @@
     return '(function() { ' + parseTemplate(string) + '})();';
   }
 
-  // 支持重写 include 方法.
-  // include 本身的特点, 因此使用 supportInclude 函数生成.
-  // 输出 function( tag ), 输出为模板字符串.
-  // tag 是父模板中调用的 keyword.
-  rt.supportInclude = function( fn ) {
-    this.include = function( tag ) {
-      return include( fn(tag) );
-    };
-  };
-
-  // 默认使用 $( tag ).innerHTML.
-  rt.supportInclude(function( tag ) {
-    var dom, string = '';
-    try {
-      dom = document.getElementById( tag );
-      string =  dom ? dom.innerHTML : '';
-    }
-    catch(e){}
-    return string ? string : '';
-  });
-
   // 把模板字符拼接成 JavaScript 函数体.
   function combineTokens( tokens ) {
     var code = "var output = '';";
@@ -232,18 +187,20 @@
       var token = tokens[i];
       if ( !token ) continue;
       var value = token[1];
-      var textReg = /text|\^|%/;
+      var textReg = /text|\^/;
       if ( textReg.test(token[0]) ) {
-        value = value.replace( escaper, function( match ) {
+        // \s -> [ \f\n\r\t\v]
+        value = value.replace(/^\s*|\s*$/, '').replace( escaper, function( match ) {
           return '\\' + escapes[match];
         });
       }
+      if ( value === '' ) continue;
       switch( token[0] ) {
         case 'name':
           code += value + '\n';
           break;
         case '>':
-          code += "output+=" + rt.include( value );
+          code += "output+=" + include( helper.include(value) );
           break;
         case '=':
           code += "output+=rt.escape(" + (value) + ")\n";
@@ -263,28 +220,61 @@
     return code;
   }
 
+  var helper = {};
   rt.tags = [ "<%", "%>" ];
   rt.cache = {};
+  rt.include = include;
 
-  rt.escape = escapeHtml;
+  var entityMap = {
+    // @NOTE: 防止 html 实体, 以及其它进制表示.
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    // @NOTE: &apos; 不是标准 HTML 标签.
+    // 使用 16 进制表示.
+    "'": '&#x27;',
+    // @NOTE: / 字符是 html 标签结束字符.
+    // 需要编码, 防止把数据写在 html 标签属性部分.
+    "/": '&#x2F;',
+    "\\": '&#x5c;',
+    '%': '&#x0025;'
+  };
+  function escapeHtml(string) {
+    return ('' + string).replace(/[&<>"'\/\\%]/g, function( key ) {
+      return entityMap[key];
+    });
+  }
+  rt.escape = function( string ) {
+    return ( helper.escape || escapeHtml )( string );
+  };
 
-  // 支持两个方法.
-  // rt.compile( templateString ); // return {Function}
-  // rt.render( templateString, data ); // return {String}
+  rt.helper = function( key, method ) {
+    helper[ key ] = method;
+  };
+
+  rt.helper( 'escape', escapeHtml );
+  rt.helper( 'include', function( tag ) {
+    var dom, string = '';
+    try {
+      dom = document.getElementById( tag );
+      string =  dom ? dom.innerHTML : '';
+    }
+    catch(e){}
+    return string;
+  });
+
   rt.compile = function( source, id ) {
-    var fn;
-    if ( fn = this.cache[id] || this.cache[source] ) return fn;
+    var fn = this.cache[id] || this.cache[source];
+    if ( fn ) return fn;
     var tmpl = parseTemplate( source );
     var render = new Function( 'it', tmpl );
-    fn = function( data ) {
-      return render.call( rt, data );
-    };
-    return id ? this.cache[id] = fn : this.cache[source] = fn;
+    return this.cache[ id ? id : source ] = render;
   };
 
   rt.render = function( source, data, id ) {
-    var tmpl = this.compile( source, id );
-    return tmpl( data );
+    var func = this.compile( source, id );
+    return func.call( helper, data );
   };
 
 }));

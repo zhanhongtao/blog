@@ -12,72 +12,61 @@
 <body>
 <div id="box"></div>
 <script type="text" id="tmpl-note">
-  <%#
-    注释内容.rt 浏览器直接支持 debug.
-    it 表示当前传递来的数据源.
-  %><%= it %>
+<%#
+  注释内容.  it 表示当前传递来的数据源.
+%> <%= it %>
 </script>
 
 <script type="text" id="tmpl-text">
-  <%# 支持直接传递字符串数据 %>
-  <%= it %>
-</script>
-
-<script type="text" id="tmpl-escape">
-  <%# rt 会自动把数据转义, 防止 xss %>
-  <%= it %>
-</script>
-
-<script type="text" id="tmpl-noescape">
-  <%# rt 如果不想转义, 只需要 & 输出即可 %>
-  <%& it %>
+<%# 支持直接传递字符串数据, 引擎会自动转义, 防止 xss %>
+<%= it %><br />
+<%# 不需要转义, 使用 & 输出即可 %>
+<%& it %>
 </script>
 
 <script type="text" id="tmpl-js">
-  <%# 支持使用 JavaScript 内置方法 %>
-  <%= it.toUpperCase() + '_' + $.now() 
-  %>
+<%# 支持使用 JavaScript 内置方法 %>
+<%= it.toUpperCase() + "_" + $.now() %>
 </script>
 
 <script type="text" id="tmpl-array">
-  <%# 支持传递 array 类型数据 %>
-  <% $.each( it, function( index, item ) { %>
-    <li><%= index %>: <%= item %></li>
-  <% }); %>
+<%# 支持传递 array 类型数据 %>
+<% $.each( it, function( index, item ) { %>
+<li><%= index %>: <%= item %></li>
+<% }); %>
 </script>
 
 <script type="text" id="tmpl-object">
-  <%# 支持 object 格式 %>
-  <% $.each( it, function( index, item ) { %>
-    <li><%= index %>: <%= item %></li>
-  <% }); %>
+<%# 支持 object 格式 %>
+<% $.each( it, function( index, item ) { %>
+<li><%= index %>: <%= item %></li>
+<% }); %>
 </script>
 
 <script type="text" id="tmpl-utils">
-  <%# 模板中 this 指向 rt 对象. %><% var that = this %>
-  <% $.each( it, function( index, item ) { %>
-    <li><%= index %>: <%= that.prefix(item) %></li>
-  <% }); %>
+<%# 模板中 this 指向 helper 对象. %><% var that = this %>
+<% $.each( it, function( index, item ) { %>
+  <li><%= index %>: <%= that.prefix(item) %></li>
+<% }); %>
 </script>
 
 <script type="text" id="tmpl-subtmpl">
-  <%# 支持子模板 %><% var that = this %>
-  <% $.each( it, function( index, item ) { %>
-    <%> tmpl-sub %>
-  <% }); %>
+<%# 支持子模板 - > %><% var that = this %>
+<% $.each( it, function( index, item ) { %>
+  <%> tmpl-sub %>
+<% }); %>
 </script>
 
 <script type="text" id="tmpl-sub">
-  <li><%= index %>: <%= that.prefix(item) %></li>
+<li><%= index %>: <%= that.prefix(item) %></li>
 </script>
 
 <script type="text" id="tmpl-usertag">
-  {{#支持用户自定义 tag}}
-  {{=it}}<br />
-  {{# 或在模板中直接转回去 }}{{@<% %>@}}
-  <%= it %>
+{{#支持用户自定义 tag}}
+{{=it}}<br />
+{{# 或在模板中直接转回去 }}{{@<% %>@}}
+<%= it %>
 </script>
-
 <script src="../jquery-1.11.0.min.js"></script>
 <script src="rt.js"></script>
 <script>
@@ -112,67 +101,64 @@ if ( typeof JSON === 'undefined' ) {
   };
 }
 
-rt.prefix = function( string ) {
+rt.helper( 'prefix', function( string ) {
   return '@' + string;
-};
+});
 
-var cases = [
-  {
-    tmpl: '#tmpl-note',
-    data: 'rt template'
-  },
-  {
-    tmpl: '#tmpl-text',
-    data: '<b>template</b>'
-  },
-  {
-    tmpl: '#tmpl-escape',
-    data: '<em>tmpl</em>'
-  },
-  {
-    tmpl: '#tmpl-noescape',
-    data: '<em>tmpl</em>'
-  },
-  {
-    tmpl: '#tmpl-array',
-    data: [ 3, 4, 5 ]
-  },
-  {
-    tmpl: '#tmpl-object',
-    data: {
-      'a': 'x',
-      'b': 'y',
-      'c': 'z'
+{
+  var cases = [
+    {
+      tmpl: '#tmpl-note',
+      data: 'rt template'
+    },
+    {
+      tmpl: '#tmpl-text',
+      data: '<em>template</em>'
+    },
+    {
+      tmpl: '#tmpl-array',
+      data: [ 3, 4, 5 ]
+    },
+    {
+      tmpl: '#tmpl-object',
+      data: {
+        'a': 'x',
+        'b': 'y',
+        'c': 'z'
+      }
+    },
+    {
+      tmpl: '#tmpl-js',
+      data: 'rt javascript template'
+    },
+    {
+      tmpl: '#tmpl-utils',
+      data: {
+        'a': 'x',
+        'b': 'y',
+        'c': 'z'
+      }
+    },
+    {
+      tmpl: '#tmpl-subtmpl',
+      data: {
+        'a': 'x',
+        'b': 'y',
+        'c': 'z'
+      }
+    },
+    {
+      tmpl: '#tmpl-usertag',
+      data: 'rt javascript template',
+      before: function() {
+        rt.tags = [ '{{', '}}' ];
+      },
+      after: function() {
+        rt.tags = [ '<\%', '%>' ];
+      }
     }
-  },
-  {
-    tmpl: '#tmpl-js',
-    data: 'rt javascript template'
-  },
-  {
-    tmpl: '#tmpl-utils',
-    data: {
-      'a': 'x',
-      'b': 'y',
-      'c': 'z'
-    }
-  },
-  {
-    tmpl: '#tmpl-subtmpl',
-    data: {
-      'a': 'x',
-      'b': 'y',
-      'c': 'z'
-    }
-  },
-  {
-    tmpl: '#tmpl-usertag',
-    data: 'rt javascript template',
-    before: function() {
-      rt.tags = [ '{{', '}}' ];
-    }
-  }
-];
+  ];
+}
 
 var box = $( '#box' );
 var create = function( tmpl, data, index ) {
