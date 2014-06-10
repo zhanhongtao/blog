@@ -1,10 +1,11 @@
 dd { margin: 5px 10px 0 0 }
 body { margin: 0; background-color: #eee;}
-ul { padding: 0; margin: 0 }
-li { list-style-position: inside }
-li, p { line-height: 1.4;}
+ul { padding: 0; margin: 0;}
+li { list-style-position: inside; line-height: 1.4; }
+p { margin: 8px 0; }
 h1 { margin: 0.5em 0; font-size: 1.4em; }
-h2 { margin: 0.3em 0; font-size: 1.2em; }
+h2 { margin: 0.2em 0; font-size: 1.2em; font-weight: normal; }
+
 #box {
   padding: 10px 20px;
 }
@@ -13,4 +14,12 @@ h2 { margin: 0.3em 0; font-size: 1.2em; }
 }
 #blog dd { 
   float: left;
+}
+
+#blog, #about, #github {
+  margin-bottom: 30px;
+}
+
+.git-item {
+  margin-bottom: 15px;
 }

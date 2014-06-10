@@ -44,21 +44,21 @@
 </script>
 
 <script type="text" id="tmpl-utils">
-<%# 模板中 this 指向 helper 对象. %><% var that = this %>
+<%# 模板中 this 指向 helper 对象. %><% var that = this; %>
 <% $.each( it, function( index, item ) { %>
   <li><%= index %>: <%= that.prefix(item) %></li>
 <% }); %>
 </script>
 
 <script type="text" id="tmpl-subtmpl">
-<%# 支持子模板 - > %><% var that = this %>
+<%# 支持子模板 - > %><% var that = this; %>
 <% $.each( it, function( index, item ) { %>
   <%> tmpl-sub %>
 <% }); %>
 </script>
 
 <script type="text" id="tmpl-sub">
-<li><%= index %>: <%= that.prefix(item) %></li>
+<li><%= index %>:  <%= that.prefix(item) %></li>
 </script>
 
 <script type="text" id="tmpl-usertag">
@@ -67,6 +67,19 @@
 {{# 或在模板中直接转回去 }}{{@<% %>@}}
 <%= it %>
 </script>
+
+<script type="text" id="tmpl-switch">
+  <% switch(2) {
+    case 1: %>
+    <%=   it.key %>
+    <%   break;
+    case 2: %>
+    <%=   it.value %>
+    <%   break;
+    default: break;
+  } %>
+</script>
+
 <script src="../jquery-1.11.0.min.js"></script>
 <script src="rt.js"></script>
 <script>
@@ -156,6 +169,10 @@ rt.helper( 'prefix', function( string ) {
       after: function() {
         rt.tags = [ '<\%', '%>' ];
       }
+    },
+    {
+      tmpl: '#tmpl-switch',
+      data: { key: 'key', value: 'value' }
     }
   ];
 }

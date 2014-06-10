@@ -176,41 +176,39 @@
   // 支持子模板.
   // 即: compile 子模板, 生成字符串并放到父模板中.
   // @NOTE: compile 生成函数体.
-  function include( string ) {
-    return '(function() { ' + parseTemplate(string) + '})();';
+  function include( string, helper ) {
+    return '(function() { ' + parseTemplate(string) + '}).call(' + helper + ');';
   }
 
   // 把模板字符拼接成 JavaScript 函数体.
   function combineTokens( tokens ) {
-    var code = "var output = '';";
+    var code = "var output = '', helper = this;";
     for ( var i = 0, l = tokens.length; i < l; i++ ) {
       var token = tokens[i];
       if ( !token ) continue;
       var value = token[1];
       var textReg = /text|\^/;
       if ( textReg.test(token[0]) ) {
-        // \s -> [ \f\n\r\t\v]
-        value = value.replace(/^\s*|\s*$/, '').replace( escaper, function( match ) {
+        value = value.replace( escaper, function( match ) {
           return '\\' + escapes[match];
         });
       }
       if ( value === '' ) continue;
       switch( token[0] ) {
         case 'name':
-          code += value + '\n';
+          code += '\n' + value + '\n';
           break;
         case '>':
-          code += "output+=" + include( helper.include(value) );
+          code += "output += " + include( helper.include(value), 'helper' ) + ';';
           break;
         case '=':
-          code += "output+=rt.escape(" + (value) + ")\n";
+          code += "output += helper.escape(" + (value) + ");";
           break;
         case '&':
-          code += 'output+=' + (value) + ';\n';
+          code += 'output += ' + (value) + ';';
           break;
-        case '%':
         case 'text':
-          code += "output+='" + (value) + "';\n";
+          code += "output += '" + (value) + "';";
           break;
         default:
           break;
@@ -220,10 +218,9 @@
     return code;
   }
 
-  var helper = {};
   rt.tags = [ "<%", "%>" ];
   rt.cache = {};
-  rt.include = include;
+  rt.debug = 0;
 
   var entityMap = {
     // @NOTE: 防止 html 实体, 以及其它进制表示.
@@ -236,23 +233,20 @@
     "'": '&#x27;',
     // @NOTE: / 字符是 html 标签结束字符.
     // 需要编码, 防止把数据写在 html 标签属性部分.
-    "/": '&#x2F;',
+    "/": '&#x2f;',
     "\\": '&#x5c;',
     '%': '&#x0025;'
   };
   function escapeHtml(string) {
-    return ('' + string).replace(/[&<>"'\/\\%]/g, function( key ) {
+    return String(string).replace(/[&<>"'\/\\%]/g, function( key ) {
       return entityMap[key];
     });
   }
-  rt.escape = function( string ) {
-    return ( helper.escape || escapeHtml )( string );
-  };
 
+  var helper = {};
   rt.helper = function( key, method ) {
-    helper[ key ] = method;
+    helper[ key ] = typeof method === 'function' ? method: function() {};
   };
-
   rt.helper( 'escape', escapeHtml );
   rt.helper( 'include', function( tag ) {
     var dom, string = '';
@@ -260,15 +254,24 @@
       dom = document.getElementById( tag );
       string =  dom ? dom.innerHTML : '';
     }
-    catch(e){}
+    catch(e){ 
+      if ( rt.debug ) {
+        throw e; 
+      }
+    }
     return string;
   });
 
   rt.compile = function( source, id ) {
     var fn = this.cache[id] || this.cache[source];
     if ( fn ) return fn;
-    var tmpl = parseTemplate( source );
-    var render = new Function( 'it', tmpl );
+    var tmpl = parseTemplate( source ), render = function() {};
+    try { render = new Function( 'it', tmpl ); }
+    catch(e) {
+      if ( rt.debug ) {
+        throw e;
+      }
+    }
     return this.cache[ id ? id : source ] = render;
   };
 
