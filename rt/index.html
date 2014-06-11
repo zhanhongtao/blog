@@ -58,7 +58,7 @@
 </script>
 
 <script type="text" id="tmpl-sub">
-<li><%= index %>:  <%= that.prefix(item) %></li>
+  <li><%= index %>:  <%= that.prefix(item) %></li>
 </script>
 
 <script type="text" id="tmpl-usertag">
@@ -66,6 +66,15 @@
 {{=it}}<br />
 {{# 或在模板中直接转回去 }}{{@<% %>@}}
 <%= it %>
+</script>
+
+<script type="text" id="tmpl-html">
+  <div onclick="alert('<%:= it %>')" title="<%= it %>">hover 到这里<% = it %>, 看 title 数据</div>
+</script>
+
+<script type="text" id="tmpl-script">
+  <a href="/" onclick="alert('<%:= it.script %>'); return false;">click here!</a>
+  script!
 </script>
 
 <script type="text" id="tmpl-switch">
@@ -95,7 +104,7 @@ if ( typeof JSON === 'undefined' ) {
       } else {
         // recurse array or object
         var n, v, json = [], arr = (obj && obj.constructor == Array);
-        
+
         for (n in obj) {
           v = obj[n];
           t = typeof(v);
@@ -117,6 +126,7 @@ if ( typeof JSON === 'undefined' ) {
 rt.helper( 'prefix', function( string ) {
   return '@' + string;
 });
+
 
 {
   var cases = [
@@ -173,16 +183,27 @@ rt.helper( 'prefix', function( string ) {
     {
       tmpl: '#tmpl-switch',
       data: { key: 'key', value: 'value' }
+    },
+    {
+      tmpl: '#tmpl-html',
+      data: '\'\" ><script>alert(1);<\/script>'
+    },
+    {
+      tmpl: '#tmpl-script',
+      data: {
+        script: '\'\"\\',
+        method: 'alert'
+      }
     }
   ];
 }
 
 var box = $( '#box' );
 var create = function( tmpl, data, index ) {
-  var tdom = $( '<textarea class="tmpl">' ).val( tmpl );
-  var ddom = $( '<textarea class="data">' ).val( JSON.stringify( data, 2 ) );
-  var rdom = $( '<div class="result">' ).html( rt.render( tmpl, data ) );
-  var fragment = $( '<div class="demo">' ).append( tdom, ddom, rdom );
+  var tdom = $( '<textarea class="tmpl" />' ).val( tmpl );
+  var ddom = $( '<textarea class="data" />' ).val( JSON.stringify( data, 2 ) );
+  var rdom = $( '<div class="result" />' ).html( rt.template( tmpl, data ) );
+  var fragment = $( '<div class="demo" />' ).append( tdom, ddom, rdom );
   box.append( fragment );
 };
 
@@ -198,7 +219,7 @@ $( '.demo' ).on( 'input', 'textarea', function(e) {
   var data = JSON.parse( $.trim(wrap.find( '.data' ).val()) );
   var result = wrap.find( '.result' );
   try {
-    result.html( rt.render(tmpl, data) );
+    result.html( rt.template(tmpl, data) );
   }
   catch(e) {
     console.log( e );

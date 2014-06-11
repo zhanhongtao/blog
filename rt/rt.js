@@ -107,7 +107,8 @@
   var whiteRe = /\s*/;
   var spaceRe = /\s+/;
   var changeTagRe = /\s*@/;
-  var tagRe = /#|&|=|@|>/;
+
+  var tagRe = /#|=|:=|&|@|>/;
   function parseTemplate(template, tags) {
     tags = tags || rt.tags;
     template = template || '';
@@ -204,6 +205,9 @@
         case '=':
           code += "output += helper.escape(" + (value) + ");";
           break;
+        case ':=':
+          code += "output += helper.unicode(" + (value) + ");";
+          break;
         case '&':
           code += 'output += ' + (value) + ';';
           break;
@@ -221,6 +225,28 @@
   rt.tags = [ "<%", "%>" ];
   rt.cache = {};
   rt.debug = 0;
+
+  function encode( code, base, left, right, length, hijack ) {
+    if ( typeof code !== 'string' ) return '';
+    base = +base || 16;
+    left = typeof left === 'string' ? left : '&#x';
+    right = typeof right == 'string' ? right : ';';
+    typeof length === 'undefined' && ( length = 3 );
+    hijack = typeof hijack === 'function' ? hijack : function() { return; };
+    var ret = '', padding = 0;
+    for ( var i = 0, l = code.length, char; i < l; i++ ) {
+      char = hijack( code.charAt(i) );
+      if ( typeof char !== 'string' ) {
+        char = ( code.charCodeAt(i) ).toString( base );
+        padding = length - String(char).length + 1;
+        if ( padding < 1 ) padding = 0;
+        char = left + (new Array(padding)).join('0') + char + right;
+      }
+      ret += char;
+      padding = 0;
+    }
+    return ret;
+  }
 
   var entityMap = {
     // @NOTE: 防止 html 实体, 以及其它进制表示.
@@ -252,14 +278,17 @@
     var dom, string = '';
     try {
       dom = document.getElementById( tag );
-      string =  dom ? dom.innerHTML : '';
+      string =  /input|textarea/i.test(dom.nodeName) ? dom.value : dom.innerHTML;
     }
-    catch(e){ 
+    catch(e){
       if ( rt.debug ) {
-        throw e; 
+        throw e;
       }
     }
     return string;
+  });
+  rt.helper( 'unicode', function( string ) {
+    return encode( string, 16, '\\u', '', 4 );
   });
 
   rt.compile = function( source, id ) {
@@ -278,6 +307,10 @@
   rt.render = function( source, data, id ) {
     var func = this.compile( source, id );
     return func.call( helper, data );
+  };
+
+  rt.template = function() {
+    return ( arguments.length > 1 ? rt.render : rt.compile ).apply( rt, arguments );
   };
 
 }));
