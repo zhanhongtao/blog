@@ -56,14 +56,16 @@
         </li>
       <% } %>
     </ul>
-    <h2>实例</h2>
-    <ul>
-      <% var demos = it.demos; %>
-      <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
-        <% var item = demos[i]; %>
-        <li><a href="<%= item.address %>"><%= item.title %></a></li>
-      <% } %>
-    </ul>
+    <% if ( it.demos && it.demos.length > 0 ) { %>
+      <h2>实例</h2>
+      <ul>
+        <% var demos = it.demos; %>
+        <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
+          <% var item = demos[i]; %>
+          <li><a href="<%= item.address %>"><%= item.title %></a></li>
+        <% } %>
+      </ul>    
+    <% } %>
   </div>
 </script>
 
@@ -78,7 +80,9 @@
         <p><%= item.description %></p>
         <ul>
           <li>address: <a href="<%= item.address %>"><%= item.title %></a></li>
+          <% if( item.demo ) { %>
           <li>demo: <a href="<%= item.demo %>">demo</a></li>
+          <% } %>
         </ul>
       </div>
     <% } %>

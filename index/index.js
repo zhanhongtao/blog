@@ -31,29 +31,11 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'html', 'css', 'node', 'xss', 'other' ],
   shares: [
-    {
-      title: 'xss - 编码',
-      address: 'http://zhanhongtao.github.io/blog/xss/#0'
-    },
-    {
-      title: 'queue - promise/coroutine',
-      address: 'http://zhanhongtao.github.io/blog/queue/'
-    },
-    {
-      title: 'css 之 flex',
-      address: 'http://zhanhongtao.github.io/blog/flex/',
-      code: 'https://github.com/zhanhongtao/blog/tree/gh-pages/flex'
-    },
-    {
-      title: 'css 之 desktop',
-      address: 'http://zhanhongtao.github.io/blog/desktop/'
-    },
-    {
-      title: 'function',
-      address: 'http://zhanhongtao.github.io/blog/slide/#0'
-    }
-  ],
-  demos: [
+    {title: 'xss - 编码', address: 'http://zhanhongtao.github.io/blog/xss/#0'},
+    {title: 'queue - promise/coroutine', address: 'http://zhanhongtao.github.io/blog/queue/' },
+    {title: 'css 之 flex', address: 'http://zhanhongtao.github.io/blog/flex/', code: 'https://github.com/zhanhongtao/blog/tree/gh-pages/flex'},
+    {title: 'css 之 desktop', address: 'http://zhanhongtao.github.io/blog/desktop/'},
+    {title: 'function', address: 'http://zhanhongtao.github.io/blog/slide/#0'},
     {title: 'border', address: 'http://zhanhongtao.github.io/blog/fe/border.html'},
     {title: 'border-radius', address: 'http://zhanhongtao.github.io/blog/fe/border-radius.html'},
     {title: 'selctor', address: 'http://zhanhongtao.github.io/blog/fe/selector/' }
