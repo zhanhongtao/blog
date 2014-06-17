@@ -52,6 +52,11 @@ var blog = {
       title: 'function',
       address: 'http://zhanhongtao.github.io/blog/slide/#0'
     }
+  ],
+  demos: [
+    {title: 'border', address: 'http://zhanhongtao.github.io/blog/fe/border.html'},
+    {title: 'border-radius', address: 'http://zhanhongtao.github.io/blog/fe/border-radius.html'},
+    {title: 'selctor', address: 'http://zhanhongtao.github.io/blog/fe/selector/' }
   ]
 };
 
