@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>RGBA + opacity</title>
+    <style type="text/css">
+    body {
+        margin: 100px;
+    }
+    .flexbox {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -o-box;
+        display: box;
+    }
+
+    .center {
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -moz-box-pack: center;
+        -moz-box-align: center;
+        box-pack: center;
+        box-align: center;
+    }
+
+    .box {
+        position: absolute;
+        top: 50px;
+        left: 100px;
+        border: 1px solid #000;
+    }
+
+    .box > div {
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin-left: 10px;
+        box-sizing: border-box;
+    }
+
+    .box > div:first-child {
+        margin-left: 0;
+    }
+
+    .rgba {
+        background: rgba(0, 0, 0, .4);
+        color: red;
+    }
+
+    .opacity {
+        opacity: 0.4;
+        filter: alpha(opacity=40);
+        background: #000;
+        color: red;
+    }
+
+    .opacity_plus {
+        background: #000;
+        filter: alpha(opacity=40)\0;
+        background: rgba(0, 0, 0, 0.4);
+        color: red;
+    }
+
+    :root .opacity_plus {
+        filter: alpha(opacity=100);
+        /* IE9 only */
+    }
+
+    .inner {
+        position: relative;
+        z-index: 2;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="flexbox center rgba">RGBA</div>
+        <div class="flexbox center opacity">Opactiy</div>
+        <div class="flexbox center opacity_plus">
+            <div class="inner">Opacity</div>
+        </div>
+    </div>
+
+</body>
+</html>

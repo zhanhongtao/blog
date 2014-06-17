@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta content="text/html;charset=gb2312" http-equiv="Content-Type">
+		<title>Prototype extend demo</title>
+	</head>
+	
+	<style type="text/css">
+		div {
+			padding: 0;
+			margin: 0;
+		}
+		
+		.content {
+			width: 760px;
+			margin: 20px auto;
+		}
+		
+		.log-content {
+			font-size: 18px;
+			font-weight: bold;
+			width: 640px;
+			min-height: 200px;
+			padding: 20px;
+			margin-top: 40px;
+			border: 2px solid #C2CDDA;
+			border-radius: 9px;
+			text-align: left;
+		}
+		
+		.log-content p {
+			margin: 0 0 10px;
+			padding: 0;
+		}
+		
+	</style>
+	
+	<body>
+		
+		<div class="content">
+			<div id="log" class="log-content"></div>
+		</div>
+		
+		<script type="text/javascript">
+
+			function log(str) {
+				var p = document.createElement('p');
+				p.innerHTML = str;
+				document.getElementById('log').appendChild(p);
+			}
+			
+			// instanceof测试方法
+			function testInstanceOf(instance, instanceName, instanceConstructName) {
+				log(instanceName + ' instanceof Object: ' + (instance instanceof Object));
+				log(instanceName + ' instanceof Person: ' + (instance instanceof Person));
+				log(instanceName + ' instanceof ' + instanceConstructName + ': ' + (instance instanceof instance.constructor));
+			}
+		
+		</script>
+		
+		<!--
+		<script type="text/javascript" src="constructor.js"></script>
+		<script type="text/javascript" src="instanceof.js"></script>
+		<script type="text/javascript" src="profile.js"></script>
+		-->
+		<script type="text/javascript" src="prototype-1.js"></script>
+		
+	</body>
+</html>

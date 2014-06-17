@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>not</title>
+    <style type="text/css">
+        p {
+            margin: 5px 0;
+            padding: 5px;
+        }
+
+        .t1 p:not(.last),
+        .t2 p:not(.bar),
+        .t3 p:not(.first),
+        .t4 p {
+            background: #000;
+            color: #FFF;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>:not() 选择符演示</h1>
+    测试属性选择器：
+    <select name="" id="property">
+        <option value="请选择">请选择</option>
+        <option value="t4">p</option>
+        <option value="t1">p:not(.last)</option>
+        <option value="t2">p:not(.bar)</option>
+        <option value="t3">p:not(.first)</option>
+    </select>
+    <div class="wrap">
+    	<p class="first bar">当前元素： p.first.bar</p>
+        <p class="bar">当前元素 p.bar</p>
+    	<p class="last bar">当前元素： p.last.bar</p>
+    </div>
+    <script type="text/javascript">
+        var select = document.getElementById('property');
+        var body = document.getElementsByTagName('body')[0];
+
+        function setClass(cls) {
+            body.className = cls;
+        }
+
+        var cls = select.value;
+        setClass(cls);
+
+        select.onchange = function (e) {
+            var cls = this.value;
+            setClass(cls);
+        };
+
+    </script>
+</body>
+</html>

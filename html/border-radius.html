@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>border-radius</title>
+    <style type="text/css">
+    .box {
+        width: 500px;
+        height: 300px;
+        border: 1px solid #567;
+        margin: 20px 100px;
+    }
+    /* 使用 webkit 内核浏览器 或 其它新版本浏览器 */
+    .t1 .box {border-radius: 100px;}
+    .t2 .box {border-radius: 100px 50px;}
+    .t3 .box {border-radius: 100px 50px 30px;}
+    .t4 .box {border-radius: 100px 50px 30px 10px;}
+    .t5 .box {border-radius: 100px / 50px;}
+    .t6 .box {border-radius: 100px 50px / 50px;}
+    .t7 .box {border-radius: 100px 50px 200px / 50px;}
+    .t8 .box {border-radius: 100px 80px 200px 100px / 50px;}
+    .t9 .box {border-radius: 100px 80px 200px 100px / 100px 200px;}
+   .t10 .box {border-radius: 100px 80px 200px 100px / 100px 200px 50px;}
+   .t11 .box {border-radius: 100px 80px 200px 100px / 100px 200px 50px 0;}
+   .t12 .box {border-top-left-radius: 50px;}
+   .t13 .box {border-top-left-radius: 50px 200px;}
+
+    </style>
+</head>
+<body>
+	<div class="box"></div>
+    <label for="select-method">选择属性值：</label>
+    <select name="select" id="select-method">
+        <option value="t1">border-radius: 100px;</option>
+        <option value="t2">border-radius: 100px 50px;</option>
+        <option value="t3">border-radius: 100px 50px 30px;</option>
+        <option value="t4">border-radius: 100px 50px 30px 10px;</option>
+        <option value="t5">border-radius: 100px / 50px;</option>
+        <option value="t6">border-radius: 100px 50px / 50px;</option>
+        <option value="t7">border-radius: 100px 50px 200px / 50px;</option>
+        <option value="t8">border-radius: 100px 80px 200px 100px / 50px;</option>
+        <option value="t9">border-radius: 100px 80px 200px 100px / 100px 200px;</option>
+        <option value="t10">border-radius: 100px 80px 200px 100px / 100px 200px 50px;</option>
+        <option value="t11">border-radius: 100px 80px 200px 100px / 100px 200px 50px 0;</option>
+        <option value="t12">border-top-left-radius: 50px;</option>
+        <option value="t13">border-top-left-radius: 50px 200px;</option>
+    </select>
+    <script type="text/javascript">
+        var body = document.getElementsByTagName('body')[0];
+        var select = document.getElementById('select-method');
+        var val = select.value;
+        body.className = val;
+        select.onchange = function (e) {
+            body.className = this.value;
+        };
+    </script>
+</body>
+</html>

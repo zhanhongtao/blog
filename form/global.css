@@ -1,0 +1,57 @@
+
+
+
+
+body {
+    font: 12px/1.5 tahoma, arial, simsun, sans-serif;
+}
+
+section {
+    display: block;
+    margin: 15px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+h1 {
+    font: 20px;
+}
+
+section h1 {
+    font: 16px;
+    margin: 5px auto;
+}
+
+label {
+    display: block;
+}
+
+.xlabel label {
+    display: inline;
+}
+
+input {
+    padding: 2px;
+}
+
+ul, ol {
+    padding: 0 20px;
+    list-style-position: inside;
+}
+
+mark {
+    padding: 3px;
+}
+
+.description {
+    display: block;
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+
+
+

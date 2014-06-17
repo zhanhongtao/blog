@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>link</title>
+    <base target="_blank" />
+    <style type="text/css">
+    .link  a:link {
+        color: blue;
+    }
+
+    .link  a:visited {
+        color: #999;
+        text-decoration: none;
+    }
+
+    .link  a:hover {
+        color: red;
+    }
+
+    .link  a:active {
+        color: black;
+        text-decoration: none;
+    }
+
+    .target {
+        margin: 20px 0;
+        font-size: 12px;
+    }
+
+    .target div {
+        box-sizing: border-box;
+        height: 50px;
+        border: 1px solid #342422;
+        margin: 15px;
+    }
+
+    .target div:target {
+        border: 1px solid #ff9999;
+    }
+
+    ::selection {
+        color: #ff9900;
+        background: #000;
+    }
+    </style>
+</head>
+<body>
+    <div class="link">
+        <a href="http://www.maxthon.com/">Maxthon.com</a>
+        <a href="http://www.maxthon.cn/">Maxthon.cn</a>
+        <a href="http://google.com/" target="_self">Google.com</a>
+    </div>
+
+    <div class="target">
+        <a href="#f" target="_self">显示对应块</a>
+        <a href="#s" target="_self">显示对应块</a>
+        <div id="f"></div>
+        <div id="s"></div>
+        <script type="text/javascript">
+            var target = document.querySelector('div.target');
+            var links = target.querySelectorAll('.a');
+            target.onclick = function () {
+                return false;
+            };
+        </script>
+    </div>
+
+    <div><p>利用iframe进行交互，完成收发数据的过程，需要在页面上建立一个iframe来负责收发数据，在这个对这个iframe使用GET或POST提交数据，并在iframe内完成跳转，返回携带数据的js脚本把数据返回给父页面的函数或者直接操作父页面元素。</p><p>利用iframe进行交互，完成收发数据的过程，需要在页面上建立一个iframe来负责收发数据，在这个对这个iframe使用GET或POST提交数据，并在iframe内完成跳转，返回携带数据的js脚本把数据返回给父页面的函数或者直接操作父页面元素。</p><p>利用iframe进行交互，完成收发数据的过程，需要在页面上建立一个iframe来负责收发数据，在这个对这个iframe使用GET或POST提交数据，并在iframe内完成跳转，返回携带数据的js脚本把数据返回给父页面的函数或者直接操作父页面元素。</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>selection</title>
+<link rel="stylesheet" href="global.css" />
+<style type="text/css">
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+    <form action="/2">
+        <input type="image" name="ixx" src="xxx" alt="submit">
+    </form>
+    <div id="open"></div>
+    <form action="">
+        input: <input type="" name="x">
+        input:<input type="range" name="x">
+        input: <input type="">
+    </form>
+    <hr>
+    <form action="http://www.baidu.com/" id="ef">
+        <input type="text" name="isindex" value="abc">
+        <input type="" dirname="xxx" name="abc">
+        <input type="hidden" dirname name="_charset_">
+        <input type="submit" value="submit" />
+    </form>
+    <form action="http://www.google.com/" target="" enctype="" method="dialog">
+        <button type="submit" formaction="http://www.baidu.com/">Submit</button>
+        <label>Input: <input type="text" name="a" required></label>
+        <input type="submit">
+        <input type="tel" imputmode="tel">
+        <input type="text" name="test" value="test" form="ef" autofocus>
+
+        <input type="text" value="this is 傲游 browser!" id="select">
+        <button id="sbtn">Select</button>
+        <script type="text/javascript">
+            var sl = document.getElementById('select');
+            var btn = document.getElementById('sbtn');
+            btn.onclick = function () {
+                // 选中文本, focus.
+                // sl.select();
+                // sl.selectionDirection === 'none'
+                // sl.selectionDirection === 'forward'
+                // 设置选中位置.
+                // sl.setSelectionRange(1, 4);
+                // 设置开始和结束位置.
+                // selectionStart/selectionEnd -> 取光标位置.
+                // 设置的位置为负数时, 取 0;
+                // sl.selectionStart = 3;
+                // 设置的位置超过字符长度时, 取字符长度.
+                // sl.selectionEnd = 1;
+                // 设置时，如果 selectionStart > selectionEnd，
+                // 那么会把 selectionStart 设置为 selectionEnd.
+                // forward, backward, none
+                sl.selectionStart = 1;
+                sl.selectionEnd = 100;
+                sl.setRangeText('aaaa');
+                return false;
+            };
+        </script>
+        <div class="hidden" id="hidden"></div>
+        <script type="text/javascript">
+            var f = document.forms[0];
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.autofocus = true;
+            // f.appendChild(input);
+            document.getElementById('hidden').appendChild(input);
+        </script>
+    <!--
+        formaction,
+        formenctype,
+        formmethod,
+        formnovalidate,
+        formtarget
+    -->
+    </form>
+</body>
+</html>

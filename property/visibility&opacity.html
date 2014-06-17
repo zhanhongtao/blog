@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>visibility & opacity</title>
+    <style type="text/css">
+        div {
+            width: 200px;
+            height: 200px;
+            background: #000;
+            margin: 20px;
+        }
+
+        .v {
+            visibility: hidden;
+        }
+
+        .o {
+            filter: alpha(opacity=0);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+	<div class="v" data-desc="visibility: hidden;"></div>
+	<div class="o" data-desc="opacity: 0;"></div>
+    <p>http://www.w3.org/Style/CSS/current-work</p>    
+    <script type="text/javascript">
+        var divs = document.getElementsByTagName('div');
+        for (var i = 0, len = divs.length; i < len; i++) {
+            divs[i].onclick = function () {
+                alert(this.getAttribute('data-desc'));
+                return false;
+            };
+            
+            divs[i].onmouseover = function () {
+                alert(this.getAttribute('data-desc'));
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
