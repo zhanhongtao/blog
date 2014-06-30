@@ -16,15 +16,13 @@
     <% for ( var i = 0, l = it.list.length; i < l; ++i ) { %>
       <% var item = it.list[i]; %>
       <li><%= item.label %>: 
-        <% if ( item && item.type === "html" ) { %>
-          <%& item.value %>
-        <% } else if ( !item.type || item.type === "text" ) { %>
-          <%= item.value %>
-        <% } else if ( item.type === "email" ) { %>
-          <a href="mailto:<%= item.value %>" target="_self"><%= item.value %></a>
-        <% } else if ( item.type === "link" ) { %>
-          <a href="<%= item.value %>"><%= item.value %></a>
+        <% if ( item.link ) { %>
+          <a href="<%= item.link%>">
         <% } %>
+        <%= item.value %>
+        <%if ( item.link ) { %>
+          </a>
+        <%}%>
       </li>
     <% } %>
       <li>Tags: <%= it.label.join( "," ) %></li>
@@ -52,7 +50,8 @@
         <li><a href="<%= item.address %>"><%= item.title %></a>
           <% if ( item.code ) { %>
             (<a href="<%= item.code %>">code</a>)
-          <% } %>        
+          <% } %>
+          <% if(item.description) {%> -- <%= item.description %><%} %>
         </li>
       <% } %>
     </ul>

@@ -9,16 +9,17 @@ var about = {
     { 
       label: 'E-mail',
       value: 'redky@qq.com',
-      type: 'email'
+      link: 'mailto:redky@qq.com'
     },
     { 
       label: 'Github',
-      value: 'http://github.com/zhanhongtao',
-      type: 'link'
+      value: 'http://github.com/zhanhongtao/',
+      link: 'http://github.com/zhanhongtao/'
     },
     { 
       label: '公司',
       type: 'text',
+      link: 'http://sogou.com/',
       value: 'sogou.com' 
     }
   ],
@@ -31,10 +32,10 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'html', 'css', 'node', 'xss', 'other' ],
   shares: [
-    {title: 'expand-select', address: 'http://zhanhongtao.github.io/blog/expandselect/'},
+    {title: 'expand-select', address: 'http://zhanhongtao.github.io/blog/expandselect/', description: '可使用 shift 辅助选择'},
     {title: 'xss - 编码', address: 'http://zhanhongtao.github.io/blog/xss/#0'},
     {title: 'queue - promise/coroutine', address: 'http://zhanhongtao.github.io/blog/queue/' },
-    {title: 'css 之 flex', address: 'http://zhanhongtao.github.io/blog/flex/', code: 'https://github.com/zhanhongtao/blog/tree/gh-pages/flex'},
+    {title: 'css 之 flex', address: 'http://zhanhongtao.github.io/blog/fe/flex/'},
     {title: 'css 之 desktop', address: 'http://zhanhongtao.github.io/blog/desktop/'},
     {title: 'function', address: 'http://zhanhongtao.github.io/blog/slide/#0'},
     {title: 'border', address: 'http://zhanhongtao.github.io/blog/fe/border.html'},
