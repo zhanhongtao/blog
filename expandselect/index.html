@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>select</title>
+</head>
+<body>
+<form action="">
+  <ul id="action">
+    <li><a href="#" data-id="all">All</a></li>
+    <li><a href="#" data-id="reverse">Reverse</a></li>
+    <li><a href="#" data-id="empty">Empty</a></li>
+  </ul>
+  <ul>
+    <li><label><input type="checkbox" />item-1</label></li>
+    <li><label><input type="checkbox" />item-2</label></li>
+    <li><label><input type="checkbox" />item-3</label></li>
+    <li><label><input type="checkbox" />item-4</label></li>
+    <li><label><input type="checkbox" />item-5</label></li>
+    <li><label><input type="checkbox" />item-6</label></li>
+    <li><label><input type="checkbox" />item-7</label></li>
+    <li><label><input type="checkbox" />item-8</label></li>
+    <li><label><input type="checkbox" />item-9</label></li>
+    <li><label><input type="checkbox" />item-10</label></li>
+  </ul>
+</form>
+  <script src="expandselect.js"></script>
+  <script>
+    var t = expandselect( document.getElementsByTagName('input') );
+    document.getElementById( 'action' ).onclick = function(e) {
+      e = e || window.event;
+      var target = e.target || e.srcElement;
+      if ( target.nodeName === 'A' ) {
+        var action = target.getAttribute( 'data-id' );
+        if ( typeof t[ action ] === 'function' ) {
+          t[ action ]();
+        }
+        return false;
+      }
+    };
+  </script>
+</body>
+</html>
