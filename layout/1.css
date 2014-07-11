@@ -1,0 +1,50 @@
+
+.wrap {
+  min-width: 600px;
+}
+
+.main, 
+.side, 
+.extra {
+  height: 200px;
+  float: left;
+}
+
+.main { 
+  width: 100%;
+}
+
+.content {
+  background-color: #ffa;
+  margin-right: 210px;
+  margin-left: 160px;
+  height: 100%;
+}
+
+.side {
+  background-color: #faa;
+  width: 200px;
+  margin-left: -200px;
+}
+
+.extra {
+  background-color: #eee;
+  width: 150px;
+  margin-left: -100%;
+}
+
+.content {
+  position: relative;
+  zoom: 1;
+}
+
+.tag {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #aa0;
+}
+

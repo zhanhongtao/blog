@@ -1,0 +1,23 @@
+
+
+.extra,
+.tag { display: none; }
+
+.main,
+.side {
+  float: left;
+  height: 200px;
+}
+
+.main {
+  width: calc( 100% - 210px );
+  margin-right: 10px;
+  background-color: #ffa;
+}
+
+.side {
+  width: 200px;
+  background-color: #faa;
+}
+
+

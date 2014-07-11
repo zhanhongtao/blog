@@ -1,0 +1,20 @@
+
+.extra,
+.tag { display: none; }
+
+.wrap {
+  display: flex;
+  height: 200px;
+}
+
+.main {
+  margin-right: 10px;
+  background-color: #ffa;
+  flex: 1;
+}
+
+.side {
+  background-color: #faa;
+  width: 200px;
+}
+

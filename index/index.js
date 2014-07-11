@@ -32,6 +32,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'html', 'css', 'node', 'xss', 'other' ],
   shares: [
+    {title: 'layout - css', address: 'http://zhanhongtao.github.io/blog/layout/', description: '使用 alt + Number 切换 css 文件)' },
     {title: 'expand-select', address: 'http://zhanhongtao.github.io/blog/expandselect/', description: '可使用 shift 辅助选择'},
     {title: 'xss - 编码', address: 'http://zhanhongtao.github.io/blog/xss/#0'},
     {title: 'queue - promise/coroutine', address: 'http://zhanhongtao.github.io/blog/queue/' },
@@ -87,4 +88,5 @@ function render( key, data ) {
   var html = rt.render( tmpldom.innerHTML, data );
   wrap.innerHTML = wrap.innerHTML + html;
 }
+
 

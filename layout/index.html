@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>layout</title>
+  <link rel="stylesheet" href="clearfix.css">
+  <link rel="stylesheet" href="1.css" id="style">
+</head>
+<body>
+  <div class="wrap clearfix">
+    <div class="main">
+      <div class="content">
+        <i class="tag"></i>
+      </div>
+    </div>
+    <div class="side"></div>
+    <div class="extra"></div>
+  </div>
+  <script>
+    var link = document.getElementById( 'style' );
+    document.onkeydown = function(e) {
+      e = e || window.event;
+      if ( e.altKey ) {
+        var value = e.keyCode - 48;
+        if ( value >= 0 && value <= 9 ) {
+          link.href = value + '.css';
+        }
+      }
+    };
+  </script>
+</body>
+</html>
