@@ -18,12 +18,15 @@
   </div>
   <script>
     var link = document.getElementById( 'style' );
+    function update( src ) { console.log( src ); link.href = src + '.css'; }
+    try { var value = localStorage.src; console.log( 'init:', value ); if ( value ) update( value ); } catch(e) {}
     document.onkeydown = function(e) {
       e = e || window.event;
       if ( e.altKey ) {
         var value = e.keyCode - 48;
         if ( value >= 0 && value <= 9 ) {
-          link.href = value + '.css';
+          update( value );
+          try { localStorage.src = value; } catch(e) {}
         }
       }
     };

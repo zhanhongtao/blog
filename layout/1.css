@@ -1,4 +1,7 @@
-
+/*
+ * 嵌套 + margin 负值. 
+ * 嵌套 - layout + style 分离.
+ */
 .wrap {
   min-width: 600px;
 }

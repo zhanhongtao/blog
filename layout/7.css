@@ -1,0 +1,25 @@
+/*
+ * 4.css 基础上反转方向 
+ */
+.extra,
+.tag { display: none; }
+
+.main, 
+.side { height: 200px; }
+
+.wrap { 
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.main{
+  flex: 1;
+  margin-left: 10px;
+  background-color: #ffa;
+}
+
+.side {
+  width: 200px;
+  background-color: #faa;
+}
+

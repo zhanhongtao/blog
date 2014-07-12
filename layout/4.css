@@ -1,4 +1,8 @@
-
+/*
+ * 尝试 css3 中的 flex.
+ * 与 calc 比较的话, 它相当 css2.1 是新概念.
+ * 需要注意它和其他属性之间的影响.
+ */
 .extra,
 .tag { display: none; }
 

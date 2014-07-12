@@ -1,0 +1,23 @@
+/*
+ * 常见的左右浮动.
+ * html 结构原因, 使用 calc 计算.
+ * 这个时候 flex 可以发挥 - 见 7.css.
+ */
+.extra,
+.tag { display: none; }
+
+.main, 
+.side { height: 200px; }
+
+.main {
+  background-color: #ffa;
+  float: right;
+  width: calc( 100% - 210px );
+}
+
+.side {
+  float: left;
+  width: 200px;
+  background-color: #faa;
+}
+

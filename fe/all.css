@@ -1,0 +1,114 @@
+
+.all {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+  zoom: 1;
+  margin: 40px auto;
+  background: #f00;
+}
+
+.all div {
+  width: 0;
+  height: 0;
+  border: 20px solid red;
+  position: absolute;
+}
+
+.all .top {
+  top: -20px;
+  left: 80px;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.all .top-left {
+  top: -20px;
+  left: 0;
+  border-bottom: none;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+.all .top-right {
+  top: -20px;
+  right: 0;
+  border-bottom: none;
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.all .right {
+  top: 80px;
+  left: 200px;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.all .right-top {
+  top: 0;
+  left: 200px;
+  border-top: none;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.all .right-bottom {
+  bottom: 0;
+  left: 200px;
+  border-bottom: none;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+
+.all .bottom {
+  bottom: -20px;
+  left: 80px;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.all .bottom-right {
+  bottom: -20px;
+  right: 0;
+  border-top: none;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.all .bottom-left {
+  bottom: -20px;
+  left: 0;
+  border-top: none;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.all .left {
+  left: -20px;
+  top: 80px;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.all .left-top {
+  left: -20px;
+  top: 0;
+  border-right: none;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.all .left-bottom {
+  left: -20px;
+  bottom: 0;
+  border-right: none;
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
