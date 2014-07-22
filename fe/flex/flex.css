@@ -1,6 +1,10 @@
 body {
   display: -webkit-flex;
 }
+ul {
+  padding-left: 0px;
+  list-style-position: inside;
+}
 section {
   display: -webkit-flex;
   display: flex;
