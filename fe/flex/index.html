@@ -1,44 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <title>flex</title>
-  <style>
-    body {
-      display: -webkit-flex;
-    }
-    section {
-      display: -webkit-flex;
-      display: flex;
-      width: 650px;
-      height: 300px;
-      margin: 0 auto;
-      border: 1px solid green;
-      box-sizing: border-box;
-      border-radius: 5px;
-      -webkit-justify-content: flex-start;
-      -webkit-align-items: stretch;
-    }
-    .flex-item {
-      -webkit-flex: 0 0 100px;
-      min-height: 100px;
-    }
-    h1 {
-      font-size: 16px;
-      font-weight: normal;
-      margin: 5px 0;
-    }
-    h2 {
-      font-size: 14px;
-      font-weight: normal;
-      margin: 3px 0;
-    }
-    label {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="flex.css">
 </head>
 <body>
+  <ul>
+    <li><a href="./flex.txt" target="_blank">flex 相关说明</a></li>
+    <li><a href="./center.html">flex center</a></li>
+    <li><a href="./margin.html">flex 下的 margin</a></li>
+  </ul>
   <div style="width: 280px;-webkit-flex: 0 0 280px;">
     <h1>flex box width</h1>
     <input name="width" data-fix="px" type="range" min="400" max="1500" value="800" />
@@ -65,7 +37,7 @@
     <label><input type="radio" name="flex-wrap" value="nowrap" checked>nowrap[default]</label>
     <label><input type="radio" name="flex-wrap" value="wrap">wrap</label>
     <label><input type="radio" name="flex-wrap" value="wrap-reverse">wrap-reverse</label>
-    <h1>align-content</h1>
+    <h1>align-content(当存在wrap时才起作用)</h1>
     <label><input type="radio" name="align-content" value="stretch" checked>stretch</label>
     <label><input type="radio" name="align-content" value="flex-start">flex-start</label>
     <label><input type="radio" name="align-content" value="flex-end">flex-end</label>
@@ -80,46 +52,5 @@
     <div class="flex-item"></div>
     <div class="flex-item"></div>
   </section>
-<script>
-  var box = document.querySelector( 'section' );
-
-  // 给各个伸缩项目添加背景色.
-  ;(function( box ) {
-    var divs = box.querySelectorAll( 'div' );
-    for ( var i = 0, l = divs.length; i < l; i++ ) {
-      var div = divs[i];
-      var r = Math.floor( Math.random() * ( 255 -140 ) + 140 );
-      var g = Math.floor( Math.random() * ( 255 -140 ) + 140 );
-      var b = Math.floor( Math.random() * ( 255 -140 ) + 140 );
-      div.style.backgroundColor = 'rgb('+r+','+g+','+b+')';
-      div.style.lineHeight = Math.floor( Math.random() * 2 );
-    }
-  })( box );
-
-  // 给 radio 绑定事件.
-  document.addEventListener( 'click', function( event ) {
-    var target = event.target;
-    if ( target.webkitMatchesSelector('input[type=radio]') ) {
-      var name = target.getAttribute( 'name' );
-      name = name.replace(/(^|-)./g, function( r0, r1 ) {
-        return r0.replace('-', '' ).toUpperCase();
-      });
-      // 仅支持 webkit.
-      box.style[ 'webkit' + name ] = target.value;
-    }
-  }, false );
-
-  var rangeElement = document.querySelectorAll( 'input[type=range]' );
-  for ( var i = 0, l = rangeElement.length; i < l; i++ ) {
-    rangeElement[i].addEventListener( 'change', function() {
-      var target = this;
-      var name = target.getAttribute( 'name' );
-      var fix = target.dataset.fix;
-      console.log( fix );
-      box.style[ name ] = target.value + ( fix ? fix : '' );
-    });
-  }
-
-</script>
-</body>
+  <script src="flex.js"></script>
 </html>
