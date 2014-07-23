@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>align-self</title>
+  <style>
+    .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+    }
+    .a,
+    .b,
+    .c {
+      width: 100px;
+      height: 100px;
+    }
+    .a {
+      background-color: blue;
+      /* 覆盖 align-items */
+      align-self: flex-start;
+    }
+    .b {
+      background-color: aqua;
+    }
+    .c {
+      background-color: teal;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+  </div>
+</body>
+</html>
