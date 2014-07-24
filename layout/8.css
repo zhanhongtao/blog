@@ -1,25 +1,24 @@
-/* ¼û 1.css */
+/* use flex & order */
+.wrap {
+  display: flex;
+}
+
 .extra,
 .tag { display: none; }
 
-.content, 
+.main,
 .side { height: 200px; }
 
 .main {
-  float: left;
-  width: 100%;
-}
-
-.content {
-  margin-left: 210px;
+  order: 2;
+  flex: 1;
+  margin-left: 10px;
   background-color: #ffa;
 }
 
 .side {
-  float: left;
+  order: 1;
   width: 200px;
-  margin-left: -100%;
   background-color: #faa;
 }
-
 
