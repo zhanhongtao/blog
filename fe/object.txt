@@ -1,0 +1,85 @@
+Object
+
+Object.prototype
+Object.constructor
+
+// 创建.
+Object.create( prototype, propertyObject );
+Object.create( object ); // 只 copy 一层.
+
+// 定义元数据.
+// 不能重复定义.
+Object.defineProperty( object, property, descriptor );
+Object.defineProperties( object, descriptors );
+// 取元数据
+Object.getOwnPropertyDescriptor( object, property );
+
+// 元数据.
+// value        undefined
+// writable     false 是否可重新
+// enumerable   false 是否可枚举
+// configurable false 是否可删除
+// set/get
+
+// 禁止扩展对象
+// 不允许添加新属性.
+// 可修改属性值, 删除属性.
+Object.preventExtensions( object );
+// 判断对象是否可扩展.
+Object.isExtensible( object );
+
+// 禁止扩展对象.
+// 不允许添加新属性.
+// 不允许删除已有属性.
+// 已有 writable 属性可更新.
+Object.seal( object );
+// 判断对象是否被 seal.
+Object.isSealed( object );
+
+// 在 seal 基础上又禁止属性更新.
+Object.freeze( object );
+// 判断对象是否被 freeze.
+Object.isFrozen( object );
+
+
+
+// 属性相关.
+// object 自身是否有 property.
+object.hasOwnProperty( property );
+
+// 取可枚举属性
+// 不通过 prototype 向上查找.
+Object.keys( object );
+// 取所有属性列表 - Array.
+Object.getOwnPropertyNames( object );
+// 判断属性是否可枚举.
+Object.propertyIsEnumberable( property );
+// 判断原型是否属于对象
+prototype.isPrototypeOf( object );
+// 取对象原型
+Object.getPrototypeOf( object );
+
+// 静态方法.
+Object.is( value1, value2 );
+true === Object.is( NaN, NaN );
+flase === Object.is( 0, -0 );
+
+
+// 侦听对象.
+// 同步接口
+Object.observe( object, function( changes ) {
+  changes.forEach(function( change ) {
+    // type: add/delete/update/reconfigure/preventExtensions
+    // name
+    // oldValue
+    // object
+  });
+});
+// 停止侦听对象.
+Object.unobserve( object, observer );
+// 由于 observer 同步接口.
+// 这里可以手动调用 callback.
+Object.deliverChangeRecords( callback );
+
+// 用来自定义 type.
+Object.getNotifier

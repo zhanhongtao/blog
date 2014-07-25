@@ -1,4 +1,3 @@
-
 var about = {
   title: 'About Me',
   list: [
@@ -32,16 +31,17 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'html', 'css', 'node', 'xss', 'other' ],
   shares: [
-    {title: 'layout - css', address: 'http://zhanhongtao.github.io/blog/layout/', description: '使用 alt + Number 切换 css 文件)' },
-    {title: 'expand-select', address: 'http://zhanhongtao.github.io/blog/expandselect/', description: '可使用 shift 辅助选择'},
-    {title: 'xss - 编码', address: 'http://zhanhongtao.github.io/blog/xss/#0'},
-    {title: 'queue - promise/coroutine', address: 'http://zhanhongtao.github.io/blog/queue/' },
-    {title: 'css 之 flex', address: 'http://zhanhongtao.github.io/blog/fe/flex/'},
-    {title: 'css 之 desktop', address: 'http://zhanhongtao.github.io/blog/desktop/'},
-    {title: 'function', address: 'http://zhanhongtao.github.io/blog/slide/#0'},
-    {title: 'border', address: 'http://zhanhongtao.github.io/blog/fe/border.html'},
-    {title: 'border-radius', address: 'http://zhanhongtao.github.io/blog/fe/border-radius.html'},
-    {title: 'selctor', address: 'http://zhanhongtao.github.io/blog/fe/selector/' }
+    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'},
+    {title: 'layout - css', address: './layout/', description: '使用 alt + Number 切换 css 文件)' },
+    {title: 'expand-select', address: './expandselect/', description: '可使用 shift 辅助选择'},
+    {title: 'xss - 编码', address: './xss/#0'},
+    {title: 'queue - promise/coroutine', address: './queue/' },
+    {title: 'css 之 flex', address: './fe/flex/'},
+    {title: 'css 之 desktop', address: './desktop/'},
+    {title: 'function', address: './slide/#0'},
+    {title: 'border', address: './fe/border.html'},
+    {title: 'border-radius', address: './fe/border-radius.html'},
+    {title: 'selctor', address: './fe/selector/' }
   ]
 };
 
