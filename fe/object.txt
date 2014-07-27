@@ -66,7 +66,7 @@ flase === Object.is( 0, -0 );
 
 
 // 侦听对象.
-// 同步接口
+// 异步接口
 Object.observe( object, function( changes ) {
   changes.forEach(function( change ) {
     // type: add/delete/update/reconfigure/preventExtensions
@@ -77,8 +77,8 @@ Object.observe( object, function( changes ) {
 });
 // 停止侦听对象.
 Object.unobserve( object, observer );
-// 由于 observer 同步接口.
-// 这里可以手动调用 callback.
+// 由于 observer 异步接口.
+// 如果需要提前执行, 可手动调用.
 Object.deliverChangeRecords( callback );
 
 // 用来自定义 type.
