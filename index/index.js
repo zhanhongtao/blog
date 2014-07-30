@@ -31,6 +31,8 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', 'JavaScript', 'html', 'css', 'node', 'xss', 'other' ],
   shares: [
+    {title: 'css - Animation', address: './fe/animation.html' },
+    {title: 'css - Auto Transition', address: './fe/auto-transition.html', description: '页面加载晚时, 自动 transition' },
     {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'},
     {title: 'layout - css', address: './layout/', description: '使用 alt + Number 切换 css 文件)' },
     {title: 'expand-select', address: './expandselect/', description: '可使用 shift 辅助选择'},

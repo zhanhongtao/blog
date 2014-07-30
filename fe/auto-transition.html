@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>auto-transition</title>
+  <style>
+  body { font-size: 10px; }
+  h1   { font-size: 1.4rem; }
+  pre  { 
+    font-size: 1rem;
+    margin: 0;
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+    background-color: #faa;
+  }
+  .enable {
+    -webkit-transition: all 0.8s linear;
+    -moz-transition: all 0.8s linear;
+    -ms-transition: all 0.8s linear;
+    transition: all 0.8s linear;
+    -webkit-transform: translate( 200px, 0 );
+    -moz-transform: translate( 200px, 0 );
+    -ms-transform: translate( 200px, 0 );
+    transform: translate( 200px, 0 );
+  }
+  </style>
+</head>
+<body>
+<h1>Auto Transition</h1>
+<div id="demo" class="box"></div>  
+<pre>
+<code>
+HTML:
+&lt;div id="demo" class="box"&gt;&lt;/div&gt;
+
+CSS:
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #faa;
+}
+.enable {
+  transition: all 0.8s linear;
+  transform: translate( 300px, 0 );
+}
+
+JavaScript:
+var demo = document.getElementById( 'demo' );
+<mark>demo.offsetWidth;</mark>
+demo.classList.add( 'enable' ); 
+</code>
+</pre>
+<script>
+  var demo = document.getElementById( 'demo' );
+  demo.offsetWidth;
+  demo.classList.add( 'enable' ); 
+</script>
+</body>
+</html>
