@@ -1,0 +1,147 @@
+[ XMLHttpRequest 文档](http://xhr.spec.whatwg.org/)
+
+1. 实例化 XMLHttpRequest 对象.
+  var request = new XMLHttpRequest || new ActiveXObject('Microsoft.XMLHTTP');
+
+2. 确定请求地址和方法, 以及使用异步还是同步.
+  .open( method, url[, async = true[, user = null[, password = null]]] );
+  request.open( 'GET', uri );
+
+3. 可追加 Header 信息.
+  open 之后, send 之前.
+  相同 name 时, 会自动合并.
+  request.setRequestHeader( header, value );
+  X-Requested-With: XMLHttpRequest
+  
+  Accept-Charset
+  Accept-Encoding
+  Access-Control-Request-Headers
+  Access-Control-Request-Method
+  Connection
+  Content-Length
+  Cookie
+  Cookie2
+  Date
+  DNT
+  Expect
+  Host
+  Keep-Alive
+  Origin
+  Referer
+  TE
+  Trailer
+  Transfer-Encoding
+  Upgrade
+  User-Agent
+  Via
+
+4. (可选) 设置超时时间和事件. 
+  // @NOTE: 浏览器支持情况
+  request.timeout = 0;
+  request.ontimeout = function() {
+    request.abort();
+  };
+
+5. (可选) 是否跨域支持, 需要 server 端配合.
+  // 默认值: false.
+  request.withCredentials = false;
+
+
+6. 绑定事件支持.
+  * 支持进度事件.
+  // .onprogress = function() {};
+  // 1. 下载进度. 
+  request.onprogress = function() {};
+  // 2. 上传进度.
+  request.upload.onprogress = function(e) {
+    // e.lengthComputable
+    // e.loaded
+    // e.total
+  };
+  
+  * 上传事件.
+  // request.upload(XMLHttpRequestUpload)
+  request.upload.loadstart
+  request.upload.progress
+  request.upload.abort
+  request.upload.error
+  request.upload.load
+  request.upload.timeout
+  request.upload.loadend
+
+  * readystatechange
+  .readystate
+    0: 未初始化   - 还没调用 open 方法
+    1: 初始化     - 还没调用 Send 方法.
+    2: 发送数据   - 拿到 header 信息.
+    3: 数据发送中 - 已接收部分数据. 响应不全.
+    4: 完成
+  request.responseURL
+  request.status
+  request.statusText
+  request.getResponseHeader( header );
+  ex: request.getResponseHeader( 'Date' )
+  request.getAllResponseHeaders
+  
+  request.onreadystatechange = function () {
+    if ( request.readyState === 4 ) {
+      if ( request.status == 200 ) {
+        // 重写 mime-type - 来支持老版本
+        // request.overrideMimeType( 'text/plain;charset=x-user-defined' );
+        /*
+          for (var i = 0, len = binStr.length; i < len; ++i) {
+            var c = binStr.charCodeAt (i);
+            var byte = c & 0xff;
+          }
+          位运算"c & 0xff"，表示在每个字符的两个字节之中，只保留后一个字节，将前一个字节扔掉。
+          原因是浏览器解读字符的时候，会把字符自动解读成 Unicode 的 0xF700-0xF7ff 区段。
+        */
+        
+        /*
+          open 完可以设置 responseType.
+          text/arraybuffer/blob/document/json
+          request.responseType = vlaue
+
+          在读二进制数据时可使用它.
+          request.response 
+          ex: var blob = new Blob( [xhr.response], {type: 'image/png'} );
+
+          request.responseText  -> 返回到目前为止响应读取的完整值
+          request.responseXML
+        */
+
+      }
+    }
+  };
+
+7. 可取消请求.
+  // 取消后不再有权限访问响应相关属性.
+  request.abort();
+
+8. 发送数据.
+  支持 send 数据: null, arraybuffer, blob, domstring, formdata
+  get/head 请求直接发 null.
+  request.send( null );
+
+8.1 FormData
+  .append( name, value, filename );
+  .delete( name );
+  .get( name );
+  .getAll( name );
+  .set( name, value );
+  .has( name );
+
+  // 主要使用 fd.append 方法.
+  // 其他需要确定是否支持.
+  var fd = new FormData( form );
+  var fd = new FormData();
+  fd.append( name, value );
+  request.send( fd );
+  // 多文件上传.
+  fd.append( 'files[]', files[i] );
+
+其他：
+var url = URL.createObjectURL( blob );
+URL.revokeObjectURL( url );
+content-type: application/x-www-form-urlencoded
+
