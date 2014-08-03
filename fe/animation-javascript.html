@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>animation</title>
+  <style>
+    .demo { 
+      width: 100px; 
+      height: 100px;
+      background-color: #faa;
+      margin: 10px;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo"></div>
+  <div class="action">
+    <button id="resume">Play</button>
+    <button id="pause">Pause</button>
+    <button id="finish">Gotoend</button>
+    <button id="cancel">Cancel</button>
+    <button id="reverse">Reverse</button>
+  </div>
+  <script>
+    var $ = function( selector ) {
+      return document.querySelector( selector );
+    };
+    
+    var demo = $( '.demo' );
+    // http://www.chromestatus.com/metrics/css/animated
+    // http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
+    // position -> translate.
+    // opacity
+    // scale
+    // rotation
+    var player = demo.animate([
+      {
+        transform: 'translateX(0)',
+        opacity: '0',
+        marginLeft: 0
+      },
+      { 
+        transform: 'translateX(0)',
+        opacity: '0.3',
+        marginLeft: '+200px'
+      },
+      {
+        transform: 'translateX(0)',
+        opacity: '1',
+        marginLeft: '+500px'
+      }
+    ], {
+      duration: 1000,
+      iterations: 1,
+      delay: 300,
+      direction: "alternate"
+    });   
+    
+    console.log( 'state: play',  !player.puased );
+    console.log( 'direction: ',   player.playbackRate );
+    console.log( 'currentTime: ', player.currentTime );
+    console.log( 'startTime: ',   player.startTime );
+    console.log( 'timelag: ',     player.timeLag );
+    
+    function onpause()  { player.pause();   }
+    function onresume() { player.play();    }
+    function onfinish() { player.finish();  }
+    function oncancel() { player.cancel();  }
+    function onreverse(){ player.reverse(); }
+    
+    $( 'button#pause' ) .onclick = onpause;
+    $( 'button#resume' ).onclick = onresume;
+    $( 'button#finish' ).onclick = onfinish;
+    $( '#cancel' )      .onclick = oncancel;
+    $( '#reverse' )     .onclick = onreverse;
+    
+    player.onfinish = function(e) {
+      // timeStamp
+      // currentTime
+      // timelineTime
+      demo.style.opacity = 1;
+    };
+
+    /*
+      {
+        activeDuration: 1000,
+        currentIteration: null,
+        duration: 1000,
+        endTime: 1300,
+        localTime: 1300,
+        startTime: 0,
+        player: player,
+        timing: {
+          delay: 300,
+          direction: 'alternate',
+          easing: 'linear',
+          endDelay: 0,
+          fill: 'auto',
+          iterationStart: 0,
+          iterations: 1,
+          playbackRate: 1
+        }
+      }
+    */
+    console.log( player.source );
+  </script>
+</body>
+</html>
