@@ -56,7 +56,76 @@ demo.classList.add( 'enable' );
 <script>
   var demo = document.getElementById( 'demo' );
   demo.offsetWidth;
-  demo.classList.add( 'enable' ); 
+  demo.classList.add( 'enable' );
+  
+  /*
+  transition( demo, {
+    translate: '200px',
+    transition: 'all 0.8s linear'
+  });
+  */
+  
+  // 简单封装 transition.
+  var pfx = (function () {
+    var style = document.createElement('dummy').style,
+        prefixes = 'Webkit Moz O ms Khtml'.split(' '),
+        memory = {};
+    return function ( prop ) {
+        if ( typeof memory[ prop ] === "undefined" ) {
+            var ucProp  = prop.charAt(0).toUpperCase() + prop.substr(1),
+                props   = (prop + ' ' + prefixes.join(ucProp + ' ') + ucProp).split(' ');
+            memory[ prop ] = null;
+            for ( var i in props ) {
+                if ( style[ props[i] ] !== undefined ) {
+                    memory[ prop ] = props[i];
+                    break;
+                }
+            }
+        }
+        return memory[ prop ];
+    };
+  })();
+
+  function css( elem, prop ) {
+    if ( typeof prop === 'string' ) {
+      if ( prop.indexOf( ':' ) > -1 ) return elem.style.cssText = prop;
+      else {
+        var style = window.getComputedStyle( elem );
+        return style[ prop ];
+      }
+    }
+    var key, pkey;
+    for ( key in prop ) {
+      if ( prop.hasOwnProperty(key) ) {
+         pkey = pfx( key );
+         if ( pkey ) {
+           elem.style[ pkey ] = prop[ key ];
+         }
+      }
+    }
+  }
+
+  function transition( dom, config ) {
+    setTimeout(function() {
+      dom.offsetWidth; // re-layout.
+      var style = {};
+      var transform = '';
+      for ( var key in config ) {
+        switch( key ) {
+          case 'rotate':
+          case 'translate':
+          case 'skew':
+            transform += key + '(' + config[key] + ') ';
+            break;
+          default:
+            style[ key ] = config[ key ];
+        }
+      }
+      style.transform = transform;
+      css( dom, style );    
+    }, 0);
+  }
+    
 </script>
 </body>
 </html>
