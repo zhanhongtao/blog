@@ -31,6 +31,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
+	{title: 'simple-slide', address: './simpleslide/', description: '当练习使用(slide)' },
     {title: 'Ajax', address: './fe/ajax.txt', description: 'Ajax 相关文档' },
     {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' },
     {title: 'css - Animation', address: './fe/animation.html' },

@@ -1,0 +1,54 @@
+* { 
+  margin: 0; 
+  padding: 0;
+}
+
+body {
+  margin: 20px;
+}
+
+ul, li { 
+  list-style: none;
+}
+
+a img { 
+  display: block; 
+  border: none; /* ie 下, 图片存在边框  */
+}
+
+#box {
+  width: 240px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+#box ul {
+  width: 1440px; /* width * n = 120 * 6 */
+  zoom: 1;
+}
+
+#box ul:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+#box li {
+  float: left;
+  height: 340px;
+}
+
+#box button {
+  padding: 5px 20px;
+  margin: 10px;
+}
+
+#box-helper {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
