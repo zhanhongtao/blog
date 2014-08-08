@@ -1,0 +1,32 @@
+.box { width: 560px; margin: 0 auto; }
+.hd {
+  display: flex;
+  margin: 10px 0;
+  height: 36px;
+}
+#number,
+#button { 
+  flex: 1;
+}
+#number {
+  margin-left: 10px;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+textarea { 
+  width: 100%; 
+  height: 450px; 
+  font-size: 24px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.ft {
+  display: flex;
+}
+#reset {
+  padding: 5px 15px;
+  margin: 10px 0;
+  flex: 1;
+  box-sizing: border-box;
+}
+
