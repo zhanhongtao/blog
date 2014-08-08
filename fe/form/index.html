@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>from</title>
+  <style>fieldset{ margin: 10px }</style>
+</head>
+<body>
+  <!--
+    action/enctype/method/novalidate/target
+    formaction/formenctype/formmethod/formnovalidate/formtarget
+
+    enctype:
+      application/x-www-form-urlencoded
+      multipart/form-data
+      text/plain
+
+    form 属性, 当前控件属于哪个 form.
+
+    label for 属性.
+    javascript: 
+      label.control
+      label.htmlFor
+      label.form
+
+    name/type/value
+    form/formaction/formenctype/formmethod/formnovalidate/formtarget
+    autocomplete/autofocus/placeholder
+    disabled/readonly
+    checked/multiple
+    min/max/step
+    maxlength/minlength/pattern/required
+    src/width/height
+    accept/dirname/inputmode/list/size
+
+    form:
+    document.form
+    document.forms
+    document.form.elements
+    document.form.elements.text
+    document.form.elements.checkbox
+
+    input.value [=value]
+    input.checked [=value]
+    input.files
+    input.valueAsDate [=value]
+    input.valueAsNumber[=value]
+    input.valueLow[=value]
+    input.valueHigh[=value]
+    input.stepUp[=n]
+    input.stepDown[=n]
+    input.list -> return datalist element.
+    [ value/default/ defaul/on /filename ]
+
+    requestAutoComplete();
+
+    selection:
+    element.select()
+    element.selectionStart [=value]
+    element.selectionEnd [=value]
+    element.selectionDirection [=value]
+    element.setSelectionRange( start, end[, direction ])
+    element.setRangeText( replacement[, start, selectionMode ])
+      select/start/end/preserve
+
+    其它标签:  
+    detail/summary
+    menu/menuitem
+
+    其它属性:
+    accesskey/tabindex
+
+  -->
+  <form action="" method="" name="form" target="_self" novalidate enctype="" accept-charset="" autocomplete>
+
+    <input type="hidden" name="isindex" placeholder="isindex">
+    <input type="hidden" name="_charset_" placeholder="_charset_">
+
+    <label for="password">password 
+    <!--
+      使用 for/id 关联优先级最高.
+      <input type="password">
+    -->
+    </label>
+    <input type="hidden" name="hidden">
+    <input type="password" id="password" name="password" placeholder="password">
+    <input type="file" name="file" multiple>
+
+    <fieldset>
+      <legend>Text <input type="checkbox"></legend>
+      <input type="text" name="text" placeholder="text" size="40" minlength="10" maxlength="40" required>
+    </fieldset>
+
+    <fieldset disabled>
+      <input type="text" placeholder="fieldset disabled">
+    </fieldset>
+
+    <fieldset name="onlyread">
+      <legend>read only</legend>
+      <input type="text" name="readonly" readonly="readonly" placeholder="readonly">
+      <input type="text" name="disabled" disabled="disabled" placeholder="disabled">
+    </fieldset>
+
+    <fieldset>
+      <label><input type="radio" name="radio-1">radio-1</label>
+      <label><input type="radio" name="radio-1">radio-2</label>
+      <label><input type="radio" name="radio-1">radio-3</label> 
+    </fieldset>
+    
+    <label><input type="radio" name="radio">radio-1</label>
+    <label><input type="radio" name="radio">radio-2</label>
+    <label><input type="radio" name="radio">radio-3</label>
+
+
+    <label><input type="checkbox" name="checkbox">checkbox-1</label>
+    <label><input type="checkbox" name="checkbox">checkbox-2</label>
+    <label><input type="checkbox" name="checkbox">checkbox-3</label>
+
+    <select name="select">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <optgroup label="10+">
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </optgroup>
+    </select>
+    <fieldset>
+      <input name="search" type="search" placeholder="search">
+      <input name="tel" type="tel" placeholder="telphone">
+      <input name="url" type="url" placeholder="url">
+      <input name="email" type="email" placeholder="email">
+      <input name="date" type="date">
+      <input name="month" type="month">
+      <input name="week" type="week">
+      <input name="time" type="time">
+      <input name="datetime" type="datetime">
+      <input name="number" type="number">
+      <input name="range" type="range" min=0 max=100 step=10>
+      <input name="color" type="color">
+    </fieldset>
+    <textarea name="textarea" cols="60" rows="10"></textarea>
+    <button>Button</button>
+    <fieldset>
+      <input type="text" name="sex" placeholder="datalist" list="sex">
+      <datalist id="sex">
+        <option value="male">male</option>
+        <option value="female">female</option>
+      </datalist>
+    </fieldset>
+    <keygen name="keygen">
+    <!-- 表示关系 -->
+    <output name="output" for="sex text"></output>
+    <fieldset>
+      <progress max=100 value=30></progress> 
+      <!-- js: progress.position -->
+      <meter max=100 min=10 value=60 low=30 high=80 optimum=60>......</meter>
+    </fieldset>
+    <input type="submit">
+    <input type="reset">
+    <input type="image" src="http://www.sogou.com/images/logo/new/sogou.png">
+  </form>
+</body>
+</html>

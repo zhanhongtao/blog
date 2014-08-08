@@ -1,7 +1,3 @@
-
-
-
-
 body {
     font: 12px/1.5 tahoma, arial, simsun, sans-serif;
 }
@@ -38,6 +34,10 @@ input {
 ul, ol {
     padding: 0 20px;
     list-style-position: inside;
+}
+
+li {
+	list-style: none;
 }
 
 mark {
