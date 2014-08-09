@@ -37,6 +37,8 @@ a img {
 #box li {
   float: left;
   height: 340px;
+  background: url(../loading.gif) no-repeat 50% center;
+  background-size: 30%;
 }
 
 #box button {

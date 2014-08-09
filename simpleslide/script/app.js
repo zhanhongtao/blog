@@ -8,28 +8,29 @@ var myslide = slide({
   timeout: 2,
   max: list.length,
   onchange: function( to, from, oto ){
-	var i = 0;
-	while ( i < 2 ) {
-	  var index = to + i;
-	  if ( index < list.length ) {
-		var img = list[index].getElementsByTagName( 'img' )[0];
-		if ( !img.src ) {
-		  img.src = img.getAttribute( 'data-src' );
-		}
-	  }
-	  ++i;
-	}
-	// 直接使用 css3 的 transition 实现.
-	helper.style.marginLeft = -1 * to * default_item_width + 'px';
-	/*!
-	if ( from !== to ) {
-	  var start = from * default_item_width;
-	  var end = to * default_item_width;
-	  simple( 250, 'easeOut', function( p ) {
-		helper.style.marginLeft = -1 * start + ( start - end ) * p + 'px';
-	  });
-	}
-	*/
+    var i = 0;
+    while ( i < 2 ) {
+      var index = to + i;
+      if ( index < list.length ) {
+        var img = list[index].getElementsByTagName( 'img' )[0];
+        if ( !img.loaded ) {
+          img.src = img.getAttribute( 'data-src' );
+          img.loaded = 1;
+        }
+      }
+      ++i;
+    }
+    // 直接使用 css3 的 transition 实现.
+    helper.style.marginLeft = -1 * to * default_item_width + 'px';
+    /*!
+    if ( from !== to ) {
+      var start = from * default_item_width;
+      var end = to * default_item_width;
+      simple( 250, 'easeOut', function( p ) {
+      helper.style.marginLeft = -1 * start + ( start - end ) * p + 'px';
+      });
+    }
+    */
   }
 });
 
