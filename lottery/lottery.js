@@ -35,7 +35,7 @@ Random.prototype.get = function( n ) {
   var ret = [];
   while ( n > 0 ) {
     var crt = this.length - this.have;
-    if ( crt > 0 ) {
+    if ( crt >= 0 ) {
       shuffle( this.core, crt );
       ret[ ret.length ] = this.core[ crt ];
       ++this.have;
@@ -49,6 +49,11 @@ Random.prototype.get = function( n ) {
 Random.prototype.reset = function() {
   this.have = 0;
   this.sync( false );
+};
+
+Random.prototype.log = function() {
+  console.log( 'core:', this.core );
+  console.log( 'have:', this.have );
 };
 
 function initRandom( n ) {
@@ -87,7 +92,7 @@ function init() {
 
   var splitvalue = ' ';
   var string = result.value.trim();
-  var have_string = random.core.slice( random.core.length - random.have ).join( splitvalue );
+  var have_string = random.core.slice( random.core.length - random.have ).reverse().join( splitvalue );
   result.value = (string ? '\n' : '' ) + have_string + string;
 
   btn.onclick = function() {
@@ -102,6 +107,7 @@ function init() {
     result.value = '';
   };
 
+  return random;
 }
 
-init();
+var random = init();

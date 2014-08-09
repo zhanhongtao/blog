@@ -6,34 +6,20 @@
   <title>Animation Event</title>
   <style> /* 可以使用 from/to 关键字 */
   @-ms-keyframes slide {
-    0% { 
-      -ms-transform: translate(0, 0);
-      transform: translate(0, 0);
-    }
-    100% { 
-      -ms-transform: translate(200px, 0);
-      transform: translate(200px, 0);
-    }
+    0% { -ms-transform: translate(0, 0) }
+    100% { -ms-transform: translate(200px, 0) }
   }
   @-moz-keyframes slide {
-    0% { 
-      -moz-transform: translate(0, 0);
-      transform: translate(0, 0);
-    }
-    100% { 
-      -moz-transform: translate(200px, 0);
-      transform: translate(200px, 0);
-    }
+    0% { -moz-transform: translate(0, 0) }
+    100% { -moz-transform: translate(200px, 0) }
   }
   @-webkit-keyframes slide {
-    0% { 
-      -webkit-transform: translate(0, 0);
-      transform: translate(0, 0);
-    }
-    100% { 
-      -webkit-transform: translate(200px, 0);
-      transform: translate(200px, 0);
-    }
+    0% { -webkit-transform: translate(0, 0) }
+    100% { -webkit-transform: translate(200px, 0) }
+  }
+  @keyframes slide {
+    0% { transform: translate(0, 0) }
+    100% { transform: translate(200px, 0) }
   }
   html { font-size: 10px; }
   body { font-size: 1.4rem; }
@@ -46,10 +32,10 @@
     background-color: #faa;
   }
   .enable {
-    -ms-animation: slide 0.5s linear 3 alternate forwards;
-    -moz-animation: slide 0.5s linear 3 alternate forwards;
-    -webkit-animation: slide 0.5s linear 3 alternate forwards;
-    animation: slide 0.5s linear 3 alternate forwards;
+    -ms-animation: slide .5s linear 3 alternate forwards;
+    -moz-animation: slide .5s linear 3 alternate forwards;
+    -webkit-animation: slide .5s linear 3 alternate forwards;
+    animation: slide .5s linear 3 alternate forwards;
   }
   </style>
 </head>
@@ -62,36 +48,36 @@
   <p>查看开发者工具中 animation 相关事件.</p>
   <h2>CSS</h2>
   <dl>
-    <dt>animation-delay</dt>
-    <dd>设置延时, 即从元素加载完成之后到动画序列开始执行的这段时间.</dd>
-  </dl>
-  <dl>
-    <dt>animation-direction</dt>
-    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.(alternate)</dd>
+    <dt>animation-name</dt>
+    <dd>@keyframes 指定的关键帧名称</dd>
   </dl>
   <dl>
     <dt>animation-duration</dt>
-    <dd>设置动画一周期的时长</dd>
-  </dl>
-  <dl>
-    <dt>animation-iteration-count</dt>
-    <dd>设置动画重复次数; infinite 为无限次重复动画</dd>
-  </dl>
-  <dl>
-    <dt>animation-name</dt>
-    <dd>@keyframe 指定的关键帧名称</dd>
-  </dl>
-  <dl>
-    <dt>animation-play-state</dt>
-    <dd>允许停止和恢复动画. [running|paused]</dd>
+    <dd>设置动画一周期的时长. [0]</dd>
   </dl>
   <dl>
     <dt>animation-timing-function</dt>
     <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]</dd>
   </dl>
   <dl>
+    <dt>animation-delay</dt>
+    <dd>设置延时, 即从元素加载完成之后到动画序列开始执行的这段时间. [0]</dd>
+  </dl>
+  <dl>
+    <dt>animation-iteration-count</dt>
+    <dd>设置动画重复次数. [ n | infinite ]</dd>
+  </dl>
+  <dl>
+    <dt>animation-direction</dt>
+    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.[ normal | alternate ]</dd>
+  </dl>
+  <dl>
     <dt>animation-fill-mode</dt>
     <dd>动画结束时, 元素应用的样式.[node|forwards-动画结束时状态|backwords-动画结束时状态|both]</dd>
+  </dl>
+  <dl>
+    <dt>animation-play-state</dt>
+    <dd>允许停止和恢复动画. [running|paused]</dd>
   </dl>
   <p><pre>
 <code>animation: name duration function delay count direction fill-mode play-state;</code>
