@@ -57,7 +57,7 @@ var rslide = slide({
   onchange: function( to, from, oto ) {
     // oto/from 确认方向.
     var i = 0;
-    while ( i < per ) {
+    while ( i < per * 2 ) {
       var index = to + i;
       if ( index < instanceList.length ) {
         var img = instanceList[index].getElementsByTagName( 'img' )[0];
@@ -76,6 +76,11 @@ var rslide = slide({
         instanceHelper.style.marginLeft = -1 * start + ( start - end ) * p + 'px';
       });
     }
+
+	if ( oto === this.config.max ) {
+		rslide.pause();
+	}
+
   }
 });
 
