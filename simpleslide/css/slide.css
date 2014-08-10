@@ -3,10 +3,6 @@
   padding: 0;
 }
 
-body {
-  margin: 20px;
-}
-
 ul, li { 
   list-style: none;
 }
@@ -16,32 +12,40 @@ a img {
   border: none; /* ie 下, 图片存在边框  */
 }
 
-#box {
+#box,
+#instance {
   width: 240px;
   margin: 0 auto;
   overflow: hidden;
   text-align: center;
 }
 
-#box ul {
-  width: 1440px; /* width * n = 120 * 6 */
+#instance {
+  width: 720px;
+}
+
+ul {
   zoom: 1;
 }
 
-#box ul:after {
+ul:after {
   content: '';
   display: table;
   clear: both;
 }
 
-#box li {
+li {
   float: left;
   height: 340px;
   background: url(../loading.gif) no-repeat 50% center;
   background-size: 30%;
 }
 
-#box button {
+#instance li {
+  margin-right: 5px;
+}
+
+button {
   padding: 5px 20px;
   margin: 10px;
 }
