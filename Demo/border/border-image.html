@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>border-image</title>
+    <style type="text/css">
+        .bd {
+            height: 100px;
+            width: 300px;
+            border: 27px;
+            float: left;
+            margin: 20px;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+
+            display: box;
+            box-align: center;
+            box-pack: center;
+        }
+
+        .space {
+            -webkit-border-image: url(images/border.png) 27 space;
+            -moz-border-image: url(images/border.png) 27 space;
+            -o-border-image: url(images/border.png) 27 space;
+            border-image: url(images/border.png) 27 space;
+        }
+
+        .repeat {
+            -webkit-border-image: url(images/border.png) 27 repeat;
+            -moz-border-image: url(images/border.png) 27 repeat;
+            -o-border-image: url(images/border.png) 27 repeat;
+            border-image: url(images/border.png) 27 repeat;
+        }
+
+        .round {
+            -webkit-border-image: url(images/border.png) 27 round;
+            -moz-border-image: url(images/border.png) 27 round;
+            -o-border-image: url(images/border.png) 27 round;
+            border-image: url(images/border.png) 27 round;
+        }
+
+        .stretch {
+            -webkit-border-image: url(images/border.png) 27 stretch;
+            -moz-border-image: url(images/border.png) 27 stretch;
+            -o-border-image: url(images/border.png) 27 stretch;
+            border-image: url(images/border.png) 27 stretch;
+        }
+
+        .roundw10 {
+            -webkit-border-image: url(images/border.png) 27/10px round;
+            -moz-border-image: url(images/border.png) 27/10px round;
+            -o-border-image: url(images/border.png) 27/10px round;
+            border-image: url(images/border.png) 27/10px round;
+            border-width: 10px;
+        }
+
+        .stretchw10 {
+            -webkit-border-image: url(images/border.png) 27/10px stretch;
+            -moz-border-image: url(images/border.png) 27/10px stretch;
+            -o-border-image: url(images/border.png) 27/10px stretch;
+            border-image: url(images/border.png) 27/10px stretch;
+            border-width: 10px;
+        }
+
+        .repeatw10 {
+            -webkit-border-image: url(images/border.png) 27/10px repeat;
+            -moz-border-image: url(images/border.png) 27/10px repeat;
+            -o-border-image: url(images/border.png) 27/10px repeat;
+            border-image: url(images/border.png) 27/10px repeat;
+            border-width: 10px;
+        }
+
+        .bd10200810 {
+            -webkit-border-image: url(images/border.png) 27 50 40 30;
+            border-width: 0px 30px 20px 20px;
+        }
+
+        .bg {
+            background: #888;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="">
+    <div class="stretch bd">Stretch + border-width: 27px;</div>
+    <div class="stretchw10 bd">stretch + border-width: 10px</div>
+    <div class="repeat bd">Repeat + border-width: 27px;</div>
+    <div class="repeatw10 bd">Repeat + border-width: 10px;</div>
+    <div class="round bd">Round + border-width: 27px;</div>
+    <div class="roundw10 bd">Round + border-width: 10px</div>
+    <div class="bd bd10200810">stretch(27 50 40 30) + border-width: 8px 20px 8px 10px;</div>
+    <div class="stretch bd bg">Stretch + border-width: 27px; + background</div>
+    <div class="space bd">space + border-width: 27px;</div>
+</body>
+</html>

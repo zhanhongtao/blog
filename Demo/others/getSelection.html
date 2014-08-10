@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Get Selection Text</title>
+</head>
+<body>
+    <p>这里是 test 文本.</p>
+	<script>
+    var getSelectionText = function() {
+        if (window.getSelection) {
+
+            // 现代浏览器
+            console.log(window.getSelection());
+            return window.getSelection().toString()
+        }
+        else if (document.getSelection){
+            return document.getSelection();
+        }
+        else if (document.selection) {
+
+            // IE Collection
+            return document.selection.createRange().text;
+        }
+    };
+
+    function getTextFieldSelection(e) {
+        if (e.selectionStart != undefined &&
+            e.selectionEnd != undefined) {
+            var start = e.selectionStart,
+                end = e.selectionEnd;
+
+            return e.value.slice(start, end);
+        }
+        else {
+            return '';
+        }
+    }
+
+    var is = false;
+    document.onmousedown = function () {
+       document.onmousemove = function () {
+            is = true;
+       };
+    };
+
+    document.onmouseup = function () {
+        if (is) {
+            document.onmousemove = null;
+            is = false;
+            var text = getSelectionText();
+            alert(text);
+        }
+    };
+
+
+    </script>
+</body>
+</html>

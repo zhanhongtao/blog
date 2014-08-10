@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello seajs</title>
+</head>
+<body>
+	<script src="js/sea.js"></script>
+    <script>
+        // base: 相对于引入文件.
+        seajs.use('./js/hello', function (hello) {
+            hello.sayHello();
+        });
+    </script>
+</body>
+</html>

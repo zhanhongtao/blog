@@ -105,6 +105,11 @@ iterator 参数列表:
   * ret 已处理过条目的返回值( array )
   * next 执行下一条, 并且返回当前结果. next( result )
 
+支持提前结束 queue. 使用 `next( value, true )` 或者 `next( value, true, true )`;
+语法: `next( value, stop, onlyCurrentReturnValue );`
+  * stop 表示是否马上停止.
+  * return 是否仅返回当前项值.
+  
 @note:
 1. item, index, ret 都是可选项.
 2. callback 函数参数列表是 array 各项处理后的结果.

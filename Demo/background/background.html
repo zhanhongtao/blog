@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>background</title>
+    <style type="text/css">
+        .layout {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .bg {
+            height: 200px;
+            width: 300px;
+            border: 5px dotted #999;
+            padding: 10px;
+        }
+        .setting {
+            background: #444 url(images/maxthon.png);
+        }
+        /**
+            background-image: url(), url();
+            background-clip: border-box | padding-box(default) | content-box;
+            background-origin: border-box(default) | padding-box | content-box;
+                background-color: 不受 background: origin 限制.
+            background-size: auto(default) | absolute value | percentage | cover | contain
+            background-repeat: repeat-x | repeat-y | repeat(default) | no-repeat | round(缩放图片, 放置合适图片-[ie9+/opera]) | space;
+                repeat 会让背景超越 clip 限制.
+                background-repeat: round no-repeat;
+                repeat 可设置  x, y 两个方向.
+            background-attachment: scroll | fixed | local;
+                background-attachment: fixed; 会影响 background-origin, 使其无效; 并且
+                    background-size 设置会把图片放大.
+            background-position: x, y;
+                background-position: left 10px top 15px;
+                background-position: left top; -> left 0 top 0;
+                background-position: 10px 15px; -> left 10px top 15px;
+                background-position: right 3em bottom 10px;
+
+            background: #FFF url(xxx.xxx) repeat left top / 100px scroll border-box padding-box;
+            ==
+            background-color: #FFF;
+            background-image: url(xxx.xxx);
+            background-repeat: repeat;
+            background-position: left top;
+            background-size: 100px auto;
+            background-attachment: scroll;
+            background-origin: border-box;
+            background-clip: padding-box;
+         */
+
+        .display-abs,
+        .display-percent {
+            display: none;
+        }
+        
+        .result {
+            padding: 20px;
+            background: #EEE;
+            color: #444;
+        }
+
+        /* http://www.w3.org/TR/css3-background/ */
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <p id="origin">
+            origin:
+            <input type="radio" name="origin" value="border-box" id="origin-border" />
+            <label for="origin-border">border-box</label>
+            <input type="radio" name="origin" value="padding-box" id="origin-padding" checked />
+            <label for="origin-padding">padding-box</label>
+            <input type="radio" name="origin" value="content-box" id="origin-content" />
+            <label for="origin-content">content-box</label>
+        </p>
+
+        <p id="clip">
+            clip:
+            <input type="radio" name="clip"  value="border-box" id="clip-border" checked />
+            <label for="clip-border">border-box</label>
+            <input type="radio" name="clip"  value="padding-box" id="clip-padding" />
+            <label for="clip-padding">padding-box</label>
+            <input type="radio" name="clip"  value="content-box" id="clip-content" />
+            <label for="clip-content">content-box</label>
+            <input type="radio" name="clip" value="no-clip" id="no-clip" />
+            <label for="no-clip">no-clip</label>
+        </p>
+
+        <p id="repeat">
+            repeat:
+            <input type="radio" id="repeat-x" name="repeat" value="repeat-x" />
+            <label for="repeat-x">repeat-x</label>
+            <input type="radio" name="repeat" value="repeat-y" id="repeat-y" />
+            <label for="repeat-y">repeat-y</label>
+            <input type="radio" name="repeat" value="no-repeat" id="no-repeat" />
+            <label for="no-repeat">no-repeat</label>
+            <input type="radio" name="repeat" value="repeat" id="repeatz" checked />
+            <label for="repeatz">repeat</label>
+            <input type="radio" name="repeat" value="round" id="round" />
+            <label for="round">round</label>
+            <input type="radio" name="repeat" value="space" id="space" />
+            <label for="space">space</label>
+        </p>
+
+        <p id="attachment">
+            attachment:
+            <input type="radio" name="attachment" id="attachment-scroll" value="scroll" checked />
+            <label for="attachment-scroll">scroll</label>
+            <input type="radio" name="attachment" id="attachment-fixed" value="fixed" />
+            <label for="attachment-fixed">fixed</label>
+            <input type="radio" name="attachment" id="attachment-local" value="local" />
+            <label for="attachment-local">local</label>
+        </p>
+
+        <p id="size">
+            size:
+            <input type="radio" name="size" value="auto" id="size-auto" checked />
+            <label for="size-auto">auto</label>
+            <input type="radio" name="size" value="cover" id="size-cover" />
+            <label for="size-cover">cover</label>
+            <input type="radio" name="size" value="contain" id="size-contain" />
+            <label for="size-contain">contain</label>
+            <input type="radio" name="size" value="percentage" id="size-percentage" />
+            <label for="size-percentage">percentage</label>
+            <input type="radio" name="size" value="absvalue" id="size-absvalue" />
+            <label for="size-absvalue">absvalue</label>
+        </p>
+
+        <div class="display-abs">
+            <label for="horizontal">horizontal</label>
+            <input type="text" id="horizontal" />
+            <label for="vertical">vertical</label>
+            <input type="text" id="vertical" />
+        </div>
+
+        <div class="display-percent">
+            <label for="X">Horizontal &emsp;<input type="text" id="X" /> %</label>
+            <label for="Y">Vertical &emsp;<input type="text" id="Y" /> %</label>
+        </div>
+    </div>
+	<div class="layout bg setting" id="show"></div>
+    <div class="layout"><img src="images/layout.jpg" alt="show element box layout" /></div>
+    <div class="clear"></div>
+    <div class="result">
+        <ul>
+        	<li>background-color 不受 background-origin 限制.</li>
+            <li>background-repeat 属性会让背景超越 clip 限制.</li>
+            <li>background-attachment: fixed; 会影响 background-origin, 使其无效</li>
+            <li>background-attachment: fixed 会影响到 background-size属性设置, 把图片放大.</li>
+            <li>background-repeat: round; 缩放图片, 放置合适图片-[浏览器支持：ie9+/opera]</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+    var $ = function (e) {
+        return document.getElementById(e);
+    };
+
+    var sizewrap = $('size'),
+        clipwrap = $('clip'),
+        originwrap = $('origin'),
+        show = $('show'),
+        repeatwrap = $('repeat'),
+        attachment = $('attachment'),
+        percent = document.querySelector('.display-percent'),
+        abs = document.querySelector('.display-abs');
+
+
+    function setClip(v) {
+       show.style.backgroundClip = v;
+    }
+
+    function setOrigin(v) {
+        show.style.backgroundOrigin = v;
+    }
+
+    function setAttachment(v) {
+        show.style.backgroundAttachment = v;
+    }
+
+    function setSize(v) {
+        if (v == 'cover' || v == 'contain' || v == 'auto') {
+            show.style.backgroundSize = v;
+            abs.style.display = 'none';
+            percent.style.display = 'none';
+            return;
+        }
+
+        if (v == 'percentage') {
+            percent.style.display = 'block';
+            abs.style.display = 'none';
+        }
+
+        if (v == 'absvalue') {
+            abs.style.display = 'block';
+            percent.style.display = 'none';
+        }
+    }
+
+    function setRepeat(v) {
+        console.log('IE+, opera support round, space property');
+        show.style.backgroundRepeat = v;
+    }
+
+    attachment.onclick = function (e) {
+        var tag = e.target;
+        if (tag.nodeName.toLowerCase() == 'input') {
+            setAttachment(tag.value);
+        }
+    };
+
+    clipwrap.onclick = function (e) {
+        var tag = e.target;
+        if (tag.nodeName.toLowerCase() == 'input') {
+            setClip(tag.value);
+        }
+    };
+
+    originwrap.onclick = function (e) {
+        var tag = e.target;
+        if (tag.nodeName.toLowerCase() == 'input') {
+            setOrigin(tag.value);
+        }
+    };
+
+    sizewrap.onclick = function (e) {
+        var tag = e.target;
+        if (tag.nodeName.toLowerCase() == 'input') {
+            setSize(tag.value);
+        }
+    };
+
+    repeatwrap.onclick = function (e) {
+        var tag = e.target;
+        if (tag.nodeName.toLowerCase() == 'input') {
+            setRepeat(tag.value);
+        }
+    };
+
+    function setHV() {
+        var x = $('horizontal').value,
+            y = $('vertical').value;
+            x = ~~x,
+            y = ~~y;
+        show.style.backgroundSize = x + 'px ' + y + 'px';
+    }
+
+    $('horizontal').oninput = function (e) {
+        setHV();
+    };
+
+    $('vertical').oninput = function (e) {
+        setHV();
+    };
+
+    function setPXY() {
+        var x = $('X').value,
+            y = $('Y').value,
+            x = ~~x,
+            y = ~~y;
+        show.style.backgroundSize = x + '% ' + y + '%'
+    }
+
+    $('X').oninput = function (e) {
+        setPXY();
+    };
+
+    $('Y').oninput = function (e) {
+        setPXY();
+    };
+
+    </script>
+</body>
+</html>

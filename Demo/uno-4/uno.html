@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="card-unit card-color-green">
+    <div class="card-unit-face">9</div>
+</div>
+
+<script type="text/javascript">
+    
+    /*
+        @description 生成牌
+        @param cardValue{unmber || string} 牌面值
+        @param cardColor{string} 牌颜色
+        @param cardMark{unmber || string} 角标 不必须
+     */
+	 
+    function createCard(cardValue, cardColor, cardMark) {
+        var cardBorder = document.createElement('div');
+        cardBorder.className = 'card-unit card-color-' + cardColor;
+        var cardFace = document.createElement('div');
+        cardFace.className = 'card-unit-face';
+        var cardValueText = document.createTextNode(cardValue);
+        cardFace.appendChild(cardValueText);
+        cardBorder.appendChild(cardFace);
+        document.body.appendChild(cardBorder);
+    }
+    
+    createCard('☍', 'red');
+
+</script>
+
+</body>
+</html>

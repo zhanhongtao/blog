@@ -1,0 +1,345 @@
+
+
+
+
+
+
+/*
+    事件管理器:
+    事件信息存储中心和控制中心. (CORE/SANDBOX/MODULE).
+    存储:
+        元素. 事件. 处理函数.
+        一个元素, 绑定多个事件.
+        一个事件, 绑定多个处理函数.
+
+        元素 -> DOM 元素.
+        事件 -> 标准事件, 自定义事件.
+             自定义事件,
+             事件命名空间 (jQuery)
+                click.drag
+                click.drag.test
+                    -> click.drag
+                       click.test
+                bind(elem, 'PPK', callback);
+
+        事件存储结构:
+        {
+            click: {
+                user: {
+                    'drag': function.one,
+                    'test': function
+                },
+                global: [function, function]
+            },
+
+            mousedown: {
+                user: {},
+                global: []
+            },
+
+            'userevent': {
+                user: {},
+                global: []
+            }
+
+        }
+
+
+        管理器存储结构：
+        {
+            guid: {
+                elem: elem,
+                events: {...}
+            },
+
+            guid: {
+                ...
+            }
+
+        }
+
+
+        元素上绑定私有属性 __page__guid__by__zz__: guid
+        根据元素 __page__guid__by__zz__ 来决定元素的唯一性.
+
+        处理函数上绑定私有属性 __evnent__guid__by__zz__: guid
+        解除处理函数时, 使用 __evnent__guid__by__zz__ 来决定处理函数唯一性.
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var EventManager =(function () {
+    var w3c = document.addEventListener,
+        addListener = w3c ?
+            function (el, type, fn) {el.addEventListener(type, fn, false);} :
+            function (el, type, fn) {el.attachEvent('on' + type, fn);},
+        removeListener = w3c ?
+            function (el, type, fn) { el.removeEventListener(type, fn, false);} :
+            function (el, type, fn) { el.detachEvent('on' + type, fn);},
+            
+        rand = ('' + (new Date).getTime() + Math.random()).replace(/\D/g, ''),
+        
+        
+        pageid = rand + '_rd_shitou_',
+        
+        noop = function () {},
+        cache = {},
+        createListener = function (guid) {
+
+            return function (event) { /* 引用 event, 找到 event.type, 并且处理 this 兼容问题 */
+
+                /* 触发所有处理函数 */
+                event = fix(event || window.event);
+
+                var type = event.type;
+                var manager = cache[guid] || {};
+
+                /* 不指定元素时, 指向 window */
+                var elem = manager['elem'] || window;
+
+                var listeners = manager[type] || [];
+                var ret = true;
+
+                try {
+                    for (var i = 0, l = listeners.length; i < l; i++) {
+                        var tmp = listeners[i].apply(elem, arguments);
+                        if (tmp === 'false') {
+                            ret = false;
+                        }
+                    }
+                }
+                finally {
+
+                    if (manager.one) {
+                        delete manager[type];
+                    }
+
+                    if (!ret) {
+
+                        /* 需修正不兼容问题 */
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                }
+
+            };
+
+        };
+
+        /*
+            cache = {
+                guid: {
+                    'one': boolean
+                    'elem': 'elem',
+                    'click': [function, function],
+                    'mousemove': [function, function],
+                    'listener': function
+                }
+            }
+        */
+
+        var bindEvent = function (elem, type, listener, one) {
+
+            /* 元素上绑定属性, 以区别元素 */
+            var guid = elem[pageid] || (elem[pageid] = rand++);
+
+            var manager = cache[guid] || (cache[guid] = {});
+
+            /* 添加 elem 属性, 以备解决 this 指向问题 */
+            manager['elem'] || (manager['elem'] = elem);
+
+            var listeners = manager[type] || (manager[type] = []);
+
+            listener[pageid] || (listener[pageid] = rand++);
+            listeners.push(listener || noop);
+
+            /* 是否为仅执行一次事件 */
+            one && (manager.one = true);
+
+            /* 存储事件处理函数, 以备解除绑定 */
+            manager.listener = createListener(guid);
+
+            addListener(elem, type, manager.listener);
+
+        },
+
+        unbindEvent = function (elem, type, listener) {
+
+            function removetype (elem, type, manager) {
+                removeListener(elem, type, manager.listener);
+                delete manager[type];
+            }
+
+            var guid = elem[pageid];
+
+            /* 元素无事件时, 直接删除 */
+            if (!guid) {
+                return false;
+            }
+
+            var manager = cache[guid];
+
+            /* 不存在事件处理函数时, 直接解除事件绑定, 并删除此事件相关数据 */
+            if (!listener) {
+                removetype(elem, type, manager);
+                return;
+            }
+
+            if (!type) {
+                for (var i in events) {
+                    removetype(elem, type, manager);
+                }
+                return;
+            }
+
+            var fid = listener[pageid];
+            var listeners = manager[type];
+
+            for (var i = 0, l = listeners.length; i < l; i++) {
+                listeners[i][pageid] === fid && listeners.splice(i, 1);
+                break;
+            }
+
+            if (!listeners.length) {
+                return removetype(elem, type, manager);
+            }
+
+        },
+
+        dispatch = function (el, type) {
+
+            try {
+                if (el.dispatchEvent) {
+                    var evt = document.createEvent('Event')
+                    evt.initEvent(type, true, true);
+                    el.dispatchEvent(evt);
+                }
+                else if (el.fireEvent) {
+                    el.fireEvent('on' + type);
+                }
+            }
+            catch (e) {}
+
+        },
+
+        fireEvent = function (elem, type, data) {
+
+            var guid = elem[pageid];
+
+            if (!guid) {
+                return;
+            }
+
+            data = data || [];
+
+            /* 让 evnet 生效 */
+            data.unshift({
+                type: type,
+                target: elem,
+                currentTarget: elem,
+                preventDefault: noop,
+                stopPropagation: noop
+            });
+
+            guid && cache[guid] && cache[guid].listener.apply(elem, data);
+
+            /* 仅执行一次 */
+            if (cache[guid].one) {
+                unbindEvent(elem, type);
+            }
+
+        },
+
+        /* 解决 事件兼容问题 */
+        fix = function (event) {
+
+            /* 使用标准事件对象 */
+            if (document.addEventListener) {
+                return event;
+            }
+
+            var targetEvent = {};
+            targetEvent.target = event.srcElement || document;
+            if (targetEvent.target.nodeType === 3) {
+                targetEvent.target = targetEvent.target.parentNode;
+            }
+
+            targetEvent.preventDefault = function () {
+                event.returnValue = false;
+            };
+
+            targetEvent.stopPropagation = function () {
+                event.cancelBubble = true;
+            };
+
+            targetEvent.relatedTarget = event.fromElement === newEvent.target ?
+                    element.toElement : event.fromElement;
+
+            for (name in event) {
+                targetEvent[name] = event[name];
+            }
+
+            return targetEvent;
+
+        };
+
+
+    return {
+        bind: bindEvent,
+        unbind: unbindEvent,
+        fire: fireEvent,
+        cache: cache
+    };
+
+}
+
+
+

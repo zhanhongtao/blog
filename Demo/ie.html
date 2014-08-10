@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>测试 IE 条件注释</title>
+
+    <!--[if ie]>
+        <script>
+            alert('All IE version.');
+        </script>
+    <![endif]-->
+
+    <!--[if gt IE 8]>
+        <script>
+            alert('IE version greate than 8');
+        </script>
+    <![endif]-->
+
+    <!--[if lt ie 9]>
+        <script>
+            alert('IE version less than 9');
+        </script>
+    <![endif]-->
+
+    <!--[if !ie]><-->
+        <script>
+            alert('Your browser isn\'t IE');
+        </script>
+    <!--><![endif]-->
+
+    <script>
+        /*@cc_on
+            @if (@_jscript)
+                alert('In IE');
+            @end
+        @*/
+    </script>
+
+</head>
+<body>
+    <!--[if IE]>
+    This content is actually inside an HTML comment.
+    It will only be displayed in IE.
+    <![endif]-->
+</body>
+</html>

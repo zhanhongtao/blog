@@ -1,5 +1,3 @@
-
-
 ;(function( name, definition ) {
   var hasDefine = typeof define === 'function',
     hasExports = typeof module !== 'undefined' && module.exports;
@@ -15,11 +13,16 @@
 
   var globalEventEmitter;
   var debug = false;
+  var eventsMap = {};
 
-  var eventEmitter = function () {
+  var eventEmitter = function ( name ) {
 
-    if ( arguments.length == 0 ) {
-      return globalEventEmitter || ( globalEventEmitter = new eventEmitter( 'eventEmitter_global' ) );
+    if ( typeof name !== 'string' ) {
+      name = '';
+    }
+
+    if ( eventsMap[name] ) {
+      return eventsMap[ name ];
     }
 
     function flat( array ) {
@@ -29,8 +32,8 @@
         result = result.concat( current instanceof Array ? flat(current) : current );
       }
       return result;
-    }  
-    
+    }
+
     var callbacks = {};
     var ckeys = {};
 
@@ -44,7 +47,7 @@
     // listen( name, [f1, f2] );
     // listen( [n1, n2], func );
     // listen( [n1, n2], [f1, f2] );
-    function listen( key ) { 
+    function listen( key ) {
       var funcs = flat( [].slice.call( arguments, 1 ) );
       var keys = [].concat( key );
       for ( var i = 0, l = keys.length; i < l; i++ ) {
@@ -129,7 +132,7 @@
       listen( key, wrap );
     }
 
-    return {
+    eventsMap[ name ] = {
       on: listen,
       bind: listen,
       listen: listen,
@@ -152,7 +155,9 @@
       }
     };
 
+    return eventsMap[ name ];
   };
+
   return eventEmitter;
 });
 

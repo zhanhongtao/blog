@@ -1,0 +1,18 @@
+/* YUI RESET */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+
+/* @font-face { font-family: Calibri; src: url('assets/CALIBRI.TTF'); } */
+/* @font-face { font-family: SansMonoRegular; src: url('assets/TheSansMonoCd-W5Regular.ttf'); } */
+
+body {font:normal 28px/1.5  Calibri, Tahoma, Helvetica, arial, sans-serif; background:#fff; color:#000; }
+
+.f-text { font-size:28px; padding:3px 4px; border-color:#89B4D6; border-style:solid; border-width:1px; }
+.f-textarea { font-size:28px; font-family:Calibri, Tahoma, Helvetica, arial, sans-serif; padding:3px 4px; border-color:#7c7c7c #c3c3c3 #dddddd; border-style:solid; border-width:1px;}
+
+#doc { margin:20px auto 50px; width:600px; }
+#content { }
+#content .f-textarea { width:590px; height:100px; }
+#repeater { min-height:100px; padding:10px; background:#f1f1f1; word-break:break-all; }
+#debug { height:300px; overflow:auto; }
+
