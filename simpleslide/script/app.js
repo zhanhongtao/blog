@@ -4,6 +4,28 @@ var helper = document.getElementById( 'box-helper' );
 var list = box.getElementsByTagName( 'li' );
 helper.style.width = list.length * default_item_width + 'px';
 
+var pfx = (function () {
+  var style = document.createElement('dummy').style,
+      prefixes = 'Webkit Moz O ms Khtml'.split(' '),
+      memory = {};
+  return function ( prop ) {
+      if ( typeof memory[ prop ] === "undefined" ) {
+          var ucProp  = prop.charAt(0).toUpperCase() + prop.substr(1),
+              props   = (prop + ' ' + prefixes.join(ucProp + ' ') + ucProp).split(' ');
+          memory[ prop ] = null;
+          for ( var i in props ) {
+              if ( style[ props[i] ] !== undefined ) {
+                  memory[ prop ] = props[i];
+                  break;
+              }
+          }
+      }
+      return memory[ prop ];
+  };
+})();
+
+var transform = pfx( 'transform' );
+
 var myslide = slide({
   max: list.length,
   rotate: true,
@@ -20,8 +42,8 @@ var myslide = slide({
       }
       ++i;
     }
-    // 直接使用 css3 的 transition 实现.
-    helper.style.marginLeft = -1 * to * default_item_width + 'px';
+    // 直接使用 css3 的 transition + transform 实现.
+    helper.style[transform] = 'translate(' + (-1 * to * default_item_width) + 'px' + ')';
   }
 });
 
@@ -39,60 +61,32 @@ for ( var i = 0, l = btns.length; i < l; ++i ) {
 }
 
 
-var instance = document.getElementById( 'instance' );
-var instanceHelper = document.getElementById( 'instance-helper' );
-var instanceList = instance.getElementsByTagName( 'li' );
-var finily_item_width = default_item_width + 5;
-var per = 2;
-instance.style.width = default_item_width * per + 'px';
-instanceHelper.style.width = instanceList.length * finily_item_width + 'px';
-
-var rslide = slide({
-  auto: true,
-  timeout: 2,
-  rotate: false,
-  step: 2,
-  per: per,
-  max: instanceList.length,
-  onchange: function( to, from, oto ) {
-    // oto/from 确认方向.
-    var i = 0;
-    while ( i < per * 2 ) {
-      var index = to + i;
-      if ( index < instanceList.length ) {
-        var img = instanceList[index].getElementsByTagName( 'img' )[0];
-        if ( !img.loaded ) {
-          img.src = img.getAttribute( 'data-src' );
-          img.loaded = 1;
-        }
-      }
-      ++i;
-    }
-    
-    if ( from !== to ) {
-      var start = from * finily_item_width;
-      var end = to * finily_item_width;
-      simple( 350, 'easeOut', function( p ) {
-        instanceHelper.style.marginLeft = -1 * start + ( start - end ) * p + 'px';
-      });
-    }
-
-	if ( oto === this.config.max ) {
-		rslide.pause();
-	}
-
-  }
-});
-
-var btns = instance.getElementsByTagName( 'button' );
-for ( var i = 0, l = btns.length; i < l; ++i ) {
-  btns[i].onclick = function() {
-    var className = this.className;
-    if ( className === 'next' ) {
-      rslide.next();
-    }
-    else if ( className == 'prev' ) {
-      rslide.prev();
-    }
-  };
+// 简单尝试 Touch 事件.
+var xtouch = {};
+function resettouch() {
+  delete xtouch.pageX;
 }
+
+box.addEventListener( 'touchstart', function(e) {
+  var touch = e.touches[0];
+  xtouch.pageX = touch.pageX;
+}, false );
+
+box.addEventListener( 'touchmove', function(e) {
+  e.preventDefault();
+}, false );
+
+box.addEventListener( 'touchend', function(e) {
+  var touch = e.changedTouches[0];
+  var pageX = touch.pageX;
+  var offset = pageX - xtouch.pageX;
+  if ( Math.abs(offset) >= 20 ) {
+    if ( offset > 0 ) myslide.prev();
+    else myslide.next();
+  }
+  resettouch();
+}, false );
+
+box.addEventListener( 'touchcancel', function(e) {
+  resettouch();
+}, false );

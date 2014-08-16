@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+body {
+  /* 修正 orientation 时, 字体放大 */
+  -webkit-text-size-adjust: 100%;
+}
+
 ul, li { 
   list-style: none;
 }
@@ -12,20 +17,19 @@ a img {
   border: none; /* ie 下, 图片存在边框  */
 }
 
-#box,
-#instance {
+#box {
   width: 240px;
   margin: 0 auto;
   overflow: hidden;
   text-align: center;
-}
-
-#instance {
-  width: 720px;
+  /* 修正点击时存在背景 */
+  -webkit-tap-highlight-color: transparent;
 }
 
 ul {
   zoom: 1;
+  height: 340px;
+  overflow: hidden;
 }
 
 ul:after {
@@ -41,13 +45,14 @@ li {
   background-size: 30%;
 }
 
-#instance li {
-  margin-right: 5px;
+.action {
+  display: flex;
 }
 
 button {
   padding: 5px 20px;
   margin: 10px;
+  flex: 1;
 }
 
 #box-helper {
