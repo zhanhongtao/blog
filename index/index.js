@@ -31,9 +31,9 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
+    {title: 'queue - promise/coroutine', address: './queue/', description: '使用 es3, Yield, Promise, CSS3 四种方法' },
+    {title: 'simple-slide', address: './simpleslide/', description: '练习(slide) - 支持 Touch 事件' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
-    {title: 'simple-slide', address: './simpleslide/', description: '当练习使用(slide)' },
-    {title: 'Ajax', address: './fe/ajax.txt', description: 'Ajax 相关文档' },
     {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' },
     {title: 'css - Animation', address: './fe/animation.html' },
     {title: 'css - Auto Transition', address: './fe/auto-transition.html', description: '页面加载完时, 自动 transition' },
@@ -41,12 +41,12 @@ var blog = {
     {title: 'layout - css', address: './layout/', description: '使用 alt + Number 切换 css 文件)' },
     {title: 'expand-select', address: './expandselect/', description: '可使用 shift 辅助选择'},
     {title: 'xss - 编码', address: './xss/#0'},
-    {title: 'queue - promise/coroutine', address: './queue/' },
     {title: 'css 之 flex', address: './fe/flex/'},
     {title: 'css 之 desktop', address: './desktop/'},
     {title: 'function', address: './slide/#0'},
     {title: 'border', address: './fe/border.html'},
     {title: 'border-radius', address: './fe/border-radius.html'},
+    {title: 'Ajax', address: './fe/ajax.txt', description: 'Ajax 相关文档' },
     {title: 'selctor', address: './fe/selector/' }
   ]
 };

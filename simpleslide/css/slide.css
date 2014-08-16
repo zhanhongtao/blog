@@ -6,6 +6,7 @@
 body {
   /* 修正 orientation 时, 字体放大 */
   -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 ul, li { 
