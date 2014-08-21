@@ -7,7 +7,27 @@
     *{ margin: 0; padding: 0 } body{margin: 50px} button{ padding: 5px 10px }
     .demo { position: relative;width: 80px; height: 80px; background: #faa; margin: 10px 0; }
     .animate {
-      animation: slide 0.5s ease 0 1 forwards;
+      -webkit-animation: slide 0.5s ease 0s 1 forwards;
+      -moz-animation: slide 0.5s ease 0s 1 forwards;
+      -o-animation: slide 0.5s ease 0s 1 forwards;
+      -ms-animation: slide 0.5s ease 0s 1 forwards;
+      animation: slide 0.5s ease 0s 1 forwards;
+    }
+    @-webkit-keyframes slide {
+      from { left: 0 }
+      to   { left: 80% }
+    }
+    @-moz-keyframes slide {
+      from { left: 0 }
+      to   { left: 80% }
+    }
+    @-ms-keyframes slide {
+      from { left: 0 }
+      to   { left: 80% }
+    }
+    @-o-keyframes slide {
+      from { left: 0 }
+      to   { left: 80% }
     }
     @keyframes slide {
       from { left: 0 }
@@ -28,9 +48,9 @@
   <div class="demo"></div>
   <script src="../jquery-1.11.0.min.js"></script>
   <script src="queue.js"></script>
+  <script src="css3.js"></script>
   <script src="queuePromise.js"></script>
   <script src="queueYield.js"></script>
-  <script src="css3.js"></script>
   <script src="demo.js"></script>
 </body>
 </html>
