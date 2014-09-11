@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/*
+  sass 
+  --watch test.scss:test.css
+  --style: nested/expanded/compact/compressed
+  --sourcemap
+*/
+
+/*!
+  "重要注释" - compressed 模式也会保留.
+  版本/版权等信息.
+*/
+
+
+// sass 支持而 css 不支持的行注释.
+// 在生成 css 文件时, 会去掉这块内容.

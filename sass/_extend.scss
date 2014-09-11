@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/*
+  sass 会生成
+    .a, .b {
+
+    }
+  形式代码, 让 .a 和 .b 共用样式 - 专注于 scss/css.
+
+  也可以:
+  <div class="_share_ a"></div>
+  <div class="_share_ b"></div>
+*/
+/* @extend */
+.error {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+.seriousError {
+  @extend .error;
+  border-width: 3px;
+}
+.light-error {
+  @extend .error;
+}
+
+
+/*
+  如果页面中不使用 .error 时, 会产生冗余.
+  - css3 语法支持.
+  修正冗余 - 不使用的不合并
+*/
+%success-class {
+  color: lightgreen;
+}
+#box {
+  .tag {
+    @extend %success-class;
+  }
+}
+#foot {
+  @extend %success-class;
+}

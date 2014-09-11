@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+%clearfix {
+  display: inline-block;
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}
+/* 使用 %placeholder 代码会合并 */
+#drop {
+  @extend %clearfix;
+}
+#head {
+  @extend %clearfix;
+}
+/* 当然可以使用 
+  #drop, #head {
+    @extend %clearfix;
+  }
+  也可以使用
+  #box, #main {
+    @include clearfix;
+  }
+  但会影响多人开发时, 生成代码的质量.
+  
+  @include 会以复制代码形式在存在.
+  @extend 会以合并 selector 形式存在.  
+*/

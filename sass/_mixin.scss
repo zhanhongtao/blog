@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+/* @mixin */
+@mixin clearfix {
+  display: inline-block;
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}
+#box {
+  @include clearfix;
+}
+#main {
+  @include clearfix;
+}
+
+/* 
+  没有参数, 建议使用 %placeholder + @extend 语法.
+  使用 @mixin + @include 不会合并代码 
+*/
+
+/* @mixin + arguments */
+@mixin border-radius( $bd... ) {
+  -webkit-border-radius: $bd;
+  border-radius: $bd;
+}
+#box {
+  @include border-radius( 5px );
+}
+#main {
+  @include border-radius( 5px 4px/10px 8px );
+}
+
+/* 
+  @mixin 无参数时, 不如直接使用 %placeholder 
+*/
+%grid {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+@mixin grid($width: 1){
+    @extend %grid;
+    width: percentage($width);
+}
+.grid {
+  @include grid();
+}
+.grid-half {
+    @include grid(1 / 2);
+}
+.grid-third {
+    @include grid(1 / 3);
+}
+/* @todo 默认值 */

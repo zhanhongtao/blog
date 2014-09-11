@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+/* 
+  @if 
+  对是否支持 ie 做判断 - 防止生成不必要代码
+  是否支持 ie 特定版本.
+  是否使用滤镜.
+*/
+
+
+$filter: false;
+$a: 10;
+$b: false;
+@if $filter {
+
+} @else {
+
+}
+
+@if $a or $b {
+
+}
+
+@if not($a) {
+
+}
+$radius: 10px;
+@if $radius != 0 {
+
+}

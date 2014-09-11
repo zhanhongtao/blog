@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+/* & */
+a {
+  &, &:visited {
+    text-decoreation: none;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoreation: underline;
+  }
+  #box & {
+    font-weight: 700;
+  }
+}
+
+/* & 当 selector 字符串使用 */
+.slide {
+  &-toggle {
+    background-color: #ccc;
+  }
+}
+
+#box {
+  .wrap & {
+    color: #333;
+  }
+}
+
