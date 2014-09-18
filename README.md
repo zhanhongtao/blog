@@ -11,3 +11,4 @@
 * [离谱](http://jsfiddle.net/user/ganksolo/fiddles/) [(原)](http://www.cnblogs.com/anychem/)
 * [Eric](http://www.zuoby.com/)
 * [石头](http://jsfiddle.net/user/dashboard/)
+* [崔凯](http://uicss.cn/)
