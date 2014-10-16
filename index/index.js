@@ -31,6 +31,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
+    {title: '遍历 DOM-Tree', address: './walkdomtree/'},
     {title: 'queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
     {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },

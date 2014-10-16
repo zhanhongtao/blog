@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试DOM树广度遍历</title>
+</head>
+<body>
+  <div id="box">
+    <div class="first">DOM</div>
+    <div class="second">Tree</div>
+    <ul>
+      <li class="first-child">First-child</li>
+      <li class="mid">
+      <div id="block">
+        <p><a href="http://www.sogou.com">sogou</a></p>
+      </div>
+      </li>
+      <li class="last-child">Last-child</li>
+    </ul>
+  </div>
+  <script src="walktree.js"></script>
+</body>
+</html>

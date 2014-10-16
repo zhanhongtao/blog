@@ -5,11 +5,10 @@
   <title>animation</title>
   <style>
     .demo { 
-      width: 100px; 
-      height: 100px;
+      width: 80px; 
+      height: 80px;
       background-color: #faa;
       margin: 10px;
-      opacity: 0;
     }
   </style>
 </head>
@@ -18,9 +17,11 @@
   <div class="action">
     <button id="resume">Play</button>
     <button id="pause">Pause</button>
-    <button id="finish">Gotoend</button>
+    <button id="finish">Finish</button>
     <button id="cancel">Cancel</button>
     <button id="reverse">Reverse</button>
+    <hr />
+    <input id="progress" type="range" min="0" max="100" value="0">
   </div>
   <script>
     var $ = function( selector ) {
@@ -28,46 +29,69 @@
     };
     
     var demo = $( '.demo' );
+    var player;
+    var timer;
+    
     // http://www.chromestatus.com/metrics/css/animated
     // http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
     // position -> translate.
     // opacity
     // scale
     // rotation
-    var player = demo.animate([
-      {
-        transform: 'translateX(0)',
-        opacity: '0',
-        marginLeft: 0
-      },
-      { 
-        transform: 'translateX(0)',
-        opacity: '0.3',
-        marginLeft: '+200px'
-      },
-      {
-        transform: 'translateX(0)',
-        opacity: '1',
-        marginLeft: '+500px'
-      }
-    ], {
-      duration: 1000,
-      iterations: 1,
-      delay: 300,
-      direction: "alternate"
-    });   
+    function init() {
+      player = demo.animate([
+        {
+          transform: 'translateX(0)',
+          opacity: '1',
+          marginLeft: 0
+        },
+        {
+          transform: 'translateX(0)',
+          opacity: '0',
+          marginLeft: '+600px'
+        }
+      ], {
+        duration: 1000,
+        iterations: 2,
+        delay: 1000 * 1,
+        direction: "alternate"
+      }); 
+    }
+    function log() {
+      timer = setInterval(function() {
+        if ( player ) {
+          console.log( 'state: play',  !player.puased );
+          console.log( 'playState:',    player.playState );
+          console.log( 'direction: ',   player.playbackRate );
+          console.log( 'currentTime: ', player.currentTime );
+          console.log( 'startTime: ',   player.startTime );
+          console.log( 'timelag: ',     player.timeLag );
+          $( '#progress' ).value = Math.ceil( ( (player.currentTime-1000) / 2000 ) * 100 )
+        }
+      }, 100);    
+    }
+
+    init();
+    log();
     
-    console.log( 'state: play',  !player.puased );
-    console.log( 'direction: ',   player.playbackRate );
-    console.log( 'currentTime: ', player.currentTime );
-    console.log( 'startTime: ',   player.startTime );
-    console.log( 'timelag: ',     player.timeLag );
-    
-    function onpause()  { player.pause();   }
-    function onresume() { player.play();    }
-    function onfinish() { player.finish();  }
-    function oncancel() { player.cancel();  }
-    function onreverse(){ player.reverse(); }
+    function onpause()  { 
+      player.pause();   
+    }
+    function onresume() { 
+      player.play();    
+      log();
+    }
+    function onfinish() { 
+      player.finish();  
+      player.onfinish();
+    }
+    function oncancel() { 
+      player.cancel();  
+    }
+    function onreverse(){ 
+      player.reverse(); 
+      log();
+    }
     
     $( 'button#pause' ) .onclick = onpause;
     $( 'button#resume' ).onclick = onresume;
@@ -80,9 +104,13 @@
       // currentTime
       // timelineTime
       demo.style.opacity = 1;
+      if ( timer ) {
+        clearInterval( timer );
+      }
     };
 
     /*
+      console.log( player.source );
       {
         activeDuration: 1000,
         currentIteration: null,
@@ -103,7 +131,6 @@
         }
       }
     */
-    console.log( player.source );
   </script>
 </body>
 </html>
