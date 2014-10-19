@@ -1,32 +1,30 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <title>属性选择器样式演示</title>
-    <style type="text/css">
-
-
-        .t1 [foo],                /* 具有 foo 属性的元素 */
-        .t2 [foo="bar"],        /* 具有 foo 属性, 并且属性值为 bar */
-        .t3 [foo~="bar"],        /* 具有 foo 属性, 并且属性使用空格分隔后, 其中有值等于 bar */
-        .t4 [foo^="bar"],        /* 具有 foo 属性, 并且以 bar 字符开头 */
-        .t5 [foo$="bar"],        /* 具有 foo 属性, 并且以 bar 字符结束 */
-        .t6 [foo*="bar"],        /* 具有 foo 属性, 并且其值包含 bar 字符 */
-        .t7 [foo|="bar"]        /* 具有 foo 属性, 并且以 - 线分隔, 并且 bar 开头 */
-        {
-            background-color: #BBB;
-            color: #000;
-            padding: 10px;
-        }
-        body {
-            font-size: 14px;
-        }
-        .wrap {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>属性选择器样式演示</title>
+  <style type="text/css">
+    .t1 [foo],                 /* 具有 foo 属性的元素 */
+    .t2 [foo="bar"],           /* 具有 foo 属性, 并且属性值为 bar */
+    .t3 [foo~="bar"],          /* 具有 foo 属性, 并且属性使用空格分隔后, 其中有值等于 bar */
+    .t4 [foo^="bar"],          /* 具有 foo 属性, 并且以 bar 字符开头 */
+    .t5 [foo$="bar"],          /* 具有 foo 属性, 并且以 bar 字符结束 */
+    .t6 [foo*="bar"],          /* 具有 foo 属性, 并且其值包含 bar 字符 */
+    .t7 [foo|="bar"]           /* 具有 foo 属性, 并且以 - 线分隔, 并且 bar 开头 */
+    {
+      background-color: #BBB;
+      color: #000;
+      padding: 10px;
+    }
+    body {
+      font-size: 14px;
+    }
+    .wrap {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #000;
+    }
+  </style>
 </head>
 <body>
     <h1>属性选择器样式演示</h1>
