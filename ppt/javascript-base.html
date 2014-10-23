@@ -77,8 +77,8 @@
       <h1>严格模式</h1>
     </div>
     <div class="bd">
-      <p>建议在严格模式下进行开发 - 养成良好编码习惯</p>
-      <p>开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; 不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.</p>
+      <p>建议在严格模式下进行开发 - 养成良好编码习惯 <br />
+      开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; 不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.</p>
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   "use strict";
@@ -168,7 +168,7 @@ alert( 'scope: ' + scope );   // 'global'
   'use strict';
   var a = 'string';
   function a() {
-    
+
   }
   alert( typeof(a) );
 </code>
@@ -182,7 +182,7 @@ alert( 'scope: ' + scope );   // 'global'
   if ( code ) {
     function test() {
       alert(1);
-    };    
+    };
   }
   test();
 </code>
@@ -220,7 +220,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>Object
         <li><a href="./javascript-function.html">Function</a>
         <li>Date
-        <li><a href="https://docs.google.com/presentation/d/1tuU3ZM51O7uxQsRU2qvhHJIqMM2RLcRd5SVKE5YvqrA/pub?start=true&loop=true&delayms=3000">RegExp</a>
+        <li><a href="./javascript-regexp.pdf">RegExp</a>
       </ul>
       <mark>JavaScript 中, 除 null 和 undefined 之外, 有变量都是对象.</mark>
     </div>
@@ -244,7 +244,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>浮点类型, 但计算不准确 - 0.1 + 0.2 != 0.3; // true</li>
         <li>可使用八进制(012)/十六进(0x9)制表示</li>
         <li>数字范围( -Infinity, Infinity )</li>
-        <li>最小值Number.MIN_VALUE和数据最大值Number.MAX_VALUE;</li>
+        <li>最小值Number.MIN_VALUE和最大值Number.MAX_VALUE;</li>
         <li>NaN 特殊数值, 表示 Not a Number; 但是属于 Number 类型. isNaN( NaN ) === true;</li>
         <li>数值转换 parseInt( _var, base );/parseFloat( _var );/Number( _var );</li>
       </ul>
@@ -316,7 +316,7 @@ alert( 'scope: ' + scope );   // 'global'
       <ul>
         <li>实现 Math.pow 函数
         <li>实现复利计算
-        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)      
+        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>
     </div>
   </section>
@@ -343,7 +343,7 @@ alert( 'scope: ' + scope );   // 'global'
   '\u000A'; // 换行符
   '\u000D'; // 回车符
   '\u0028'; // 行分隔符
-  '\u0029'; // 段分隔符  
+  '\u0029'; // 段分隔符
   var multiLinesString = 'a\
     b\
     c;
@@ -391,7 +391,6 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>length - 属性
         <li>concat()
         <li>replace()
         <li>indexOf()/lastIndexOf()/search()/match()
@@ -400,7 +399,12 @@ alert( 'scope: ' + scope );   // 'global'
         <li>charAt()/charCodeAt()
         <li>toUpperCase()/toLowerCase()
         <li>trim()/trimLeft()/trimRight()
+        <li>startsWith()/endsWith()
+        <li>repeat()/contains()
+        <li>codePointAt()
+        <li>length - 属性
         <li>String.fromCharCode() - 静态方法
+        <li>String.fromCodePoint()
       </ul>
     </div>
   </section>
@@ -411,10 +415,13 @@ alert( 'scope: ' + scope );   // 'global'
     <div class="bd">
       <ul>
         <li>小写字母转换为大写(逆运算)
-        <li>把字符串中的 Tab 转换为 2 个空格
         <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>替换字符串中的 html 标签
-        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)        
+        <li>把字符串中的 Tab 转换为 2 个空格
+        <li>处理 HTML 字符串 - innerHTML
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
+        <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
+        <li>KMP
+        <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
       </ul>
     </div>
   </section>
@@ -439,6 +446,7 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
+        <li>[].length // 可直接修改长度
         <li>push()/pop()
         <li>shift()/unshift()
         <li>slice()/splice()
@@ -446,7 +454,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>concat()/join()
         <li>reverse()/sort()
         <li>forEach()/every()/some()/map()/filter()/reduce()/reduceRight()
-        <li>Array.isArray
+        <li>Array.isArray()
       </ul>
     </div>
   </section>
@@ -458,13 +466,21 @@ alert( 'scope: ' + scope );   // 'global'
       <ul>
         <li>创建 n 个元素组成的, 值全为 k 的数组
         <li>扁平化 Array - [ 1, [2, 3], [4,[5] ] -> [ 1, 2, 3, 4, 5 ]
-        <li>有两个数组a、b, 查找在 a 存在而 b 里面不存在的元素.
-        <li>实现数组的 reverse 方法
-        <li>二分查找/KMP
+        <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
+        <li>数组元素反转 - [1,2,3,4,5] - [3,4,5,1,2]
+        <li>移除数组中重复的值 - 数组元素全数数字
+        <li>实现数组的 [].reverse 方法
+        <li>求数组中的最大值和最小值
+        <li>求数组中第 K 大/小的值
         <li>打乱数组 - 类似洗牌 shuffle
-        <li>快速排序和插入排序算法 js 描述
         <li>抽奖算法(要求不重复)
-        <li>移除数据中重复的值(array/object/NaN..)
+        <li>二分查找
+        <li>求数组中出现次数超过一半的元素
+        <li>合并两个有序的数组
+        <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
+        <li>快速排序和插入排序算法 js 描述
+        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
+        <li>使用递归方法, 顺序打印和倒序打印数组元素
       </ul>
     </div>
   </section>
@@ -481,6 +497,24 @@ alert( 'scope: ' + scope );   // 'global'
         <li>isPropertyOf( object )
         <li>propertyIsEnumerable( key )
         <li>toLocalString()
+        <li>Object.create()
+        <li>Object.defineProperty( object, property, descriptor )
+        <li>Object.defineProperties( object, descriptor )
+        <li>Object.getOwnPropertyDescriptor( object, property )
+        <li>Object.keys()
+        <li>Object.getOwnPropertyNames( object )
+        <li>object.propertyIsEnumerable( property )
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Object 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>type - 判断变量数据类型
+        <li>mix - 合并对象(jQuery.extends)
       </ul>
     </div>
   </section>
@@ -555,10 +589,11 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>进制转换
-        <li>状态表示
-        <li>RGB和十六进制色值转换
-        <li>二进制相关算法
+        <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
+        <li>状态表示 - 15 可表示4种状态
+        <li>RGB和十六进制色值转换 - toHex()/toRGB()
+        <li>如何使用两个骰子表示月份中的每一天
+        <li>求数组中出现奇数次的单个元素
       </ul>
     </div>
   </section>
@@ -596,8 +631,8 @@ alert( 'scope: ' + scope );   // 'global'
         <li>+ 操作数都是数字时, 做数学运算
         <li>+ 操作数为对象时, 转换为字符串, 然后按照上面的规则操作
           <ul>
-            <li>[1] + [1] == '11'; 
-            <li>[] + {} == '[object Object]'; 
+            <li>[1] + [1] == '11';
+            <li>[] + {} == '[object Object]';
             <li>{} + {} = ?
           </ul>
         <li>- 转化为数字
@@ -677,7 +712,7 @@ alert( 'scope: ' + scope );   // 'global'
   var code = 1;
   var result = code ? 'success' : 'fail';
   alert( result );
-  
+
   function test( a, b, strict ) {
     return strict ? a === b : a  == b;
   }
@@ -693,8 +728,8 @@ alert( 'scope: ' + scope );   // 'global'
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-var a; 
-a = (1, 2, 3, 4, 5); 
+var a;
+a = (1, 2, 3, 4, 5);
 alert( a === 5 );
 </code>
 <div class="runcase">Run</div>
@@ -703,8 +738,8 @@ alert( a === 5 );
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-var a; 
-a = 1, 2, 3, 4, 5; 
+var a;
+a = 1, 2, 3, 4, 5;
 alert( a === 5 );
 </code>
 <div class="runcase">Run</div>
@@ -750,7 +785,7 @@ function test( a ) {
 }
 test();
 // 虽然 void 永远返回 undefined, 但是它后面的表达式还是会计算的
-void alert( Math.pow(2, 10) ); 
+void alert( Math.pow(2, 10) );
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -781,19 +816,19 @@ alert( search == 'Google' );  // true;
 alert( search === 'Google' );  // false;
 </code>
 <div class="runcase">Run</div>
-</pre>       
+</pre>
       </div>
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-var a = 'a', b = new String('b'); 
+var a = 'a', b = new String('b');
 a.a = 1;
 b.b = 1;
-alert( a.a ); 
+alert( a.a );
 alert( b.b );
 </code>
 <div class="runcase">Run</div>
-</pre>   
+</pre>
       </div>
     </div>
   </section>
@@ -849,7 +884,7 @@ alert( b.b );
   alert( isFind ? 'Find!' : 'Not Find' );
 </code>
 <div class="runcase">Run</div>
-</pre>      
+</pre>
       </div>
       <div class="grid">
 <pre class="codebox">
@@ -865,7 +900,7 @@ alert( b.b );
   }
 </code>
 <div class="runcase">Run</div>
-</pre>       
+</pre>
       </div>
     </div>
   </section>
@@ -895,7 +930,7 @@ alert( b.b );
   alert( isFind ? 'Find!' : 'Not Find' );
 </code>
 <div class="runcase">Run</div>
-</pre>      
+</pre>
       </div>
       <div class="grid">
 <pre class="codebox">
@@ -905,7 +940,7 @@ alert( b.b );
   } while ( 0 )
 </code>
 <div class="runcase">Run</div>
-</pre>       
+</pre>
       </div>
     </div>
   </section>
@@ -942,7 +977,7 @@ alert( b.b );
   handle( 'close', 'close that window' );
 </code>
 <div class="runcase">Run</div>
-</pre>       
+</pre>
       </div>
       <div class="grid">
 <pre class="codebox">
@@ -968,7 +1003,7 @@ alert( b.b );
   handle( 'close', 'close that window' );
 </code>
 <div class="runcase">Run</div>
-</pre> 
+</pre>
       </div>
     </div>
   </section>
@@ -991,7 +1026,7 @@ alert( b.b );
   }
 </code>
 <div class="runcase">Run</div>
-</pre> 
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -1031,10 +1066,10 @@ alert( b.b );
     }
   }
   alert( test() );
-  
+
 </code>
 <div class="runcase">Run</div>
-</pre> 
+</pre>
       </div>
     </div>
   </section>
@@ -1155,11 +1190,13 @@ alert( b.b );
     </div>
     <div class="bd">
       <ul>
+        <li>http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
         <li>https://www.chromestatus.com/features
         <li>http://bonsaiden.github.io/JavaScript-Garden/zh/
+        <li>https://github.com/zhanhongtao/blog/issues/77
+        <li>https://github.com/zhanhongtao/blog/issues/82
         <li><JavaScript 语言精粹>
         <li><Effective JavaScript:编写高质量JavaScript代码的68个有效方法>
-        <li>http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
       </ul>
     </div>
   </section>
