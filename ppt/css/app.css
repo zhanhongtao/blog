@@ -1,0 +1,103 @@
+.slide {
+  padding: 0 10px;
+}
+
+.ppt .slide {
+  display: none;
+  box-sizing: border-box;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 90%;
+  margin: 15px auto;
+}
+
+.ppt .slide-target,
+.ppt .slide:target {
+  display: block;
+}
+
+#navigator {
+  display: none;
+}
+
+.ppt #navigator {
+  position: fixed;
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background: #F50E78;
+  height: 2px;
+}
+
+.ppt .slide-cover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+}
+
+.ppt .slide-cover h1 {
+  font-size: 46px;
+  margin-top: -10%;
+}
+
+.ppt .slide-cover h2,
+.ppt .slide-cover h3 {
+  color: #B5B8A6;
+  font-weight: normal;
+}
+
+.ppt .sub-slide {
+  display: none;
+  -webkit-animation: opacity .5s linear;
+}
+
+.ppt .sub-slide-block {
+  display: block;
+}
+
+/* 文档模式下显示 */
+.content-toggle {
+  padding: 0 10px;
+}
+
+/* 手机下样式 */
+@media screen and ( max-width: 480px ) {
+  .pc-helper {
+    display: none;
+  }
+}
+
+.ppt pre {
+  background-color: #F0F0F0;
+}
+
+.ppt .content-toggle {
+  display: none;
+}
+
+.ppt .slide-target-prev {
+  -webkit-animation: opacity .5s linear;
+}
+
+.ppt .slide-target-next {
+  -webkit-animation: opacity .5s linear;
+}
+
+.ppt .slide-cover {
+  -webkit-animation: top2bottom .5s linear;
+}
+
+.ppt .slide-function-info {
+  background: url(./function.png) no-repeat right center;
+  background-size: 350px;
+}

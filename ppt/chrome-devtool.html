@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CHROME 开发者工具</title>
+  <base target="_blank" />
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=2">
+  <link rel="stylesheet" href="./css/app.css?v=2">
+  <link rel="stylesheet" href="./css/fullscreen.css">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/animation.function.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>Chrome Developer Tools</h1>
+      <h2 class="h3">redky@qq.com</h2>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>前端发展较快<br />建议花时间打好基础, 以不变应万变!</h1>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>内容简介</h1>
+    </div>
+    <div class="bd">
+      <ol>
+        <li>Overview</li>
+        <li>Elements</li>
+        <li>Console</li>
+        <li>Network</li>
+        <li>Sources</li>
+        <li>Audits</li>
+        <li>Timeline</li>
+        <li>Resources</li>
+      </ol>
+    </div>
+    <div class="helper" style="opacity: 0.5; background: url(./images/devtool/overview.png) 100% 0 no-repeat;z-index: -1"></div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Overview</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Chrome Version - <a href="http://www.google.cn/intl/zh-CN/chrome/">Stable</a>/<a href="https://www.google.com/chrome/browser/beta.html">Beta</a>/<a href="https://www.google.com/intl/zh-CN/chrome/browser/canary.html">Canary</a><sup>try</sup></li>
+        <li>Chrome URLS: chrome://chrome-urls/ <mark>chrome://flags/</mark></li>
+        <li>启用实验性 JavaScript <mark>enable-javascript-harmony</mark></li>
+        <li>启用实验性网络平台功能 - Chrome Developer Tools</li>
+        <li>打开 DevTools 方式以及它呈现的状态</li>
+        <li><a href="https://developer.chrome.com/devtools/docs/css-preprocessors">支持调试 SASS</a></li>
+        <li><a href="https://developer.chrome.com/devtools/docs/remote-debugging">配合 chrome mobile 调试移动页面</a></li>   
+        <li>使用 Snippets 存储代码片段</li>
+        <li>开发者工具本身也是网页</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Overview</h1>
+    </div>
+    <div class="bd">
+      <div class="image">
+        <img src="./images/devtool/change-status.png" />
+      </div>   
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Elements</h1>
+    </div>
+    <div class="bd box">
+      <ol start="1" class="grid">
+        <li>左上角 Search 图标选择 DOM 节点</li>
+        <li>查看 DOM Tree 结构(子元素 - 左右箭头)</li>
+        <li>搜索 - Ctrl + F/ Ctrl + Shift + F</li>
+        <li>修改 Tag 和 Attribute - Ctrl + Z</li>
+        <li>移动 DOM 结构 - 鼠标选中后, 直接拖动</li>
+        <li>复制 HTML 结构</li>
+        <li>修改 HTML 字符串 - F2/右键</li>
+        <li>鼠标放到图片地址上可查看图片细节</li>
+      </ol>
+      <ol start="9" class="grid">
+        <li>查看用户样式和层叠关系 - user/author/userAgent</li>
+        <li>添加(<mark>选择器</mark>)/删除(<mark>临时取消</mark>)/修改样式</li>
+        <li>强制显示伪类样式</li>
+        <li>切换颜色表示方式(Shift + 点击)</li>
+        <li>查看元素盒子模型</li>
+        <li>右键取当前元素的 CSS 选择器和 xpath</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Elements - CSS</h1>
+    </div>
+    <div class="bd">
+      <div class="image">
+        <img src="./images/devtool/elements.jpg">
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Elements - DOM BreakPoints</h1>
+    </div>
+    <div class="bd">
+      <div class="image">
+        <img src="./images/devtool/breakpoint-1.jpg" style="width:45%">
+        <img src="./images/devtool/breakpoint-2.jpg" style="width:50%">
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Elements - Event Listeners</h1>
+    </div>
+    <div class="bd">
+      <div class="image">
+        <img src="./images/devtool/event.png">
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Console - Console API</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>console.log( x, y, z ); // <code>console.log( '%c%s', 'color: red', 'Message' )</code></li>
+        <li>console.debug/console.warn/console.error</li>
+        <li>(*)console.time( timeTag );console.timeEnd( timeTag ); // 代码执行了多久</li>
+        <li>(*)console.count( name ); // 代码执行了多少次</li>
+        <li>(*)console.trace( function_name ); // 函数调用栈</li>
+        <li>(*)console.table( list[, filter] ); // 以表格形式展现数据</li>
+        <li>console.assert( Boolean, description ); // assert 测试, 只会在错误时, 以红色打印 log</li>
+        <li>console.clear();</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Console - Command API</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>$_ - 命令行上一次运行的结果</li>
+        <li>$()/$$()/$x()</li>
+        <li>$0/$1/$2/$3/$4</li>
+        <li>monitor(fname)/unmonitor()</li>
+        <li>monitorEvents( node, [eventname] )/unmonitorEvents( node )</li>
+        <li>keys( object )/values( object )</li>
+        <li>copy - 高权限</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Console - Others</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>按<code>Esc</code>键, 显示 Console 辅助面板</li>
+        <li>输入多行代码 - Shift + Enter</li>
+        <li>不同 context 下的 Console - iframe/content_scripts</li>
+        <li>右键菜单 - 打印 XMLHttpRequest 请求日志</li>        
+        <li>过滤 - 查看不同级别日志信息(All/Errors/Warnings/Logs/Debug)</li>
+        <li>持久化日志 - Preserve log</li>
+        <li>清除日志数据 - (Ctrl + L) 或者 <code>console.clear();</code></li>
+      </ul>
+      <div class="image"><img src="./images/devtool/console.jpg"></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Network</h1>
+    </div>
+    <div class="bd">
+      <ol start="1">
+        <li>当前页面请求的资源列表</li>
+        <li>单个资源的路径</li>
+        <li>查看单个资源的请求细节信息 - Header/Response/Cookie/Timing</li>
+        <li>资源的请求方法 - GET/POST</li>
+        <li>请求返回状态码 - 200/301/302/304/404/500/502</li>
+        <li>资源的 Meta 类型 - text/html, text/css, text/javascript, ...</li>
+        <li>资源文件的大小</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Network</h1>
+    </div>
+    <div class="bd">
+      <ol start="8">
+        <li>过滤 - 只查看 XMLHttpRequest 请求/图片资源....</li>
+        <li>不显示 data 协议</li>
+        <li>开发者工具打开状态时, 禁止缓存</li>
+        <li>Ctrl + F 搜索匹配的资源</li>
+        <li>持久化资源日志列表</li>
+        <li>copy 资源的 URL/Headers...</li>
+        <li>资源加载时间线</li>
+        <li>查看页面总资源数和加载时间</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Network(*)</h1>
+    </div>
+    <div class="bd">
+      <div class="image"><img src="./images/devtool/network.jpg"></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Sources(*)</h1>
+    </div>
+    <div class="bd">
+      <ol start="1">
+        <li>格式化 CSS/JavaScript 代码</li>
+        <li>代码记事本  - Snippets</li>
+        <li>查看不同 context 下代码 - webpage/extention</li>
+        <li>修改 CSS, 可实时生效, Save/Save as, 还有更新记录</li>
+        <li>可用来 Debug JavaScript</li>
+        <li>行号断点和条件断点</li>
+        <li>断点类型 - User/DOM/XHR/Event(根据类型)</li>
+        <li>可查看调用栈 - 断点处变量的作用域</li>
+        <li>跳过断点/跳过函数调用/进入函数调用/跳出函数调用</li>
+        <li>异常时自动断点/临时取消所有断点</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Sources(*)</h1>
+    </div>
+    <div class="bd">
+      <ol start="11">
+        <li>Ctrl + O - 打开文件</li>
+        <li>Ctrl + G - 定位到行</li>
+        <li>Ctrl + F - 在文件中搜索</li>
+        <li>Ctrl + Shift + F(text/regexp) - 在所有资源中搜索</li>
+        <li>Ctrl + Shift + O - 在文件中定位函数</li>
+        <li>Alt + 左键 - 列操作</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Audits</h1>
+    </div>
+    <div class="bd">
+      <p>类似 <a href="https://developer.yahoo.com/yslow/">Yslow</a>, 提供优化建议</p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Timeline</h1>
+    </div>
+    <div class="bd">
+      <a href="http://melonhuang.github.io/sharing/slides.html?file=high_performance_animation#/1">高性能动画</a>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Resource</h1>
+    </div>
+    <div class="bd box">
+      <ul class="grid">
+        <li>Cookie</li>
+        <li>Session</li>
+        <li>LocalStorage</li>
+        <li>SessionStorage</li>
+        <li>IndexedDB</li>
+        <li>Application Cache - manifest.xml</li>
+      </ul>
+      <div class="image grid"><img src="./images/devtool/resources.jpg"></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>参考和资源扩展</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>https://developer.chrome.com/home</li>
+        <li>https://developer.chrome.com/home/devtools-pillar</li>
+        <li>https://developer.chrome.com/devtools/docs/console</li>
+        <li>https://developer.chrome.com/devtools/docs/tips-and-tricks</li>
+        <li>https://developer.chrome.com/devtools/docs/shortcuts</li>
+        <li>https://developer.chrome.com/devtools/docs/css-preprocessors</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>?</h1>
+    </div>
+  </section>
+  <nav id="navigator"></nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/pattern.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/resize.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/touch.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>

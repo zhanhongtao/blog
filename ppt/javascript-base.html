@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>JavaScript - 语法</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=2">
+  <link rel="stylesheet" href="./css/app.css?v=2">
+  <link rel="stylesheet" href="./css/fullscreen.css">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/animation.function.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>JavaScript 基础语法</h1>
+      <h2 class="h3">redky@qq.com</h2>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+<pre class="codebox" style="min-width: 70%;">
+<code class="javascript block" contenteditable="true">
+  /*
+    打印列表内容                   // 这里是多行注释; 单行注释使用 //
+  */
+  function init( list ) {            // function 是保留字; init 是函数名; list 是参数
+    var i = 0, l = list.length;      // 使用 var 声明两个变量 i 和 l, 它们之间使用逗号分隔.
+                                     // 在声明时, 给 l 变量赋值为 list.length
+    for ( ; i < l; i = i + 1 ) {     // 从 0 到 l, 以步长为 1 访问
+      alert( list[i] );              // 访问第 i 个元素 list[i], 并且把它弹出
+    }
+  }
+  var list = [ 'Google', 'Sogou', 'Baidu' ]; // 定义搜索引擎列表
+  init( list );                              // init 函数调用, 参数为 list
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>标识符和保留字</h1>
+    </div>
+    <div class="bd">
+      <dl>
+        <dt>标识符 - 变量</dt>
+        <dd>由数字/字母/下划线/美元符号组成, 但不能以数字开头</dd>
+        <dd>标识符区分大小写</dd>
+        <dt>保留字</dt>
+        <dd>var/function/return/if/....</dd>
+        <dd>保留字不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>注释</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>// comment</li>
+        <li>/* comment */, /*! 工具会保留注释 */</li>
+        <li>&lt!-- 基本不用</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>严格模式</h1>
+    </div>
+    <div class="bd">
+      <p>建议在严格模式下进行开发 - 养成良好编码习惯</p>
+      <p>开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; 不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.</p>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  "use strict";
+  var user = {
+    id: 806,
+    name: 'rd'
+  };
+  // 严格模式不允许使用 with 结构
+  with( user ) {
+    alert( 'id: ' + id );
+    alert( 'name: ' + name );
+  }
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <ul>
+        <li>http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html
+        <li>https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>变量</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
+        <li>局部变量 - var bar = 'local';
+        <li>常量 - BROWSER_VERSION = 5;
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+'use strict';
+var scope = 'global';
+function check() {
+  var scope = 'local';
+  return scope;
+}
+var result = check();
+alert( 'result: ' + result ); // 'local';
+alert( 'scope: ' + scope );   // 'global'
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  'use strict';
+  var scope = 'global';
+  function check() {
+    scope = 'local';
+    return scope;
+  }
+  var result = check();
+  alert( 'result: ' + result ); // 'global';
+  alert( 'scope: ' + scope ); // 'global';
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  'use strict';
+  var scope = 'global';
+  var result = check();
+  alert( 'result: ' + result ); // 'global';
+  alert( 'scope: ' + scope ); // 'global';
+  function check() {
+    scope = 'local';
+    return scope;
+  }
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  'use strict';
+  var a = 'string';
+  function a() {
+    
+  }
+  alert( typeof(a) );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var code = 0;
+  if ( code ) {
+    function test() {
+      alert(1);
+    };    
+  }
+  test();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  function test() {
+    for ( var i = 0; i < 2; ++i ) {
+      console.log( 'dosomething' );
+    }
+    alert( i );
+  }
+  test();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>数据类型</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>null
+        <li>undefined
+        <li>Number
+        <li>String
+        <li>Boolean
+        <li>Array
+        <li>Object
+        <li><a href="./javascript-function.html">Function</a>
+        <li>Date
+        <li><a href="https://docs.google.com/presentation/d/1tuU3ZM51O7uxQsRU2qvhHJIqMM2RLcRd5SVKE5YvqrA/pub?start=true&loop=true&delayms=3000">RegExp</a>
+      </ul>
+      <mark>JavaScript 中, 除 null 和 undefined 之外, 有变量都是对象.</mark>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>null 和 undefined</h1>
+    </div>
+    <div class="bd">
+      <p>null 表示不存在;</p>
+      <p>undefined 表示存在, 但没有值;</p>
+      <p>null == undefined; // true</p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Number</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>浮点类型, 但计算不准确 - 0.1 + 0.2 != 0.3; // true</li>
+        <li>可使用八进制(012)/十六进(0x9)制表示</li>
+        <li>数字范围( -Infinity, Infinity )</li>
+        <li>最小值Number.MIN_VALUE和数据最大值Number.MAX_VALUE;</li>
+        <li>NaN 特殊数值, 表示 Not a Number; 但是属于 Number 类型. isNaN( NaN ) === true;</li>
+        <li>数值转换 parseInt( _var, base );/parseFloat( _var );/Number( _var );</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>数值转换</h1>
+    </div>
+    <div class="bd">
+      <h2>Number( _var );</h2>
+      <ol>
+        <li>为 Number 类型, 直接返回 _var</li>
+        <li>为 Boolean 值, 则 true -> 1; false -> 0;</li>
+        <li>为 null, 返回 0</li>
+        <li>为 undefined, 返回 NaN</li>
+        <li>如果为字符串:
+          <ol>
+            <li>空字符串, 返回 0</li>
+            <li>如果字符串中只有数字(可包含前导符号), 则直接转换为数字, 如果存在前导零, 直接忽略.</li>
+            <li>如果字符串中包含浮点格式(2.3), 规则同上.</li>
+            <li>如果字符串中包含十六进制格式(0xf), 则将其转换为相同大小的十六进制整数值.</li>
+            <li>如果字符串包含其他格式字符, 返回 NaN</li>
+          </ol>
+        </li>
+        <li>如果是 Object 类型, 则调用 .valueOf() 方法, 然后按照上面的规则转换. 如果转换的结果为 NaN, 就再使用 .toString() 方法, 再按照上面的规则转换.</li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>数值转换</h1>
+    </div>
+    <div class="bd">
+      <ol>
+        <li>一元操作符 +_var 和 Number( _var ) 相同</li>
+        <li>parseInt( _var ) 和 Number( _var ) 的区别
+          <ol>
+            <li>空字符串时, 返回 NaN</li>
+            <li>第一个字符不是数字或者正负号, 就返回 NaN.</li>
+            <li>第一个字符是数字字符, 就处理第二个, 直到不是数字为止. parseInt( '123a', 10 ); //123</li>
+            <li>它不认为小数点是合法字符.</li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Math</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>PI
+        <li>abs()
+        <li>random()
+        <li>floor()/round()/ceil()
+        <li>sin()/cos()/atan2()
+        <li>sqrt()/pow()
+        <li>max()/min()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Math 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>实现 Math.pow 函数
+        <li>实现复利计算
+        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)      
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>String</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>'普通字符'; "普通字符"
+        <li>'转义\', \\'
+        <li>'非打印字符: \n, \r, \t'
+        <li>'使用十六进制表示, \x + nn: \x41'
+        <li>'使用unicode表示, \u + nnnn: \u0061'
+        <li>var string = new String( 'Huawei' );
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  '\u0020'; // 空格
+  '\u0009'; // tab
+  '\u000A'; // 换行符
+  '\u000D'; // 回车符
+  '\u0028'; // 行分隔符
+  '\u0029'; // 段分隔符  
+  var multiLinesString = 'a\
+    b\
+    c;
+  alert( multiLinesString );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  alert( '\x61' ); // 'a'
+  // '\u0020' 格式转换
+  var code = ' '.charCodeAt( 0 ); // 得到字符编码 32
+  code = code.toString( 16 );     // 转换为十六进制 '20'
+  alert( '\\xnn 格式: \\x' + code );
+  if ( code.length < 4 ) {
+    code = ( new Array(5 - code.length) ).join('0') + code;
+  }
+  code = '\\u' + code;
+  alert( code );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>转换为字符串</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>String( _var )</li>
+        <li>'' + _var</li>
+        <li>_var.toString()</li>
+        <li>(number).toString(base) 转换为 base 进制表示</li>
+        <li>null/undefined/true/false -> 'null'/'undefined'/'true'/'false'</li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>String 属性和方法</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>length - 属性
+        <li>concat()
+        <li>replace()
+        <li>indexOf()/lastIndexOf()/search()/match()
+        <li>slice()
+        <li>split()
+        <li>charAt()/charCodeAt()
+        <li>toUpperCase()/toLowerCase()
+        <li>trim()/trimLeft()/trimRight()
+        <li>String.fromCharCode() - 静态方法
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>String 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>小写字母转换为大写(逆运算)
+        <li>把字符串中的 Tab 转换为 2 个空格
+        <li>判断是否为小写字母/大写字母/数字并统计它们的个数
+        <li>替换字符串中的 html 标签
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)        
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Array</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>var array = [];
+        <li>var array = [ 1, 2, ];
+        <li>var array = 'a b c'.split( ' ' );
+        <li>var array = new Array(5);
+        <li>var array = new Array( 5, 6 );
+        <li>var array = new Array( 'a', 'b', 'c' );
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Array</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>push()/pop()
+        <li>shift()/unshift()
+        <li>slice()/splice()
+        <li>indexOf()/lastIndexOf()
+        <li>concat()/join()
+        <li>reverse()/sort()
+        <li>forEach()/every()/some()/map()/filter()/reduce()/reduceRight()
+        <li>Array.isArray
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Array 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>创建 n 个元素组成的, 值全为 k 的数组
+        <li>扁平化 Array - [ 1, [2, 3], [4,[5] ] -> [ 1, 2, 3, 4, 5 ]
+        <li>有两个数组a、b, 查找在 a 存在而 b 里面不存在的元素.
+        <li>实现数组的 reverse 方法
+        <li>二分查找
+        <li>打乱数组 - 类似洗牌 shuffle
+        <li>快速排序和插入排序算法 js 描述
+        <li>抽奖算法(要求不重复)
+        <li>移除数据中重复的值(array/object/NaN..)
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Object</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>constructor 属性
+        <li>toString()
+        <li>valueOf()
+        <li>hasOwnProperty( key )
+        <li>isPropertyOf( object )
+        <li>propertyIsEnumerable( key )
+        <li>toLocalString()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Date</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>new Date()
+        <li>getFullYear()/setFullYear()
+        <li>getMonth()/setMonth()
+        <li>getDate()/setDate()
+        <li>getHours()/getMinutes()/getSeconds()/setHours()/setMinutes()/setSeconds()
+        <li>getTime()/setTime()
+        <li>getDay()/setDay()
+        <li>toUTCString()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Date 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>毫秒转换为年月日时分秒(逆运算)
+        <li>判断 Year 是否为闰年
+        <li>日历控件 - 基础版本
+        <li>倒计时 - 整点报时
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>操作符</h1>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>一元操作符</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>++/-- 表示递增/递减, 可做前缀和后缀</li>
+        <li>+ 把操作数转化为 Number 类型
+        <li>- 把操作数乘 -1
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>位操作符</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>~ 取反
+        <li>& 并且
+        <li>| 或
+        <li>^ 异或
+        <li><< 向左移
+        <li>>> 有符号向右移
+        <li>>>> 无符号向右移
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>位运算应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>进制转换
+        <li>状态表示
+        <li>RGB和十六进制色值转换
+        <li>二进制相关算法
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>布尔操作符</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>&&
+          <ol>
+            <li>第一个操作数为 false/0/''/NaN/null/undefined 时, 返回 false/0/''/NaN/null/undefined</li>
+            <li>其它, 返回第二个操作数(不一定是 Boolean)</li>
+            <li>发生短路操作, 即第一个操作符为 false 时, 不再计算第二个操作数(表达式)</li>
+          </ol>
+        </li>
+        <li>|| 同 && 类似</li>
+        <li>!
+          <ol>
+            <li>空字符串/数值 0/null/NaN/undefined, 返回 true
+            <li>其他, 返回 false
+            <li>应用 !!, 相当于把操作数转换为 Boolean
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>+, -, *, /, %</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>+ 操作数是字符串和其它时, 做字符串拼接操作
+        <li>+ 操作数都是数字时, 做数学运算
+        <li>+ 操作数为对象时, 转换为字符串, 然后按照上面的规则操作
+          <ul>
+            <li>[1] + [1] == '11'; 
+            <li>[] + {} == '[object Object]'; 
+            <li>{} + {} = ?
+          </ul>
+        <li>- 转化为数字
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>>, >=, <, <=</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>操作数有 NaN/undefined, 直接返回 false
+        <li>操作数都是数字, 直接比较
+        <li>操作数都是字符, 按字符编码比较
+        <li>操作数是数字和字符串时, 把字符串转化为数字, 再直接比较
+        <li>操作数为 boolean 时, 先把它转化为数字, 在按上面规则比较
+        <li>其它, 先 .toString, 后 .valueOf 转化, 再按上面规则比较
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>===, !==</h1>
+    </div>
+    <div class="bd">
+      <p>=== 数据类型和值都相等; 其它为 !==</p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>==, !=</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>返回值为 Boolean 类型(true/false)
+        <li>如果有一个操作数为 Boolean, 则把 true/false 转化为 1/0
+        <li>字符串和数字比较, 则把字符串转化为数字
+        <li>如果一个操作数是对象, 另一个不是对象, 则调用对象的 .valueOf() 方法, 得到的值按上面规则再比较
+        <li>null 和 undefined 相等
+        <li>NaN 和任意值比较都不相等
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Other</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>= 赋值操作
+        <li>条件 ? : - (表达式) ? 表达式(true) : 表达式(false)
+        <li>逗号<em>表达式</em>
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var a = 1;
+  var b = 2, c = 3;
+  var d, e;
+  d = e = 4;
+  var f = (function() {
+    return function() {
+      alert('F');
+    };
+  })();
+  f();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var code = 1;
+  var result = code ? 'success' : 'fail';
+  alert( result );
+  
+  function test( a, b, strict ) {
+    return strict ? a === b : a  == b;
+  }
+  var t1 = test( '1', 1 );
+  var t2 = test( '1', 1, true );
+  alert( 't1: ' + t1 + '; t2: ' + t2 );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a; 
+a = (1, 2, 3, 4, 5); 
+alert( a === 5 );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a; 
+a = 1, 2, 3, 4, 5; 
+alert( a === 5 );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Other</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>typeof( _var ); // undefined/string/number/object/function
+        <li>Object.prototype.toString.call( _var ); // '[object __]'
+        <li>delete
+        <li>void
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = 1;
+window.b = 2;
+alert( a );
+alert( window.b );
+delete a;
+alert( a );
+delete b;
+alert( window.b );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+function test( a ) {
+  if ( a == void 0 ) {
+    alert( 'undefined' );
+  }
+}
+test();
+// 虽然 void 永远返回 undefined, 但是它后面的表达式还是会计算的
+void alert( Math.pow(2, 10) ); 
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>补充 - 构造函数系列</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>var num = new Number(4);
+        <li>var str = new String( 'Hello' );
+        <li>var array = new Array( 1, 2 ); 
+        <li>var array = new Array(2); 
+        <li>var array = new Array('a');
+        <li>var object = new Object();
+        <li>var fun = new Function( 'user', 'return user.name;' );
+        <li>var regexp = new RegExp( 'abc', 'gi' );
+      </ul>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var search = new String( 'Google' );
+typeof search;        // 'object'
+search === 'Google';  // false;
+</code>
+<div class="runcase">Run</div>
+</pre>      
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>流程控制</h1>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>if..else..</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>if..else..
+        <li>if..elseif..else..
+      </ul>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var code = 200;
+  if ( code >= 200 || code == 304 ) {
+    alert( 'success' );
+  } else if ( code >= 500 && code < 600 ) {
+    alert( 'server error!' );
+  }
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>for..</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>for ( var i = 0; i < 10; ++i ) {}
+        <li>for ( var key in object ) {}
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var val = 10, array = [ 1, 5, 8, 9, 10, 15, 42 ];
+  var isFind = false;
+  for ( var i = 0, l = array.length; i < l; ++i ) {
+    if ( val === array[i] ) {
+      isFind = true;
+      break; // 提前退出循环
+    }
+  }
+  alert( isFind ? 'Find!' : 'Not Find' );
+</code>
+<div class="runcase">Run</div>
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var obj = {
+    id: 806,
+    name: 'rd'
+  };
+  for ( var key in obj ) {
+    if ( obj.hasOwnProperty(key) ) {
+      alert( key + ': ' + obj[key] );
+    }
+  }
+</code>
+<div class="runcase">Run</div>
+</pre>       
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>while/do..while</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>while ( condition ) { dosomething.. }
+        <li>do { dosomething.. } while( condition )
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var val = 10, array = [ 1, 5, 8, 9, 10, 15, 42 ];
+  var isFind = false, i = 0, l = array.length;
+  while ( i < l ) {
+    if ( val === array[i] ) {
+      isFind = true;
+      break;
+    }
+    ++i;
+  }
+  alert( isFind ? 'Find!' : 'Not Find' );
+</code>
+<div class="runcase">Run</div>
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  do {
+    alert( 'once' );
+  } while ( 0 )
+</code>
+<div class="runcase">Run</div>
+</pre>       
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>switch..case</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  function handle( command, message ) {
+    switch ( command ) {
+      case 'notify':
+      case 'broadcast':
+        notify( message );
+        break;
+      case 'open':
+        open( message );
+        break;
+      case 'close':
+        close( message );
+        break;
+      default:
+        break;
+    }
+  }
+  var notify, open, close;
+  notify = function(message) { alert('notify:' + message ); }
+  open = function(message) { alert('open:' + message ); }
+  close = function(message) { alert('close:' + message ); }
+  handle( 'notify', 'Hi' );
+  handle( 'open', 'create a new window' );
+  handle( 'close', 'close that window' );
+</code>
+<div class="runcase">Run</div>
+</pre>       
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  function handle( command, message ) {
+    var _method;
+    if ( (_method = _commandMap[ command ]) || typeof _method == 'function' ) {
+      _method( message );
+    }
+  }
+  var notify, open, close;
+  notify = function(message) { alert('notify:' + message ); };
+  open = function(message) { alert('open:' + message ); };
+  close = function(message) { alert('close:' + message ); };
+  var _commandMap = {
+    'notify': notify,
+    'broadcast': notify,
+    'open': open,
+    'close': close
+  };
+  handle( 'notify', 'Hi' );
+  handle( 'open', 'create a new window' );
+  handle( 'close', 'close that window' );
+</code>
+<div class="runcase">Run</div>
+</pre> 
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>with</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var user = {
+    id: 806,
+    name: 'rd'
+  };
+  with( user ) {
+    alert( 'id: ' + id );
+    alert( 'name: ' + name );
+    var name = 'Google'; // 因为 user 存在 name 属性, 因此不会挂起变量
+    alert( 'new name: ' + name );
+  }
+</code>
+<div class="runcase">Run</div>
+</pre> 
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Other</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+{
+  alert( 1 );
+};;;;;;;;;
+</code>
+<div class="runcase">Run</div>
+</pre>
+<pre class="codebox" style="margin-top: 10px">
+<code class="javascript block" contenteditable="true">
+{};
+[];
+//;
+();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  function test() {
+    try {
+      JSON.parse( 'a' );
+    } catch(e) {
+      return 1;
+    } finally {
+      alert( 2 );
+    }
+  }
+  alert( test() );
+  
+</code>
+<div class="runcase">Run</div>
+</pre> 
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>二义性</h1>
+    </div>
+  </section>
+  <section class="slide grids">
+    <div class="box">
+      <div class="grid c1">
+        <div class="hd">
+          <h1>,</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>变量声明 (ex: var a = 1, b = 2;)
+            <li>逗号表达式
+            <li>函数参数列表
+            <li>分隔符 (ex: var array = [ 1, 2 ];)
+          </ul>
+        </div>
+      </div>
+      <div class="grid c2">
+        <div class="hd">
+          <h1>[]</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>数组
+            <li>属性访问 (ex: window[ 'eval' ];)
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid c3">
+        <div class="hd">
+          <h1>+</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>拼接字符串
+            <li>数学的加法运算
+            <li>Number 类型转换
+          </ul>
+        </div>
+      </div>
+      <div class="grid c4">
+        <div class="hd">
+          <h1>/</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>数学运算 - 除法
+            <li>正则表达式
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid c5">
+        <div class="hd">
+          <h1>:</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>三元运算符
+            <li>对象中属性和值分隔符
+            <li>switch..case..
+            <li>label
+          </ul>
+        </div>
+      </div>
+      <div class="grid c6">
+        <div class="hd">
+          <h1>{}</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>label 代码块 - 符合语句
+            <li>语句块符
+            <li>Object 对象
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid c7">
+        <div class="hd">
+          <h1>()</h1>
+        </div>
+        <div class="bd">
+          <ul>
+            <li>函数定义/调用时的参数列表
+            <li>包裹表达式 - 提升优先级
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>实现 each 函数
+        <li>递归处理分类
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-cover">
+      <h1>?</h1>
+    </div>
+  </section>
+  <nav id="navigator"></nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/pattern.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/resize.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/touch.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>

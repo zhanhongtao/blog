@@ -1,0 +1,129 @@
+body {
+  font: 24px/1.5 "Consolas", "lucida Grande", Verdana;
+  color: #34362E;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, li, dl { 
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 15px auto;
+  list-style-position: inside;
+}
+
+h1, .ppt .h1 { font-size: 28px; }
+h2, .ppt .h2 { font-size: 24px; }
+h3, .ppt .h3 { font-size: 20px; }
+h4, .ppt .h4 { font-size: 16px; }
+h5, .ppt .h5 { font-size: 14px; }
+h6, .ppt .h6 { font-size: 12px; }
+
+.hd { margin: 10px auto; overflow: hidden; }
+.bd { margin: 15px auto; overflow: hidden; }
+
+dt, dd { margin: 15px auto; }
+dd { margin-left: 60px; }
+li ul, li ol {
+  margin-left: 60px;
+}
+
+.box {
+  display: flex;
+}
+.grid {
+  flex: 1;
+  margin: 10px 0;
+}
+.grid +.grid  { margin-left: 10px; }
+
+.grids .grid {
+  padding: 20px;
+}
+.c1 { background-color: rgba( 0, 0, 0, 0.1) }
+.c2 { background-color: rgba( 0, 0, 0, 0.1) }
+.c3 { background-color: rgba( 0, 0, 0, 0.1) }
+.c4 { background-color: rgba( 0, 0, 0, 0.1) }
+.c5 { background-color: rgba( 0, 0, 0, 0.1) }
+.c6 { background-color: rgba( 0, 0, 0, 0.1) }
+.c7 { background-color: rgba( 0, 0, 0, 0.1) }
+
+code, pre {
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+code {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 6px;
+  border-radius: 2px;
+  outline: none;
+}
+
+pre code {
+  padding: 0 6px;
+}
+
+mark, .mark {
+  padding: 0 6px;
+  font-size: 14px;
+}
+
+.codebox {
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+pre {
+  margin: 0;
+  display: block;
+  outline: none;
+  overflow: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.runcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  cursor: pointer;
+  padding: 2px 20px;
+  color: #DB2B79;
+  background-color: #ffa;
+}
+
+sub, sup {
+  font-size: 0.5em;
+}
+
+a, a:active {
+  text-decoration: none;
+  color: #2988B4;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline;
+}
+
+.image {
+  text-align: center;
+}
+.image img {
+  margin: 10px;
+  max-width: 100%;
+}
+
+.helper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
