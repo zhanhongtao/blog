@@ -1,0 +1,103 @@
+RegExp
+redky@qq.com
+
+语法略...?
+
+var reg = new RegExp( '[0-9a-z_]', 'i' );
+var reg = /[0-9a-z_]/i;
+
+property
+regexp.ignoreCase
+regexp.global
+regexp.multiline
+regexp.lastIndex
+regexp.source
+
+Method
+regexp.exec( string ); 返回 Array
+regexp.test( string ); 返回 Boolean
+
+
+
+regexp.exec
+var string = 'abc', reg = /a/g;
+reg.exec( string ); // ["a"]
+reg.exec( string ); // null
+
+
+g 模式下会更新 reg.lastIndex 属性.
+reg.exec( string ); // ["a"]
+reg.lastIndex = 0;  
+reg.exec( string ); // ["a"]
+
+regexp.test
+regexp.test( string );
+返回 Boolean;
+在 g 模式下, 会更新 .lastIndex 属性;
+
+other
+string.split( delimiter[, limit] )
+string.seach( reg )
+string.match( reg )
+string.replace( reg, … )
+
+
+string.split
+string.split( delimiter[, limite] );
+return {Array};
+
+string.split
+delimiter 
+匹配首/尾字符时, 在最前/最后添加空白字符.
+'ab'.split( 'a' );   // [ '', 'b' ]
+
+正则包括捕获时, 把捕获的值做为元素放到结果数组中.
+'ab'.split( /(a)/ ); // [ '', 'a', 'b' ]
+'ab'.split( /(b)/ ); // [ 'a', 'b', '' ]
+
+
+
+
+string.seach( reg )
+return {Number};
+不匹配 reg 时, 返回 -1; 否则,
+返回匹配到 reg 时的位置(index).
+
+'ababcade'.search( /a(?=d)/ );  // 5
+'abcabcadef'.search( /z/ );     // -1
+
+
+
+string.match( reg )
+return {Array}
+不匹配时返回 null; 匹配时,
+在 global 模式时, 返回所有匹配的值;
+其它, 返回首个匹配值和捕获的值(如果存在的话);
+'abcabd'.match( /abc/ );   //[ 'abc' ]
+'abcabd'.match( /(abc)/ ); //[ 'abc', 'abc' ]
+'abcabdab'.match(/(ab)/g );//['ab','ab', 'ab']
+
+
+string.replace
+string.replace( reg, string );
+'abcabc'.replace( /abc/, '$&,' );  //"abc,abc"
+'abcabc'.replace( /(a)bc/g, '$1' );//"aa"
+
+
+$& 当前匹配字符
+$` 当前匹配字符之前的字符
+$' 当前匹配字符之后的字符
+
+string.replace
+string.replace( reg, 
+  function( match, $1, $n, index, string ) {
+ return STRING;
+  });
+
+string.replace
+'abcabc'.replace( /(a)bc/, function( match, $1, index, string ) {
+  console.log( match, $1, index, string );
+    // abc, a, 0, abcabc
+  });
+
+?

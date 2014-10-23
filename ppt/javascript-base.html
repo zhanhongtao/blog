@@ -427,9 +427,9 @@ alert( 'scope: ' + scope );   // 'global'
         <li>var array = [];
         <li>var array = [ 1, 2, ];
         <li>var array = 'a b c'.split( ' ' );
-        <li>var array = new Array(5);
-        <li>var array = new Array( 5, 6 );
-        <li>var array = new Array( 'a', 'b', 'c' );
+        <li>var array = new Array(2);      // 创建长度为 2 的数组; 小于1/浮点数/NaN 异常
+        <li>var array = new Array( 1, 2 ); // 创建数组, 有两个元素, 分别为 1, 2
+        <li>var array = new Array('a');    // 创建数组, 元素为 'a'
       </ul>
     </div>
   </section>
@@ -460,7 +460,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>扁平化 Array - [ 1, [2, 3], [4,[5] ] -> [ 1, 2, 3, 4, 5 ]
         <li>有两个数组a、b, 查找在 a 存在而 b 里面不存在的元素.
         <li>实现数组的 reverse 方法
-        <li>二分查找
+        <li>二分查找/KMP
         <li>打乱数组 - 类似洗牌 shuffle
         <li>快速排序和插入排序算法 js 描述
         <li>抽奖算法(要求不重复)
@@ -508,7 +508,9 @@ alert( 'scope: ' + scope );   // 'global'
     <div class="bd">
       <ul>
         <li>毫秒转换为年月日时分秒(逆运算)
+        <li>多久时间以前 - 微博发于 2分钟之前
         <li>判断 Year 是否为闰年
+        <li>给出某天, 计算出是周几?
         <li>日历控件 - 基础版本
         <li>倒计时 - 整点报时
       </ul>
@@ -763,21 +765,36 @@ void alert( Math.pow(2, 10) );
       <ul>
         <li>var num = new Number(4);
         <li>var str = new String( 'Hello' );
-        <li>var array = new Array( 1, 2 ); 
-        <li>var array = new Array(2); 
-        <li>var array = new Array('a');
+        <li>var array = new Array(1, 2);
         <li>var object = new Object();
         <li>var fun = new Function( 'user', 'return user.name;' );
         <li>var regexp = new RegExp( 'abc', 'gi' );
       </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
 var search = new String( 'Google' );
-typeof search;        // 'object'
-search === 'Google';  // false;
+alert( typeof search );        // 'object'
+alert( search == 'Google' );  // true;
+alert( search === 'Google' );  // false;
 </code>
 <div class="runcase">Run</div>
-</pre>      
+</pre>       
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = 'a', b = new String('b'); 
+a.a = 1;
+b.b = 1;
+alert( a.a ); 
+alert( b.b );
+</code>
+<div class="runcase">Run</div>
+</pre>   
+      </div>
     </div>
   </section>
   <section class="slide">
@@ -1127,6 +1144,22 @@ search === 'Google';  // false;
       <ul>
         <li>实现 each 函数
         <li>递归处理分类
+        <li>查找字符串中第一个唯一出现的字符
+        <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>扩展链接</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>https://www.chromestatus.com/features
+        <li>http://bonsaiden.github.io/JavaScript-Garden/zh/
+        <li><JavaScript 语言精粹>
+        <li><Effective JavaScript:编写高质量JavaScript代码的68个有效方法>
+        <li>http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
       </ul>
     </div>
   </section>

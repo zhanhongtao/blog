@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+.clearfix {
+  zoom: 1; /* 修正 ie6/7; 触发 layout */
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: '\20';
+  display: table;
+}
+
+.clearfix{
+  clear: both;
+}
+
+/* 
+  BFC - Block Formatting Context
+  float: left/right [^none]
+  overflow: hidden/auto/scroll [^visible]
+  display: table-cell, table-caption, inline-block; 
+    Note: 当原素设置 display: table; 时, 浏览器会添加隐藏元素, 并且隐藏元素的 display 为 table-cell;
+  position: absolute, fixed 
+*/

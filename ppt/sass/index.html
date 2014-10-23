@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Layout</title>
+  <link rel="stylesheet" href="index.css" id="style">
+</head>
+<body class="_1">
+  <div class="wrap clearfix">
+    <div class="main">
+      <div class="content">
+        <i class="tag"></i>
+      </div>
+    </div>
+    <div class="side"></div>
+    <div class="extra"></div>
+  </div>
+  <script>
+    var body = document.getElementsByTagName( 'body' )[0];
+    function update( src ) {
+      body.className = '_' + src;
+    }
+    try { 
+      var value = localStorage.src; 
+      if ( value ) update( value ); 
+    } catch(e) {}
+    document.onkeydown = function(e) {
+      e = e || window.event;
+      if ( e.altKey ) {
+        var value = e.keyCode - 48;
+        if ( value >= 1 && value <= 5 ) {
+          update( value );
+          try { localStorage.src = value; } catch(e) {}
+        }
+      }
+    };
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>test input api</title>
+    <link rel="stylesheet" href="global.css" />
+    <script type="text/javascript" src="console.js"></script>
+</head>
+<body>
+    <form action="">
+        <input name="password" id="password" type="password" value="password">
+        <input name="text" id="text" type="text" value="test value">
+        <input name="checkboxOn" id="checkboxOn" type="checkbox" checked>
+        <input name="checkboxOff" id="checkboxOff" type="checkbox">
+        <input name="radioOn" id="radioOn" type="radio" name="radio" checked>
+        <input name="radioOff" id="radioOff" type="radio" name="radio">
+        <input name="number" id="number" type="number" value="4">
+        <input name="valueAsNumber" id="valueAsNumber" type="number" value="4">
+            <!-- 说明, 如果 html 中, value 值不符合 step 约定, 会在 javascript 执行时报错, 并且 try 不起作用 -->
+        <input name="stepUp" id="stepUp" type="number" min="1" value="4" step="3">
+        <input name="stepDown" id="stepDown" type="number" value="4" step="1">
+        <input name="datetime" id="datetime" type="datetime">
+        <input name="list" type="text" id="list" list="datalist">
+        <datalist id="datalist">
+            <option value="xxx" label="xxx"></option>
+            <option value="xx" label="xx"></option>
+        </datalist>
+        <input type="submit" label="XXXX">
+    </form>
+    <section>
+        <h1>test select/option api</h1>
+        <form action="">
+            <select name="" id="iselect">
+                <option value="a" name="xa">a</option>
+                <option value="b" name="xb" selected>b</option>
+                <option value="c" name="xc" selected>c</option>
+                <option value="d" name="xd" selected>d</option>
+            </select>
+        </form>
+        <section>
+            <form action=""  id="xform">
+                <select name="x" id="xx">
+                    <option value="x1">x1</option>
+                    <option value="x2">x2</option>
+                    <option value="x3">x3</option>
+                </select>
+            </form>
+            
+            <label>位置: <input type="text" id="inputIndex" /></label>
+        </section>
+        <button id="addoption">添加选项(option)</button>
+        <button id="removeoption">删除选项(Option)</button>
+        <button id="setLength">设置选项长度</button>
+        <button id="selectedIndex">设置选中索引项</button>
+        <button id="setValue">根据选项值, 设置选中项</button>
+    </section>
+    <script type="text/javascript" src="api.attribute.js"></script>
+    <script type="text/javascript" src="api.select.js"></script>
+    <script type="text/javascript" src="api.select.set.js"></script>
+</body>
+</html>

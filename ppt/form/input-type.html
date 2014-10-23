@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>input - type</title>
+    <meta name="about" value="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html">
+    <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <section>
+            <h1>特殊元素</h1>
+            <ul class="description">
+                <li><mark>(1)</mark>form 中第一个 control, type=text 的 input 元素, 并且 name=isindex 时, 提交时, 仅提交 value 值.</li>
+                <li>type=hidden 的 input 元素; &lt;input type="hidden" name="name" value="xxx" /&gt;</li>
+                <li>type=hidden 的 input 元素; &lt;input type="hidden" name="_charset_" /&gt; 不设置 value, 提交时取页面字符集.</li>
+            </ul>
+            <label>见<mark>(1)</mark> 说明: <input type="text" name="isindex" value="xxxxxxx"></label>
+            <input type="hidden" name="hidden" value="xxx" />
+            <!-- 发送当前字符集 -->
+            <input type="hidden" name="_charset_" />
+        </section>
+
+        <section class="default">
+            <!-- text 可省略 -->
+            <h1>text/search/url/email/password</h1>
+            <p class="description">type 属性值为 text/search 在约束上没有区别; 在界面显示上, search 会更像 search!(这个好难理解,ex: 输入框内有文本时, 框右侧会出现关闭[/清空]按钮)</p>
+            <h2>input 元素. type=text 或者忽略 type 属性</h2>
+            <label for="general">type=text: <input type="text" id="general" name="name" value="" maxlength="10" placeholder="Input any words"></label>
+            <label for="notype">省略type:<input name="name2" id="notype" value="xxx" dirname="text.dir" placeholder="忽略 type 属性的 input 元素"></label>
+            <label>Search: <input type="search" dirname="search.dir" required></label>
+            <p class="description">因为电话号码格式在不同地区是不同的(风俗习惯/历史原因), 因此对 type=tel 格式不做约束验证(ps: 约束可使用 pattern)</p>
+            <label>TelPhone: <input type="tel" autofocus></label>
+            <p class="description">email/url 和 tel 就不同了, 他们有统一的约定. 因此存在约束.</p>
+            <label>URL(*要求是绝对地址*): <input type="url" autofocus></label>
+            <label>Email: <input type="email"></label>
+            <label>Multiple Emails: <input type="email" multiple></label>
+            <label>Password(*要求安全*): <input type="password" value="xxxxxxxxxxxx"></label>
+        </section>
+
+        <section class="date">
+            <h1>日期/时间相关</h1>
+            <div class="description">
+                <p>HTML 中支持 min, max, step 属性; JavaScrip api 中支持, valueAsDate, valueAsNumber 属性 和 stepUp(), stepDown() 方法.</p>
+            </div>
+            <p><label>Datetime(*time-zone*): <input name="datetime" type="datetime"></label>
+            <p><label>Date:<input name="date" type="date"></label>
+            <p><label>Month:<input name="month" type="month"></label>
+            <p><label>Week(第几周):<input name="week" type="week"></label>
+            <p><label>Time:<input name="time" type="time"></label>
+            <p><label>Datetime-local:<input name="datetime-local" type="datetime-local"></label>
+        </section>
+
+        <section class="ui">
+            <h1>特殊 UI 元素</h1>
+            <p>
+                <label>Number: <input type="number"></label>
+            </p>
+            <p>
+                <label>Range: <input type="range"></label>
+            </p>
+            <p>
+                <p class="description">让用户选择颜色, 并且存在默认值. 不支持时, 回退到 text 状态.</p>
+                <label>Color: <input type="color"></label>
+            </p>
+        </section>
+
+        <section class="checkbox">
+            <h1>checkbox - 多选按钮</h1>
+            <div class="description">
+                <p>存在两个状态值(true/false [checked/unchecked]) 由属性 checked 指定; 三种状态(选中, 未选中, 半选中 - 此状态由 JavaScript 实现[elem.indeterminate = true]).</p>
+                <p>checkbox 和 radio 元素如果在 html 中不指定 value 属性时, 使用 JavaScript 取 value 时, 得到字符串 'on'. (不管当前元素处于什么状态)</p>
+            </div>
+            <div class="xlabel">
+                <label><input type="checkbox" name="" value="">rd</label>
+                <label><input type="checkbox" name="" value="" checked>Redky</label>
+                <label><input type="checkbox" name="" value="">stone</label>
+                <label><input type="checkbox" name="" value="" id="xchecked">zhanhongtao</label>
+            </div>
+            <script type="text/javascript">
+                // 设置为半选中状态.
+                document.getElementById('xchecked').indeterminate = true;
+            </script>
+        </section>
+
+        <section class="radio">
+            <h1>radio 单选, 要求 name 值大写不区分</h1>
+            <div class="xlabel">
+                <label for="rd"><input type="radio" checked name="name" value="rd" id="rd">rd</label>
+                <label for="redky"><input type="radio" name="name" value="redky" id="redky">redky</label>
+                <label for="stone"><input type="radio" name="Name" value="stone" id="stone">stone[此 name 和其他大小写不同]</label>
+            </div>
+        </section>
+
+        <section class="file">
+            <h1>文件上传</h1>
+            <p class="description">添加 multiple 属性, 支持多文件上传(即在弹出选择窗口时, 可选择多个文件)</p>
+            <div class="xlabel">
+                <label for="sigleFile">单个文件: <input type="file" name="sigleFile" id="sigleFile" accept=".doc .ppt"></label>
+                <label for="mulFiles">多选文件: <input type="file" multiple id="mulFiles" name="mulFiles"></label>
+            </div>
+        </section>
+
+        <section class="button">
+            <h1>表单按钮 - 提交/重置/其他</h1>
+            <p>只有存在 formowner 时, 才起作用.(formowner: 存在 form 属性指定或在 Tree 上存在 form 元素[标签])</p>
+            <p>type 属性值为 button 时, 默认无交互行为</p>
+            <input type="submit" value="Submit">
+            <input type="image" src="" alt="Submit" title="Submit your form now!">
+            <input type="reset" value="Reset">
+            <!-- button -->
+            <input type="button" value="Button">
+            <div>
+                <h2>Button 标签 - type: reset/submit/default</h2>
+                <!-- other -->
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
+                <!-- Default: submit -->
+                <button formnovalidate>Default [Save]</button>
+            </div>
+
+        </section>
+
+    </form>
+
+    <section>
+        <h1>radio 在 form 外时, 测试情况</h1>
+        <form action="" id="a"></form>
+        <form action="" id="b"></form>
+        <div class="description">
+            <p>form 外的 radio(即, 不存在 form owner); radio 单选, 要求 name 值大写不区分</p>
+            <div class="xlabel">
+                <label><input type="radio" checked name="name" value="rd">rd</label>
+                <label><input type="radio" name="name" value="redky">redky</label>
+                <label><input type="radio" name="Name" value="stone">stone[此 name 和其他大小写不同]</label>
+            </div>
+        </div>
+
+        <div class="description">
+            <p>form 外的 radio, 但 input 指定相同的 form 属性值; radio 单选, 要求 name 值大写不区分</p>
+            <div class="xlabel">
+                <label><input type="radio" form="a" checked name="name" value="rd">rd</label>
+                <label><input type="radio" form="a" name="name" value="redky">redky</label>
+                <label><input type="radio" name="Name" value="stone">stone[此 name 和其他大小写不同]</label>
+            </div>
+        </div>
+
+        <div class="description">
+            <p>form 外的 radio, 但 input 指定不同的 form 属性值; radio 单选, 要求 name 值大写不区分</p>
+            <div class="xlabel">
+                <label><input type="radio" form="b" checked name="name" value="rd">rd</label>
+                <label><input type="radio" form="a" name="name" value="redky">redky</label>
+                <label><input type="radio" name="Name" value="stone">stone[此 name 和其他大小写不同]</label>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>

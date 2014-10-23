@@ -1,0 +1,172 @@
+@charset "UTF-8";
+.clearfix {
+  zoom: 1;
+  /* 修正 ie6/7; 触发 layout */
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: '\20';
+  display: table;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/* 
+  BFC - Block Formatting Context
+  float: left/right [^none]
+  overflow: hidden/auto/scroll [^visible]
+  display: table-cell, table-caption, inline-block; 
+    Note: 当原素设置 display: table; 时, 浏览器会添加隐藏元素, 并且隐藏元素的 display 为 table-cell;
+  position: absolute, fixed 
+*/
+.wrap {
+  min-width: 600px;
+  position: relative;
+}
+
+.main, .side, .extra {
+  height: 260px;
+}
+
+.main .content {
+  position: relative;
+}
+.main .tag {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #aa0;
+}
+
+/*
+ * 嵌套 + margin 负值.
+ * 嵌套 - layout + style 分离.
+ */
+._1 .main, ._1 .side, ._1 .extra {
+  float: left;
+}
+._1 .main {
+  width: 100%;
+}
+._1 .content {
+  height: 100%;
+  margin-left: 210px;
+  margin-right: 160px;
+  background-color: #ffa;
+}
+._1 .extra {
+  width: 150px;
+  margin-left: -150px;
+  background-color: #eee;
+}
+._1 .side {
+  width: 200px;
+  margin-left: -100%;
+  background-color: #faa;
+}
+
+/*
+ * 决对定位
+ */
+._2 .main, ._2 .side, ._2 .extra {
+  height: 260px;
+}
+._2 .main {
+  width: 100%;
+}
+._2 .content {
+  height: 100%;
+  margin-right: 160px;
+  margin-left: 210px;
+  background-color: #ffa;
+}
+._2 .side {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 200px;
+  background-color: #faa;
+}
+._2 .extra {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 150px;
+  background-color: #eee;
+}
+
+/*
+ * 尝试使用 css3 技术 - calc.
+ * firefox 浏览器 newtab 页已在使用.
+ * calc 和 flex.
+ */
+._3 .extra {
+  display: none;
+}
+._3 .main, ._3 .side {
+  float: left;
+}
+._3 .side {
+  width: 200px;
+  background-color: #faa;
+}
+._3 .main {
+  width: calc( 100% - 210px );
+  margin-right: 10px;
+}
+._3 .content {
+  width: 100%;
+  height: 100%;
+  background-color: #ffa;
+}
+
+._4 .extra {
+  display: none;
+}
+._4 .side {
+  float: left;
+  width: 200px;
+  background-color: #faa;
+}
+._4 .main {
+  float: right;
+  width: calc( 100% - 210px );
+}
+._4 .content {
+  height: 100%;
+  background-color: #ffa;
+}
+
+/*
+ * Flex + order
+ */
+._5 .wrap {
+  display: flex;
+}
+._5 .main {
+  order: 2;
+  flex: 1;
+  margin: 0 10px;
+}
+._5 .content {
+  height: 100%;
+  background-color: #ffa;
+}
+._5 .side {
+  order: 1;
+  width: 200px;
+  background-color: #faa;
+}
+._5 .extra {
+  order: 3;
+  width: 200px;
+  background-color: #eee;
+}
+
+/*# sourceMappingURL=index.css.map */

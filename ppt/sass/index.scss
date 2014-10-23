@@ -1,0 +1,179 @@
+@charset "utf-8";
+@import 'clearfix';
+
+// 使用单行注释
+// @import "clearfix";
+// @import "clearfix.scss";
+
+// 定义变量
+$defult_min_width: 600px;
+$default_height: 260px;
+$split_width: 10px;
+
+$side_width: 200px;
+$extra_width: 150px;
+
+$main_bg_color: #ffa;
+$side_bg_color: #faa;
+$extra_bg_color: #eee;
+
+
+.wrap {
+  min-width: $defult_min_width;
+  position: relative;
+}
+
+.main, .side, .extra {
+  height: $default_height;
+}
+
+// 嵌套使用
+.main {
+  .content {
+    position: relative;
+  }
+
+  .tag {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #aa0;
+  }
+}
+
+/*
+ * 嵌套 + margin 负值.
+ * 嵌套 - layout + style 分离.
+ */
+._1 {
+  .main, .side, .extra {
+    float: left;
+  }
+  .main {
+    width: 100%;
+  }
+  .content {
+    height: 100%;
+    margin-left: $side_width + $split_width;
+    margin-right: $extra_width + $split_width;
+    background-color: $main_bg_color;
+  }
+  .extra {
+    width: $extra_width;
+    margin-left: -1 * $extra_width;
+    background-color: $extra_bg_color;
+  }
+  .side {
+    width: $side_width;
+    margin-left: -100%;
+    background-color: $side_bg_color;
+  }
+}
+
+/*
+ * 决对定位
+ */
+._2 {
+  $margin: 0px;
+  .main, .side, .extra {
+    height: $default_height;
+  }
+  .main {
+    width: 100%;
+  }
+  .content {
+    height: 100%;
+    margin-right: $extra_width + $split_width;
+    margin-left: $side_width + $split_width;
+    background-color: $main_bg_color;
+  }
+  .side {
+    position: absolute;
+    left: $margin;
+    top: $margin;
+    width: $side_width;
+    background-color: $side_bg_color;
+  }
+  .extra {
+    position: absolute;
+    right: $margin;
+    top: $margin;
+    width: $extra_width;
+    background-color: $extra_bg_color;
+  }
+}
+
+
+/*
+ * 尝试使用 css3 技术 - calc.
+ * firefox 浏览器 newtab 页已在使用.
+ * calc 和 flex.
+ */
+._3 {
+  .extra { display: none; }
+  .main, .side {
+    float: left;
+  }
+  .side {
+    width: $side_width;
+    background-color: $side_bg_color;
+  }
+  .main {
+    width: calc( 100% - #{$split_width + $side_width} );
+    margin-right: $split_width;
+  }
+  .content {
+    width: 100%;
+    height: 100%;
+    background-color: $main_bg_color;
+  }
+}
+
+._4 {
+  .extra { display: none; }
+  .side {
+    float: left;
+    width: $side_width;
+    background-color: $side_bg_color;
+  }
+  .main {
+    float: right;
+    width: calc( 100% - #{$side_width + $split_width} );
+  }
+  .content {
+    height: 100%;
+    background-color: $main_bg_color;
+  }
+}
+
+/*
+ * Flex + order
+ */
+._5 {
+  .wrap {
+    display: flex;
+  }
+  .main {
+    order: 2;
+    flex: 1;
+    margin: 0 $split_width;
+  }
+  .content {
+    height: 100%;
+    background-color: $main_bg_color;
+  }
+  .side {
+    order: 1;
+    width: $side_width;
+    background-color: $side_bg_color;
+  }
+  .extra {
+    order: 3;
+    width: $side_width;
+    background-color: $extra_bg_color;
+  }
+}
+

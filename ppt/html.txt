@@ -1,0 +1,63 @@
+https://whatwg.org/
+html[manifest][lang]
+  - manifest 属性无效
+  - manifest 不依赖 base 标签指定的相对路径
+  - application cache - manifest file
+head, title
+  - 建议写 title.
+  - title 在历史记录, 书签, 收藏, 搜索引擎列表里用到.
+  - document.title
+base[href][target]
+  - 存在多个 base 标签时, 第一个有效.
+  - href 不存在时, 使用当前页面 URL 所在目录.
+meta[name][http-equiv][content][charset="UTF-8"][itemprop]
+  - name: application-name/author/description/generator/keywords/referrer
+  - http-equiv: content-language/content-type[text/html;charset=utf-8]/default-style/refresh/set-cookie
+link[type=text/css][media][rel][crossorigin][hreflang][sizes]
+style[media=all][type=text/css][scoped=boolean]
+script[type=text/javascript], noscript, canvas
+body
+  - [onload][onerror]
+  - [ononline][onoffline]
+  - [onresize][onscroll]
+  - [onfocus][onblur]
+article, section, nav, aside
+h1, h2, h3, h4, h5, h6, hgroup, header, footer, address
+p, hr
+pre, code, samp, kbd, var
+  - pre>code
+  - pre>samp - output
+  - pre>kbd - The text that user is to enter.
+blockquote[cite], figure, figcaption, cite, q[cite]
+  - figure>blockquote+figcaption
+  - figure>figcaption - media
+ol[start][type][reversed], ul, li[value] - 用在 ol 里面
+dl, dt, dd
+main, div
+a[href][target][download][ping][rel][hreflang][type][itemprop]
+em, strong
+small
+s - del
+dfn, abbr
+  - dfn[title]>abbr
+ruby, rt, rp
+data[value], time[datetime]
+sub, sup, i, b, u, mark
+bdi, bdo, 
+span
+br, wbr
+ins[cite][datetime], del[cite][datetime]
+table, caption, colgroup, col, tbody, thead, tfoot, th, tr, td
+form, label[for], input, button, select, datalist, optgroup, option, textarea, keygen, output, progress, meter, fieldset, legend
+picture, source, img, iframe, embed, object, param, video, source, track, map, area, audio
+detail, summary, menu, menuitem, dialog, template
+
+Global Attributes
+id, class, style, data-, title, dir, translate, lang
+
+User interaction
+hidden, tabindex, accesskey, contenteditable, designMode
+draggable, dropzone
+
+为什么优先大流量网站把 css 写到页面里?
+浏览器对单个并发请求数有限制, 因此为了加快资源加载, 会把静态资源放到其他域名下, 甚至写到页面内而减少请求数, 从而加快页面加载.
