@@ -75,6 +75,7 @@ setTimeout/setInterval/requestAnimationFrame
 应用: 
 -> 扩展assert - 支持异步测试
 -> 倒计时(要求在整点时通知)
+-> http://beijing.baixing.com/ 倒计时可暂停效果
 -> slide自动切换
 -> 面试题解析
 
@@ -111,6 +112,8 @@ DOMContentLoaded
 -> 图片惰性加载/读取图片的真实尺寸(naturalWidth/naturalHeight)
 -> 判断元素是否在窗口内
 -> 选项卡
+-> 高度自适应的 DIV/Textarea
+
 
 // 表单
 form

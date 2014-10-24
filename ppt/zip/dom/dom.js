@@ -136,8 +136,7 @@ dom.parentX = function( element ) {
 
 dom.parentY = function( element ) {
   return element.parentNode == element.offsetParent ?
-    element.offsetTop :
-    dom.pageY( element ) - dom.pageY( element.parentNode );
+    element.offsetTop : dom.pageY( element ) - dom.pageY( element.parentNode );
 };
 
 // 元素尺寸
