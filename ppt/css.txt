@@ -48,8 +48,68 @@ http://oocss.org/
 http://www.slideshare.net/stubbornella/presentations
 https://github.com/stubbornella/oocss-code-standards
 https://github.com/stubbornella/oocss-accessibility-guidelines
+
+
 SASS
+CSS 可以解决时, 不必要使用预处理工具.
+当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.
+
+install:
+1. install ruby
+2. gem install sass
+
+command:
+sass --watch index.scss:output.css --style expanded
+sass --watch app/sass:public/css --style compress
+--style nested/compact
+
+sass 的 scss 语法完全兼容 css 语法 - @charset "utf-8";
+http://www.sass-lang.com/documentation/file.SASS_REFERENCE.html
+
+Features: 
+//, 变量($), 嵌套, &, 支持自文件(_file), @import, @mixin(@include)
+Extend/Inheritance(@extend), %placeholder, 
+Operators, #{$var}, datatype(list, map)
+@at-root/@at-root(with:)/@at-root(without:)
+@if..@else/@for..from 1 through 10 {}
+@each $i in 1,2,3,4 {} / @each $key, $value in () {}
+@while $i > 0 {}
+@function(自定义)
+
+ex:
+// 兼容性代码
+// 当做函数使用
+@mixin border-radius( $radius ) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+.box {
+  @include border-radius( 10px );
+}
+
+// 基础样式
+// 可以单独存在, 或后面被继承
+.message {
+  padding: 10px;
+  color: #eee;
+}
+.error {
+  @extend .message;
+}
+
+// 只占位, 不使用 placeholder 时
+// 最终不会生成 css 代码.
+%message {
+  padding: #eee;
+}
+.success {
+  @extend %message;
+}
+
 Grunt/Glup
+合并/优化/压缩文件 - 配置/流
 
 需求:
 * 有一个容器, 左右两列组成
