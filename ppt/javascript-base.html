@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
-  <title>JavaScript - 语法</title>
+  <title>JavaScript - 基础语法</title>
   <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/base.css?v=2">
   <link rel="stylesheet" href="./css/app.css?v=2">
@@ -24,7 +24,7 @@
       <h2 class="h3">redky@qq.com</h2>
     </div>
   </section>
-  <section class="slide">
+  <section class="slide toggle">
     <div class="slide-cover">
 <pre class="codebox" style="min-width: 70%;">
 <code class="javascript block" contenteditable="true">
@@ -95,8 +95,8 @@
 <div class="runcase">Run</div>
 </pre>
       <ul>
-        <li>http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html
-        <li>https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode
+        <li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html</a>
+        <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode</a>
       </ul>
     </div>
   </section>
@@ -218,11 +218,10 @@ alert( 'scope: ' + scope );   // 'global'
         <li>Boolean
         <li>Array
         <li>Object
-        <li><a href="./javascript-function.html">Function</a>
         <li>Date
+        <li><a href="./javascript-function.html">Function</a>
         <li><a href="./javascript-regexp.pdf">RegExp</a>
       </ul>
-      <mark>JavaScript 中, 除 null 和 undefined 之外, 有变量都是对象.</mark>
     </div>
   </section>
   <section class="slide">
@@ -230,14 +229,24 @@ alert( 'scope: ' + scope );   // 'global'
       <h1>null 和 undefined</h1>
     </div>
     <div class="bd">
-      <p>null 表示不存在;</p>
-      <p>undefined 表示存在, 但没有值;</p>
-      <p>null == undefined; // true</p>
+      <ul>
+        <li>null 表示不存在;
+        <li>undefined 表示存在, 但没有值;
+        <li>null == undefined; // true
+        <li>没定义, 可直接赋值 - 变量作为全局变量存在
+        <li>没定义, 直接使用时, 只可用在 typeof _var == 'undefined' 中.
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
       <h1>Number</h1>
+    </div>
+    <div class="bd">
+      <ol>
+        <li>var number = new Number( 10 ); // 构造函数
+        <li>var number = 10; // 直接量
+      </ol>
     </div>
     <div class="bd">
       <ul>
@@ -252,10 +261,9 @@ alert( 'scope: ' + scope );   // 'global'
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>数值转换</h1>
+      <h1>数值转换 - Number( value ) & +value</h1>
     </div>
     <div class="bd">
-      <h2>Number( _var );</h2>
       <ol>
         <li>为 Number 类型, 直接返回 _var</li>
         <li>为 Boolean 值, 则 true -> 1; false -> 0;</li>
@@ -276,25 +284,20 @@ alert( 'scope: ' + scope );   // 'global'
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>数值转换</h1>
+      <h1>数值转换 - parseInt( value )</h1>
     </div>
     <div class="bd">
       <ol>
-        <li>一元操作符 +_var 和 Number( _var ) 相同</li>
-        <li>parseInt( _var ) 和 Number( _var ) 的区别
-          <ol>
-            <li>空字符串时, 返回 NaN</li>
-            <li>第一个字符不是数字或者正负号, 就返回 NaN.</li>
-            <li>第一个字符是数字字符, 就处理第二个, 直到不是数字为止. parseInt( '123a', 10 ); //123</li>
-            <li>它不认为小数点是合法字符.</li>
-          </ol>
-        </li>
+        <li>空字符串时, 返回 NaN
+        <li>第一个字符不是数字或者正负号, 就返回 NaN.
+        <li>第一个字符是数字字符, 就处理第二个, 直到不是数字为止. parseInt( '123a', 10 ); //123
+        <li>它不认为小数点是合法字符
       </ol>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Math</h1>
+      <h1>window.Math</h1>
     </div>
     <div class="bd">
       <ul>
@@ -310,28 +313,17 @@ alert( 'scope: ' + scope );   // 'global'
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Math 应用</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>实现 Math.pow 函数
-        <li>实现复利计算
-        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
       <h1>String</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>'普通字符'; "普通字符"
-        <li>'转义\', \\'
-        <li>'非打印字符: \n, \r, \t'
-        <li>'使用十六进制表示, \x + nn: \x41'
-        <li>'使用unicode表示, \u + nnnn: \u0061'
-        <li>var string = new String( 'Huawei' );
+        <li>var string = new String( 'Huawei' ); // 构造函数
+        <li>var string = '普通字符'; // 直接量
+        <li>var string = "普通字符"
+        <li>var string = '转义\', \\'
+        <li>var string = '非打印字符: \n, \r, \t'
+        <li>var string = '使用十六进制表示, \x + nn: \x41'
+        <li>var string = '使用unicode表示, \u + nnnn: \u0061'
       </ul>
     </div>
     <div class="box">
@@ -389,39 +381,41 @@ alert( 'scope: ' + scope );   // 'global'
     <div class="hd">
       <h1>String 属性和方法</h1>
     </div>
-    <div class="bd">
-      <ul>
-        <li>concat()
-        <li>replace()
-        <li>indexOf()/lastIndexOf()/search()/match()
-        <li>slice()
-        <li>split()
-        <li>charAt()/charCodeAt()
-        <li>toUpperCase()/toLowerCase()
-        <li>trim()/trimLeft()/trimRight()
-        <li>startsWith()/endsWith()
-        <li>repeat()/contains()
-        <li>codePointAt()
-        <li>length - 属性
-        <li>String.fromCharCode() - 静态方法
-        <li>String.fromCodePoint()
-      </ul>
+    <div class="box">
+      <div class="grid">
+        <ul>
+          <li>concat()
+          <li>replace()
+          <li>indexOf()/lastIndexOf()/search()/match()
+          <li>slice()
+          <li>split()
+          <li>charAt()/charCodeAt()
+          <li>toUpperCase()/toLowerCase()
+        </ul>
+      </div>
+      <div class="grid">
+        <ul>
+          <li>trim()/trimLeft()/trimRight()
+          <li>startsWith()/endsWith()
+          <li>repeat()/contains()
+          <li>codePointAt()
+          <li>length - 属性
+          <li>String.fromCharCode() - 静态方法
+          <li>String.fromCodePoint() - 静态方法      
+        </ul>
+      </div>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>String 应用</h1>
+      <h1>Boolean</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>小写字母转换为大写(逆运算)
-        <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>把字符串中的 Tab 转换为 2 个空格
-        <li>处理 HTML 字符串 - innerHTML
-        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
-        <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
-        <li>KMP
-        <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
+        <li>var flag = new Boolean( _value ); // 构造函数
+        <li>var flag = true; // 直接量
+        <li>var flag = false;
+        <li>var flag = Boolean( _value ); // 类型转换
       </ul>
     </div>
   </section>
@@ -431,12 +425,12 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>var array = [];
-        <li>var array = [ 1, 2, ];
-        <li>var array = 'a b c'.split( ' ' );
         <li>var array = new Array(2);      // 创建长度为 2 的数组; 小于1/浮点数/NaN 异常
         <li>var array = new Array( 1, 2 ); // 创建数组, 有两个元素, 分别为 1, 2
         <li>var array = new Array('a');    // 创建数组, 元素为 'a'
+        <li>var array = [];
+        <li>var array = [ 1, 2, ];
+        <li>var array = 'a b c'.split( ' ' );
       </ul>
     </div>
   </section>
@@ -460,27 +454,13 @@ alert( 'scope: ' + scope );   // 'global'
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Array 应用</h1>
+      <h1>Object</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>创建 n 个元素组成的, 值全为 k 的数组
-        <li>扁平化 Array - [ 1, [2, 3], [4,[5] ] -> [ 1, 2, 3, 4, 5 ]
-        <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
-        <li>数组元素反转 - [1,2,3,4,5] - [3,4,5,1,2]
-        <li>移除数组中重复的值 - 数组元素全数数字
-        <li>实现数组的 [].reverse 方法
-        <li>求数组中的最大值和最小值
-        <li>求数组中第 K 大/小的值
-        <li>打乱数组 - 类似洗牌 shuffle
-        <li>抽奖算法(要求不重复)
-        <li>二分查找
-        <li>求数组中出现次数超过一半的元素
-        <li>合并两个有序的数组
-        <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
-        <li>快速排序和插入排序算法 js 描述
-        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
-        <li>使用递归方法, 顺序打印和倒序打印数组元素
+        <li>var object = new Object(); // 构造函数
+        <li>var object = {}; // 直接量
+        <li>var object = Object.create({});
       </ul>
     </div>
   </section>
@@ -496,25 +476,12 @@ alert( 'scope: ' + scope );   // 'global'
         <li>hasOwnProperty( key )
         <li>isPropertyOf( object )
         <li>propertyIsEnumerable( key )
-        <li>toLocalString()
-        <li>Object.create()
+        <li>Object.keys()
         <li>Object.defineProperty( object, property, descriptor )
         <li>Object.defineProperties( object, descriptor )
         <li>Object.getOwnPropertyDescriptor( object, property )
-        <li>Object.keys()
         <li>Object.getOwnPropertyNames( object )
         <li>object.propertyIsEnumerable( property )
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Object 应用</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>type - 判断变量数据类型
-        <li>mix - 合并对象(jQuery.extends)
       </ul>
     </div>
   </section>
@@ -524,30 +491,49 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>new Date()
+        <li>var date = new Date();
+        <li>var date = new Date( '2014/10/24' );
+      </ul>
+    </div>
+    <div class="bd">
+      <ul> 
+        <li>toUTCString()
         <li>getFullYear()/setFullYear()
         <li>getMonth()/setMonth()
         <li>getDate()/setDate()
         <li>getHours()/getMinutes()/getSeconds()/setHours()/setMinutes()/setSeconds()
         <li>getTime()/setTime()
         <li>getDay()/setDay()
-        <li>toUTCString()
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Date 应用</h1>
+      <h1>Other</h1>
     </div>
-    <div class="bd">
-      <ul>
-        <li>毫秒转换为年月日时分秒(逆运算)
-        <li>多久时间以前 - 微博发于 2分钟之前
-        <li>判断 Year 是否为闰年
-        <li>给出某天, 计算出是周几?
-        <li>日历控件 - 基础版本
-        <li>倒计时 - 整点报时
-      </ul>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var search = new String( 'Google' );
+alert( typeof search );        // 'object'
+alert( search == 'Google' );  // true;
+alert( search === 'Google' );  // false;
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = 'a', b = new String('b');
+a.a = 1; b.b = 1;
+alert( a.a );
+alert( b.b );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </div>
     </div>
   </section>
   <section class="slide">
@@ -561,39 +547,9 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>++/-- 表示递增/递减, 可做前缀和后缀</li>
         <li>+ 把操作数转化为 Number 类型
         <li>- 把操作数乘 -1
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>位操作符</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>~ 取反
-        <li>& 并且
-        <li>| 或
-        <li>^ 异或
-        <li><< 向左移
-        <li>>> 有符号向右移
-        <li>>>> 无符号向右移
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>位运算应用</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
-        <li>状态表示 - 15 可表示4种状态
-        <li>RGB和十六进制色值转换 - toHex()/toRGB()
-        <li>如何使用两个骰子表示月份中的每一天
-        <li>求数组中出现奇数次的单个元素
+        <li>++/-- 表示递增/递减, 可做前缀和后缀</li>
       </ul>
     </div>
   </section>
@@ -786,46 +742,6 @@ function test( a ) {
 test();
 // 虽然 void 永远返回 undefined, 但是它后面的表达式还是会计算的
 void alert( Math.pow(2, 10) );
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>补充 - 构造函数系列</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>var num = new Number(4);
-        <li>var str = new String( 'Hello' );
-        <li>var array = new Array(1, 2);
-        <li>var object = new Object();
-        <li>var fun = new Function( 'user', 'return user.name;' );
-        <li>var regexp = new RegExp( 'abc', 'gi' );
-      </ul>
-    </div>
-    <div class="box">
-      <div class="grid">
-<pre class="codebox">
-<code class="javascript block" contenteditable="true">
-var search = new String( 'Google' );
-alert( typeof search );        // 'object'
-alert( search == 'Google' );  // true;
-alert( search === 'Google' );  // false;
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
-      <div class="grid">
-<pre class="codebox">
-<code class="javascript block" contenteditable="true">
-var a = 'a', b = new String('b');
-a.a = 1;
-b.b = 1;
-alert( a.a );
-alert( b.b );
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -1172,15 +1088,105 @@ alert( b.b );
     </div>
   </section>
   <section class="slide">
-    <div class="hd">
+    <div class="slide-cover">
       <h1>应用</h1>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Math</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>实现 each 函数
-        <li>递归处理分类
+        <li>实现 Math.pow 函数
+        <li>实现复利计算
+        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>String</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>小写字母转换为大写(逆运算)
+        <li>判断是否为小写字母/大写字母/数字并统计它们的个数
+        <li>把字符串中的 Tab 转换为 2 个空格
+        <li>处理 HTML 字符串 - innerHTML
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
+        <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
+        <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
         <li>查找字符串中第一个唯一出现的字符
+        <li>KMP
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Array</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>创建 n 个元素组成的, 值全为 k 的数组
+        <li>扁平化 Array - [ 1, [2, 3], [4,[5] ] -> [ 1, 2, 3, 4, 5 ]
+        <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
+        <li>数组元素反转 - [1,2,3,4,5] - [3,4,5,1,2]
+        <li>移除数组中重复的值 - 数组元素全数数字
+        <li>实现数组的 [].reverse 方法
+        <li>求数组中的最大值和最小值
+        <li>求数组中第 K 大/小的值
+        <li>打乱数组 - 类似洗牌 shuffle
+        <li>抽奖算法(要求不重复)
+        <li>二分查找
+        <li>求数组中出现次数超过一半的元素
+        <li>合并两个有序的数组
+        <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
+        <li>快速排序和插入排序算法 js 描述
+        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
+        <li>使用递归方法, 顺序打印和倒序打印数组元素
         <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Object</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>type - 判断变量数据类型
+        <li>mix - 合并对象(jQuery.extends)
+        <li>实现 each 函数
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Date</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>毫秒转换为年月日时分秒(逆运算)
+        <li>多久时间以前 - 微博发于 2分钟之前
+        <li>判断 Year 是否为闰年
+        <li>给出某天, 计算出是周几?
+        <li>日历控件 - 基础版本
+        <li>倒计时 - 整点报时
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>位运算</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
+        <li>状态表示 - 15 可表示4种状态
+        <li>RGB和十六进制色值转换 - toHex()/toRGB()
+        <li>如何使用两个骰子表示月份中的每一天
+        <li>求数组中出现奇数次的单个元素
       </ul>
     </div>
   </section>
@@ -1195,8 +1201,8 @@ alert( b.b );
         <li>http://bonsaiden.github.io/JavaScript-Garden/zh/
         <li>https://github.com/zhanhongtao/blog/issues/77
         <li>https://github.com/zhanhongtao/blog/issues/82
-        <li><JavaScript 语言精粹>
-        <li><Effective JavaScript:编写高质量JavaScript代码的68个有效方法>
+        <li>《JavaScript 语言精粹&gt》
+        <li>《Effective JavaScript:编写高质量JavaScript代码的68个有效方法》
       </ul>
     </div>
   </section>
@@ -1208,6 +1214,7 @@ alert( b.b );
   <nav id="navigator"></nav>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
+  <script src="./js/se.app.js"></script>
   <script src="./js/hash.js"></script>
   <script src="./js/runcase.js?v=1"></script>
   <script src="./js/pattern.js"></script>

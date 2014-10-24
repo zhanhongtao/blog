@@ -4,6 +4,7 @@
   var ee = eventEmitter();
   var body = document.querySelector( 'body' );
   var slides = document.querySelectorAll( '.slide' );
+  slides = se.filterToggle( slides );
   var pages = slides.length;
 
   function onPatternChanged( page, pattern ) {

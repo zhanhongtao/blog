@@ -1,8 +1,7 @@
-
-
 ;(function() {
-
+  
   var slides = document.querySelectorAll( '.slide' );
+  slides = se.filterToggle( slides );
   var TARGET_CLASS = 'slide-target';
   var TARGET_FROM_DIRECTION_PREV_CLASS = 'slide-target-prev';
   var TARGET_FROM_DIRECTION_NEXT_CLASS = 'slide-target-next';

@@ -3,6 +3,7 @@
 ;(function() {
 
   var slides = document.querySelectorAll( '.slide' );
+  slides = se.filterToggle( slides );
   var body = document.querySelector( 'body' );
   var page = 0;
 

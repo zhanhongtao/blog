@@ -26,7 +26,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>函数基础</h1>
+      <h1>主题大纲</h1>
     </div>
     <div class="bd">
       <ul>
@@ -35,7 +35,8 @@
         <li>函数调用</li>
         <li>匿名函数</li>
         <li>变量作用域</li>
-        <li>其它 - 递归, 链式调用等</li>
+        <li>其它 - 递归, 链式调用、无 new 实例化等</li>
+        <li>JavaScript Prototype</a>
       </ul>
     </div>
   </section>
@@ -45,12 +46,12 @@
     </div>
     <div class="bd">
       <dl>
-        <dt>函数声明</dt>
-        <dd>function getUserName( user ) {}</dd>
-        <dt>函数表达式</dt>
-        <dd>var getUserName = function( user ) {};</dd>
         <dt>基于构造函数</dt>
         <dd>var getUserName = new Function( 'user', 'return user.name;' );</dd>
+        <dt>函数表达式 - 直接量/对象方法</dt>
+        <dd>var getUserName = function( user ) {};</dd>
+        <dt>函数声明</dt>
+        <dd>function getUserName( user ) {}</dd>
       </dl>
     </div>
   </section>
@@ -62,15 +63,15 @@
       <div class="grid">
         <h2>参数</h2>
         <ul>
-          <li>定义时, 参数可省略</li>
-          <li>调用时, 用 <a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a> 访问 - 伪数组</li>
           <li>形参[形式参数]; 参数个数 <code>getUserName.length</code></li>
           <li>实参[实际调用时参数]; 参数个数 <code>arguments.length</code></li>
-          <li>调用时参数可为任意数据类型 - 包括函数</li>
-          <li>参数传递值(原始数据类型)和引用(其它)</li>
+          <li>定义时, 形式参数可省略</li>
+          <li>调用时, 用 <a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a> 访问 - 伪数组</li>
+          <li>实参为任意数据类型 - 包括函数</li>
+          <li>参数以值(原始数据类型)和引用(其它)传递</li>
         </ul>
         <h2>返回值</h2>
-        <p>任意数据类型 - 可以为 <mark>function</mark></p>
+        <p>任意数据类型 - 包括<mark>function</mark></p>
       </div>
       <div class="grid">
 <pre class="codebox">
@@ -109,7 +110,7 @@ alert( getUserName({id: '806'}) );
     </div>
     <div class="bd">
       <dl>
-        <dt>直接调用 <sup>最常用</sup></dt>
+        <dt>直接调用 <sup>常用</sup></dt>
         <dd>getUserName( user );</dd>
         <dt>方法调用</dt>
         <dd>extension.getUserName( user );</dd>
@@ -127,13 +128,13 @@ alert( getUserName({id: '806'}) );
     </div>
     <div class="bd">
       <ul>
-        <li>;(function() {})(); // 自执行</li>
-        <li>element.addEventListener('click', function() {}, false );</li>
-        <li>requestAnimationFrame(function() {}, 100); // setInterval/setTimeout</li>
-        <li>promise().done(function() {}).fail(function() {}); // jQuery</li>
-        <li>'?path=p1'.replace(/[^?&]path=[^#&]*/i, function() {});</li>
-        <li>[1,3,2].sort(function( a, b ) { return a - b;});</li>
+        <li>;(function() {})(); // 自执行
+        <li>'?path=p1'.replace(/[^?&]path=[^#&]*/i, function() {});
+        <li>[1,3,2].sort(function( a, b ) { return a - b;});
         <li>function func(){return function() {};} // return</li>
+        <li>element.addEventListener('click', function() {}, false );</li>
+        <li>promise().done(function() {}).fail(function() {}); // jQuery</li>
+        <li>requestAnimationFrame(function() {}, 100); // setInterval/setTimeout</li>
       </ul>
     </div>
   </section>
@@ -142,7 +143,11 @@ alert( getUserName({id: '806'}) );
       <h1>变量作用域</h1>
     </div>
     <div class="bd">
-      <p>函数创建作用域, 作用域包裹变量. <a href="https://github.com/zhanhongtao/blog/issues/6">讨论此话题</a></p>
+      <ul>
+        <li>var 和 function 挂起
+        <li><a href="https://github.com/zhanhongtao/blog/issues/18">with</a>/<a href="https://github.com/zhanhongtao/blog/issues/56">eval</a> 中的变量
+        <li>函数创建作用域; 作用域包裹变量
+      </ul>
     </div>
     <div class="box">
       <div class="grid">
@@ -212,6 +217,9 @@ with( user ) {
     </div>
   </section>
   <section class="slide">
+    <div class="hd">
+      <h1>实例</h1>
+    </div>
     <div class="box">
       <div class="grid">
 <pre class="codebox">
@@ -249,7 +257,7 @@ function bind( func, context ) {
       <div class="grid">
 <pre>
 <code class="javascript block" contenteditable="true">
-// only ie
+// only ie - this
 if ( document.attachEvent ) {
   document.attachEvent( 'onclick', function() {
     alert( this );
@@ -259,7 +267,7 @@ if ( document.attachEvent ) {
   }, document);
 }
 </code>
-</pre>      
+</pre>
       </div>
       <div class="grid">
 <pre class="codebox">
@@ -277,11 +285,14 @@ function getBrowserDataFromServer( cb ) {
 alert( getBrowserDataFromServer( system.runcase ) );
 </code>
 <div class="runcase">Run</div>
-</pre>      
+</pre>
       </div>
     </div>
   </section>
   <section class="slide">
+    <div class="hd">
+      <h1>实例</h1>
+    </div>
     <div class="box">
       <div class="grid">
 <pre id="anonymous-function-1" class="codebox ">
@@ -307,7 +318,7 @@ element.addEventListener( 'click', function() {
 }, false );
 </code>
 <div class="runcase">Run</div>
-</pre>    
+</pre>
       </div>
     </div>
     <div class="box">
@@ -315,7 +326,7 @@ element.addEventListener( 'click', function() {
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
 function createCount(){
-  var count = 1; // 闭包 - 私有变量
+  var count = 1; // 闭包 - 私有变(只可以在函数 createCount 内部使用)
   return function() {
     return ++count;
   };
@@ -369,6 +380,7 @@ function getName( user ) {
     alert( 'error' );
   }
 }
+alert( 'getName.name: ' + getName.name );
 getName();
 </code>
 <div class="runcase">Run</div>
@@ -381,7 +393,6 @@ function flatArray( array ) {
   var i = 0, l = array.length, result = [], current;
   for ( ; i < l; i++ ) {
     current = array[i];
-    // concat 支持单层合并.
     result = result.concat(se.type(current) ==='array' ?
         flatArray(current) : current );
   }
@@ -395,11 +406,14 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
     </div>
   </section>
   <section class="slide">
+    <div class="hd">
+      <h1>其它 - 链式调用和无 new 实例化</h1>
+    </div>
     <div class="box">
       <div class="grid">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-// 链式调用原理: 函数返回值存在方法
+// 链式调用原理: 函数的返回值, 存在方法可继续被调用
 [1, 2].map(function( item ) {
   return item * 2;
 }) // return array.
@@ -412,10 +426,13 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
 
 <pre class="codebox" style="margin-top: 15px;">
 <code contenteditable="true" class="javascript block">
+// Only for test!
+// this 指向.
+// 不是每个人都能搞定的问题.
 var my = {
-  test: 'man', 
+  test: 'man',
   why: this.test
-}; 
+};
 alert( my.why );
 </code>
 <div class="runcase">Run</div>
@@ -424,6 +441,7 @@ alert( my.why );
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
+// 无 new 实例化 - 相对于使用者来讲.
 var _ = function( value ) {
   if ( value instanceof _ ) return value;
   if ( !(this instanceof _) ) return new _(value);
@@ -441,7 +459,6 @@ _.prototype.max = function() {
 _.chain = function( value ) {
   return new _( value );
 };
-// 无 new 实例化 - 相对于使用者来讲.
 var max = _( [1, 2, 5, 3 ] ).map(function( item ) {
   return item * 2;
 }).max();
@@ -484,7 +501,7 @@ alert( max );
   user_sm.getName();  // 会弹出 GetName 字符串
   // 我们称这一行为为: 实例对象继承了构造函数的prototype原型对象上的方法.
   // 也称做: JavaScript 通过 prototype 实现继承.
-  
+
   // 当实例对象自身上存在和构造函数的原型对象上相同的属性和方法时
   // 它会优先使用自身的属性和方法.
   user.getName = function() {
@@ -495,7 +512,7 @@ alert( max );
   // 以上说明, 当在对象上查找属性或方法时, 会优先在自身上查找, 如果存在, 就直接使用.
   // 如果不存在, 就向构造函数的原型对象上查找. 直到查找到属性或方法, 或者到达最顶层对象(原型对象为 null)为止.
   // 我们把这种查找方法称为: 按原型链查找.
-  
+
   // 临时补充:
   // 判断对象本身上是否存在某个属性和方法时, 可使用 .hasOwnProperty 方法.
   var hasGetNameMethod = user.hasOwnProperty( 'getName' );
@@ -504,7 +521,7 @@ alert( max );
   var keys = Object.keys( user );
   var propertys = Object.getOwnPropertyNames( user );
   alert( 'user 对象上的属性和方法 - keys:' + keys + '; propertyNames: ' + propertys );
-  
+
   // 其它细节.
   // 如果此时 User 的原型对象重新分配了新对象.
   User.prototype = {
@@ -513,7 +530,7 @@ alert( max );
   // 那么已实例化的对象 user 和 user_sm 都不会存在 newGetName 方法.
   // 因为隐藏的 [prototype] 对象还指向旧的原型对象地址.
   alert( 'user 是否存在 newGetName 方法: ' + ('newGetName' in user) );
-  
+
   // 最后补充:
   // String, Number, Array 等内置的构造函数是 Object/Function 构造函数的实例.
   // 而 string, number, array 等定义的直接量是 String, Number, Array 内置构造函数的实例.
@@ -539,27 +556,25 @@ alert( max );
     <div class="box">
       <div class="grid">
         <ul>
-          <li>assert 函数 - assert( boolean, message );
+          <li>assert( boolean, description );
+          <li>按键盘 Hello 字符, 出现惊喜
           <li>执行一次的函数 - 可以调用多次, 但只执行一次
-          <li>需求: 按键盘 sogou 字符, 出现惊喜
           <li>无侵入的统计代码 - 面向切面
-          <li>JSONP 函数包装
           <li>Windows7/8 Aero 效果
           <li>Hover 延迟切换标签
-          <li>元素a, 从位置[0,0] 先移到[0, 100], 再到[100, 100]
+          <li>动画: 元素a, 从[0,0] 先[0, 100], 再到[100, 100]
         </ul>
       </div>
       <div class="grid">
         <ul>
           <li>频繁点击按钮, 提交表单</li>
           <li>频繁按 ctrl + s 快捷键
-          <li>blur和submit 重复提交操作
-          <li>resize 频繁渲染 DOM
-          <li>mousemove/scroll 频繁触发
+          <li>mousemove/scroll/resize 频繁触发
+          <li>blur 和 submit 重复提交操作
           <li>网页中搜索建议, 发送的请求如何处理
           <li>需求: 对 n 个服务接口, 做单元测试.
-          <li>Nodejs 中多表依赖查询
-          <li>同时请求模板和数据, 成功后渲染页面          
+          <li>同时请求模板和数据, 成功后渲染页面
+          <li>JSONP 函数包装
         </ul>
       </div>
     </div>
@@ -570,12 +585,13 @@ alert( max );
     </div>
     <div class="bd">
       <ul>
-        <li>权威指南 6</li>
-        <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">前端异步 api 调用</a></li>
-        <li><a href="http://www.zhihu.com/question/19805411" target="_blank">如何防止重复提交?</a></li>
-        <li><a href="http://lodash.com/" target="_blank">lodash</a> & <a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a></li>
-        <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a></li>
-        <li><a href="http://osteele.com/sources/javascript/functional/" target="_blank">functional</a></li>
+        <li>《JavaScript 权威指南 6》</li>
+        <li><a href="http://www.zhihu.com/question/19805411" target="_blank">如何防止重复提交?</a>
+        <li><a href="http://sketch.evanyou.me/async_asap.html" target="_blank">前端异步 api 调用</a>
+        <li><a href="http://lodash.com/" target="_blank">lodash</a>
+        <li><a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank">underscore.js</a>
+        <li><a href="http://caolanmcmahon.com/posts/flexible_callback_arguments/" target="_blank">flexible callback arguments</a>
+        <li><a href="http://osteele.com/sources/javascript/functional/" target="_blank">functional</a>
       </ul>
     </div>
   </section>
@@ -587,6 +603,7 @@ alert( max );
   <nav id="navigator"></nav>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
+  <script src="./js/se.app.js"></script>
   <script src="./js/hash.js"></script>
   <script src="./js/runcase.js?v=1"></script>
   <script src="./js/pattern.js"></script>

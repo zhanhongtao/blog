@@ -8,6 +8,7 @@
 
   // 浏览器扩展函数
   var slides = document.querySelectorAll( '.slide' );
+  slides = se.filterToggle( slides );
   var body = document.querySelector( 'body' );
   var rotate = localStorage.rotate === 'true' || false;
   var pages = slides.length;
