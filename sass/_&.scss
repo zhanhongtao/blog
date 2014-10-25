@@ -15,11 +15,16 @@ a {
   }
 }
 
-/* & 当 selector 字符串使用 */
+/* & 当 selector 字符串, 不能做后缀使用 */
 .slide {
   &-toggle {
     background-color: #ccc;
   }
+  /*
+   	当 & 做后缀时会抛出异常.
+  .sub& {
+    color: #000;
+  } */
 }
 
 #box {
@@ -28,3 +33,6 @@ a {
   }
 }
 
+/* 
+	当& 代表 * 选择器时, sass 会抛出异常.
+*/
