@@ -30,9 +30,11 @@ li ul, li ol {
 }
 
 .box {
+	display: -webkit-flex;
   display: flex;
 }
 .grid {
+	-webkit-flex: 1;
   flex: 1;
   margin: 10px 0;
 }
