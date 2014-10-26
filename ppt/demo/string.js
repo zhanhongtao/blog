@@ -1,3 +1,36 @@
+function startsWith( string, sub ) {
+  return string.indexOf( sub ) == 0;
+}
+
+function endsWith( string, sub ) {
+  return string.lastIndexOf( sub ) === string.length + 1;
+}
+
+function repeat( string, times ) {
+  var array = new Array( times + 1 );
+	return array.join( string );
+}
+
+function count( string, substring ) {
+  var n = 0, i = 0;
+	while ( string.indexOf( substring, i ) > -1 ) {
+	  ++n;
+	}
+	return n;
+}
+
+funtion isLowerCase( string ) {
+  return string.toLowerCase() === string;
+}
+
+function isUpperCase( string ) {
+  return string.toUpperCase() === string;
+}
+
+function isLowerCase( chr ) {
+  var code = chr.charCodeAt(0);
+	return code >= 96 && code <= 122;
+}
 
 // 小写字母转换为大写(逆运算)
 // @不支持汉字.
