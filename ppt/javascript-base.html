@@ -108,8 +108,7 @@
       <ul>
         <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
         <li>局部变量 - var bar = 'local';
-        <li>常量 - BROWSER_VERSION = 5;
-      </ul>
+        <li>常量 - var BROWSER_VERSION = 5;
     </div>
     <div class="box">
       <div class="grid">
@@ -178,10 +177,7 @@ alert( 'scope: ' + scope );   // 'global'
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
-  var code = 0;
-  if ( code ) {
-    function test() {
+<code class="javascript block" contenteditable="true"> var code = 0; if ( code ) { function test() {
       alert(1);
     };
   }
@@ -332,15 +328,14 @@ alert( 'scope: ' + scope );   // 'global'
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-  '\u0020'; // 空格
-  '\u0009'; // tab
+  '\u0020'; // 空格 '\u0009'; // tab
   '\u000A'; // 换行符
   '\u000D'; // 回车符
   '\u0028'; // 行分隔符
   '\u0029'; // 段分隔符
   var multiLinesString = 'a\
     b\
-    c;
+    c';
   alert( multiLinesString );
 </code>
 <div class="runcase">Run</div>
@@ -358,9 +353,7 @@ alert( 'scope: ' + scope );   // 'global'
     code = ( new Array(5 - code.length) ).join('0') + code;
   }
   code = '\\u' + code;
-  alert( code );
-</code>
-<div class="runcase">Run</div>
+  alert( code ); </code> <div class="runcase">Run</div>
 </pre>
       </div>
     </div>
@@ -378,11 +371,12 @@ alert( 'scope: ' + scope );   // 'global'
         <li>null/undefined/true/false -> 'null'/'undefined'/'true'/'false'</li>
       </ul>
     </div>
-		<div class="box">
+		<div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
 '10'.toString( 2 ); // 1010
-8..toString( 2 );   // 100
+(8).toString(2);    // 1000
+8..toString( 2 );   // 1000
 </code>
 </pre>
 		</div>
@@ -400,6 +394,7 @@ alert( 'scope: ' + scope );   // 'global'
           <li>slice()
           <li>split()
           <li>charAt()/charCodeAt()
+          <li>String.fromCharCode() - 静态方法
           <li>toUpperCase()/toLowerCase()
         </ul>
       </div>
@@ -409,9 +404,8 @@ alert( 'scope: ' + scope );   // 'global'
           <li>startsWith()/endsWith()
           <li>repeat()/contains()
           <li>codePointAt()
-          <li>length - 属性
-          <li>String.fromCharCode() - 静态方法
           <li>String.fromCodePoint() - 静态方法      
+          <li>length - 属性
         </ul>
       </div>
     </div>
@@ -426,6 +420,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>var flag = true; // 直接量
         <li>var flag = false;
         <li>var flag = Boolean( _value ); // 类型转换
+				<li>var flag = !!_value;
       </ul>
     </div>
   </section>
@@ -559,7 +554,7 @@ alert( b.b );
       <ul>
         <li>+ 把操作数转化为 Number 类型
         <li>- 把操作数乘 -1
-        <li>++/-- 表示递增/递减, 可做前缀和后缀</li>
+        <li>++/-- 表示递增/递减, 可做前缀和后缀 - 前缀保留最后一次计算结果</li>
       </ul>
     </div>
   </section>
@@ -594,7 +589,7 @@ alert( b.b );
     <div class="bd">
       <ul>
         <li>+ 操作数是字符串和其它时, 做字符串拼接操作
-        <li>+ 操作数都是数字时, 做数学运算
+        <li>+ 操作数都是数字时, 做数学运算; var a = 10; a += 10; a === 20;
         <li>+ 操作数为对象时, 转换为字符串, 然后按照上面的规则操作
           <ul>
             <li>[1] + [1] == '11';
@@ -881,6 +876,7 @@ void alert( Math.pow(2, 10) );
   function handle( command, message ) {
     switch ( command ) {
       case 'notify':
+				alert( 'notify log' );
       case 'broadcast':
         notify( message );
         break;
@@ -1052,6 +1048,7 @@ void alert( Math.pow(2, 10) );
           <ul>
             <li>数学运算 - 除法
             <li>正则表达式
+						<li>注释 //, /* ... */
           </ul>
         </div>
       </div>
@@ -1109,7 +1106,6 @@ void alert( Math.pow(2, 10) );
     <div class="bd">
       <ul>
         <li>实现 Math.pow 函数
-        <li>实现复利计算
         <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>
     </div>
@@ -1122,12 +1118,12 @@ void alert( Math.pow(2, 10) );
       <ul>
         <li>小写字母转换为大写(逆运算)
         <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>把字符串中的 Tab 转换为 2 个空格
-        <li>处理 HTML 字符串 - innerHTML
-        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
+        <li>把字符串中的 Tab(\t) 转换为 2 个空格
+				<li>对用户输入字符做 html 标签过滤
         <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
         <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
         <li>查找字符串中第一个唯一出现的字符
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
         <li>KMP
       </ul>
     </div>
@@ -1165,8 +1161,8 @@ void alert( Math.pow(2, 10) );
     <div class="bd">
       <ul>
         <li>type - 判断变量数据类型
-        <li>mix - 合并对象(jQuery.extends)
         <li>实现 each 函数
+        <li>mix - 合并对象(jQuery.extends)
       </ul>
     </div>
   </section>
