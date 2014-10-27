@@ -56,11 +56,11 @@
         <dd>标识符区分大小写</dd>
         <dt>保留字</dt>
         <dd>保留字不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
-				<dd>var/function/return/if/else/switch/case/break/continue/while/do/for<br />
-						with/in/void/delete/try/catch/finally/throw/new/this/typeof/true/false/null<br />
-						arguments/eval<br />
-						debugger/class/const/export/extends/import/super/enum<br />
-						yield/public/private/let/package/protected/static/interface/implements
+        <dd>var/function/return/if/else/switch/case/break/continue/while/do/for<br />
+            with/in/void/delete/try/catch/finally/throw/new/this/typeof/true/false/null<br />
+            arguments/eval<br />
+            debugger/class/const/export/extends/import/super/enum<br />
+            yield/public/private/let/package/protected/static/interface/implements
       </dl>
     </div>
   </section>
@@ -81,18 +81,18 @@
       <h1>严格模式</h1>
     </div>
     <div class="bd">
-			<ul>
-				<li>严格模式会把 JavaScript 陷阱做为错误对待
-				<li>严格模式修正了一些引擎难以优化的错误, 同样的代码有些时候严格模式会比非严格模式下更快
-				<li>严格模式禁用了一些有可能在未来版本中定义的语法
-			</ul>
+      <ul>
+        <li>严格模式会把 JavaScript 陷阱做为错误对待
+        <li>严格模式修正了一些引擎难以优化的错误, 同样的代码有些时候严格模式会比非严格模式下更快
+        <li>严格模式禁用了一些有可能在未来版本中定义的语法
+      </ul>
       <p>
-			开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
-			不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
-			建议在严格模式下进行开发 - 养成良好编码习惯 </p>
-	</div>
-	<div class="box">
-		<div class="grid">
+      开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
+      不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
+      建议在严格模式下进行开发 - 养成良好编码习惯 </p>
+  </div>
+  <div class="box">
+    <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   "use strict";
@@ -104,29 +104,29 @@
   with( user ) {
     alert( 'id: ' + id );
     alert( 'name: ' + name );
-	}
+  }
 </code>
 <div class="runcase">Run</div>
 </pre>
-		</div>
-		<div class="grid">
+    </div>
+    <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   "use strict";
-	// 定义变量时, 没有写 var
+  // 定义变量时, 没有写 var
   user = {
     id: 806,
     name: 'rd'
   };
-	/*
+  /*
     * arguments
-		* eval - 不再创建 global 变量.
-	*/
+    * eval - 不再创建 global 变量.
+  */
 </code>
 <div class="runcase">Run</div>
 </pre>
-		</div>
-	</div>
+    </div>
+  </div>
       <ul>
         <li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html</a>
         <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode</a>
@@ -140,7 +140,7 @@
     <div class="bd">
       <ul>
         <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
-				<li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
+        <li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
         <li>常量 - var BROWSER_VERSION = 5;
     </div>
     <div class="box">
@@ -198,7 +198,7 @@ alert( 'scope: ' + scope );   // 'global'
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   'use strict';
-	// 变量和函数挂起.
+  // 变量和函数挂起.
   var a = 'string';
   function a() {
 
@@ -317,7 +317,7 @@ alert( 'scope: ' + scope );   // 'global'
       <h1>数值转换 - parseInt( value, base )</h1>
     </div>
     <div class="bd">
-		  <p>把以 base 进制表示的值 value, 转换为 10 进制表示.</p>
+      <p>把以 base 进制表示的值 value, 转换为 10 进制表示.</p>
       <ol>
         <li>空字符串时, 返回 NaN
         <li>第一个字符不是数字或者正负号, 就返回 NaN.
@@ -332,7 +332,7 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>PI 
+        <li>PI
         <li>abs()
         <li>random() - 0 到 1 之间的随机数
         <li>max()/min()
@@ -404,7 +404,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>null/undefined/true/false -> 'null'/'undefined'/'true'/'false'</li>
       </ul>
     </div>
-		<div class="bd">
+    <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
 '10'.toString( 2 ); // 1010
@@ -412,7 +412,7 @@ alert( 'scope: ' + scope );   // 'global'
 8..toString( 2 );   // 1000
 </code>
 </pre>
-		</div>
+    </div>
   </section>
   <section class="slide">
     <div class="hd">
@@ -422,7 +422,7 @@ alert( 'scope: ' + scope );   // 'global'
       <div class="grid">
         <ul>
           <li>length - 属性
-					<li>string[5] - 访问字符串的第6个元素
+          <li>string[5] - 访问字符串的第6个元素
           <li>concat() - 可直接使用 + 操作符
           <li>replace()
           <li>indexOf()/lastIndexOf()/search()/match()
@@ -439,7 +439,7 @@ alert( 'scope: ' + scope );   // 'global'
           <li>startsWith()/endsWith()
           <li>repeat()/contains()
           <li>codePointAt()
-          <li>String.fromCodePoint() - 静态方法      
+          <li>String.fromCodePoint() - 静态方法
         </ul>
       </div>
     </div>
@@ -454,7 +454,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>var flag = true; // 直接量
         <li>var flag = false;
         <li>var flag = Boolean( _value ); // 类型转换
-				<li>var flag = !!_value;
+        <li>var flag = !!_value;
       </ul>
     </div>
   </section>
@@ -496,13 +496,13 @@ alert( 'scope: ' + scope );   // 'global'
       <h1>Object</h1>
     </div>
     <div class="bd">
-			<ul>
-				<li>内置对象 - Math, Date, Function, Object, Regexp
-				<li>宿主环境对象 - window, top, location, history
-				<li>自定义对象 - var obj = {};
-			</ul>
-		</div>
-		<div class="bd">
+      <ul>
+        <li>内置对象 - Math, Date, Function, Object, Regexp
+        <li>宿主环境对象 - window, top, location, history
+        <li>自定义对象 - var obj = {};
+      </ul>
+    </div>
+    <div class="bd">
       <ul>
         <li>var object = new Object(); // 构造函数
         <li>var object = {}; // 直接量
@@ -542,7 +542,7 @@ alert( 'scope: ' + scope );   // 'global'
       </ul>
     </div>
     <div class="bd">
-      <ul> 
+      <ul>
         <li>toUTCString()
         <li>getFullYear()/setFullYear()
         <li>getMonth()/setMonth()
@@ -581,8 +581,8 @@ alert( b.b );
 </pre>
       </div>
     </div>
-		<div class="box">
-			<div class="grid">
+    <div class="box">
+      <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
 var a = [], b = {};
@@ -590,28 +590,28 @@ alert( 'a === []: ' + (a === []) );
 alert( 'a === a: ' + (a === a) );
 alert( 'b === {}: ' + (b === {}) );
 alert( 'b === b: ' + (b === b) );
-// + 操作符的优先级高于 === 
+// + 操作符的优先级高于 ===
 </code>
 <div class="runcase">Run</div>
 </pre>
-			</div>
-			<div class="grid">
+      </div>
+      <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
 var a = [], b = {};
 a.name = 'array';
 b.name = 'object';
 a.getName = function() {
-	return a.name;
+  return a.name;
 };
 b.getName = function() {
-	return b.name;
+  return b.name;
 };
 </code>
 <div class="runcase">Run</div>
 </pre>
-			</div>
-		</div>
+      </div>
+    </div>
   </section>
   <section class="slide">
     <div class="slide-cover">
@@ -628,6 +628,40 @@ b.getName = function() {
         <li>- 把操作数乘 -1
         <li>++/-- 表示递增/递减, 可做前缀和后缀 - 前缀保留最后一次计算结果</li>
       </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>位操作符</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>~ (~8 === -9;// 取操作数负值, 然后再减一)
+        <li>& (1 & 2 === 0; // 01 & 10 -> 00 -> 0)
+        <li>| (1 | 2 === 3; // 01 | 10 -> 11 -> 3)
+        <li>^ (1 | 2 === 3; // 01 ^ 10 -> 11 -> 3)
+        <li>&lt;&lt; (1 << 2 == 4; // 1 -> 100 -> 4)
+        <li>&gt;&gt; (10 >> 2 == 2; // 1010 -> 10 -> 2)
+        <li>&gt;&gt;&gt;(无符号右移)
+      </ul>
+    </div>
+    <div class="bd">
+      <div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+1 & 1 === 1;
+1 & 2 === 0;
+1 & 3 === 1;
+1 & 4 === 0;
+1 << 5 == 32;
+1 << 5 - 1 = 31;      // 100000 -> 11111
+(10 >> 1) & 1 = 1;    // 1010 -> 101 -> 101 & 1 -> 1 & 1 -> 1 (取值)
+(10 >> 2 ) & 1 == 0;  // 1010 -> 10 -> 0 & 1 -> 0 (取值)
+( (1<<2) | 10 ) == 13;   // 1 -> 100 -> 100 | 1010 -> 1110 (设置为1)
+( (~(1<<1)) & 10 ) ==  8;   // 1 -> 10 -> 01 -> 1101 & 1010 -> 1000(设置为0)
+</code>
+</pre>        
+      </div>
     </div>
   </section>
   <section class="slide">
@@ -948,7 +982,7 @@ void alert( Math.pow(2, 10) );
   function handle( command, message ) {
     switch ( command ) {
       case 'notify':
-				alert( 'notify log' );
+        alert( 'notify log' );
       case 'broadcast':
         notify( message );
         break;
@@ -1034,7 +1068,7 @@ void alert( Math.pow(2, 10) );
 var i = 0; // 声明语句
 // label
 labelName: {
-	++i; // 表达式语句
+  ++i; // 表达式语句
 }
 
 ; // 空语句
@@ -1129,7 +1163,7 @@ labelName: {
           <ul>
             <li>数学运算 - 除法
             <li>正则表达式
-						<li>注释 //, /* ... */
+            <li>注释 //, /* ... */
           </ul>
         </div>
       </div>
@@ -1200,12 +1234,12 @@ labelName: {
         <li>小写字母转换为大写(逆运算)
         <li>判断是否为小写字母/大写字母/数字并统计它们的个数
         <li>把字符串中的 Tab(\t) 转换为 2 个空格
-				<li>对用户输入字符做 html 标签过滤
+        <li>对用户输入字符做 html 标签过滤
         <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
         <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
         <li>查找字符串中第一个唯一出现的字符
         <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
-        <li>KMP
+        <li>KMP 算法
       </ul>
     </div>
   </section>
@@ -1268,11 +1302,13 @@ labelName: {
     </div>
     <div class="bd">
       <ul>
-        <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
         <li>状态表示 - 15 可表示4种状态
+        <li>取二进制位中第 N 位上的值是? (1/0)
+        <li>设置二进制位中第 N 位上的值(1/0)
+        <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
         <li>RGB和十六进制色值转换 - toHex()/toRGB()
-        <li>如何使用两个骰子表示月份中的每一天
         <li>求数组中出现奇数次的单个元素
+        <li>如何使用两个骰子表示月份中的每一天
       </ul>
     </div>
   </section>
@@ -1284,11 +1320,11 @@ labelName: {
       <ul>
         <li>http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
         <li>https://www.chromestatus.com/features
+        <li>《JavaScript 语言精粹》
+        <li>《Effective JavaScript:编写高质量JavaScript代码的68个有效方法》
         <li>http://bonsaiden.github.io/JavaScript-Garden/zh/
         <li>https://github.com/zhanhongtao/blog/issues/77
         <li>https://github.com/zhanhongtao/blog/issues/82
-        <li>《JavaScript 语言精粹&gt》
-        <li>《Effective JavaScript:编写高质量JavaScript代码的68个有效方法》
       </ul>
     </div>
   </section>

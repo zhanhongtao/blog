@@ -50,6 +50,8 @@
         <dd>var getUserName = new Function( 'user', 'return user.name;' );</dd>
         <dt>函数表达式 - 直接量/对象方法</dt>
         <dd>var getUserName = function( user ) {};</dd>
+        <dd>var obj = { getUserNmae: function() {} };</dd>
+        <dd>var obj = {}; obj.getUserName = function() {};</dd>
         <dt>函数声明</dt>
         <dd>function getUserName( user ) {}</dd>
       </dl>
@@ -63,12 +65,13 @@
       <div class="grid">
         <h2>参数</h2>
         <ul>
-          <li>形参[形式参数]; 参数个数 <code>getUserName.length</code></li>
-          <li>实参[实际调用时参数]; 参数个数 <code>arguments.length</code></li>
-          <li>定义时, 形式参数可省略</li>
-          <li>调用时, 用 <a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a> 访问 - 伪数组</li>
-          <li>实参为任意数据类型 - 包括函数</li>
-          <li>参数以值(原始数据类型)和引用(其它)传递</li>
+          <li>形参[形式参数]; 参数个数 <code>getUserName.length</code>
+          <li>实参[实际调用时参数]; 参数个数 <code>arguments.length</code>
+          <li>定义时, 形式参数可省略
+          <li>调用时, 用 <a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a> 访问 - 伪数组
+          <li>实参为任意数据类型 - 包括函数
+          <li>参数以值(原始数据类型)和引用(其它)传递
+          <li>函数体内 arguments.callee 表示函数本身(递归)
         </ul>
         <h2>返回值</h2>
         <p>任意数据类型 - 包括<mark>function</mark></p>
@@ -129,9 +132,10 @@ alert( getUserName({id: '806'}) );
     <div class="bd">
       <ul>
         <li>;(function() {})(); // 自执行
+        <li>;(function <mark>auto</mark>(){ setTimeout(<mark>auto</mark>, 1000 * 10); })();
         <li>'?path=p1'.replace(/[^?&]path=[^#&]*/i, function() {});
         <li>[1,3,2].sort(function( a, b ) { return a - b;});
-        <li>function func(){return function() {};} // return</li>
+        <li>function func(){return function() {};} // 做函数返回值</li>
         <li>element.addEventListener('click', function() {}, false );</li>
         <li>promise().done(function() {}).fail(function() {}); // jQuery</li>
         <li>requestAnimationFrame(function() {}, 100); // setInterval/setTimeout</li>
@@ -146,6 +150,7 @@ alert( getUserName({id: '806'}) );
       <ul>
         <li>var 和 function 挂起
         <li><a href="https://github.com/zhanhongtao/blog/issues/18">with</a>/<a href="https://github.com/zhanhongtao/blog/issues/56">eval</a> 中的变量
+        <li>JavaScript 中变量作用域是通过函数来划分的
         <li>函数创建作用域; 作用域包裹变量
       </ul>
     </div>
@@ -255,18 +260,21 @@ function bind( func, context ) {
     </div>
     <div class="box">
       <div class="grid">
-<pre>
+<pre class="codebox">
 <code class="javascript block" contenteditable="true">
-// only ie - this
-if ( document.attachEvent ) {
-  document.attachEvent( 'onclick', function() {
-    alert( this );
-  });
-  document.attachEvent( 'onclick', se.bind(function() {
-    alert( this );
-  }, document);
-}
+  // codebox 在 eval/new Function 中执行.
+  var user = 'rd';
+  window.user = 'window_rd';
+  var _ = {
+    user: '_rd'
+  };
+  function test() {
+    alert( this.user );
+  }
+  test();
+  test.bind( _ )();
 </code>
+<div class="runcase">Run</div>
 </pre>
       </div>
       <div class="grid">
@@ -300,6 +308,8 @@ alert( getBrowserDataFromServer( system.runcase ) );
 var element = document.getElementById( 'anonymous-function-1' );
 var onClick = function() { alert('onClick'); };
 // 当绑定同一个函数时, 浏览器内部会去重.
+element.addEventListener( 'click', onClick, false );
+element.addEventListener( 'click', onClick, false );
 element.addEventListener( 'click', onClick, false );
 element.addEventListener( 'click', onClick, false );
 </code>
@@ -417,6 +427,9 @@ alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
 [1, 2].map(function( item ) {
   return item * 2;
 }) // return array.
+.filter(function( item ) {
+  return item > 2;
+})
 .forEach(function( item ) {
   alert( item );
 });
