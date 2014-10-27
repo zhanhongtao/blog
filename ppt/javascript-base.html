@@ -55,8 +55,12 @@
         <dd>由数字/字母/下划线/美元符号组成, 但不能以数字开头</dd>
         <dd>标识符区分大小写</dd>
         <dt>保留字</dt>
-        <dd>var/function/return/if/....</dd>
         <dd>保留字不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
+				<dd>var/function/return/if/else/switch/case/break/continue/while/do/for<br />
+						with/in/void/delete/try/catch/finally/throw/new/this/typeof/true/false/null<br />
+						arguments/eval<br />
+						debugger/class/const/export/extends/import/super/enum<br />
+						yield/public/private/let/package/protected/static/interface/implements
       </dl>
     </div>
   </section>
@@ -77,8 +81,18 @@
       <h1>严格模式</h1>
     </div>
     <div class="bd">
-      <p>建议在严格模式下进行开发 - 养成良好编码习惯 <br />
-      开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; 不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.</p>
+			<ul>
+				<li>严格模式会把 JavaScript 陷阱做为错误对待
+				<li>严格模式修正了一些引擎难以优化的错误, 同样的代码有些时候严格模式会比非严格模式下更快
+				<li>严格模式禁用了一些有可能在未来版本中定义的语法
+			</ul>
+      <p>
+			开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
+			不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
+			建议在严格模式下进行开发 - 养成良好编码习惯 </p>
+	</div>
+	<div class="box">
+		<div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   "use strict";
@@ -90,10 +104,29 @@
   with( user ) {
     alert( 'id: ' + id );
     alert( 'name: ' + name );
-  }
+	}
 </code>
 <div class="runcase">Run</div>
 </pre>
+		</div>
+		<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  "use strict";
+	// 定义变量时, 没有写 var
+  user = {
+    id: 806,
+    name: 'rd'
+  };
+	/*
+    * arguments
+		* eval - 不再创建 global 变量.
+	*/
+</code>
+<div class="runcase">Run</div>
+</pre>
+		</div>
+	</div>
       <ul>
         <li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html</a>
         <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode</a>
@@ -107,7 +140,7 @@
     <div class="bd">
       <ul>
         <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
-        <li>局部变量 - var bar = 'local';
+				<li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
         <li>常量 - var BROWSER_VERSION = 5;
     </div>
     <div class="box">
@@ -299,13 +332,13 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>PI
+        <li>PI 
         <li>abs()
-        <li>random()
+        <li>random() - 0 到 1 之间的随机数
+        <li>max()/min()
+        <li>sqrt()/pow()
         <li>floor()/round()/ceil()
         <li>sin()/cos()/atan2()
-        <li>sqrt()/pow()
-        <li>max()/min()
       </ul>
     </div>
   </section>
@@ -388,24 +421,25 @@ alert( 'scope: ' + scope );   // 'global'
     <div class="box">
       <div class="grid">
         <ul>
-          <li>concat()
+          <li>length - 属性
+					<li>string[5] - 访问字符串的第6个元素
+          <li>concat() - 可直接使用 + 操作符
           <li>replace()
           <li>indexOf()/lastIndexOf()/search()/match()
           <li>slice()
           <li>split()
-          <li>charAt()/charCodeAt()
-          <li>String.fromCharCode() - 静态方法
           <li>toUpperCase()/toLowerCase()
         </ul>
       </div>
       <div class="grid">
         <ul>
+          <li>charAt()/charCodeAt()
+          <li>String.fromCharCode() - 静态方法
           <li>trim()/trimLeft()/trimRight()
           <li>startsWith()/endsWith()
           <li>repeat()/contains()
           <li>codePointAt()
           <li>String.fromCodePoint() - 静态方法      
-          <li>length - 属性
         </ul>
       </div>
     </div>
@@ -462,6 +496,13 @@ alert( 'scope: ' + scope );   // 'global'
       <h1>Object</h1>
     </div>
     <div class="bd">
+			<ul>
+				<li>内置对象 - Math, Date, Function, Object, Regexp
+				<li>宿主环境对象 - window, top, location, history
+				<li>自定义对象 - var obj = {};
+			</ul>
+		</div>
+		<div class="bd">
       <ul>
         <li>var object = new Object(); // 构造函数
         <li>var object = {}; // 直接量
@@ -540,6 +581,37 @@ alert( b.b );
 </pre>
       </div>
     </div>
+		<div class="box">
+			<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = [], b = {};
+alert( 'a === []: ' + (a === []) );
+alert( 'a === a: ' + (a === a) );
+alert( 'b === {}: ' + (b === {}) );
+alert( 'b === b: ' + (b === b) );
+// + 操作符的优先级高于 === 
+</code>
+<div class="runcase">Run</div>
+</pre>
+			</div>
+			<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = [], b = {};
+a.name = 'array';
+b.name = 'object';
+a.getName = function() {
+	return a.name;
+};
+b.getName = function() {
+	return b.name;
+};
+</code>
+<div class="runcase">Run</div>
+</pre>
+			</div>
+		</div>
   </section>
   <section class="slide">
     <div class="slide-cover">
@@ -959,6 +1031,15 @@ void alert( Math.pow(2, 10) );
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
+var i = 0; // 声明语句
+// label
+labelName: {
+	++i; // 表达式语句
+}
+
+; // 空语句
+
+// 没有名称的 label
 {
   alert( 1 );
 };;;;;;;;;
@@ -982,7 +1063,7 @@ void alert( Math.pow(2, 10) );
     try {
       JSON.parse( 'a' );
     } catch(e) {
-      return 1;
+      return 1; // return 语句.
     } finally {
       alert( 2 );
     }
