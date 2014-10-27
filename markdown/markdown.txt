@@ -1,0 +1,72 @@
+/**
+  支持列表
+  
+  标题
+  # h1
+  ## h2
+  ### h3
+  #### h4
+  ##### h5
+  ###### h6
+  后面的 # 符号 optional.
+  或
+  h1
+  ==
+  h2
+  --
+  
+  换行 -> 直接留空白
+
+  
+  链接
+  [title](href)
+  [title][id]
+  [id]
+  [id]: 链接地址 "Optional Title" - @todo.
+  <link> - 自动链接
+  
+  图片
+  ![foo](http://www.sogou.com/...)
+  
+  强调
+  *strong*
+  **strong**
+  ***strong***
+  _em_
+  __em__
+  ___em___
+  
+  高亮
+  ~highlight~
+  
+  引用
+  > blockquote
+  > blockquote
+  引用内容的换行 - 待定
+  
+  分割线
+  ***
+  ****
+  ----------
+  
+  列表
+  * list
+  * list
+  * list
+  
+  1. list1
+  2. list2
+  3. list3
+  
+  代码
+  `code`
+  ```JavaScript
+    code..
+  ```
+  或者
+  以四个空格开始的行 - 待定
+  
+  其它:
+  插入特殊符号时, 需要加前缀 \ 符号 -> @todo
+  
+*/
