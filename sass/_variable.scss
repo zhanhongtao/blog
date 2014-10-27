@@ -21,11 +21,11 @@ $default_hover_color: #999;
 }
 
 /* 
-  !default, !global
+  !default - 默认值 - 不清楚为什么使用 !default 定义.
+  !global - 可在 Local 环境下定义全局变量.
   !optional
 */
 $default_hover_color: #666 !default;
-
 
 #box {
   /* 同样可用在任意位置 */

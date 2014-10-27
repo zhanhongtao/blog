@@ -55,8 +55,12 @@
         <dd>由数字/字母/下划线/美元符号组成, 但不能以数字开头</dd>
         <dd>标识符区分大小写</dd>
         <dt>保留字</dt>
-        <dd>var/function/return/if/....</dd>
         <dd>保留字不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
+				<dd>var/function/return/if/else/switch/case/break/continue/while/do/for<br />
+						with/in/void/delete/try/catch/finally/throw/new/this/typeof/true/false/null<br />
+						arguments/eval<br />
+						debugger/class/const/export/extends/import/super/enum<br />
+						yield/public/private/let/package/protected/static/interface/implements
       </dl>
     </div>
   </section>
@@ -77,8 +81,18 @@
       <h1>严格模式</h1>
     </div>
     <div class="bd">
-      <p>建议在严格模式下进行开发 - 养成良好编码习惯 <br />
-      开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; 不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.</p>
+			<ul>
+				<li>严格模式会把 JavaScript 陷阱做为错误对待
+				<li>严格模式修正了一些引擎难以优化的错误, 同样的代码有些时候严格模式会比非严格模式下更快
+				<li>严格模式禁用了一些有可能在未来版本中定义的语法
+			</ul>
+      <p>
+			开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
+			不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
+			建议在严格模式下进行开发 - 养成良好编码习惯 </p>
+	</div>
+	<div class="box">
+		<div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   "use strict";
@@ -90,10 +104,29 @@
   with( user ) {
     alert( 'id: ' + id );
     alert( 'name: ' + name );
-  }
+	}
 </code>
 <div class="runcase">Run</div>
 </pre>
+		</div>
+		<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  "use strict";
+	// 定义变量时, 没有写 var
+  user = {
+    id: 806,
+    name: 'rd'
+  };
+	/*
+    * arguments
+		* eval - 不再创建 global 变量.
+	*/
+</code>
+<div class="runcase">Run</div>
+</pre>
+		</div>
+	</div>
       <ul>
         <li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html</a>
         <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Strict_mode</a>
@@ -107,9 +140,8 @@
     <div class="bd">
       <ul>
         <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
-        <li>局部变量 - var bar = 'local';
-        <li>常量 - BROWSER_VERSION = 5;
-      </ul>
+				<li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
+        <li>常量 - var BROWSER_VERSION = 5;
     </div>
     <div class="box">
       <div class="grid">
@@ -166,6 +198,7 @@ alert( 'scope: ' + scope );   // 'global'
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   'use strict';
+	// 变量和函数挂起.
   var a = 'string';
   function a() {
 
@@ -177,10 +210,7 @@ alert( 'scope: ' + scope );   // 'global'
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
-  var code = 0;
-  if ( code ) {
-    function test() {
+<code class="javascript block" contenteditable="true"> var code = 0; if ( code ) { function test() {
       alert(1);
     };
   }
@@ -265,7 +295,7 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ol>
-        <li>为 Number 类型, 直接返回 _var</li>
+        <li>为 Number 类型, 直接返回 value</li>
         <li>为 Boolean 值, 则 true -> 1; false -> 0;</li>
         <li>为 null, 返回 0</li>
         <li>为 undefined, 返回 NaN</li>
@@ -284,9 +314,10 @@ alert( 'scope: ' + scope );   // 'global'
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>数值转换 - parseInt( value )</h1>
+      <h1>数值转换 - parseInt( value, base )</h1>
     </div>
     <div class="bd">
+		  <p>把以 base 进制表示的值 value, 转换为 10 进制表示.</p>
       <ol>
         <li>空字符串时, 返回 NaN
         <li>第一个字符不是数字或者正负号, 就返回 NaN.
@@ -301,13 +332,13 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>PI
+        <li>PI 
         <li>abs()
-        <li>random()
+        <li>random() - 0 到 1 之间的随机数
+        <li>max()/min()
+        <li>sqrt()/pow()
         <li>floor()/round()/ceil()
         <li>sin()/cos()/atan2()
-        <li>sqrt()/pow()
-        <li>max()/min()
       </ul>
     </div>
   </section>
@@ -330,15 +361,14 @@ alert( 'scope: ' + scope );   // 'global'
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-  '\u0020'; // 空格
-  '\u0009'; // tab
+  '\u0020'; // 空格 '\u0009'; // tab
   '\u000A'; // 换行符
   '\u000D'; // 回车符
   '\u0028'; // 行分隔符
   '\u0029'; // 段分隔符
   var multiLinesString = 'a\
     b\
-    c;
+    c';
   alert( multiLinesString );
 </code>
 <div class="runcase">Run</div>
@@ -356,9 +386,7 @@ alert( 'scope: ' + scope );   // 'global'
     code = ( new Array(5 - code.length) ).join('0') + code;
   }
   code = '\\u' + code;
-  alert( code );
-</code>
-<div class="runcase">Run</div>
+  alert( code ); </code> <div class="runcase">Run</div>
 </pre>
       </div>
     </div>
@@ -376,6 +404,15 @@ alert( 'scope: ' + scope );   // 'global'
         <li>null/undefined/true/false -> 'null'/'undefined'/'true'/'false'</li>
       </ul>
     </div>
+		<div class="bd">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+'10'.toString( 2 ); // 1010
+(8).toString(2);    // 1000
+8..toString( 2 );   // 1000
+</code>
+</pre>
+		</div>
   </section>
   <section class="slide">
     <div class="hd">
@@ -384,23 +421,24 @@ alert( 'scope: ' + scope );   // 'global'
     <div class="box">
       <div class="grid">
         <ul>
-          <li>concat()
+          <li>length - 属性
+					<li>string[5] - 访问字符串的第6个元素
+          <li>concat() - 可直接使用 + 操作符
           <li>replace()
           <li>indexOf()/lastIndexOf()/search()/match()
           <li>slice()
           <li>split()
-          <li>charAt()/charCodeAt()
           <li>toUpperCase()/toLowerCase()
         </ul>
       </div>
       <div class="grid">
         <ul>
+          <li>charAt()/charCodeAt()
+          <li>String.fromCharCode() - 静态方法
           <li>trim()/trimLeft()/trimRight()
           <li>startsWith()/endsWith()
           <li>repeat()/contains()
           <li>codePointAt()
-          <li>length - 属性
-          <li>String.fromCharCode() - 静态方法
           <li>String.fromCodePoint() - 静态方法      
         </ul>
       </div>
@@ -416,6 +454,7 @@ alert( 'scope: ' + scope );   // 'global'
         <li>var flag = true; // 直接量
         <li>var flag = false;
         <li>var flag = Boolean( _value ); // 类型转换
+				<li>var flag = !!_value;
       </ul>
     </div>
   </section>
@@ -457,6 +496,13 @@ alert( 'scope: ' + scope );   // 'global'
       <h1>Object</h1>
     </div>
     <div class="bd">
+			<ul>
+				<li>内置对象 - Math, Date, Function, Object, Regexp
+				<li>宿主环境对象 - window, top, location, history
+				<li>自定义对象 - var obj = {};
+			</ul>
+		</div>
+		<div class="bd">
       <ul>
         <li>var object = new Object(); // 构造函数
         <li>var object = {}; // 直接量
@@ -535,6 +581,37 @@ alert( b.b );
 </pre>
       </div>
     </div>
+		<div class="box">
+			<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = [], b = {};
+alert( 'a === []: ' + (a === []) );
+alert( 'a === a: ' + (a === a) );
+alert( 'b === {}: ' + (b === {}) );
+alert( 'b === b: ' + (b === b) );
+// + 操作符的优先级高于 === 
+</code>
+<div class="runcase">Run</div>
+</pre>
+			</div>
+			<div class="grid">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+var a = [], b = {};
+a.name = 'array';
+b.name = 'object';
+a.getName = function() {
+	return a.name;
+};
+b.getName = function() {
+	return b.name;
+};
+</code>
+<div class="runcase">Run</div>
+</pre>
+			</div>
+		</div>
   </section>
   <section class="slide">
     <div class="slide-cover">
@@ -549,7 +626,7 @@ alert( b.b );
       <ul>
         <li>+ 把操作数转化为 Number 类型
         <li>- 把操作数乘 -1
-        <li>++/-- 表示递增/递减, 可做前缀和后缀</li>
+        <li>++/-- 表示递增/递减, 可做前缀和后缀 - 前缀保留最后一次计算结果</li>
       </ul>
     </div>
   </section>
@@ -584,7 +661,7 @@ alert( b.b );
     <div class="bd">
       <ul>
         <li>+ 操作数是字符串和其它时, 做字符串拼接操作
-        <li>+ 操作数都是数字时, 做数学运算
+        <li>+ 操作数都是数字时, 做数学运算; var a = 10; a += 10; a === 20;
         <li>+ 操作数为对象时, 转换为字符串, 然后按照上面的规则操作
           <ul>
             <li>[1] + [1] == '11';
@@ -871,6 +948,7 @@ void alert( Math.pow(2, 10) );
   function handle( command, message ) {
     switch ( command ) {
       case 'notify':
+				alert( 'notify log' );
       case 'broadcast':
         notify( message );
         break;
@@ -953,6 +1031,15 @@ void alert( Math.pow(2, 10) );
       <div class="grid">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
+var i = 0; // 声明语句
+// label
+labelName: {
+	++i; // 表达式语句
+}
+
+; // 空语句
+
+// 没有名称的 label
 {
   alert( 1 );
 };;;;;;;;;
@@ -976,7 +1063,7 @@ void alert( Math.pow(2, 10) );
     try {
       JSON.parse( 'a' );
     } catch(e) {
-      return 1;
+      return 1; // return 语句.
     } finally {
       alert( 2 );
     }
@@ -1042,6 +1129,7 @@ void alert( Math.pow(2, 10) );
           <ul>
             <li>数学运算 - 除法
             <li>正则表达式
+						<li>注释 //, /* ... */
           </ul>
         </div>
       </div>
@@ -1099,7 +1187,6 @@ void alert( Math.pow(2, 10) );
     <div class="bd">
       <ul>
         <li>实现 Math.pow 函数
-        <li>实现复利计算
         <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>
     </div>
@@ -1112,12 +1199,12 @@ void alert( Math.pow(2, 10) );
       <ul>
         <li>小写字母转换为大写(逆运算)
         <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>把字符串中的 Tab 转换为 2 个空格
-        <li>处理 HTML 字符串 - innerHTML
-        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
+        <li>把字符串中的 Tab(\t) 转换为 2 个空格
+				<li>对用户输入字符做 html 标签过滤
         <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
         <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
         <li>查找字符串中第一个唯一出现的字符
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
         <li>KMP
       </ul>
     </div>
@@ -1131,11 +1218,12 @@ void alert( Math.pow(2, 10) );
         <li>创建 n 个元素组成的, 值全为 k 的数组
         <li>扁平化 Array - [ 1, [2, 3], [4,[5]] ] -> [ 1, 2, 3, 4, 5 ]
         <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
-        <li>数组元素反转 - [1,2,3,4,5] - [3,4,5,1,2]
         <li>移除数组中重复的值 - 数组元素全数数字
         <li>实现数组的 [].reverse 方法
+        <li>使用递归方法, 顺序打印和倒序打印数组元素
+        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
+        <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
         <li>求数组中的最大值和最小值
-        <li>求数组中第 K 大/小的值
         <li>打乱数组 - 类似洗牌 shuffle
         <li>抽奖算法(要求不重复)
         <li>二分查找
@@ -1143,9 +1231,7 @@ void alert( Math.pow(2, 10) );
         <li>合并两个有序的数组
         <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
         <li>快速排序和插入排序算法 js 描述
-        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
-        <li>使用递归方法, 顺序打印和倒序打印数组元素
-        <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
+        <li>求数组中第 K 大/小的值
       </ul>
     </div>
   </section>
@@ -1156,8 +1242,8 @@ void alert( Math.pow(2, 10) );
     <div class="bd">
       <ul>
         <li>type - 判断变量数据类型
-        <li>mix - 合并对象(jQuery.extends)
         <li>实现 each 函数
+        <li>mix - 合并对象(jQuery.extends)
       </ul>
     </div>
   </section>

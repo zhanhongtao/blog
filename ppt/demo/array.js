@@ -1,4 +1,12 @@
 
+function fill( length, value ) {
+  var i = 0, r = [];
+	while ( i < length ) {
+	  r.push( value );
+	}
+	return r;
+}
+
 // helper
 function type( n ) {
   return Object.prototype.toString.call( n ).slice( 8, -1 ).toLowerCase();

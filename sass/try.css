@@ -1,0 +1,170 @@
+@charset "UTF-8";
+/* 文件管理 支持嵌套 - 命名空间 支持变量 - 主题 支持运算 - 数据类型 - (+,-,*,/,%) 支持 @for/@each/@if..@else 支持 mixin - 函数 支持 extend - 继承 - %placeholder 支持 content 支持插值 - var
+*/
+/*  @import 不支持变量. 在 @import css 文件时, 可以使用插值. @import 可以用在选择器里面. ex: #box { @import 'other.scss'; }
+*/
+/* sass  --watch test.scss:test.css --style: nested/expanded/compact/compressed --sourcemap
+*/
+/*!
+  "重要注释" - compressed 模式也会保留.
+  版本/版权等信息.
+*/
+body { color: #ffa; background-color: #999; }
+
+/* 嵌套关系 */
+#box { padding: 10px; }
+#box .hd { display: flex; }
+#box h1 { flex: 1; }
+
+/* Nested 2 */
+#box { font-family: 'Microsoft Yahei'; font-size: 12em; }
+
+/* & */
+a, a:visited { text-decoreation: none; }
+a:hover, a:active, a:focus { text-decoreation: underline; }
+#box a { font-weight: 700; }
+
+/* & 当 selector 字符串, 不能做后缀使用 */
+.slide { /* 	当 & 做后缀时会抛出异常.
+.sub& { color: #000;
+} */ }
+.slide-toggle { background-color: #ccc; }
+
+.wrap #box { color: #333; }
+
+/* 
+	当& 代表 * 选择器时, sass 会抛出异常.
+*/
+/*  变量/作用域 作用域: 不在全局定义的变量为局部变量 和全局同名的变量会把全局变量修改掉.
+*/
+#google a, #google a:visited { color: #333; }
+#google a:hover, #google a:active, #google a:focus { color: #999; }
+
+/*  !default - 默认值 - 不清楚为什么使用 !default 定义. !global - 可在 Local 环境下定义全局变量. !optional
+*/
+#box { /* 同样可用在任意位置 */ }
+
+/* @mixin */
+#box { display: inline-block; }
+#box:after { content: ''; display: block; height: 0; clear: both; overflow: hidden; visibility: hidden; }
+
+#main { display: inline-block; }
+#main:after { content: ''; display: block; height: 0; clear: both; overflow: hidden; visibility: hidden; }
+
+/*  没有参数, 建议使用 %placeholder + @extend 语法. 使用 @mixin + @include 不会合并代码 
+*/
+/* @mixin + arguments */
+#box { -webkit-border-radius: 5px; border-radius: 5px; }
+
+#main { -webkit-border-radius: 5px 4px/10px 8px; border-radius: 5px 4px/10px 8px; }
+
+/*  @mixin 无参数时, 不如直接使用 %placeholder 
+*/
+.grid, .grid-half, .grid-third { box-sizing: border-box; display: inline-block; padding-left: 1em; padding-right: 1em; }
+
+.grid { width: 100%; }
+
+.grid-half { width: 50%; }
+
+.grid-third { width: 33.33333%; }
+
+/* @todo 默认值 */
+/* sass 会生成 .a, .b {
+ } 形式代码, 让 .a 和 .b 共用样式 - 专注于 scss/css.
+ 也可以: <div class="_share_ a"></div> <div class="_share_ b"></div>
+*/
+/* @extend */
+.error, .seriousError, .light-error { border: 1px #f00; background-color: #fdd; }
+
+.seriousError { border-width: 3px; }
+
+/* 如果页面中不使用 .error 时, 会产生冗余. - css3 语法支持. 修正冗余 - 不使用的不合并
+*/
+#box .tag, #foot { color: lightgreen; }
+
+#drop, #head { display: inline-block; }
+#drop:after, #head:after { content: ''; display: block; height: 0; clear: both; overflow: hidden; visibility: hidden; }
+
+/* 使用 %placeholder 代码会合并 */
+/* 当然可以使用  #drop, #head { @extend %clearfix; } 也可以使用 #box, #main { @include clearfix; } 但会影响多人开发时, 生成代码的质量.  @include 会以复制代码形式在存在. @extend 会以合并 selector 形式存在.  
+*/
+/* @for */
+.item-1 { width: 2em; }
+
+.item-2 { width: 4em; }
+
+.item-3 { width: 6em; }
+
+.item-4 { width: 8em; }
+
+.item-5 { width: 10em; }
+
+.icon-1 { width: 2em; }
+
+.icon-2 { width: 4em; }
+
+.icon-3 { width: 6em; }
+
+.icon-4 { width: 8em; }
+
+/* @each */
+.a-icon { background-image: url(./images/a.png); }
+
+.b-icon { background-image: url(./images/b.png); }
+
+.c-icon { background-image: url(./images/c.png); }
+
+.d-icon { background-image: url(./images/d.png); }
+
+/* @each - 2 */
+.a-icon { background-image: url(./images/a.png); }
+
+.b-icon { background-image: url(./images/b.png); }
+
+.c-icon { background-image: url(./images/c.png); }
+
+.d-icon { background-image: url(./images/d.png); }
+
+/* @each-map */
+#box h1 { font-size: 16px; }
+
+#box h2 { font-size: 14px; }
+
+#box h3 { font-size: 12px; }
+
+/* @while */
+.icon-while-5 { background-position: 0 50px; }
+
+.icon-while-3 { background-position: 0 30px; }
+
+.icon-while-1 { background-position: 0 10px; }
+
+/*  Data Types numbers: 1.2, 10, 10px string: foo, 'foo', "foo" colors: red, #ffa, rgba( 0, 0, 0 ) boolean: true, false nulls: null list: Helvetica, Arial, sans-serif map: ( key: value, key2: value2 )
+*/
+/* sass 会把空白 ()或null  值直接去掉 */
+#box { margin: 1px 2px 3px; }
+
+/* 属性/选择器需要使用插值 */
+/* sass 中, map 是有顺序的 */
+#box { margin: 10px; padding: 10px; }
+
+h1 { font-size: 2em; }
+
+h2 { font-size: 1.6em; }
+
+h3 { font-size: 1.4em; }
+
+/*  @if  对是否支持 ie 做判断 - 防止生成不必要代码 是否支持 ie 特定版本. 是否使用滤镜.
+*/
+/*  #\{\} 运算 - 插值(interpolation). 用来包裹选择器和属性名.
+*/
+body.firefox .head:before { content: 'hi, Firefox User!'; }
+
+body.firefox #only-for-firefox:before { content: 'hi, Firefox User!'; }
+
+* html { /* 把内容直接 copy 进来 */ }
+* html #logo { background-image: url(/logo.gif); }
+
+#box { _display: inline; }
+
+/*# sourceMappingURL=try.css.map */

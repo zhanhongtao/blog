@@ -1,5 +1,25 @@
 @charset "utf-8";
 
+/*
+  文件管理
+  支持嵌套 - 命名空间
+  支持变量 - 主题
+  支持运算 - 数据类型 - (+,-,*,/,%)
+  支持 @for/@each/@if..@else
+  支持 mixin - 函数
+  支持 extend - 继承 - %placeholder
+  支持 content
+  支持插值 - #{var}
+*/
+
+/* 
+  @import 不支持变量.
+  在 @import css 文件时, 可以使用插值.
+  @import 可以用在选择器里面. ex:
+  #box {
+    @import 'other.scss';
+  }
+*/
 @import 'comments';
 @import 'css.scss';
 @import 'nested.scss';
@@ -13,11 +33,34 @@
 @import 'if.scss';
 @import '#';
 @import 'content';
+@import 'ie'
+
+/*
+  / 在 css 中, / 字符存在特殊含义.
+  因此在 sass 中, / 只在特殊环境下才表示除法.
+  1. / 两边存在变量.
+  2. / 存在表达式运算中.
+  3. / 在 () 中.
+  ex: 
+  p {
+    font: 10px/8px;             // Plain CSS, no division
+    $width: 1000px;
+    width: $width/2;            // Uses a variable, does division
+    width: round(1.5)/2;        // Uses a function, does division
+    height: (500px/2);          // Uses parentheses, does division
+    margin-left: 5px + 8px/2px; // Uses +, does division
+  }
+  如果确实要使用变量来表示 css 中的 /. 那么就要使用插值写法.
+  p {
+    $font-size: 12px;
+    $line-height: 30px;
+    font: #{$font-size}/#{$line-height};
+  }
+*/
 
 /* 
   + - * / %
   `
-  @media
   @at-root
   @debug
   @warn
