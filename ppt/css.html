@@ -160,17 +160,47 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Block Format Context</h1>
+      <h1>Block Formatting Contexts</h1>
     </div>
     <div class="bd">
-      <p>块级格式化上下文, 有自己独立的布局环境和规则, 它不受外部环境影响, 也不会影响外部环境, <del>但是它还在普通文档流中</del>.</p>
+      <p>块级格式化上下文, 有自己独立的布局环境和规则, 它不受外部环境影响, 也不会影响外部环境; 可以包裹内部的 float 元素, 同时不与外部 float 元素重叠.</p>
       <h2>触发条件</h2>
       <ol>
-        <li>float: 除 none 以外的值
+        <li>float: 除 none 以外的值 - 浮动元素
+        <li>position: absolute, fixed - 绝对定位元素
+        <li>display: table-cell(table), table-caption, inline-block - 非块级盒子的块级容器
         <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
-        <li>display: table-cell(table), table-caption, inline-block
-        <li>position: absolute, fixed
       </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>clearfix</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+.clearfix:before,
+.clearfix:after {
+  content: '';
+  /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
+  display: table;
+  /* 其他方法:
+    display: block;
+    height: 0;
+    overflow: hidden;
+  */
+}
+/* 清除浮动 */
+.clearfix:after {
+  clear: both;
+}
+/* IE 6/7 */
+.clearfix {
+  *zoom: 1;
+}
+</code>
+</pre>
     </div>
   </section>
   <section class="slide">

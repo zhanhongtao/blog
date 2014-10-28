@@ -14,10 +14,12 @@
   clear: both;
 }
 
+// http://nicolasgallagher.com/micro-clearfix-hack/
+
 /* 
   BFC - Block Formatting Context
-  float: left/right [^none]
-  overflow: hidden/auto/scroll [^visible]
+  float: left/right
+  overflow: hidden/auto/scroll
   display: table-cell, table-caption, inline-block; 
     Note: 当原素设置 display: table; 时, 浏览器会添加隐藏元素, 并且隐藏元素的 display 为 table-cell;
   position: absolute, fixed 
