@@ -31,19 +31,16 @@ li ul, li ol {
 }
 
 .box {
-	display: -webkit-flex;
+  display: -webkit-flex;
   display: flex;
 }
 .grid {
-	-webkit-flex: 1;
+  -webkit-flex: 1;
   flex: 1;
   margin: 10px 0;
 }
 .grid +.grid  { margin-left: 10px; }
 
-.grids .grid {
-  padding: 20px;
-}
 .c1 { background-color: rgba( 0, 0, 0, 0.1) }
 .c2 { background-color: rgba( 0, 0, 0, 0.1) }
 .c3 { background-color: rgba( 0, 0, 0, 0.1) }
@@ -88,6 +85,7 @@ pre {
   overflow: auto;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  background-color: #F0F0F0;
 }
 
 .runcase {

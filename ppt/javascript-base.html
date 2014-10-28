@@ -6,11 +6,9 @@
   <base target="_blank" />
   <title>JavaScript - 基础语法</title>
   <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=2">
-  <link rel="stylesheet" href="./css/app.css?v=2">
-  <link rel="stylesheet" href="./css/fullscreen.css">
+  <link rel="stylesheet" href="./css/base.css?v=2.1">
+  <link rel="stylesheet" href="./css/app.css?v=2.1">
   <link rel="stylesheet" href="./css/scrollbar.css">
-  <link rel="stylesheet" href="./css/animation.function.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
   hljs.tabReplace = '  ';
@@ -18,14 +16,11 @@
   </script>
 </head>
 <body spellcheck="false" class="ppt">
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>JavaScript 基础语法</h1>
-      <h2 class="h3">redky@qq.com</h2>
-    </div>
+  <section class="slide slide-cover">
+    <h1>JavaScript 基础语法</h1>
+    <h2 class="h3">redky@qq.com</h2>
   </section>
-  <section class="slide toggle">
-    <div class="slide-cover">
+  <section class="slide toggle slide-cover">
 <pre class="codebox" style="min-width: 70%;">
 <code class="javascript block" contenteditable="true">
   /*
@@ -43,7 +38,6 @@
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
   </section>
   <section class="slide">
     <div class="hd">
@@ -241,15 +235,15 @@ alert( 'scope: ' + scope );   // 'global'
     </div>
     <div class="bd">
       <ul>
-        <li>null
         <li>undefined
         <li>Number
         <li>String
         <li>Boolean
-        <li>Array
-        <li>Object
-        <li>Date
         <li><a href="./javascript-function.html">Function</a>
+        <li>Object
+        <li>Array
+        <li>Date
+        <li>null
         <li><a href="./javascript-regexp.pdf">RegExp</a>
       </ul>
     </div>
@@ -613,10 +607,8 @@ b.getName = function() {
       </div>
     </div>
   </section>
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>操作符</h1>
-    </div>
+  <section class="slide slide-cover">
+    <h1>操作符</h1>
   </section>
   <section class="slide">
     <div class="hd">
@@ -859,10 +851,8 @@ void alert( Math.pow(2, 10) );
       </div>
     </div>
   </section>
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>流程控制</h1>
-    </div>
+  <section class="slide slide-cover">
+    <h1>流程控制</h1>
   </section>
   <section class="slide">
     <div class="hd">
@@ -1110,12 +1100,10 @@ labelName: {
       </div>
     </div>
   </section>
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>二义性</h1>
-    </div>
+  <section class="slide slide-cover">
+    <h1>二义性</h1>
   </section>
-  <section class="slide grids">
+  <section class="slide">
     <div class="box">
       <div class="grid c1">
         <div class="hd">
@@ -1209,10 +1197,8 @@ labelName: {
       </div>
     </div>
   </section>
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>应用</h1>
-    </div>
+  <section class="slide slide-cover">
+    <h1>应用</h1>
   </section>
   <section class="slide">
     <div class="hd">
@@ -1220,6 +1206,7 @@ labelName: {
     </div>
     <div class="bd">
       <ul>
+        <li>修正索引 - 幻灯片播放时, 可轮询播放
         <li>实现 Math.pow 函数
         <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>
@@ -1328,20 +1315,15 @@ labelName: {
       </ul>
     </div>
   </section>
-  <section class="slide">
-    <div class="slide-cover">
-      <h1>?</h1>
-    </div>
+  <section class="slide slide-cover">
+    <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
-  <script src="./js/se.app.js"></script>
   <script src="./js/hash.js"></script>
   <script src="./js/runcase.js?v=1"></script>
-  <script src="./js/pattern.js"></script>
   <script src="./js/ui.js"></script>
-  <script src="./js/resize.js"></script>
   <script src="./js/app.js"></script>
   <script src="./js/touch.js"></script>
   <script src="./js/auto.slide.js"></script>

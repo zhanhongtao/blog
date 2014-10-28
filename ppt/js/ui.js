@@ -1,10 +1,9 @@
 ;(function() {
   
-  var slides = document.querySelectorAll( '.slide' );
-  slides = se.filterToggle( slides );
-  var TARGET_CLASS = 'slide-target';
-  var TARGET_FROM_DIRECTION_PREV_CLASS = 'slide-target-prev';
-  var TARGET_FROM_DIRECTION_NEXT_CLASS = 'slide-target-next';
+  var slides = document.querySelectorAll( '.slide:not(.toggle)' );
+  var TARGET_CLASS = 'target';
+  var TARGET_FROM_DIRECTION_PREV_CLASS = 'prev';
+  var TARGET_FROM_DIRECTION_NEXT_CLASS = 'next';
   var nav = document.querySelector( '#navigator' );
 
   var updateui = function( message ) {
@@ -32,7 +31,8 @@
     slides[ message.next ].classList.add( TARGET_FROM_DIRECTION_NEXT_CLASS );
 
     // 让元素可见.
-    target.scrollIntoView();
+    target.scrollTop = 0;
+    target.focus();
 
     // 更新 title.
     var h1 = target.querySelector( 'h1' );

@@ -1,20 +1,18 @@
-
+var cloest = function ( element, target ) {
+  while ( element && element.nodeType === 1 ) {
+    if ( element.matches(target) ) {
+      return element;
+    }
+    element = element.parentNode;
+  }
+  return null;
+};
 
 ;(function() {
-  var cloest = function ( element, target ) {
-      while ( element && element.nodeType === 1 ) {
-          if ( matchesSelector(element, target) ) {
-              return element;
-          }
-          element = element.parentNode;
-      }
-      return null;
-  };
-
   // @note: 仅考虑了元素节点和文本节点.
-  // @TODO: firefox 支持 textContent
   // @note: 使用 pre, 然后再 innerText 和 直接使用 textarea.
   // @note: 块状元素时, 取文本添加换行符 - runcode 特殊处理.
+  // @TODO: firefox 支持 textContent
   var innerText = function( element ) {
     var text = '';
     var node = element.firstChild;
@@ -39,24 +37,6 @@
       response( innerText(element) );
     }
   });
-
-  // element.matches
-  function matchesSelector( element, target ) {
-    if ( element.webkitMatchesSelector ) {
-      return element.webkitMatchesSelector( target );
-    }
-    else if ( element.msMatchesSelector ) {
-      return element.msMatchesSelector( target );
-    }
-    else if ( element.mozMatchesSelector ) {
-      return element.mozMatchesSelector( target );
-    }
-    else if ( element.matchesSelector ) {
-      return element.matchesSelector( target );
-    }
-    // @todo: 向后兼容..
-    return false;
-  }
 
   var runcode = function( code ) {
     var fixCode = '(function() {\n' + code + '\n})()';
@@ -85,7 +65,7 @@
 
   document.addEventListener( 'click', function( event ) {
     var target = event.target;
-    if ( matchesSelector(target, '.runcase') ) {
+    if ( target.matches('.runcase') ) {
       var codebox = cloest(target, '.codebox');
       // var pre = codebox.querySelector( 'pre' );
       var pre = codebox.querySelector( 'code' );
