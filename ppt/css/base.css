@@ -1,6 +1,7 @@
 body {
   font: 24px/1.5 "Consolas", "lucida Grande", Verdana;
   color: #34362E;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, ul, ol, li, dl { 

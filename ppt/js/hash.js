@@ -20,7 +20,7 @@
     // 修正 ie 不支持 pushState 问题.
     if ( history.pushState ) {
       var uri = '';
-      var page = message.page;
+      var page = message.page || 0;
       var href = location.href;
       if ( href.indexOf('#') === -1 ) {
         uri = href + '#' + page;

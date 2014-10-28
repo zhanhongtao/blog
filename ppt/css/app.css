@@ -9,11 +9,10 @@
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 90%;
+  top: 0;
+  right: 0;
+  left: 0;
   margin: 15px auto;
 }
 
@@ -38,6 +37,7 @@
 
 .ppt .slide-cover {
   width: 100%;
+  min-height: 500px;
   height: 100%;
 	display: -webkit-flex;
   display: flex;
@@ -81,12 +81,28 @@
   display: none;
 }
 
-.ppt .slide-target-prev {
-  -webkit-animation: opacity .5s linear;
+.ppt .slide {
+  transition: all 0.5s ease;
 }
 
+.ppt .slide-target-next,
+.ppt .slide-target-prev {
+  display: block;
+}
+
+.ppt .slide-target-prev {
+  z-index: 1;
+  opacity: 0;
+  transform: translateX( -100% );
+}
+.ppt .slide-target {
+  z-index: 2;
+  opacity: 1;
+}
 .ppt .slide-target-next {
-  -webkit-animation: opacity .5s linear;
+  z-index: 3;
+  opacity: 0;
+  transform: translateX( 100% );
 }
 
 .ppt .slide-cover {

@@ -17,25 +17,32 @@
   // 自执行函数.
   var page = (function() {
     var hash = location.hash;
-    return ~~hash.slice(1);
+    return ~~(hash.slice(1));
   })();
-
-  // 自定义函数
-  var updatePage = function( p, hash ) {
-    if ( p === 'next' ) page++;
-    else if ( p === 'prev' ) page--;
-    else page = p;
-
+  
+  function fixedIndex( page, pages, rotate ) {
     if ( rotate ) {
-      page = page >= pages ? 0 : page;
-      page = page <= -1 ? pages - 1 : page;
+      page = ( pages + page % pages ) % pages;
     }
     else {
       page = Math.min.call( Math, page, pages - 1 );
       page = Math.max.call( Math, page, 0 );
     }
+    return page;
+  }
+
+  // 自定义函数
+  var updatePage = function( p, hash ) {
+    if ( p === 'next' ) ++page;
+    else if ( p === 'prev' ) --page;
+    else page = p;
+    page = fixedIndex( page, pages, rotate );
+    var next = fixedIndex( page + 1, pages, rotate );
+    var prev = fixedIndex( page - 1, pages, rotate );
     eventemitter.emit( 'on-page-changed', {
       page: page,
+      next: next,
+      prev: prev,
       pages: pages,
       direction: p,
       from: hash

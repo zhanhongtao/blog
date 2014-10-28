@@ -16,18 +16,20 @@
     var old = document.querySelector( '.' + TARGET_CLASS );
     if ( old ) {
       old.classList.remove( TARGET_CLASS );
-      old.classList.remove( TARGET_FROM_DIRECTION_NEXT_CLASS );
-      old.classList.remove( TARGET_FROM_DIRECTION_PREV_CLASS );
     }
-
-    // 更新内容
-    var target = slides[ page ] || slides[0];
-    if ( target ) {
-      target.classList.add( TARGET_CLASS );
-      if ( [ 'next', 'prev' ].indexOf(message.direction) > -1 ) {
-        target.classList.add( message.direction === 'next' ? TARGET_FROM_DIRECTION_NEXT_CLASS : TARGET_FROM_DIRECTION_PREV_CLASS );
-      }
-    }
+    
+    [ TARGET_CLASS, TARGET_FROM_DIRECTION_NEXT_CLASS, TARGET_FROM_DIRECTION_PREV_CLASS ].forEach(function( className ) {
+      try {
+        document.querySelector( '.' + className ).classList.remove( className );
+      } catch(e) {}
+    });
+    
+    var target = slides[ page ];
+    target.classList.add( TARGET_CLASS );
+    if ( page != message.prev )
+      slides[ message.prev ].classList.add( TARGET_FROM_DIRECTION_PREV_CLASS );
+    if ( page != message.next )
+    slides[ message.next ].classList.add( TARGET_FROM_DIRECTION_NEXT_CLASS );
 
     // 让元素可见.
     target.scrollIntoView();
