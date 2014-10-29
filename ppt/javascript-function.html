@@ -29,11 +29,12 @@
         <li>定义
         <li>属性和方法
         <li>参数和返回值
-        <li>调用
+        <li>函数调用
         <li>匿名函数
         <li>变量作用域
-        <li>其它
+        <li>其它 - 递归/链式调用
         <li>JavaScript Prototype
+        <li>应用
       </ul>
     </div>
   </section>
@@ -44,28 +45,28 @@
     <div class="bd">
       <dl>
         <dt>声明式 - 函数会"挂起"</dt>
-        <dd>function getUserName( user ) {}</dd>
+        <dd>function getUserName( user ) { return user.name; }</dd>
         <dt>基于构造函数</dt>
         <dd>var getUserName = new Function( 'user', 'return user.name;' );</dd>
         <dt>函数表达式 - 直接量/对象方法</dt>
-        <dd>var getUserName = function( user ) {};</dd>
-        <dd>var obj = { getUserNmae: function() {} };</dd>
+        <dd>var getUserName = function( user ) { return user.name;};</dd>
+        <dd>var obj = { getUserName: function( user ) { return this.name; } };</dd>
       </dl>
     </div>
     <div class="bd">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-// 函数会挂起到最前面
-assert( '5' === 5, '\'5\' !== 5' );
+  // 函数会挂起到最前面
+  assert( '5' === 5, '\'5\' !== 5' );
 
-function assert( test, description ) {
-  if ( test ) console.log( description );
-  else console.error( description );
-}
-// 覆盖已定义的函数 - 不会因为参数个数不同而重载
-function assert( test, description ) {
-  if ( !test ) alert( description );
-}
+  function assert( test, description ) {
+    if ( test ) console.log( description );
+    else console.error( description );
+  }
+  // 覆盖已定义的函数 - 不会因为参数个数不同而重载
+  function assert( test, description ) {
+    if ( !test ) alert( description );
+  }
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -93,13 +94,11 @@ function assert( test, description ) {
     <div class="bd">
       <h2>参数</h2>
       <ul>
-        <li>形参[形式参数] - getUserName.length
-        <li>定义时, 形式参数可省略
-        <li>实参[实际调用时参数]
-        <li>实参为任意数据类型 - 包括函数
+        <li>形参[形式参数]定义时, 形式参数可省略; 通过 getUserName.length 取定义时长度
+        <li>实参[实际调用时参数]; 实参为任意数据类型(包括函数)
       </ul>
       <h2>返回值</h2>
-      <p>任意数据类型 - 包括<mark>function</mark></p>
+      <p>任意数据类型(<mark>function</mark>)</p>
     </div>
   </section>
   <section class="slide">
@@ -123,11 +122,17 @@ function assert( test, description ) {
     <div class="bd">
       <ul>
         <li>函数运行期间, 存在两个特殊对象：this/arguments; 运行结束时, 对象销毁 - 闭包延时销毁</p>
-        <li>this: 调用函数所属对象, 不存在时, 指向 window; 可使用 .bind(context)/.call/.apply 手动指定 this</p>
-        <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>: 实参列表(array), 是伪数组, 即没有 Array.prototype 上的方法.
+        <li>this
           <ul>
-            <li>arguments.callee 指向当前函数名(递归)
+            <li>动态指定
+            <li>调用函数所属对象, 不存在时, 指向 global(window);
+            <li>使用 .bind(context)/.call/.apply 手动指定 this
+          </ul>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>
+          <ul>
+            <li>实参列表(array), 是伪数组, 即没有 Array.prototype 上的方法.
             <li>使用 Array.prototype.slice.call( arguments, 0 ) 把 arguments 转换为真正数组.
+            <li>arguments.callee 指向当前函数名(递归)
           </ul>
       </ul>
     </div>
@@ -172,112 +177,77 @@ function assert( test, description ) {
         <li>函数创建作用域; 作用域包裹变量
       </ul>
     </div>
-    <div class="box">
-      <div class="grid">
+    <div class="bd">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-// 变量挂起
-var bar = 'Global';
-fix();
-function fix() {
-  alert( bar );
-  var bar = 'Local';
-  return bar;
-}
+  // 变量挂起
+  var bar = 'Global';
+  fix();
+  function fix() {
+    // var bar;
+    alert( bar );
+    var bar = 'Local';
+    return bar;
+  }
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
+    </div>
+    <div class="bd">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-var bar = 'Global';
-function fix() {
-  var bar;
-  alert( bar );
-  bar = 'Local';
-  return bar;
-}
-fix();
+  var user = {
+    id: '806',
+    name: 'rd'
+  };
+  with( user ) {
+    var id, _name;
+    alert( 'id: ' + id + '; name: ' + name + '; _name: ' + _name );
+    id = '304';
+    _name = '_rd';
+  }
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
-<pre class="codebox">
-<code contenteditable="true" class="javascript block">
-var user = {
-  id: '806',
-  name: 'rd'
-};
-with( user ) {
-  var id, _name;
-  alert( 'id: ' + id + '; name: ' + name + '; _name: ' + _name );
-  id = '304';
-  _name = '_rd';
-}
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
-      <div class="grid">
-<pre class="codebox">
-<code contenteditable="true" class="javascript block">
-var user = {
-  id: '806',
-  name: 'rd'
-};
-with( user ) {
-  var _name;
-  alert( 'id: ' + id + '; name: ' + name );
-  id = '304';
-  _name = '_rd';
-}
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
       <h1>实例</h1>
     </div>
-    <div class="box">
-      <div class="grid">
+    <div class="grid">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-// 求数据类型.
-function type( s ) {
-  var classtype = Object.prototype.toString.call( s );
-  return classtype.slice(8, -1).toLowerCase();
-}
-alert( [ type(1), type('')] );
-alert( [ type(void(0)), type(null), type([]), type({}) ] );
-alert( [ type(new Date), type(/h/g) ] );
+  // 求数据类型.
+  function type( s ) {
+    var classtype = Object.prototype.toString.call( s );
+    return classtype.slice(8, -1).toLowerCase();
+  }
+  alert( [ type(1), type('')] );
+  alert( [ type(void(0)), type(null), type([]), type({}) ] );
+  alert( [ type(new Date), type(/h/g) ] );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
+    </div>
+    <div class="bd">
 <pre>
 <code class="javascript block" contenteditable="true">
-/**
-  指定运行时 this.
-  Function.prototype.bind
-  * 修正 ie 早期版本 this 指向.
-  * 函数作为回调时, 保证 this 指向.
-*/
-function bind( func, context ) {
-  return function() {
-    return func.apply( context || this, arguments );
-  };
-}
-</code></pre>
-      </div>
+  /**
+    指定运行时 this.
+    Function.prototype.bind
+    * 修正 ie 早期版本 this 指向.
+    * 函数作为回调时, 保证 this 指向.
+  */
+  function bind( func, context ) {
+    return function() {
+      return func.apply( context || this, arguments );
+    };
+  }
+</code>
+</pre>
     </div>
-    <div class="box">
-      <div class="grid">
+    <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
   // codebox 在 eval/new Function 中执行.
@@ -294,94 +264,84 @@ function bind( func, context ) {
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
+    </div>
+    <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-var system = {
-  name: 'sogou',
-  runcase: function() {
-    return !!this.name && this.name.indexOf( 'o' ) > -1;
+  var system = {
+    name: 'sogou',
+    runcase: function() {
+      return !!this.name && this.name.indexOf( 'o' ) > -1;
+    }
+  };
+  function getBrowserDataFromServer( cb ) {
+    var data = { name: 'chrome' };
+    return se.bind( cb, data )();
   }
-};
-function getBrowserDataFromServer( cb ) {
-  var data = { name: 'chrome' };
-  return se.bind( cb, data )();
-}
-alert( getBrowserDataFromServer( system.runcase ) );
+  alert( getBrowserDataFromServer( system.runcase ) );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
     </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>实例</h1>
-    </div>
-    <div class="box">
-      <div class="grid">
+    <div class="bd">
 <pre id="anonymous-function-1" class="codebox ">
 <code class="javascript block" contenteditable="true">
-var element = document.getElementById( 'anonymous-function-1' );
-var onClick = function() { alert('onClick'); };
-// 当绑定同一个函数时, 浏览器内部会去重.
-element.addEventListener( 'click', onClick, false );
-element.addEventListener( 'click', onClick, false );
-element.addEventListener( 'click', onClick, false );
-element.addEventListener( 'click', onClick, false );
+  var element = document.getElementById( 'anonymous-function-1' );
+  var onClick = function() { alert('onClick'); };
+  // 当绑定同一个函数时, 浏览器内部会去重.
+  element.addEventListener( 'click', onClick, false );
+  element.addEventListener( 'click', onClick, false );
+  element.addEventListener( 'click', onClick, false );
+  element.addEventListener( 'click', onClick, false );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
+    </div>
+    <div class="bd">
 <pre class="codebox" id="anonymous-function-2">
 <code class="javascript block" contenteditable="true">
-var element = document.getElementById( 'anonymous-function-2' );
-element.addEventListener( 'click', function() {
-  alert('click');
-}, false );
-element.addEventListener( 'click', function() {
-  alert('click');
-}, false );
+  var element = document.getElementById( 'anonymous-function-2' );
+  element.addEventListener( 'click', function() {
+    alert('click');
+  }, false );
+  element.addEventListener( 'click', function() {
+    alert('click');
+  }, false );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
     </div>
-    <div class="box">
-      <div class="grid">
+    <div class="bd">
 <pre class="codebox">
 <code contenteditable="true" class="javascript block">
-function createCount(){
-  var count = 1; // 闭包 - 私有变(只可以在函数 createCount 内部使用)
-  return function() {
-    return ++count;
-  };
-}
-var count = createCount();
-count(); count(); // 3
-alert( count() ); // 4;
+  function createCount(){
+    var count = 1; // 闭包 - 私有变(只可以在函数 createCount 内部使用)
+    return function() {
+      return ++count;
+    };
+  }
+  var count = createCount();
+  count(); count(); // 3
+  alert( count() ); // 4;
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
-      <div class="grid">
+    </div>
+    <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-// 设置字体值. 要求: 最大值为 200, 最小值为 100
-var MIN_FONT_SIZE = 100;
-var MAX_FONT_SIZE = 200;
-function setFontSize( value ) {
-  value = Math.max.call( Math, MIN_FONT_SIZE, value );
-  value = Math.min.call( Math, MAX_FONT_SIZE, value );
-  alert( value );
-}
-setFontSize( 120 ); setFontSize( 50 ); setFontSize( 240 );
+  // 设置字体值. 要求: 最大值为 200, 最小值为 100
+  var MIN_FONT_SIZE = 100;
+  var MAX_FONT_SIZE = 200;
+  function setFontSize( value ) {
+    value = Math.max.call( Math, MIN_FONT_SIZE, value );
+    value = Math.min.call( Math, MAX_FONT_SIZE, value );
+    alert( value );
+  }
+  setFontSize( 120 ); setFontSize( 50 ); setFontSize( 240 );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
     </div>
   </section>
   <section class="slide">
@@ -393,92 +353,85 @@ setFontSize( 120 ); setFontSize( 50 ); setFontSize( 240 );
         <li>递归调用和链式调用</li>
       </ul>
     </div>
-    <div class="box">
-      <div class="grid">
+    <div class="bd">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
+  // 链式调用原理: 函数的返回值, 存在方法可继续被调用
+  [1, 2].map(function( item ) {
+    return item * 2;
+  }) // return array.
+  .filter(function( item ) {
+    return item > 2;
+  })
+  .forEach(function( item ) {
+    alert( item );
+  });
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+    <div class="bd">
 <pre data-run="1" class="codebox">
 <code class="javascript block" contenteditable="true">
-function flatArray( array ) {
-  var i = 0, l = array.length, result = [], current;
-  for ( ; i < l; i++ ) {
-    current = array[i];
-    result = result.concat(se.type(current) ==='array' ?
-        flatArray(current) : current );
+  // flatArray 的递归调用
+  function flatArray( array ) {
+    var i = 0, l = array.length, result = [], current;
+    for ( ; i < l; i++ ) {
+      current = array[i];
+      result = result.concat(se.type(current) ==='array' ?
+          flatArray(current) : current );
+    }
+    return result;
   }
-  return result;
-}
-alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
+  alert( flatArray( [1,2,[3],[4,[5],6],7] ) );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
     </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>其它 - 链式调用和无 new 实例化</h1>
-    </div>
-    <div class="box">
-      <div class="grid">
-<pre class="codebox">
-<code contenteditable="true" class="javascript block">
-// 链式调用原理: 函数的返回值, 存在方法可继续被调用
-[1, 2].map(function( item ) {
-  return item * 2;
-}) // return array.
-.filter(function( item ) {
-  return item > 2;
-})
-.forEach(function( item ) {
-  alert( item );
-});
-</code>
-<div class="runcase">Run</div>
-</pre>
-
-<pre class="codebox" style="margin-top: 15px;">
-<code contenteditable="true" class="javascript block">
-// Only for test!
-// this 指向.
-// 不是每个人都能搞定的问题.
-var my = {
-  test: 'man',
-  why: this.test
-};
-alert( my.why );
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
-      <div class="grid">
+    <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-// 无 new 实例化 - 相对于使用者来讲.
-var _ = function( value ) {
-  if ( value instanceof _ ) return value;
-  if ( !(this instanceof _) ) return new _(value);
-  this.core = value;
-};
-_.prototype.map = function( func ) {
-  for ( var i = 0, l = this.core.length; i < l; i++ ) {
-    this.core[i] = func.call( this, this.core[i], i, this.core);
-  }
-  return this;
-};
-_.prototype.max = function() {
-  return Math.max.apply( Math, this.core );
-};
-_.chain = function( value ) {
-  return new _( value );
-};
-var max = _( [1, 2, 5, 3 ] ).map(function( item ) {
-  return item * 2;
-}).max();
-// var max = _.chain( [1, 2, 5, 3] ).max();
-alert( max );
+  // 无 new 实例化 - 相对于使用者来讲.
+  var _ = function( value ) {
+    if ( value instanceof _ ) return value;
+    if ( !(this instanceof _) ) return new _(value);
+    this.core = value;
+  };
+  _.prototype.map = function( func ) {
+    for ( var i = 0, l = this.core.length; i < l; i++ ) {
+      this.core[i] = func.call( this, this.core[i], i, this.core);
+    }
+    return this;
+  };
+  _.prototype.max = function() {
+    return Math.max.apply( Math, this.core );
+  };
+  _.chain = function( value ) {
+    return new _( value );
+  };
+  var max = _( [1, 2, 5, 3 ] ).map(function( item ) {
+    return item * 2;
+  }).max();
+  // var max = _.chain( [1, 2, 5, 3] ).max();
+  alert( max );
 </code>
 <div class="runcase">Run</div>
 </pre>
-      </div>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
+  // Only for test!
+  // this 指向.
+  // 不是每个人都能搞定的问题.
+  var my = {
+    test: 'man',
+    why: this.test
+  };
+  alert( my.why );
+</code>
+<div class="runcase">Run</div>
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -552,42 +505,29 @@ alert( max );
 <div class="runcase">Run</div>
 </pre>
     </div>
-  </section>
-  <section class="slide">
     <div class="bd">
       <div class="image">
         <img src="./images/function/Object.jpg" />
       </div>
-    </div>
+    </div>    
   </section>
   <section class="slide">
     <div class="hd">
       <h1>应用</h1>
     </div>
-    <div class="box">
-      <div class="grid">
-        <ul>
-          <li>assert( boolean, description );
-          <li>按键盘 Hello 字符, 出现惊喜
-          <li>执行一次的函数 - 可以调用多次, 但只执行一次
-          <li>无侵入的统计代码 - 面向切面
-          <li>Windows7/8 Aero 效果
-          <li>Hover 延迟切换标签
-          <li>动画: 元素a, 从[0,0] 先[0, 100], 再到[100, 100]
-        </ul>
-      </div>
-      <div class="grid">
-        <ul>
-          <li>频繁点击按钮, 提交表单</li>
-          <li>频繁按 ctrl + s 快捷键
-          <li>mousemove/scroll/resize 频繁触发
-          <li>blur 和 submit 重复提交操作
-          <li>网页中搜索建议, 发送的请求如何处理
-          <li>需求: 对 n 个服务接口, 做单元测试.
-          <li>同时请求模板和数据, 成功后渲染页面
-          <li>JSONP 函数包装
-        </ul>
-      </div>
+    <div class="bd">
+      <ul>
+        <li>assert( boolean, description );
+        <li>按键盘 Hello 字符, 出现惊喜
+        <li>执行一次的函数 - 可以调用多次, 但只执行一次
+        <li>无侵入的统计代码 - 面向切面
+        <li>Hover 延迟切换标签/Windows7/8 Aero 效果
+        <li>动画: 元素a, 从[0,0] 先[0, 100], 再到[100, 100]
+        <li>频繁点击按钮, 提交表单/频繁按 ctrl + s 快捷键/mousemove,scroll,resize 频繁触发
+        <li>网页中搜索建议, 发送的请求如何处理/blur 和 submit 重复提交操作
+        <li>同时请求模板和数据, 成功后渲染页面
+        <li>JSONP 函数包装
+      </ul>
     </div>
   </section>
   <section class="slide">
