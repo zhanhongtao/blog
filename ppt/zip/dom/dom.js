@@ -52,7 +52,7 @@ dom.text = function( elements ) {
   var i = 0, l = elements.length;
   while ( i < l ) {
     var element = elements[i];
-    t += element.nodeType != 1 ?
+    text += element.nodeType != 1 ?
       element.nodeValue : dom.text(element.childNodes);
     ++i;
   }
