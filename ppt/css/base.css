@@ -25,7 +25,7 @@ h6, .ppt .h6 { font-size: 12px; }
 .bd { margin: 15px auto; overflow: hidden; }
 
 dt, dd { margin: 15px auto; }
-dd { margin-left: 60px; }
+dd { text-indent: 2em; }
 li ul, li ol {
   margin-left: 60px;
 }
@@ -41,6 +41,9 @@ li ul, li ol {
 }
 .grid +.grid  { margin-left: 10px; }
 
+.c1, .c2, .c3, .c4, .c5, .c6, .c7 {
+  padding: 0 20px;
+}
 .c1 { background-color: rgba( 0, 0, 0, 0.1) }
 .c2 { background-color: rgba( 0, 0, 0, 0.1) }
 .c3 { background-color: rgba( 0, 0, 0, 0.1) }

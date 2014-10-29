@@ -6,6 +6,13 @@ function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
 
+function walkToRoot( node, handle ) {
+  while ( node && handle(node) === true ) {
+    node = node.parentNode;
+  }
+  return node;
+}
+
 function walkDOMTreeByDeep( root, conf ) {
   conf = type(conf) == 'object' ? conf : {handle: noop, layer: 0};
   if ( type(root) !== 'array' ) root = [ root ];

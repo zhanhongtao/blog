@@ -26,99 +26,121 @@
     </div>
     <div class="bd">
       <ul>
-        <li>函数定义</li>
-        <li>函数参数和返回值</li>
-        <li>函数调用</li>
-        <li>匿名函数</li>
-        <li>变量作用域</li>
-        <li>其它 - 递归, 链式调用、无 new 实例化等</li>
-        <li>JavaScript Prototype</a>
+        <li>定义
+        <li>属性和方法
+        <li>参数和返回值
+        <li>调用
+        <li>匿名函数
+        <li>变量作用域
+        <li>其它
+        <li>JavaScript Prototype
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>函数定义</h1>
+      <h1>定义</h1>
     </div>
     <div class="bd">
       <dl>
+        <dt>声明式 - 函数会"挂起"</dt>
+        <dd>function getUserName( user ) {}</dd>
         <dt>基于构造函数</dt>
         <dd>var getUserName = new Function( 'user', 'return user.name;' );</dd>
         <dt>函数表达式 - 直接量/对象方法</dt>
         <dd>var getUserName = function( user ) {};</dd>
         <dd>var obj = { getUserNmae: function() {} };</dd>
-        <dd>var obj = {}; obj.getUserName = function() {};</dd>
-        <dt>函数声明</dt>
-        <dd>function getUserName( user ) {}</dd>
       </dl>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code contenteditable="true" class="javascript block">
+// 函数会挂起到最前面
+assert( '5' === 5, '\'5\' !== 5' );
+
+function assert( test, description ) {
+  if ( test ) console.log( description );
+  else console.error( description );
+}
+// 覆盖已定义的函数 - 不会因为参数个数不同而重载
+function assert( test, description ) {
+  if ( !test ) alert( description );
+}
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>函数属性和方法</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>getUserName.name; // 只读属性
+        <li>getUserName.length; // 返回函数定义时, 参数个数
+        <li>getUserName.prototype; // 函数原型 - 用于构造函数
+        <li>getUserName.bind( context ); // 提前指定 this(运行时)
+        <li>getUserName.call( context, arg1, arg2, ..., argN );
+        <li>getUserName.apply( context, args );
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
       <h1>函数参数和返回值</h1>
     </div>
-    <div class="box">
-      <div class="grid">
-        <h2>参数</h2>
-        <ul>
-          <li>形参[形式参数]; 参数个数 <code>getUserName.length</code>
-          <li>实参[实际调用时参数]; 参数个数 <code>arguments.length</code>
-          <li>定义时, 形式参数可省略
-          <li>调用时, 用 <a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a> 访问 - 伪数组
-          <li>实参为任意数据类型 - 包括函数
-          <li>参数以值(原始数据类型)和引用(其它)传递
-          <li>函数体内 arguments.callee 表示函数本身(递归)
-        </ul>
-        <h2>返回值</h2>
-        <p>任意数据类型 - 包括<mark>function</mark></p>
-      </div>
-      <div class="grid">
-<pre class="codebox">
-<code contenteditable="true" class="javascript block">
-function getUserName( user, boolean ) {
-  alert( '实参长度: ' + arguments.length );
-  user.name = 'browser';
-  boolean = false;
-  var argus;
-  try {
-    var argus = arguments.slice(0);
-  } catch(e) {
-    alert( 'Arguments 是伪数组, 不存在 slice 方法' );
-  }
-  argus = Array.prototype.slice.call( arguments, 0 );
-  try {
-    argus.slice( 0 );
-  } catch(e) {
-    alert( '不会执行到这里...' );
-  }
-  return function() {
-    alert( user );
-  };
-}
-alert( '形参长度: ' + getUserName.length );
-alert( getUserName({id: '806'}) );
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
+    <div class="bd">
+      <h2>参数</h2>
+      <ul>
+        <li>形参[形式参数] - getUserName.length
+        <li>定义时, 形式参数可省略
+        <li>实参[实际调用时参数]
+        <li>实参为任意数据类型 - 包括函数
+      </ul>
+      <h2>返回值</h2>
+      <p>任意数据类型 - 包括<mark>function</mark></p>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>函数调用</h1>
+      <h1>函数调用 - 调用方式</h1>
     </div>
     <div class="bd">
-      <dl>
-        <dt>直接调用 <sup>常用</sup></dt>
-        <dd>getUserName( user );</dd>
-        <dt>方法调用</dt>
-        <dd>extension.getUserName( user );</dd>
-        <dt>使用 call/apply - 可指定 context, 类似 Function.prototype.bind</dt>
-        <dd>getUserName.call( extension, user );</dd>
-        <dd>getUserName.apply( extensioin, [user] );</dd>
-        <dt>使用 new 关键字 - 函数称为构造函数, 用于实例化对象</dt>
-        <dd>new System(); // 作为构造函数时, 一般会大写首字母</dd>
-      </dl>
+      <ul>
+        <li>new System();
+        <li>getUserName( user );
+        <li>person.getUserName( user );
+        <li>getUserName.call( person, user );
+        <li>getUserName.apply( extensioin, [user] );
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>函数调用 - 运行时变量</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>函数运行期间, 存在两个特殊对象：this/arguments; 运行结束时, 对象销毁 - 闭包延时销毁</p>
+        <li>this: 调用函数所属对象, 不存在时, 指向 window; 可使用 .bind(context)/.call/.apply 手动指定 this</p>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>: 实参列表(array), 是伪数组, 即没有 Array.prototype 上的方法.
+          <ul>
+            <li>arguments.callee 指向当前函数名(递归)
+            <li>使用 Array.prototype.slice.call( arguments, 0 ) 把 arguments 转换为真正数组.
+          </ul>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>函数调用 - 其它</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>调用时, 实参以<em>值</em>(原始数据类型)和<em>引用</em>(其它)传递
+        <li>console.trace( Name ); 打印函数调用栈
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -368,30 +390,10 @@ setFontSize( 120 ); setFontSize( 50 ); setFontSize( 240 );
     </div>
     <div class="bd">
       <ul>
-        <li>只读 name 属性 - 返回函数名; 匿名函数返回空字符串</li>
-        <li>arguments.callee 指向当前函数. 严格模式不再支持</li>
         <li>递归调用和链式调用</li>
-        <li>函数调试 - console.trace</li>
       </ul>
     </div>
     <div class="box">
-      <div class="grid">
-<pre class="codebox">
-<code contenteditable="true" class="javascript block">
-// 'use strict'
-function getName( user ) {
-  try {
-    alert( arguments.callee.name );
-  } catch(e) {
-    alert( 'error' );
-  }
-}
-alert( 'getName.name: ' + getName.name );
-getName();
-</code>
-<div class="runcase">Run</div>
-</pre>
-      </div>
       <div class="grid">
 <pre data-run="1" class="codebox">
 <code class="javascript block" contenteditable="true">
