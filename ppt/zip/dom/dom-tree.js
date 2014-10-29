@@ -79,6 +79,7 @@ element.appendChild( node )
 element.parentNode.insertBefore( node, element )
 element.parentNode.removeChild( element )
 element.parentNode.replaceChild( node, element )
+element.remove()
 
 
 element.innerHTML
@@ -159,5 +160,8 @@ https://github.com/jquery/jquery/blob/master/src/css.js
 https://github.com/jquery/jquery/blob/master/src/wrap.js
 https://github.com/jquery/jquery/blob/master/src/traversing.js
 https://github.com/jquery/jquery/blob/master/src/manipulation.js
+
+https://github.com/jieyou/lazyload/blob/master/lazyload.js
+https://gist.github.com/wintercn/5925837
 
 
