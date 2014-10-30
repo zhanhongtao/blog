@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+  <title>sticky</title>
+  <style>
+    #box {
+      width: 720px;
+      margin: 0 auto;
+    }
+    .main {
+      float: left;
+      width: 560px;
+      margin-right: 10px;
+      height: 2500px;
+      background-color: #fbf2ec;
+    }
+    .side {
+      overflow: hidden;
+    }
+    #logo,
+    #extra,
+    #test,
+    #demo {
+      width: 100%;
+      height: 120px;
+      margin: 10px 0;
+    }
+    #logo { background: #eee; }
+    #extra { background: #ffa;}
+    #test { background: #ded; }
+    #demo,
+    #_fixed { background: #faa; }
+    #_fixed {
+      position: fixed;
+      top: 10px;
+      width: 150px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div class="main"></div>
+    <div class="side">
+      <div id="logo"></div>
+      <div id="extra"></div>
+      <div id="test"></div>
+      <div id="demo"></div>
+    </div>
+  </div>
+  <script>
+// 自定义.
+function isInViewPort( element, filter ) {
+  var rect = element.getBoundingClientRect();
+  return filter( rect );
+}
+
+function someInViewPort( rect ) {
+  var viewport = {
+    w: window.innerWidth || root.clientWidth,
+    h: window.innerHeight || root.clientHeight
+  };
+  return (
+    (rect.top > 0 && rect.top < viewport.h) && 
+    (rect.left > 0 && rect.left < viewport.w)
+  ) || (
+    (rect.bottom > 0 && rect.bottom < viewport.h) &&
+    (rect.right > 0 && rect.right < viewport.w)
+  );
+}
+
+function allInViewPort( rect ) {
+  return rect.top > 0 && rect.right > 0 && rect.bottom > 0 && rect.left > 0;
+}
+
+function _appfilter( rect ) {
+  return rect.top > 10 && rect.bottom > 0;
+}
+
+function changeStatus( status ) {
+  if ( status ) {
+    if ( cloneNode ) {
+      cloneNode.style.display = 'block';
+      demo.style.visibility = 'hidden';
+    } else {
+      cloneNode = demo.cloneNode();
+      cloneNode.id = '_fixed';
+      demo.parentNode.appendChild( cloneNode );
+    }
+  } else {
+    if ( cloneNode ) {
+      cloneNode.style.display = 'none'; 
+      demo.style.visibility = 'visible';
+    }
+  }
+}
+
+var demo = document.getElementById( 'demo' );
+var cloneNode = document.getElementById('_fixed');
+
+var handle = (function() {
+  var last = 1; // 1: 在; 0: 不再;
+  return function() {
+    if ( isInViewPort(demo, _appfilter) ) {
+      if ( last == 0 ) {
+        last = 1;
+        changeStatus( false );
+      }
+    } else {
+      if ( last == 1 ) {
+        last = 0;
+        changeStatus( true );
+      }
+    }
+  };
+})();
+
+window.onscroll = handle;
+  </script>
+</body>
+</html>

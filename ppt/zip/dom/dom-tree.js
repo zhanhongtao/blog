@@ -117,18 +117,28 @@ element.addEventListener
 element.dispatchEvent
 element.removeEventListener
 
+// iframe document!
+iframe.contentDocument || iframe.contentWindow.document
 
 // height/width - by css.
+element.scrollHeight
+element.offsetHeight
 
 // viewport size!
 window.innerHeight/window.innerWidth
 document.documentElement.clientHeight/document.documentElement.clientWidth
-document.body.clientHeight/document.body.clientWidth
 
 element.scrollIntoView()
 element.scrollTop/element.scrollLeft
 // page size
 element.scrollHeight/element.scrollWidth
+Math.max( 
+  (document.documentElement || document.body).scrollHeight,
+  (document.documentElement || document.body).offsetHeight,
+  document.documentElement.clientHeight
+);
+element.getBoundingClientRect().top + window.pageYOffset;
+
 scroll 指整个元素(可能由于 overflow 没有显示)
 element.scrollHeight - element.scrollTop 和 element.clientHeight 关系来确定滚动条位置
 .clientHeight = contentHeight + paddingTop + paddingBottom
@@ -163,5 +173,57 @@ https://github.com/jquery/jquery/blob/master/src/manipulation.js
 
 https://github.com/jieyou/lazyload/blob/master/lazyload.js
 https://gist.github.com/wintercn/5925837
+http://www.w3.org/TR/html5/
 
+
+function css( element, name ) {
+  if ( element.style[ name ] ) {
+    return element.style[ name ];
+  } else if ( element.currentStyle ) {
+    return element.currentStyle[ name ];
+  } else if ( document.defaultView && document.defaultView.getComputedStyle ) {
+    name = name.replace( /([A-Z])/g, '-$1' ).toLowerCase();
+    var style = document.defaultView.getComputedStyle( element, '' );
+    return style && style.getPropertyValue( name );
+  }
+  return '';
+}
+
+function isInViewPort( element, filter ) {
+  var rect = element.getBoundingClientRect();
+  return filter( rect );
+}
+
+function someInViewPort( rect ) {
+  var viewport = {
+    w: window.innerWidth || root.clientWidth,
+    h: window.innerHeight || root.clientHeight
+  };
+  return (
+    (rect.top > 0 && rect.top < viewport.h) && 
+    (rect.left > 0 && rect.left < viewport.w)
+  ) || (
+    (rect.bottom > 0 && rect.bottom < viewport.h) &&
+    (rect.right > 0 && rect.right < viewport.w)
+  );
+}
+
+function allInViewPort( rect ) {
+  return rect.top > 0 && rect.right > 0 && rect.bottom > 0 && rect.left > 0;
+}
+
+function _appfilter( rect ) {
+  return rect.top > 10 && rect.bottom > 0;
+}
+
+function scrollDo( scrolldo ) {
+  var root = document.documentElement;
+  var pageY = Math.max( 
+    (root || document.body).scrollHeight,
+    (root || document.body).offsetHeight,
+    root.clientHeight
+  );
+  var scrollTop = window.pageYOffset || root.scrollTop;
+  scrolldo( pageY, scrollTop );
+}
 

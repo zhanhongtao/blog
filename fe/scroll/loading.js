@@ -52,8 +52,12 @@ var handle = (function () {
     var scrollTop = window.pageYOffset || document.body.scrollTop;
     if ( lastScrollTop < scrollTop ) {
       lastScrollTop = scrollTop;
-      var winHeight = window.innerHeight;
-      var documentHeight = document.body.scrollHeight;
+      var winHeight = window.innerHeight || document.documentElement.clientHeight;
+      var documentHeight = Math.max( 
+        (document.documentElement || document.body).scrollHeight,
+        (document.documentElement || document.body).offsetHeight,
+        document.documentElement.clientHeight
+      );
       if ( documentHeight - winHeight - scrollTop < scrollOffsetHeight ) {
         requestNewFeeds();
       }
