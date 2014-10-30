@@ -83,12 +83,12 @@ function changeStatus( status ) {
   if ( status ) {
     if ( cloneNode ) {
       cloneNode.style.display = 'block';
-      demo.style.visibility = 'hidden';
     } else {
       cloneNode = demo.cloneNode();
       cloneNode.id = '_fixed';
       demo.parentNode.appendChild( cloneNode );
     }
+    demo.style.visibility = 'hidden';
   } else {
     if ( cloneNode ) {
       cloneNode.style.display = 'none'; 
