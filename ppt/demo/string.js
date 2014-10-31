@@ -1,7 +1,16 @@
+
+
+// 修正 index
+function fixIndex( index, max ) {
+  return ( max + index % max ) % max;
+}
+
+// String.prototype.startsWith
 function startsWith( string, sub ) {
   return string.indexOf( sub ) == 0;
 }
 
+// String.prototype.endsWith
 function endsWith( string, sub ) {
   return string.lastIndexOf( sub ) === string.length + 1;
 }
@@ -11,25 +20,13 @@ function repeat( string, times ) {
 	return array.join( string );
 }
 
+// 子串出现的次数
 function count( string, substring ) {
-  var n = 0, i = 0;
-	while ( string.indexOf( substring, i ) > -1 ) {
+  var n = 0, i = -1;
+	while ( (i = string.indexOf(substring, i + 1) ) > -1 ) {
 	  ++n;
 	}
 	return n;
-}
-
-funtion isLowerCase( string ) {
-  return string.toLowerCase() === string;
-}
-
-function isUpperCase( string ) {
-  return string.toUpperCase() === string;
-}
-
-function isLowerCase( chr ) {
-  var code = chr.charCodeAt(0);
-	return code >= 96 && code <= 122;
 }
 
 // 小写字母转换为大写(逆运算)
@@ -121,6 +118,8 @@ function parseURLString( string ) {
   }
   return result;
 }
+
+// @todo. toNumber
 
 // 实现 KMP 算法.
 function createIndexes( string ) {

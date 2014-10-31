@@ -49,7 +49,6 @@
 
   var eventemitter = eventEmitter();
   eventemitter.on( 'on-page-changed', function( message ) {
-    console.log( 'message: ', message );
     updateui( message );
   });
 
