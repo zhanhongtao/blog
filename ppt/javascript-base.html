@@ -255,7 +255,7 @@ alert( typeof(a) );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>null 和 undefined</h1>
+      <h1>null 和 <a href="https://github.com/zhanhongtao/blog/issues/76">undefined</a></h1>
     </div>
     <div class="bd">
       <ul>
@@ -285,6 +285,7 @@ alert( typeof(a) );
         <li>数字范围( -Infinity, Infinity ) - isFinite( number );
         <li>NaN 特殊数值, 表示 Not a Number; 但是属于 Number 类型. <mark title="参数只指定 NaN 才有意义">isNaN</mark>( NaN ) === true;
         <li>数值转换 parseInt( _var, base );/parseFloat( _var );/Number( _var ); - <mark>全局函数</mark>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/82">有关 0 的运算</a>
       </ul>
     </div>
   </section>
@@ -498,6 +499,7 @@ alert( typeof(a) );
         <li>var object = Object.create({});
       </ul>
     </div>
+
   </section>
   <section class="slide">
     <div class="hd">
@@ -505,20 +507,31 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>constructor 属性
+        <li>constructor
         <li>toString()
         <li>valueOf()
         <li>hasOwnProperty( key )
-        <li>isPropertyOf( object )
-        <li>propertyIsEnumerable( key )
-        <li>Object.keys()
-        <li>Object.defineProperty( object, property, descriptor )
-        <li>Object.defineProperties( object, descriptor )
-        <li>Object.getOwnPropertyDescriptor( object, property )
-        <li>Object.getOwnPropertyNames( object )
-        <li>object.propertyIsEnumerable( property )
+        <li><a href="https://github.com/zhanhongtao/blog/issues/74">其它</a>
       </ul>
     </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+// {} 可以当做 hash 表来使用
+var namesMap = {};
+var keys = [ 'r', 'a', 'c', 3, 9, 'c', 'a', 'b' ];
+var result = [];
+for ( var i = 0, l = keys.length; i < l; ++i ) {
+  if ( !namesMap[keys[i]] ) {
+    result.push( keys[i] );
+    namesMap[keys[i]] = true;
+  }
+}
+alert( result );
+</code>
+<div class="runcase">Run</div>
+</pre>      
+    </div>  
   </section>
   <section class="slide">
     <div class="hd">
@@ -1179,7 +1192,7 @@ void alert( Math.pow(2, 10) );
     </div>
     <div class="bd">
       <ul>
-        <li>空语句 - ;
+        <li>空语句 - ; <a href="https://github.com/zhanhongtao/blog/issues/77">分号插入规则</a>
         <li>label 语句 - lable 可省略
         <li>try..catch..finally
         <li>throw
