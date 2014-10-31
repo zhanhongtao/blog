@@ -249,7 +249,7 @@ alert( typeof(a) );
         <li>null
         <li>Array
         <li>Date
-        <li><a href="./javascript-regexp.pdf">RegExp</a>
+        <li><a href="./javascript-regexp.html">RegExp</a>
       </ul>
     </div>
   </section>
@@ -462,6 +462,16 @@ alert( typeof(a) );
         <li>var array = 'a b c'.split( ' ' );
       </ul>
     </div>
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var array = [ 1, 2, 3, 4, 5 ];
+  // 数组也是对象, 可以存在静态属性和方法
+  array.name = 'YourName';
+  // 注意 console.log 打印数组对静态属性和方法处理细节
+  console.log( array );
+</code>
+<div class="runcase">Run</div>
+</pre>
   </section>
   <section class="slide">
     <div class="hd">
