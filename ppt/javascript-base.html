@@ -77,11 +77,6 @@
       <h1>严格模式</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>严格模式会把 JavaScript "陷阱"做为错误对待
-        <li>严格模式修正了一些引擎难以优化的错误, 同样的代码有些时候严格模式会比非严格模式下更快
-        <li>严格模式禁用了一些有可能在未来版本中定义的语法
-      </ul>
       <p>
       开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
       不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
@@ -135,7 +130,7 @@ user = {
     </div>
     <div class="bd">
       <ul>
-        <li>全局变量 - browserVersion = '5.3'; 或者 this.browserVersion = '5.3';
+        <li>全局变量 - window.browserVersion = '5.3'; 或全局环境下 var browserVersion = '5.3';
         <li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
         <li>[常量] - var BROWSER_VERSION = 5; (说明: JavaScript 没有常量)
     </div>
@@ -1388,7 +1383,7 @@ test('1');
     </div>
     <div class="bd">
       <ul>
-        <li>修正索引 - 幻灯片播放时, 可轮询播放
+        <li>幻灯片播放时, 可轮询播放 - index = (max + index % max) % max;
         <li>实现 Math.pow 函数
         <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>
@@ -1402,11 +1397,10 @@ test('1');
       <ul>
         <li>小写字母转换为大写(逆运算)
         <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>把字符串中的 Tab(\t) 转换为 2 个空格
-        <li>对用户输入字符做 html 标签过滤
+        <li>把字符串中的\t转换为 2 个空格
         <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
         <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
-        <li>查找字符串中第一个唯一出现的字符
+        <li>查找字符串中第一个唯一出现的字符 - indexOf(key) === lastIndexOf(key)
         <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
         <li>KMP 算法
       </ul>
@@ -1419,14 +1413,14 @@ test('1');
     <div class="bd">
       <ul>
         <li>创建 n 个元素组成的, 值全为 k 的数组
+        <li>求数组中的最大值和最小值
         <li>扁平化 Array - [ 1, [2, 3], [4,[5]] ] -> [ 1, 2, 3, 4, 5 ]
         <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
         <li>移除数组中重复的值 - 数组元素全数数字
         <li>实现数组的 [].reverse 方法
-        <li>使用递归方法, 顺序打印和倒序打印数组元素
-        <li>扩展一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
+        <li>使用<mark>递归</mark>方法, 顺序打印和倒序打印数组元素
+        <li><mark>扩展</mark>一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
         <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
-        <li>求数组中的最大值和最小值
         <li>打乱数组 - 类似洗牌 shuffle
         <li>抽奖算法(要求不重复)
         <li>二分查找
@@ -1444,9 +1438,9 @@ test('1');
     </div>
     <div class="bd">
       <ul>
-        <li>type - 判断变量数据类型
-        <li>实现 each 函数
-        <li>mixin - 合并对象(jQuery.extends)
+        <li>判断变量数据类型
+        <li>合并对象(jQuery.extend)
+        <li>实现 each 函数 - forEach/for..in
       </ul>
     </div>
   </section>
@@ -1456,12 +1450,12 @@ test('1');
     </div>
     <div class="bd">
       <ul>
-        <li>毫秒转换为年月日时分秒(逆运算)
-        <li>多久时间以前 - 微博发于 2分钟之前
+        <li>毫秒转换为年月日时分秒
         <li>判断 Year 是否为闰年
-        <li>给出某天, 计算出是周几?
-        <li>日历控件 - 基础版本
+        <li>多久时间以前 - 微博发于 2分钟之前
         <li>倒计时 - 整点报时
+        <li>给出日期, 计算出是周几?
+        <li>日历控件
       </ul>
     </div>
   </section>
@@ -1472,28 +1466,27 @@ test('1');
     <div class="bd">
       <ul>
         <li>状态表示 - 15 可表示4种状态
+        <li>如何使用两个骰子表示月份中的每一天
         <li>取二进制位中第 N 位上的值是? (1/0)
         <li>设置二进制位中第 N 位上的值(1/0)
         <li>进制转换 - 2/8/10/16 - 使用 JavaScript 内置函数/不使用版本
-        <li>RGB和十六进制色值转换 - toHex()/toRGB()
         <li>求数组中出现奇数次的单个元素
-        <li>如何使用两个骰子表示月份中的每一天
+        <li>RGB和十六进制色值转换 - toHex()/toRGB()
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>扩展链接</h1>
+      <h1>参考和扩展</h1>
     </div>
     <div class="bd">
       <ul>
+        <li>《JavaScript 权威指南》
         <li>《JavaScript 语言精粹》
         <li>《Effective JavaScript:编写高质量JavaScript代码的68个有效方法》
         <li>http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
         <li>https://www.chromestatus.com/features
         <li>http://bonsaiden.github.io/JavaScript-Garden/zh/
-        <li>https://github.com/zhanhongtao/blog/issues/77
-        <li>https://github.com/zhanhongtao/blog/issues/82
       </ul>
     </div>
   </section>

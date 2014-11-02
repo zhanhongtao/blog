@@ -4,8 +4,12 @@
 // 编码规范 - 习惯
 // 入门 + 中级 + 高级
 
+{
 HTML 标签
+form
+}
 
+{
 CSS
 盒子模型/文档流/BFC/布局/选择器/优先级 - 理论
 oocss/sass/grunt|glup - 科普
@@ -15,6 +19,7 @@ oocss/sass/grunt|glup - 科普
 -> Media
 -> 水平垂直居中
 -> ...
+}
 
 {
   数据类型/类型转换
@@ -33,9 +38,9 @@ oocss/sass/grunt|glup - 科普
   -> 数组去重
 }
 
+{
 // 重点
 // 'use strict'
-
 函数
 构造函数/原型继承/了解模块化开发
 函数/方法/值和地址/实参和形参/arguments/数组/伪数组[转化]
@@ -52,10 +57,11 @@ context/this/call/apply/bind/return
 -> 求数组的最大值和最小值
 -> 形参的使用 - queue/async 函数
 -> _
+}
 
+{
 // 正则表达式和二进制 - 跨语言
 RegExp -> 正则相关函数和应用
-{
 二进制/二进制操作/进制转换/color转换
 应用:
 -> 二进制相关算法
@@ -70,6 +76,7 @@ RegExp -> 正则相关函数和应用
   -> 抽奖算法(要求不重复)
 }
 
+{
 // 理解 JS 单进程的工作方式
 setTimeout/setInterval/requestAnimationFrame
 应用: 
@@ -78,7 +85,9 @@ setTimeout/setInterval/requestAnimationFrame
 -> http://beijing.baixing.com/ 倒计时可暂停效果
 -> slide自动切换
 -> 面试题解析
+}
 
+{
 // 浏览器环境下的 JavaScript
 alert/confirm/prompt
 location/history/navigator/screen
@@ -88,7 +97,9 @@ escape/[encodeURIComponent/democeURIComponent/encodeURL/decodeURI]
 -> Query解析(Debug状态)
 -> Router 实现
 -> JavaScript 中的字符编码 - xss
+}
 
+{
 // DOM - 重点
 element/attribute/text/nodeType
 Element 尺寸和位置信息
@@ -113,11 +124,9 @@ DOMContentLoaded
 -> 判断元素是否在窗口内
 -> 选项卡
 -> 高度自适应的 DIV/Textarea
+}
 
-
-// 表单
-form
-
+{
 // 重点
 event
 冒泡/捕获/listen/notify/同步和异步/
@@ -127,7 +136,9 @@ event
 应用:
 -> 捕获的实际应用
 -> 底层 switchab 实现 - slide/tab
+}
 
+{
 // 和后端交互 - UI和数据分离
 http/ajax/upload(file)/jsonp/pingback原理/formData/URL
 javascript:/mailto:/data:/ - 协议
@@ -135,11 +146,15 @@ javascript:/mailto:/data:/ - 协议
 -> 搜索建议效果
 -> 文件拖拽上传
 -> pingback组件
+}
 
+{
 // 存储和缓存
 session/cookie/sessionStorage/localStorage/userData/indexDB
 CDN/appcache[manifest] - 科普
+}
 
+{
 // 应用
 颜色选择器
 图片惰性加载(优点)
@@ -147,4 +162,6 @@ CDN/appcache[manifest] - 科普
 Markdown 解析器
 回调函数管理 - promise
 chrome 插件开发
+}
+
 

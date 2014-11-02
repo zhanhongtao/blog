@@ -5,15 +5,22 @@
   <title>localStorage Event</title>
 </head>
 <body>
+  <a href="http://zhanhongtao.github.io/blog/localstorage/" target="_blank">The page you can update localstorage.</a>
+  <textarea id="changed"></textarea>
   <script>
+    var text = document.getElementById( 'changed' );
     window.addEventListener( 'storage', function( event ) {
       console.log( event );
-      console.log( event.key );
-      console.log( event.newValue );
-      console.log( event.oldValue );
-      console.log( event.type );
-      console.log( event.timeStamp );
-      console.log( event.url );
+      var value = [];
+      value.push( 'event.key: ' + event.key );
+      value.push( 'event.newValue: ' + event.newValue );
+      value.push( 'event.oldValue: ' + event.oldValue );
+      value.push( 'event.type: ' + event.type );
+      value.push( 'event.timeStamp: ' + event.timeStamp );
+      value.push( 'event.url: ' + event.url );
+      text.value = text.value 
+          + '----------'
+          + value.join( '\n' );
     }, false );
   </script>
 </body>

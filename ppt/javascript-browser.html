@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>Browser - JavaScript</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=2.1">
+  <link rel="stylesheet" href="./css/app.css?v=2.1">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide slide-cover">
+    <h1>JavaScript(browser)</h1>
+    <h2 class="h3">redky@qq.com</h2>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>window</h1>
+    </div>
+    <div class="bd">
+      <li>window/document.defaultView
+      <li>top/self/parent
+      <li>iframe.contentWindow/iframe.contentDocument(iframe.contentWindow.document)
+    </div>
+    <div class="bd">
+      <ul>
+        <li>.name
+        <li>.open()/.close()
+        <li>.focus()/.blur()
+        <li>.alert()/.confirm()/.prompt()
+        <li>.postMessage()
+      </ul>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Security - cross-domain
+        <li>document.domain
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>navigator</h1>
+    </div>
+    <div class="bd">
+      <li>.userAgent
+      <li>.onLine
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>location</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>.origin/host/href/port/path/search/hash
+        <li>.assign( url )
+        <li>.replace( url )
+        <li>.reload()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>history</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>.length
+        <li>.state
+        <li>.go([delta])
+        <li>.back()
+        <li>.forward()
+        <li>.pushState( data, title[, url] )
+        <li>.replaceState( data, title[, url] )
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>screen</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>width
+        <li>height
+        <li>avaiWidth
+        <li>availHeight
+        <li>pixelDepth
+        <li>colorDepth
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Storage</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Cookie(string)
+        <li>Session
+        <li>LocalStorage(key/value)
+        <li>SessionStorage
+        <li>IndexedDB(SQL)
+        <li>Application Cache(file)
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Cookie</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Cookie(string)
+        <li>Session
+        <li>LocalStorage(key/value)
+        <li>SessionStorage
+        <li>IndexedDB(SQL)
+        <li>Application Cache(file)
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>LocalStorage</h1>
+    </div>
+    <div class="bd">
+      <p>localStorage 会把数据存储在本地, 并且数据没有过期时间; <br />
+        各个浏览器对存储空间有大小要求, 一般可存储 5M; 超出时, 会抛出异常.
+      <ul>
+        <li>.length
+        <li>.key( n )
+        <li>.setItem( key, value )
+        <li>.getItem( key, value )
+        <li>.removeItem( key, value )
+        <li>.clear()
+        <li>'storage'(event)
+      </ul>
+      <a href="https://html.spec.whatwg.org/multipage/webstorage.html">https://html.spec.whatwg.org/multipage/webstorage.html</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Application Cache</h1>
+    </div>
+    <div class="bd">
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Router 实现
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Links</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>https://html.spec.whatwg.org/multipage/browsers.html
+      </ul>
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>?</h1>
+  </section>
+  <nav id="navigator"></nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/touch.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>

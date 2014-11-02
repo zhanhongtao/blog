@@ -67,8 +67,7 @@ element.compareDocumentPosition( node )
   * 8 node 包含 element 节点
   * 16 node 被 element 节点包含
   * 32 扩展
-element.matches( selector )/element.matchesSelector( selector )
-element.isEqualNode( node )
+
 
 document.createElement( tag )
 document.createTextNode( text )

@@ -238,6 +238,25 @@ console.log( '_clearfix', reg.exec('_clearfix') );
 <div class="runcase">Run</div>
 </pre>
     </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  var string = 'http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=redky&rsv_enter=1&rsv_sug3=5&rsv_sug4=128&rsv_sug1=4&rsv_sug2=0&inputT=1541';
+  var regexp = /(?:[?&#])(.+?)=([^&#]*)/g;
+  // console.log( string.match(regexp) );
+  var map = {};
+  string.replace( regexp, function( match, key, value ) {
+    if ( map[key] ) {
+      map[key] = typeof map[key] == 'string' ? [ map[key], value ] : map[key].push(value);
+    } else {
+      map[key] = value;
+    }
+  });
+  console.log( map );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>    
   </section>
   <section class="slide">
     <div class="hd">
@@ -346,20 +365,35 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     <div class="bd">
 <pre class="codebox">
 <code class="javascript block" contenteditable="true">
-function format( number ) {
-  var str = '' + number;
-  if ( /^[1-9]\d*$/.test(str) ) {
-    return str.replace( /\d(?=(?:\d{3})+$)/g, '$&,' );
-  } else {
-    alert( 'erorr' );
-  }  
-}
-var ret = format( 1234567 );
-alert( ret );
+  // 千分位格式化数字
+  function format( number ) {
+    var str = '' + number;
+    if ( /^[1-9]\d*$/.test(str) ) {
+      return str.replace( /\d(?=(?:\d{3})+$)/g, '$&,' );
+    } else {
+      alert( 'erorr' );
+    }  
+  }
+  var ret = format( 1234567 );
+  alert( ret );
 </code>
 <div class="runcase">Run</div>
 </pre>
     </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript block" contenteditable="true">
+  // 在数字和字符之间添加空格
+  function insertSpace( string ) {
+    string = '' + string;
+    var reg = /\d(?=[a-z])|[a-z](?=\d)/gi;
+    return string.replace( reg, '$& ' );
+  }
+  alert( insertSpace('1abc234de') );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>    
   </section>
   <section class="slide slide-cover">
     <h1>JavaScript - RegExp</h1>

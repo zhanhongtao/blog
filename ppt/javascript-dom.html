@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>JavScript - DOM</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=2.1">
+  <link rel="stylesheet" href="./css/app.css?v=2.1">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide slide-cover">
+    <h1>JavaScript - DOM</h1>
+    <h2 class="h3">redky@qq.com</h2>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>DOM</h1>
+    </div>
+    <div class="bd">
+      <li>DOM - Document Object Model
+      <li>DOM - Tree
+      <li>Node/Element
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>document</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>document.documentElement
+        <li>iframe.contentDocument || iframe.contentWindow.document
+        <li>document.charset
+        <li>document.title
+        <li>document.head
+        <li>document.body == document.getElementsByTagName('body')[0]
+        <li>document.links/document.images/document.forms
+        <li>document.readyState - complete
+        <li>document.activeElement
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>element</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.nodeName
+        <li>element.tagName
+        <li>element.nodeType
+          <ul>
+            <li>Element(1)
+            <li>Attribut(2)
+            <li>Text(3)
+            <li>Comment(8)
+            <li>Document(9)
+            <li>DocumentFragment(11)
+          </ul>
+        <li>element.nodeValue - Text Node
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Attributes</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>elements.attributes
+        <li>element.hasAttribute( key )
+        <li>element.getAttribute( key )
+        <li>element.setAttribute( key, value )
+        <li>element.removeAttribute( key )
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>classList</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.classList
+        <li>element.classList.contains()
+        <li>element.classList.add()
+        <li>element.classList.remove()
+        <li>element.classList.toggle()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>dataset</h1>
+    </div>
+    <div class="bd">
+      <p>element.dataset</p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Others</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.id
+        <li>element.className
+        <li>element.scrollIntoView()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>获取 DOM 节点</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>document.getElementById()
+        <li>document.getElementsByName()
+        <li>document.getElementsByTagName()
+        <li>document.getElementsByClassName()
+        <li>document.querySelector()
+        <li>document.querySelectorAll()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>DOM 节点关系(1)</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.parentNode/element.parentElement
+        <li>element.nextSibling/element.nextElementSibling
+        <li>element.previousSibling/element.previousElementSibling
+        <li>element.hasChildNodes()
+        <li>element.childElementCount
+        <li>element.childNodes/element.children
+        <li>element.firstChild/element.firstElementChild
+        <li>element.lastChild/element.lastElmentChild
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>DOM 节点关系(1)</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.matches( selector )/element.matchesSelector( selector )
+        <li>element.isEqualNode( node )
+        <li>element.contains( node )
+        <li>element.compareDocumentPosition( node )
+          <ul>
+            <li>0 相同元素
+            <li>1 文档无关 - 两个节点不在相同文档
+            <li>2 node 在 element 之前
+            <li>4 node 在 element 之后
+            <li>8 node 包含 element 节点
+            <li>16 node 被 element 节点包含
+            <li>32 扩展
+          </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>创建 DOM 节点</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>document.createElement( tag )
+        <li>document.createTextNode( text )
+        <li>document.createDocumentFragment()
+        <li>element.cloneNode( isdeep )
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>操作 DOM 节点(1)</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.appendChild( node )
+        <li>element.parentNode.insertBefore( node, element )
+        <li>element.parentNode.removeChild( element )
+        <li>element.parentNode.replaceChild( node, element )
+        <li>element.remove()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>操作 DOM 节点(2)</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.innerHTML
+        <li>element.innerText/element.textContent
+          <ul>
+            <li>node.innerText 不支持 `style` 和 `script` 标签.
+            <li>node.innerText 不返回隐藏标签的内容.
+            <li>node.innerText 会引起 reflow.
+          </ul>
+        <li>element.outerHTML
+        <li>element.outerText
+
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>操作 DOM 节点(3)</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.insertAdjacentElement( position, node )
+        <li>element.insertAdjacentHTML( position, html )
+        <li>element.insertAdjacentText( position, text )
+      </ul>
+      <p>position: beforebegin/afterbegin/beforeend/afterend
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Text Node</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>node.length
+        <li>textNode.nodeValue/textNode.data
+        <li>textNode.appendData( text )
+        <li>textNode.deleteData( text )
+        <li>textNode.insertData( offset, count )
+        <li>textNode.replaceData( offset, count, text )
+        <li>textNode.splitText( offset )
+        <li>textNode.substringData( offset, count )
+        <li>node.normalize()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Style</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.style.property
+        <li>element.style[ property ] = value
+        <li>element.style.cssText = CSS_TEXT_STRING
+        <li>style = window.getComputedStyle( element, pseudo_class )
+        <li>style = document.defaultView.getComputedStyle( element, pseduo_class )
+        <li>style = element.currentStyle
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Element Size</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>use css( element, height )
+        <li>element.clientHeight/element.clientWidth(content+padding)
+        <li>element.scrollHeight/element.scrollWidth
+        <li>element.offsetHeight/element.offsetWidth(content+padding+border+scrollbar)
+        <li>element.scrollTop/element.scrollLeft
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>ViewPort Size</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>window.innerHeight/window.innerWidth
+        <li>document.documentElement.clientHeight/document.documentElement.clientWidth
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Page Size</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>(document.documentElement || document.body).scrollHeight
+        <li>(document.documentElement || document.body).offsetHeight
+        <li>document.documentElement.clientHeight - Math.max
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>relative document/parentNode</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.offsetParent(~parentNode)
+        <li>element.offsetTop/element.offsetLeft
+      </ul>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>relative viewport</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.getBoundingClientRect()
+          <ul>
+            <li>.top
+            <li>.right
+            <li>.bottom
+            <li>.left
+            <li>.width/.height
+          </ul>
+        <li>ie6/7 - 2px
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>scroll position</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>window.pageYOffset/window.pageXOffset
+        <li>document.documentElement.scrollTop/document.documentElement.scrollLeft
+        <li>document.body.scrollTop/document.body.scrollTop
+      </ul>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY">https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>.css( key ) - opacity/background-position/z-index/css3
+        <li>查找点击的li在ul中是第几个?
+        <li>列表的斑马线效果 - 高亮鼠标所在行
+        <li>选项卡/幻灯片
+        <li>删除所有的 div 标签
+        <li>优化选择框(效果见QQ邮箱)
+        <li>滚动加载新内容(无限加载/只加载n次, 然后显示页码)
+        <li>实现 stricy 效果
+        <li>判断元素是否在窗口内
+        <li>图片惰性加载
+        <li>placeholder - ie6/7/8
+        <li>元素的规则运动动画
+        <li>查找 class 含有 a, 但不包含 b 的 DOM 节点
+        <li>slideUp/slideDown/fadein/fadeout 效果
+        <li>高度自适应的 DIV/Textarea
+        <li>颜色选择器
+        <li>.data( key[, value] )
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Links</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>https://developer.mozilla.org/en-US/docs/Web/API/Node
+        <li>https://developer.mozilla.org/en-US/docs/Web/API/Element
+        <li>https://github.com/jquery/jquery/blob/master/src/offset.js
+        <li>https://github.com/jquery/jquery/blob/master/src/dimensions.js
+        <li>https://github.com/jquery/jquery/blob/master/src/css.js
+        <li>https://github.com/jquery/jquery/blob/master/src/wrap.js
+        <li>https://github.com/jquery/jquery/blob/master/src/traversing.js
+        <li>https://github.com/jquery/jquery/blob/master/src/manipulation.js
+      </ul>
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>?</h1>
+  </section>
+  <nav id="navigator"></nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/touch.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>
