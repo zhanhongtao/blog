@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Jay Skript And The Domsters: Contact the band</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/basic.css" />
+  <script type="text/javascript" src="scripts/global.js"></script>
+  <script type="text/javascript" src="scripts/contact.js"></script>
+</head>
+<body>
+  <div id="header">
+    <img src="images/logo.gif" alt="Jay Skript and the Domsters" />
+  </div>
+  <div id="navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="live.html">Live</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div id="content">
+    <h1>Contact the band</h1>
+    <form method="post" action="#">
+      <fieldset>
+        <p>
+         <label for="name">Name:</label>
+         <input type="text" id="name" name="name" value="Your name" class="required" />
+        </p>
+        <p>
+         <label for="email">Email:</label>
+         <input type="text" id="email" name="email" value="Your email address" class="email required" />
+        </p>
+        <p>
+         <label for="message">Message:</label>
+         <textarea cols="45" rows="7" id="message" name="message" class="required">Write your message here.</textarea>
+        </p>
+        <input type="submit" value="Send" />
+       </fieldset>
+    </form>
+  </div>
+</body>
+</html>

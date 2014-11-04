@@ -25,32 +25,14 @@
       <h1>DOM</h1>
     </div>
     <div class="bd">
-      <li>DOM - Document Object Model
-      <li>DOM - Tree
+      <li>Document Object Model
+      <li>Tree
       <li>Node/Element
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>document</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>document.documentElement
-        <li>iframe.contentDocument || iframe.contentWindow.document
-        <li>document.charset
-        <li>document.title
-        <li>document.head
-        <li>document.body == document.getElementsByTagName('body')[0]
-        <li>document.links/document.images/document.forms
-        <li>document.readyState - complete
-        <li>document.activeElement
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>element</h1>
+      <h1>node/element</h1>
     </div>
     <div class="bd">
       <ul>
@@ -66,15 +48,17 @@
             <li>DocumentFragment(11)
           </ul>
         <li>element.nodeValue - Text Node
+        <li>element.id
+        <li>element.className
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Attributes</h1>
+      <h1>attributes</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>elements.attributes
+        <li>element.attributes
         <li>element.hasAttribute( key )
         <li>element.getAttribute( key )
         <li>element.setAttribute( key, value )
@@ -84,7 +68,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>classList</h1>
+      <h1>classList<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
@@ -98,7 +82,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>dataset</h1>
+      <h1>dataset<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <p>element.dataset</p>
@@ -106,28 +90,16 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Others</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>element.id
-        <li>element.className
-        <li>element.scrollIntoView()
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>获取 DOM 节点</h1>
+      <h1>get.. & query...</h1>
     </div>
     <div class="bd">
       <ul>
         <li>document.getElementById()
-        <li>document.getElementsByName()
         <li>document.getElementsByTagName()
-        <li>document.getElementsByClassName()
-        <li>document.querySelector()
-        <li>document.querySelectorAll()
+        <li>document.getElementsByName()
+        <li>document.getElementsByClassName()<sup><mark>?</mark></sup>
+        <li>document.querySelector()<sup><mark title="静态">?</mark></sup>
+        <li>document.querySelectorAll()<sup><mark title="静态">?</mark></sup>
       </ul>
     </div>
   </section>
@@ -137,20 +109,30 @@
     </div>
     <div class="bd">
       <ul>
-        <li>element.parentNode/element.parentElement
-        <li>element.nextSibling/element.nextElementSibling
-        <li>element.previousSibling/element.previousElementSibling
-        <li>element.hasChildNodes()
-        <li>element.childElementCount
+        <li>element.parentNode
+        <li>element.nextSibling
+        <li>element.previousSibling
         <li>element.childNodes/element.children
-        <li>element.firstChild/element.firstElementChild
-        <li>element.lastChild/element.lastElmentChild
+        <li>element.firstChild
+        <li>element.lastChild
+        <li>element.parentElement<sup><mark>?</mark></sup>
+        <li>element.nextElementSibling<sup><mark>?</mark></sup>
+        <li>element.previousElementSibling<sup><mark>?</mark></sup>
+        <li>element.hasChildNodes()<sup><mark>?</mark></sup>
+        <li>element.childElementCount<sup><mark>?</mark></sup>
+        <li>element.firstElementChild<sup><mark>?</mark></sup>
+        <li>element.lastElmentChild<sup><mark>?</mark></sup>
       </ul>
+      JavaScript DOM 编程艺术 - Image Gallery
+      <a href="./demo/gallery/01/gallery.html">01</a>
+      <a href="./demo/gallery/02/gallery.html">02</a>
+      <a href="./demo/gallery/03/gallery.html">03</a>
+      <a href="./demo/gallery/04/gallery.html">04</a>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>DOM 节点关系(1)</h1>
+      <h1>DOM 节点关系(1)<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
@@ -190,9 +172,9 @@
       <ul>
         <li>element.appendChild( node )
         <li>element.parentNode.insertBefore( node, element )
-        <li>element.parentNode.removeChild( element )
         <li>element.parentNode.replaceChild( node, element )
-        <li>element.remove()
+        <li>element.parentNode.removeChild( element )
+        <li>element.remove()<sup><mark>?</mark></sup>
       </ul>
     </div>
   </section>
@@ -216,7 +198,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>操作 DOM 节点(3)</h1>
+      <h1>操作 DOM 节点(3)<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
@@ -229,7 +211,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Text Node</h1>
+      <h1>Text Node<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
@@ -242,6 +224,24 @@
         <li>textNode.splitText( offset )
         <li>textNode.substringData( offset, count )
         <li>node.normalize()
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>document</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>document.documentElement - root
+        <li>iframe.contentDocument || iframe.contentWindow.document
+        <li>document.charset
+        <li>document.title
+        <li>document.head
+        <li>document.body == document.getElementsByTagName('body')[0]
+        <li>document.links/document.images/document.forms
+        <li>document.readyState - complete
+        <li>document.activeElement
       </ul>
     </div>
   </section>
@@ -342,26 +342,27 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>应用</h1>
+      <h1>Homework</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>.css( key ) - opacity/background-position/z-index/css3
         <li>查找点击的li在ul中是第几个?
-        <li>列表的斑马线效果 - 高亮鼠标所在行
         <li>选项卡/幻灯片
-        <li>删除所有的 div 标签
+        <li>列表的斑马线效果 - 高亮鼠标所在行
+        <li>元素的规则运动动画
+        <li>slideUp/slideDown/fadein/fadeout 效果
+        <li><a href="./demo/domsters/index.html">DOM 练习(JavaScript-DOM编程艺术)</a>
         <li>优化选择框(效果见QQ邮箱)
         <li>滚动加载新内容(无限加载/只加载n次, 然后显示页码)
         <li>实现 stricy 效果
         <li>判断元素是否在窗口内
         <li>图片惰性加载
+        <li>删除所有的 div 标签
         <li>placeholder - ie6/7/8
-        <li>元素的规则运动动画
-        <li>查找 class 含有 a, 但不包含 b 的 DOM 节点
-        <li>slideUp/slideDown/fadein/fadeout 效果
         <li>高度自适应的 DIV/Textarea
         <li>颜色选择器
+        <li>查找 class 含有 a, 但不包含 b 的 DOM 节点
+        <li>.css( key ) - opacity/background-position/z-index/css3
         <li>.data( key[, value] )
       </ul>
     </div>

@@ -20,6 +20,19 @@
     <h1>CSS</h1>
     <h2 class="h3">redky@qq.com</h2>
   </section>
+  <section class="slide toggle">
+    <div class="hd">
+      <h1>Link</h1>
+    </div>
+    <div class="bd">
+      <li>Normal
+      <li>Hover
+      <li>Focus
+      <li>Active
+      <li>Visited
+      <li>Disabled(?)
+    </div>
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>CSS Box Model</h1>
@@ -29,7 +42,8 @@
       <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
       <li>padding
       <li>content(width/height)
-      <li>box-sizing(border-box/content-box)
+      <li>box-sizing(border-box/content-box) - width/height
+      <li>outline(?)
     </div>
   </section>
   <section class="slide">
@@ -39,15 +53,19 @@
     <div class="bd">
       <ul>
         <li>static
-        <li>fixed(top/right/bottom/left)
-        <li>relative(top/right/bottom/left)
-        <li>absolute(top/right/bottom/left)
+        <li>fixed(body)
+        <li>relative(self)
+        <li>absolute(closest-parent-relative-element/body)
+        <li>float
+        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+      </ul>
+      <h2>About</h2>
+      <ul>
+        <li>top/right/bottom/left(0, 1, 2, 3, 4)
         <li>z-index(require: relative/absolute)
         <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left)
-        <li>float(none/left/right)
         <li>clear(left/right/both)
-        <li>overflow(hidden/auto/visible/scroll)
-        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+        <li>overflow(hidden/auto/visible/scroll)        
       </ul>
     </div>
   </section>
@@ -57,7 +75,6 @@
     </div>
     <div class="bd">
       <ul>
-        <li>inherit
         <li>initial
         <li>none
         <li>inline
@@ -66,6 +83,7 @@
         <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
         <li>inline-flex
         <li>table/table-cell
+        <li>...
       </ul>
     </div>
   </section>
@@ -232,8 +250,9 @@
       <h1>SASS</h1>
     </div>
     <div class="bd">
-      <p>CSS 可以解决时, 不必要使用预处理工具. <br />
-当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.</p>
+      <p>说在开头: CSS 可以解决时, 不必要使用预处理工具. <br />
+当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.
+      <p>SASS 直接处理 CSS 语法.
       <ol>
         <li>install:
           <ol>
@@ -253,14 +272,170 @@
   </section>
   <section class="slide">
     <div class="hd">
+      <h1>comments</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>//
+        <li>/* ... */
+        <li>/*! CopyRight! */
+        <li>/* #{$variable} */
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>variables</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>$id: _prefix_;
+        <li>#{$id}
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>nested</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+#box {
+  .comment {
+    color: #f00;
+  }
+}
+</code>
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+#box .comment {
+  color: #f00;
+}
+</code>
+</pre>      
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+// &
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</code>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+$box: _sogou_xx_ext_;
+##{#box} {
+  ul {
+    overflow: hidden;
+  }
+  li {
+    float: left;
+    border-right: 1px solid #eee;
+  }
+  &last {
+    border-right: none;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+$box: _sogou_xx_ext_;
+#_sogou_xx_ext_  ul {
+  overflow: hidden;
+}
+#_sogou_xx_ext_ li {
+  float: left;
+  border-right: 1px solid #eee;
+}
+#_sogou_xx_ext_last {
+  border-right: none;
+}
+</code>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+a {
+  color: red;
+  .webkit & {
+    color: green;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+a { color: red; }
+.webkit a { color: green; }
+</code>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@import</h1>
+    </div>
+    <div class="bd">
+      <h2>sass</h2>
+      <ul>
+        <li>@import 'reset';
+        <li>@import 'reset.scss';
+        <li>@import 'reset', 'media';
+        <li>@import url("http://fonts.googleapis.com/css?family=#{$family}");
+        <li>#box { @import 'css3'; }
+      </ul>
+      <h2>css</h2>
+      <ul>
+        <li>.css
+        <li>http://
+        <li>url(...)
+        <li>@import 'foo' screen;
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
       <h1>SASS Features</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>comments - // + /*! #{$var} */
-        <li>variables($var)
-        <li>nested(&)
-        <li>@import
         <li>%placeholder/@mixin/@include
         <li>@extend
         <li>Operator(+/-/...)
