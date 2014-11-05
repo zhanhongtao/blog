@@ -161,8 +161,8 @@ function check() {
   return scope;
 }
 var result = check();
-alert( 'result: ' + result ); // 'global';
-alert( 'scope: ' + scope ); // 'global';
+alert( 'result: ' + result ); // 'local';
+alert( 'scope: ' + scope ); // 'local';
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -173,8 +173,8 @@ alert( 'scope: ' + scope ); // 'global';
 'use strict';
 var scope = 'global';
 var result = check();
-alert( 'result: ' + result ); // 'global';
-alert( 'scope: ' + scope ); // 'global';
+alert( 'result: ' + result ); // 'local';
+alert( 'scope: ' + scope ); // 'local';
 function check() {
   scope = 'local';
   return scope;
