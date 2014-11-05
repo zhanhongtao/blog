@@ -20,19 +20,6 @@
     <h1>CSS</h1>
     <h2 class="h3">redky@qq.com</h2>
   </section>
-  <section class="slide toggle">
-    <div class="hd">
-      <h1>Link</h1>
-    </div>
-    <div class="bd">
-      <li>Normal
-      <li>Hover
-      <li>Focus
-      <li>Active
-      <li>Visited
-      <li>Disabled(?)
-    </div>
-  </section>
   <section class="slide">
     <div class="hd">
       <h1>CSS Box Model</h1>
@@ -178,6 +165,19 @@
       <a href="http://www.w3.org/TR/CSS2/cascade.html#cascade">http://www.w3.org/TR/CSS2/cascade.html#cascade</a>
     </div>
   </section>
+  <section class="slide toggle">
+    <div class="hd">
+      <h1>Link</h1>
+    </div>
+    <div class="bd">
+      <li>Normal
+      <li>Hover
+      <li>Focus
+      <li>Active
+      <li>Visited
+      <li>Disabled(?)
+    </div>
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Block Formatting Contexts</h1>
@@ -247,6 +247,53 @@
   </section>
   <section class="slide">
     <div class="hd">
+      <h1>组合大于继承</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+// html 
+&lt;div class="message success"&gt;&lt;/div&gt;
+&lt;div class="message error"&gt;&lt;/div&gt;
+
+// css
+.message {
+  border: 1px solid #eee;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+// html 
+&lt;div class="message-success"&gt;&lt;/div&gt;
+&lt;div class="message-error"&gt;&lt;/div&gt;
+
+// css
+.message-success, .message-error {
+  border: 1px solid #eee;
+}
+.message-success {
+  color: green;
+}
+.message-error {
+  color: red;
+}
+</code>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
       <h1>SASS</h1>
     </div>
     <div class="bd">
@@ -293,12 +340,35 @@
   </section>
   <section class="slide">
     <div class="hd">
+      <h1>@import</h1>
+    </div>
+    <div class="bd">
+      <h2>sass</h2>
+      <ul>
+        <li>@import 'reset';
+        <li>@import 'reset.scss';
+        <li>@import 'reset', 'media';
+        <li>@import url("http://fonts.googleapis.com/css?family=#{$family}");
+        <li>#box { @import 'css3'; }
+      </ul>
+      <h2>css</h2>
+      <ul>
+        <li>.css
+        <li>http://
+        <li>url(...)
+        <li>@import 'foo' screen;
+      </ul>
+    </div>
+  </section> 
+  <section class="slide">
+    <div class="hd">
       <h1>variables</h1>
     </div>
     <div class="bd">
       <ul>
         <li>$id: _prefix_;
         <li>#{$id}
+        <li>!global
       </ul>
     </div>
   </section>
@@ -331,7 +401,7 @@
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="css block" contenteditable="true">
+<code class="scss block" contenteditable="true">
 // &
 a {
   text-decoration: none;
@@ -358,7 +428,7 @@ a:hover {
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="css block" contenteditable="true">
+<code class="scss block" contenteditable="true">
 $box: _sogou_xx_ext_;
 ##{$box} {
   ul {
@@ -378,7 +448,6 @@ $box: _sogou_xx_ext_;
       <div class="grid">
 <pre class="codebox">
 <code class="css block" contenteditable="true">
-$box: _sogou_xx_ext_;
 #_sogou_xx_ext_  ul {
   overflow: hidden;
 }
@@ -396,7 +465,7 @@ $box: _sogou_xx_ext_;
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="css block" contenteditable="true">
+<code class="scss block" contenteditable="true">
 a {
   color: red;
   .webkit & {
@@ -415,36 +484,41 @@ a { color: red; }
 </pre>
       </div>
     </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>@import</h1>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+#box {
+  background: #faa;
+  @at-root .message {
+    color: #eee;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+#box {
+  background: #faa;
+}
+.message {
+  color: #eee;
+}
+</code>
+</pre>
+      </div>
     </div>
-    <div class="bd">
-      <h2>sass</h2>
-      <ul>
-        <li>@import 'reset';
-        <li>@import 'reset.scss';
-        <li>@import 'reset', 'media';
-        <li>@import url("http://fonts.googleapis.com/css?family=#{$family}");
-        <li>#box { @import 'css3'; }
-      </ul>
-      <h2>css</h2>
-      <ul>
-        <li>.css
-        <li>http://
-        <li>url(...)
-        <li>@import 'foo' screen;
-      </ul>
-    </div>
-  </section>  
+  </section> 
   <section class="slide">
     <div class="hd">
       <h1>@mixin</h1>
     </div>
-    <div class="bd">
+    <div class="box">
+      <div class="grid">
 <pre class="codebox">
-<code class="css block" contenteditable="true">
+<code class="scss block" contenteditable="true">
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
@@ -456,6 +530,49 @@ a { color: red; }
 }
 </code>
 </pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+// css
+
+#box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+}
+</code>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+$color: white;
+@mixin colors($color: blue) {
+  background-color: $color;
+  @content;
+  border-color: $color;
+}
+.colors {
+  @include colors { color: $color; }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+.colors {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+</code>
+</pre>
+      </div>
     </div>
     <a href="https://github.com/airen/Sass_mixins_function">https://github.com/airen/Sass_mixins_function</a>
   </section>
@@ -492,8 +609,11 @@ a { color: red; }
       </div>
     <div class="grid">
 <pre class="codebox">
-<code class="scss block" contenteditable="true">
-.message, .success, .error, .warning {
+<code class="css block" contenteditable="true">
+.message, 
+.success, 
+.error, 
+.warning {
   border: 1px solid #ccc;
   padding: 10px;
   color: #333;
@@ -514,20 +634,298 @@ a { color: red; }
 </pre>
       </div>
     </div>
-  </section>  
+  </section>
+<section class="slide">
+    <div class="hd">
+      <h1>%placeholder</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+%message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend %message;
+  border-color: green;
+}
+
+.error {
+  @extend %message;
+  border-color: red;
+}
+
+.warning {
+  @extend %message;
+  border-color: yellow;
+}
+</code>
+</pre>
+      </div>
+    <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+.success, 
+.error, 
+.warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+
+</code>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Data Types</h1>
+    </div>
+    <div class="bd">
+      <li>numbers( 1.2, 13, 10px )
+      <li>string( 'foo', 'bar', baz )
+      <li>color( blue, #000, rgba(255, 0, 0, 0.5) )
+      <li>booleans( true, false )
+      <li>nulls( null )
+      <li>list (value value2 value3 value3 )
+      <li>map (key: value, key: value )
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Operator</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>+ - * / %
+        <li>== != > >= < <=
+        <li>color operator
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+  p {
+    font: 10px/8px; // no division
+    $width: 1000px;
+    width: $width / 2;
+    width: round(1.5) / 2;
+    height: (500px / 2);
+    margin-left: 5px + 8px / 2px;
+  }
+</code>
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+#box {
+  $color: rgba( 100, 0, 0, 0.5 );
+  color: opacify( $color, 0.3 );
+  background-color: transparentize($color, 0.25);
+}
+/*
+#box {
+  color: rgba(100, 0, 0, 0.8);
+  background-color: rgba(100, 0, 0, 0.25);
+}
+*/
+</code>
+</pre>      
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@if..@else</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+@mixin inline-block( $vertical, $flag ) {
+  display: inline-block;
+  @if ( $vertical ) {
+    vertical-align: $vertical;
+  }
+  @if ( $flag ) {
+    _display: inline;
+  }
+}
+#box {
+  @include inline-block( top, false );
+}
+#message {
+  @include inline-block( middle, true );
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+#box {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#message {
+  display: inline-block;
+  vertical-align: middle;
+  _display: inline;
+}
+</code>
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@for/@while</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>@for $var from {start} to {end}
+        <li>@for $var from {start} through {end}
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@each.. in..{list/map}</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+.puma-icon {
+  background-image: url("/images/puma.png");
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+}
+
+.salamander-icon {
+  background-image: url("/images/salamander.png");
+}
+</code>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+@each $animal, $color, $cursor in (puma, black, default),
+                                  (sea-slug, blue, pointer),
+                                  (egret, white, move) {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+.puma-icon {
+  background-image: url("/images/puma.png");
+  border: 2px solid black;
+  cursor: default;
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+  border: 2px solid blue;
+  cursor: pointer;
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+  border: 2px solid white;
+  cursor: move;
+}
+</code>
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+@each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+  #{$header} {
+    font-size: $size;
+  }
+}
+</code>
+</pre>
+      </div>
+      <div class="grid">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+</code>
+</pre>
+      </div>
+    </div>
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>SASS Features</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>%placeholder
-        <li>Operator(+/-/...)
-        <li>` - #{$var}
-        <li>dateType(list, map...)
-        <li>@at-root/@at-root(with:..)/@at-root(without:..)
-        <li>@if..@else/@for..in/@for .. from ..though../@each/@while
+        <li>Arguments
+        <li>@media
         <li>@function/@return
+        <li>@debug/@warn/@error
       </ul>
     </div>
   </section>
