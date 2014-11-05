@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/* 
+  \#\{\} 运算 - 插值(interpolation).
+  用来计算, 包裹选择器和属性名.
+*/
+
+@mixin firefox-message( $selector ) {  
+  body.firefox #{$selector}:before {
+    content: 'hi, Firefox User!';
+  }
+}
+
+@include firefox-message( '.head' );
+@include firefox-message( '#only-for-firefox' );

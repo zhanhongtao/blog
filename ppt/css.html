@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
   <title>CSS</title>
-  <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/base.css?v=2.1">
   <link rel="stylesheet" href="./css/app.css?v=2.1">
   <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/default.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
   hljs.tabReplace = '  ';
@@ -250,24 +250,32 @@
       <h1>SASS</h1>
     </div>
     <div class="bd">
-      <p>说在开头: CSS 可以解决时, 不必要使用预处理工具. <br />
-当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.
-      <p>SASS 直接处理 CSS 语法.
+      <p>说在开头: <br />
+      CSS 可以解决时, 不必要使用预处理工具. <br />
+      当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.
+      <p><a href="http://sass-lang.com/">SASS</a>: CSS 预处理器, 即在上线部署之前, 把 SASS 文件编译成 .css 文件.
+      <ul>
+        <li>SASS 的 .scss 格式兼容 CSS 语法.
+        <li>chrome 通过 <abbr title=".CSS 文件末尾添加 /*# sourceMappingURL=mixin.css.map */ 即可.">sourceMap</abbr>, 支持调试 sass 文件.
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Install</h1>
+    </div>
+    <div class="bd">
       <ol>
         <li>install:
           <ol>
             <li>install ruby
             <li>gem install sass
           </ol>
-        </li>
         <li>command:
           <ol>
             <li>sass --watch index.scss:output.css
             <li>sass --watch app/sass:public/css
             <li>--style nested/compact/expanded/compress
           </ol>
-        </li>
-      </ol>
     </div>
   </section>
   <section class="slide">
@@ -301,7 +309,7 @@
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="css block" contenteditable="true">
+<code class="scss block" contenteditable="true">
 #box {
   .comment {
     color: #f00;
@@ -429,15 +437,91 @@ a { color: red; }
         <li>@import 'foo' screen;
       </ul>
     </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>@mixin</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="css block" contenteditable="true">
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+#box {
+  @include border-radius(10px);
+}
+</code>
+</pre>
+    </div>
+    <a href="https://github.com/airen/Sass_mixins_function">https://github.com/airen/Sass_mixins_function</a>
   </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@extend</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend .message;
+  border-color: green;
+}
+
+.error {
+  @extend .message;
+  border-color: red;
+}
+
+.warning {
+  @extend .message;
+  border-color: yellow;
+}
+</code>
+</pre>
+      </div>
+    <div class="grid">
+<pre class="codebox">
+<code class="scss block" contenteditable="true">
+.message, .success, .error, .warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+</code>
+</pre>
+      </div>
+    </div>
+  </section>  
   <section class="slide">
     <div class="hd">
       <h1>SASS Features</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>%placeholder/@mixin/@include
-        <li>@extend
+        <li>%placeholder
         <li>Operator(+/-/...)
         <li>` - #{$var}
         <li>dateType(list, map...)

@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+// 自定义 function!
+@function prefix( $string ) {
+  @return '_prefix_' + $string;
+}
+
+#box:after {
+  content: prefix('Hi');
+}
+
+// http://www.sass-lang.com/documentation/Sass/Script/Functions.html
+
+$list: 1px 2px, 3px 4px;
+$list2: ( 1px 2px ) ( 3px 4px );
+
+/*
+  if ( $condition, $if-true, $if-false )
+  unique-id() // 做什么用?????
+
+
+  String Functions
+  unquote( $string )
+  quote( $string )
+  str-length( $string )
+  str-insert( $string, $insert, $index )
+  str-index( $string, $substring )
+  str-slice( $string, $start-at, [$end-at] )
+  to-upper-case( $string )
+  to-lower-case( $string )
+
+
+  list function
+  length( $list )
+  nth( $list, $index )
+  join( $list1, $list2,[ $separator ] )
+  append( $list1, $value, [ $separator ] )
+  zip( $lists )
+  index( $list, $value )
+  list-separator( $list )
+
+
+  Number Functions
+  percentage( $number )
+  round( $number )
+  ceil( $number )
+  floor( $number )
+  abs( $number )
+  min( $number )
+  max( $number )
+  random( [$limit] )
+  
+  
+  Map Functions
+  map-get( $map, $key )
+  map-merge( $map1, $map2 )
+  map-remove( $map, $keys )
+  map-keys( $map )
+  map-values( $map )
+  map-has-key( $map, $key )
+  keywords( $args )
+  
+  selector Functions
+
+*/

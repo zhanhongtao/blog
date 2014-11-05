@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+/* 
+  变量/作用域
+  作用域: 不在全局定义的变量为局部变量
+  和全局同名的变量会把全局变量修改掉.
+*/
+
+$default_link_color: #333;
+$default_hover_color: #999;
+
+#google {
+  a {
+    &, &:visited {
+      color: $default_link_color;
+    }
+    &:hover, &:active, &:focus {
+      color: $default_hover_color;
+    }
+  }
+}
+
+/* 
+  !default - 默认值 - 不清楚为什么使用 !default 定义.
+  !global - 可在 Local 环境下定义全局变量.
+  !optional
+*/
+$default_hover_color: #666 !default;
+
+#box {
+  /* 同样可用在任意位置 */
+  $color: #faa !global;
+}
+

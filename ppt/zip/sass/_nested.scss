@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+/* 嵌套关系 */
+#box {
+  padding: 10px;
+  .hd {
+    display: flex;
+  }
+  h1 {
+    flex: 1;
+  }
+}
+
+
+/* Nested 2 */
+#box {
+  font: {
+    family: 'Microsoft Yahei';
+    size: 12em;
+  }
+}
+

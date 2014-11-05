@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/* 
+  Data Types
+  numbers: 1.2, 10, 10px
+  string: foo, 'foo', "foo"
+  colors: red, #ffa, rgba( 0, 0, 0 )
+  boolean: true, false
+  nulls: null
+  list: Helvetica, Arial, sans-serif
+  map: ( key: value, key2: value2 )
+*/
+
+/* sass 会把空白 ()或null  值直接去掉 */
+$margin: 1px 2px () 3px;
+$margin: 1px 2px null 3px;
+#box {
+  margin: $margin; // 1px 2px 3px;
+}
+
+
+/* 属性/选择器需要使用插值 */
+$map: ( margin: 10px, padding: 10px );
+/* sass 中, map 是有顺序的 */
+#box {
+  @each $property, $value in $map {
+    #{$property}: $value;
+  }
+}
+
+$headers: (
+  h1: 2em,
+  h2: 1.6em,
+  h3: 1.4em
+);
+
+@each $selector, $size in $headers {
+  #{$selector} {
+    font-size: $size;
+  }
+}
+

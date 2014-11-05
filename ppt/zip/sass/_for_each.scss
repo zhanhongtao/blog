@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+/* @for */
+@for $index from 1 through 5{
+  .item-#{$index} {
+    width: 2em * $index;
+  }
+}
+
+@for $index from 1 to 5 {
+  .icon-#{$index} {
+    width: 2em * $index;
+  }
+}
+
+/* @each */
+@each $code in a b c d {
+  .#{$code}-icon {
+    background-image: url(./images/#{$code}.png);
+  }
+}
+
+/* @each - 2 */
+@each $code in a, b, c, d {
+  .#{$code}-icon {
+    background-image: url(./images/#{$code}.png);
+  }
+}
+
+/* @each-map */
+$map: (  h1: 16px,  h2: 14px,  h3: 12px );
+@each $key, $value in $map {
+  #box #{$key} {
+    font-size: $value;
+  }
+}
+
+// 可用来书写 css - background-position.
+
+/* @while */
+$max: 5;
+@while $max > 0 {
+  .icon-while-#{$max} {
+    background-position: 0 10px * $max;
+  }
+  $max: $max - 2;
+}

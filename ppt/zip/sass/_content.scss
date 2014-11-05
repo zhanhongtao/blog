@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+@mixin apply-to-ie6-only {
+  * html {
+    /* 把内容直接 copy 进来 */
+    @content;
+  }
+}
+
+@include apply-to-ie6-only {
+  #logo {
+    background-image: url(/logo.gif);
+  }
+}
+
