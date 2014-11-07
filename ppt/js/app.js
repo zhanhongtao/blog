@@ -19,10 +19,12 @@
   var pages = slides.length;
   var debug = false;
 
-  var page = (function() {
+  var getIndex = function() {
     var hash = location.hash;
-    return ~~(hash.slice(1));
-  })();
+    return ~~(hash.slice(1));    
+  }
+  
+  var page = getIndex();
 
   // 修正 index - rotate!
   function fixedIndex( page, pages, rotate ) {
@@ -221,6 +223,7 @@
   }
   init( false );
   window.addEventListener( 'hashchange', function() {
+    page = getIndex();
     init( true );
   }, false );
   eventemitter.emit( 'ppt-init', page );

@@ -7,7 +7,6 @@
     // 如果已经是 hash 触发的事件,
     // 就不再 pushState.
     if ( message.from === 'hash' ) return;
-
     // 修正 ie 不支持 pushState 问题.
     if ( history.pushState ) {
       var uri = '';
@@ -23,7 +22,11 @@
           return uri;
         });
       }
-      history.pushState( {}, document.title, uri );
+      if ( uri !== location.href ) {
+        setTimeout(function() {
+          history.pushState( {}, document.title, uri );
+        }, 50);        
+      }
     }    
   }
 
