@@ -38,7 +38,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 var getid = (function() {
   var id = 0;
   return function() {
@@ -66,7 +66,7 @@ alert( getid() );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function openDoor() {
   console.log( 'open-status' );
 }
@@ -114,7 +114,7 @@ window.onload = function() {
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function toArray( list ) {
   return Array.prototype.slice.call( list );
 }
@@ -146,7 +146,7 @@ try {
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
@@ -181,7 +181,7 @@ console.log( flatten(array) );
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
@@ -215,7 +215,7 @@ function each( obj, handler ) {
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function mixin( base ) {
   var list = Array.prototype.slice.call( arguments );
   var method = typeof list[list.length - 1] === 'function' ?
@@ -254,7 +254,7 @@ console.log( config, object, options );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function bind( method, context ) {
   return function() {
     return method.apply( context, arguments );
@@ -289,7 +289,7 @@ log();
       </div>
       <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 array.sort();
 alert( array );
@@ -310,7 +310,7 @@ alert( array );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 function shuffle( array ) {
   var i = 0, l = array.length;
@@ -341,7 +341,7 @@ alert( array );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function once( method ) {
   var run = false, ret;
   return function() {
@@ -377,7 +377,7 @@ _alert(1);
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
 function delay(func, wait) {
   return setTimeout(function() {
     func();
@@ -409,7 +409,7 @@ console.log( 'end' );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 // 先处理一次, 然后计时, 给定时间内不处理.
 // 这样会丢失处理函数.
 function throttle(func, wait) {
@@ -468,7 +468,7 @@ while( i++ < 200 ) {
     </div>
   <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 // 给定时间以后才真正执行
 function debounce(func, wait, immediate) {
   var timer, later = function() {
@@ -534,7 +534,7 @@ while ( i++ < 200 ) {
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block">
+<code class="javascript">
 function wrap( self, func ) {
   return function() {
     var _arguments = arguments;
@@ -572,7 +572,7 @@ _alert();
     <div class="bd">
     <p><a href="./demo/queue.html">demo</a>
 <pre class="codebox">
-<code class="javascript block">
+<code class="javascript">
 function queue( list, fn, callback, index, ret ) {
   "use strict";
   index = index || 0;
@@ -617,7 +617,7 @@ queue( [1, 2, 3], function( item, index, array, next ) {
     <div class="bd">
     <p><a href="./demo/sync.html">sync</a>
 <pre class="codebox">
-<code class="javascript block">
+<code class="javascript">
 function sync( list, fn, callback, tag ) {
   var n = list.length;
   var times = 0;

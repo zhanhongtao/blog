@@ -20,25 +20,6 @@
     <h1>JavaScript 基础语法</h1>
     <h2 class="h3">redky@qq.com</h2>
   </section>
-  <section class="slide toggle slide-cover">
-<pre class="codebox" style="min-width: 70%;">
-<code class="javascript block" contenteditable="true">
-  /*
-    打印列表内容                   // 这里是多行注释; 单行注释使用 //
-  */
-  function init( list ) {            // function 是保留字; init 是函数名; list 是参数
-    var i = 0, l = list.length;      // 使用 var 声明两个变量 i 和 l, 它们之间使用逗号分隔.
-                                     // 在声明时, 给 l 变量赋值为 list.length
-    for ( ; i < l; i = i + 1 ) {     // 从 0 到 l, 以步长为 1 访问
-      alert( list[i] );              // 访问第 i 个元素 list[i], 并且把它弹出
-    }
-  }
-  var list = [ 'Google', 'Sogou', 'Baidu' ]; // 定义搜索引擎列表
-  init( list );                              // init 函数调用, 参数为 list
-</code>
-<div class="runcase">Run</div>
-</pre>
-  </section>
   <section class="slide">
     <div class="hd">
       <h1>标识符和保留字</h1>
@@ -51,6 +32,9 @@
         <dt>保留字</dt>
         <dd>保留字不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
       </dl>
+    </div>
+    <div class="bd">
+      <h2>保留字不完全列表</h2>
       <p>
         arguments/eval<br />
         var/function/return/if/else/switch/case/break/continue/while/do/for<br />
@@ -78,14 +62,14 @@
     </div>
     <div class="bd">
       <p>
-      开启严格模式方法:<br /> 在文件/函数最前面, 添加 "use strict"; <br />
-      不支持严格模式的浏览器会自动把字符串 "use strict" 忽略.<br />
+      开启严格模式方法:<br /> 在文件或函数最前面, 添加<code>"use strict";</code>语句 <br />
+      不支持严格模式的浏览器会自动把字符串<code>"use strict";</code>忽略.<br />
       建议在严格模式下进行开发 - 养成良好编码习惯 </p>
   </div>
   <div class="box">
     <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 "use strict";
 var user = {
   id: 806,
@@ -102,7 +86,7 @@ with( user ) {
     </div>
     <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 "use strict";
 // 定义变量时, 没有写 var
 user = {
@@ -130,14 +114,14 @@ user = {
     </div>
     <div class="bd">
       <ul>
-        <li>全局变量 - window.browserVersion = '5.3'; 或全局环境下 var browserVersion = '5.3';
-        <li>局部变量 - function test() { var bar = 'local'; } - JavaScript 的变量范围是按函数划分的
-        <li>[常量] - var BROWSER_VERSION = 5; (说明: JavaScript 没有常量)
+        <li>全局变量<code>window.browserVersion = '5.3';</code> 或全局环境下<code>var browserVersion = '5.3';</code>
+        <li>局部变量<code>function test() { var bar = 'local'; }</code> - JavaScript 的变量范围是按函数划分的
+        <li>[常量]<code>var BROWSER_VERSION = 5;</code> (说明: JavaScript 没有常量)
     </div>
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 'use strict';
 var scope = 'global';
 function check() {
@@ -153,7 +137,7 @@ alert( 'scope: ' + scope );   // 'global'
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 'use strict';
 var scope = 'global';
 function check() {
@@ -169,7 +153,7 @@ alert( 'scope: ' + scope ); // 'local';
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 'use strict';
 var scope = 'global';
 var result = check();
@@ -187,7 +171,7 @@ function check() {
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 'use strict';
 // 变量和函数挂起.
 var a = 'string';
@@ -201,7 +185,7 @@ alert( typeof(a) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true"> 
+<code class="javascript" contenteditable="true"> 
   var code = 0; 
   if ( code ) { 
     function test() {
@@ -215,7 +199,7 @@ alert( typeof(a) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   function test() {
     for ( var i = 0; i < 2; ++i ) {
       console.log( 'dosomething' );
@@ -256,9 +240,9 @@ alert( typeof(a) );
       <ul>
         <li>null 表示不存在;
         <li>undefined 表示存在, 但没有值;
-        <li>null == undefined; // true
+        <li><code>null == undefined; // true</code> 
         <li>没定义, 可直接赋值 - 变量作为全局变量存在
-        <li>没定义, 直接使用时, 只可用在 typeof _var == 'undefined' 中.
+        <li>没定义, 直接使用时, 只可用在<code>typeof _var == 'undefined';</code> 中.
       </ul>
     </div>
   </section>
@@ -268,18 +252,18 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ol>
-        <li>var number = new Number( 10 ); // 构造函数
-        <li>var number = 10; // 直接量
+        <li><code>var number = new Number( 10 ); // 构造函数</code>
+        <li><code>var number = 10; // 直接量</code>
       </ol>
     </div>
     <div class="bd">
       <ul>
-        <li>浮点类型, 但计算不准确 - 0.1 + 0.2 != 0.3; // true
+        <li>浮点类型, 但计算不准确 <code>0.1 + 0.2 != 0.3; // true</code>
         <li>可使用八进制(012)/十六进(0x9)制表示
-        <li>最小值Number.MIN_VALUE和最大值Number.MAX_VALUE;
-        <li>数字范围( -Infinity, Infinity ) - isFinite( number );
-        <li>NaN 特殊数值, 表示 Not a Number; 但是属于 Number 类型. <mark title="参数只指定 NaN 才有意义">isNaN</mark>( NaN ) === true;
-        <li>数值转换 parseInt( _var, base );/parseFloat( _var );/Number( _var ); - <mark>全局函数</mark>
+        <li>最小值<code>Number.MIN_VALUE</code>和最大值<code>Number.MAX_VALUE</code>;
+        <li>数字范围( <code>-Infinity</code>, <code>Infinity</code> ) <code>isFinite( number );</code>
+        <li>NaN 特殊数值, 表示 Not a Number; 但是属于 Number 类型. <code title="参数只指定 NaN 才有意义">isNaN( NaN ) === true;</code>
+        <li>数值转换<code>parseInt( _var, base );</code>/<code>parseFloat( _var );</code>/<code>Number( _var );</code> - <mark>全局函数</mark>
         <li><a href="https://github.com/zhanhongtao/blog/issues/82">有关 0 的运算</a>
       </ul>
     </div>
@@ -316,7 +300,7 @@ alert( typeof(a) );
       <ol>
         <li>空字符串时, 返回 NaN
         <li>第一个字符不是数字或者正负号, 就返回 NaN.
-        <li>第一个字符是数字字符, 就处理第二个, 直到不是数字为止. parseInt( '123a', 10 ); //123
+        <li>第一个字符是数字字符, 就处理第二个, 直到不是数字为止.<code>parseInt( '123a', 10 ); //123</code>
         <li>它不认为小数点是合法字符
       </ol>
     </div>
@@ -327,9 +311,9 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>10.456.toFixed(2); // 10.46; 舍小数位数方法
-        <li>(8).toString(2); // 1000
-        <li>8..toString(2); // 1000
+        <li><code>10.456.toFixed(2);</code>10.46; 舍小数位数方法
+        <li><code>(8).toString(2);</code>1000
+        <li><code>8..toString(2);</code>1000
       </ul>
     </div>
   </section>
@@ -339,19 +323,19 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>var string = new String( 'Huawei' ); // 构造函数
-        <li>var string = '普通字符'; // 直接量
-        <li>var string = "普通字符"
-        <li>var string = '转义\', \\'
-        <li>var string = '非打印字符: \n, \r, \t'
-        <li>var string = '使用十六进制表示, \x + nn: \x41'
-        <li>var string = '使用unicode表示, \u + nnnn: \u0061'
+        <li><code>var string = new String( 'Huawei' ); // 构造函数</code>
+        <li><code>var string = '普通字符'; // 直接量</code>
+        <li><code>var string = "普通字符";</code>
+        <li><code>var string = '转义\', \\';</code>
+        <li><code>var string = '非打印字符: \n, \r, \t';</code>
+        <li><code>var string = '使用十六进制表示, \x + nn: \x41';</code>
+        <li><code>var string = '使用unicode表示, \u + nnnn: \u0061';</code>
       </ul>
     </div>
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   '\u0020'; // 空格 '\u0009'; // tab
   '\u000A'; // 换行符
   '\u000D'; // 回车符
@@ -367,7 +351,7 @@ alert( typeof(a) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   alert( '\x61' ); // 'a'
   // '\u0020' 格式转换
   var code = ' '.charCodeAt( 0 ); // 得到字符编码 32
@@ -388,16 +372,16 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>String( _var )</li>
-        <li>'' + _var</li>
-        <li>_var.toString()</li>
-        <li>(number).toString(base) 转换为 base 进制表示</li>
+        <li><code>String( _var );</code></li>
+        <li><code>'' + _var;</code></li>
+        <li><code>_var.toString();</code></li>
+        <li><code>(number).toString(base)</code> 转换为 base 进制表示</li>
         <li>null/undefined/true/false -> 'null'/'undefined'/'true'/'false'</li>
       </ul>
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 '10'.toString( 2 ); // 1010
 (8).toString(2);    // 1000
 8..toString( 2 );   // 1000
@@ -435,11 +419,11 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>var flag = new Boolean( _value ); // 构造函数
-        <li>var flag = true; // 直接量
-        <li>var flag = false;
-        <li>var flag = Boolean( _value ); // 类型转换
-        <li>var flag = !!_value;
+        <li><code>var flag = new Boolean( _value ); // 构造函数</code>
+        <li><code>var flag = true; // 直接量</code>
+        <li><code>var flag = false;</code>
+        <li><code>var flag = Boolean( _value ); // 类型转换</code>
+        <li><code>var flag = !!_value;</code>
       </ul>
     </div>
   </section>
@@ -449,16 +433,16 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>var array = new Array(2);      // 创建长度为 2 的数组; 小于1/浮点数/NaN 异常
-        <li>var array = new Array( 1, 2 ); // 创建数组, 有两个元素, 分别为 1, 2
-        <li>var array = new Array('a');    // 创建数组, 元素为 'a'
-        <li>var array = [];
-        <li>var array = [ 1, 2, ];
-        <li>var array = 'a b c'.split( ' ' );
+        <li><code>var array = new Array(2);      // 创建长度为 2 的数组; 小于1/浮点数/NaN 异常</code>
+        <li><code>var array = new Array( 1, 2 ); // 创建数组, 有两个元素, 分别为 1, 2</code>
+        <li><code>var array = new Array('a');    // 创建数组, 元素为 'a'</code>
+        <li><code>var array = [];</code>
+        <li><code>var array = [ 1, 2, ];</code>
+        <li><code>var array = 'a b c'.split( ' ' );</code>
       </ul>
     </div>
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var array = [ 1, 2, 3, 4, 5 ];
   // 数组也是对象, 可以存在静态属性和方法
   array.name = 'YourName';
@@ -499,9 +483,9 @@ alert( typeof(a) );
     </div>
     <div class="bd">
       <ul>
-        <li>var object = new Object(); // 构造函数
-        <li>var object = {}; // 直接量
-        <li>var object = Object.create({});
+        <li><code>var object = new Object(); // 构造函数</code>
+        <li><code>var object = {}; // 直接量</code>
+        <li><code>var object = Object.create({});</code>
       </ul>
     </div>
 
@@ -521,7 +505,7 @@ alert( typeof(a) );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 // {} 可以当做 hash 表来使用
 var namesMap = {};
 var keys = [ 'r', 'a', 'c', 3, 9, 'c', 'a', 'b' ];
@@ -587,8 +571,8 @@ alert( result );
     </div>
     <div class="bd">
       <ul>
-        <li>var date = new Date();
-        <li>var date = new Date( '2014/10/24' );
+        <li><code>var date = new Date();</code>
+        <li><code>var date = new Date( '2014/10/24' );</code>
       </ul>
     </div>
     <div class="bd">
@@ -610,7 +594,7 @@ alert( result );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var search = new String( 'Google' );
 alert( typeof search );        // 'object'
 alert( search == 'Google' );  // true;
@@ -621,7 +605,7 @@ alert( search === 'Google' );  // false;
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a = 'a', b = new String('b');
 a.a = 1; b.b = 1;
 alert( a.a );
@@ -634,7 +618,7 @@ alert( b.b );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a = [], b = {};
 alert( 'a === []: ' + (a === []) );
 alert( 'a === a: ' + (a === a) );
@@ -647,7 +631,7 @@ alert( 'b === b: ' + (b === b) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a = [], b = {};
 a.name = 'array';
 b.name = 'object';
@@ -679,7 +663,7 @@ b.getName = function() {
         <li>%
       </ul>
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // + 操作数是字符串和其它时, 做字符串拼接操作
   typeof ( '' + 1 ); // string
   // + 操作数都是数字时, 做数学运算; 
@@ -724,7 +708,7 @@ b.getName = function() {
     <div class="bd">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 1 & 1 === 1;
 1 & 2 === 0;
 1 & 3 === 1;
@@ -822,7 +806,7 @@ b.getName = function() {
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 function User( id ) {
   this.id = id;
 }
@@ -863,7 +847,7 @@ for( var key in user ) {
     <div class="bd">
       <p>实例对象 instanceof 构造函数(否则异常)</p>
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 // 自定义对象
 function Person() {}
 var p = new Person;
@@ -898,7 +882,7 @@ alert( 'Array-Object: ' + (array instanceof Object) );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a = 1;
 var b = 2, c = 3;
 var d, e;
@@ -915,7 +899,7 @@ f();
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var code = 1;
 var result = code ? 'success' : 'fail';
 alert( result );
@@ -934,7 +918,7 @@ alert( 't1: ' + t1 + '; t2: ' + t2 );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a;
 a = (1, 2, 3, 4, 5);
 alert( a === 5 );
@@ -954,7 +938,7 @@ alert( test() );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 function swap( array, i, j ) {
   var tmp;
   if ( i !== j ) {
@@ -987,7 +971,7 @@ alert( array );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var a = 1;
 window.b = 2;
 alert( a );
@@ -1002,7 +986,7 @@ alert( window.b );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 function test( a ) {
 if ( a == void 0 ) {
 alert( 'undefined' );
@@ -1030,7 +1014,7 @@ void alert( Math.pow(2, 10) );
         <li>if..elseif..else..
       </ul>
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var code = 200;
   if ( code >= 200 || code == 304 ) {
     alert( 'success' );
@@ -1055,7 +1039,7 @@ void alert( Math.pow(2, 10) );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var val = 10, array = [ 1, 5, 8, 9, 10, 15, 42 ];
   var isFind = false;
   for ( var i = 0, l = array.length; i < l; ++i ) {
@@ -1071,7 +1055,7 @@ void alert( Math.pow(2, 10) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var obj = {
     id: 806,
     name: 'rd'
@@ -1100,7 +1084,7 @@ void alert( Math.pow(2, 10) );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var val = 10, array = [ 1, 5, 8, 9, 10, 15, 42 ];
   var isFind = false, i = 0, l = array.length;
   while ( i < l ) {
@@ -1117,7 +1101,7 @@ void alert( Math.pow(2, 10) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   do {
     alert( 'once' );
   } while ( 0 )
@@ -1134,7 +1118,7 @@ void alert( Math.pow(2, 10) );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   function handle( command, message ) {
     switch ( command ) {
       case 'notify':
@@ -1165,7 +1149,7 @@ void alert( Math.pow(2, 10) );
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   function handle( command, message ) {
     var _method;
     if ( (_method = _commandMap[ command ]) || typeof _method == 'function' ) {
@@ -1207,7 +1191,7 @@ void alert( Math.pow(2, 10) );
     <div class="box">
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var i = 0; // 声明语句
 // label
 labelName: {
@@ -1224,7 +1208,7 @@ labelName: {
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   function test() {
     try {
       JSON.parse( 'a' );
@@ -1243,7 +1227,7 @@ labelName: {
     <div class="box">
       <div class="grid">
 <pre class="codebox" style="margin-top: 10px">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 function test( num ) {
   if ( typeof num !== 'number' ) {
     throw new Error( '参数必须是 Number 类型' );
@@ -1260,7 +1244,7 @@ test('1');
       </div>
       <div class="grid">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var user = {
     id: 806,
     name: 'rd'
@@ -1288,10 +1272,10 @@ test('1');
         </div>
         <div class="bd">
           <ul>
-            <li>变量声明 (ex: var a = 1, b = 2;)
+            <li>变量声明 (ex: <code>var a = 1, b = 2;</code>)
             <li>逗号表达式
             <li>函数参数列表
-            <li>分隔符 (ex: var array = [ 1, 2 ];)
+            <li>分隔符 (ex: <code>var array = [ 1, 2 ];</code>)
           </ul>
         </div>
       </div>
@@ -1302,7 +1286,7 @@ test('1');
         <div class="bd">
           <ul>
             <li>数组
-            <li>属性访问 (ex: window[ 'eval' ];)
+            <li>属性访问 (ex: <code>window[ 'eval' ];</code>)
           </ul>
         </div>
       </div>
@@ -1383,7 +1367,7 @@ test('1');
     </div>
     <div class="bd">
       <ul>
-        <li>幻灯片播放时, 可轮询播放 - index = (max + index % max) % max;
+        <li>幻灯片播放时, 可轮询播放 - <code>index = (max + index % max) % max;</code>
         <li>实现 Math.pow 函数
         <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
       </ul>

@@ -45,17 +45,17 @@
     <div class="bd">
       <dl>
         <dt>声明式 - 函数会"挂起"</dt>
-        <dd>function getUserName( user ) { return user.name; }</dd>
+        <dd><code>function getUserName( user ) { return user.name; }</code></dd>
         <dt>基于构造函数</dt>
-        <dd>var getUserName = new Function( 'user', 'return user.name;' );</dd>
+        <dd><code>var getUserName = new Function( 'user', 'return user.name;' );</code></dd>
         <dt>函数表达式 - 直接量/对象方法</dt>
-        <dd>var getUserName = function( user ) { return user.name;};</dd>
-        <dd>var obj = { getUserName: function( user ) { return this.name; } };</dd>
+        <dd><code>var getUserName = function( user ) { return user.name;};</code></dd>
+        <dd><code>var obj = { getUserName: function( user ) { return this.name; } };</code></dd>
       </dl>
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   // 函数会挂起到最前面
   assert( '5' === 5, '\'5\' !== 5' );
 
@@ -94,7 +94,7 @@
     <div class="bd">
       <h2>参数</h2>
       <ul>
-        <li>形参[形式参数]定义时, 形式参数可省略; 通过 getUserName.length 取定义时长度
+        <li>形参[形式参数]定义时, 形式参数可省略; 通过 <code>getUserName.length;</code> 取定义时长度
         <li>实参[实际调用时参数]; 实参为任意数据类型(包括函数)
       </ul>
       <h2>返回值</h2>
@@ -131,7 +131,7 @@
         <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>
           <ul>
             <li>实参列表(array), 是伪数组, 即没有 Array.prototype 上的方法.
-            <li>使用 Array.prototype.slice.call( arguments, 0 ) 把 arguments 转换为真正数组.
+            <li>使用 <code>Array.prototype.slice.call( arguments, 0 );</code> 把 arguments 转换为真正数组.
             <li>arguments.callee 指向当前函数名(递归)
           </ul>
       </ul>
@@ -144,7 +144,7 @@
     <div class="bd">
       <ul>
         <li>调用时, 实参以<em>值</em>(原始数据类型)和<em>引用</em>(其它)传递
-        <li>console.trace( Name ); 打印函数调用栈
+        <li><code>console.trace( Name );</code>打印函数调用栈
       </ul>
     </div>
   </section>
@@ -179,7 +179,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   // 变量挂起
   var bar = 'Global';
   fix();
@@ -195,7 +195,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   var user = {
     id: '806',
     name: 'rd'
@@ -217,7 +217,7 @@
     </div>
     <div class="grid">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   // 求数据类型.
   function type( s ) {
     var classtype = Object.prototype.toString.call( s );
@@ -232,7 +232,7 @@
     </div>
     <div class="bd">
 <pre>
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   /**
     指定运行时 this.
     Function.prototype.bind
@@ -249,7 +249,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // codebox 在 eval/new Function 中执行.
   var user = 'rd';
   window.user = 'window_rd';
@@ -267,7 +267,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var system = {
     name: 'sogou',
     runcase: function() {
@@ -285,7 +285,7 @@
     </div>
     <div class="bd">
 <pre id="anonymous-function-1" class="codebox ">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var element = document.getElementById( 'anonymous-function-1' );
   var onClick = function() { alert('onClick'); };
   // 当绑定同一个函数时, 浏览器内部会去重.
@@ -299,7 +299,7 @@
     </div>
     <div class="bd">
 <pre class="codebox" id="anonymous-function-2">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var element = document.getElementById( 'anonymous-function-2' );
   element.addEventListener( 'click', function() {
     alert('click');
@@ -313,7 +313,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   function createCount(){
     var count = 1; // 闭包 - 私有变(只可以在函数 createCount 内部使用)
     return function() {
@@ -329,7 +329,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 设置字体值. 要求: 最大值为 200, 最小值为 100
   var MIN_FONT_SIZE = 100;
   var MAX_FONT_SIZE = 200;
@@ -355,7 +355,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   // 链式调用原理: 函数的返回值, 存在方法可继续被调用
   [1, 2].map(function( item ) {
     return item * 2;
@@ -372,7 +372,7 @@
     </div>
     <div class="bd">
 <pre data-run="1" class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // flatArray 的递归调用
   function flatArray( array ) {
     var i = 0, l = array.length, result = [], current;
@@ -390,7 +390,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 无 new 实例化 - 相对于使用者来讲.
   var _ = function( value ) {
     if ( value instanceof _ ) return value;
@@ -420,7 +420,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript block">
+<code contenteditable="true" class="javascript">
   // Only for test!
   // this 指向.
   // 不是每个人都能搞定的问题.
@@ -440,7 +440,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 每定义一个 function User() {}; 则它存在一个属性 User.prototype, 指定原型对象.
   // 并且此原型对象存在一个属性 constructor 指向 User.
   function User() {}
@@ -517,7 +517,7 @@
     </div>
     <div class="bd">
       <ul>
-        <li>assert( boolean, description );
+        <li><code>assert( boolean, description );</code>
         <li>按键盘 Hello 字符, 出现惊喜
         <li>执行一次的函数 - 可以调用多次, 但只执行一次
         <li>无侵入的统计代码 - 面向切面

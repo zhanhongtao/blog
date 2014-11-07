@@ -35,8 +35,8 @@
     </div>
     <div class="bd">
       <ul>
-        <li>var reg = new RegExp( string, pattern ) // 构造函数
-        <li>var reg = /string/pattern; // 直接量
+        <li><code>var reg = new RegExp( string, pattern );</code>构造函数
+        <li><code>var reg = /string/pattern;</code>直接量
       </ul>
     </div>
     <div class="bd">
@@ -49,7 +49,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var reg = /abc/i; // 匹配 'abc', 'Abc', 'aBc', 'abC', 'ABc', 'AbC', 'aBC', 'ABC'
   var reg = new RegExp( '\\w', 'i' ); // 匹配不区分大小写字母, 数字和下划线
 </code>
@@ -62,9 +62,9 @@
     </div>
     <div class="bd">
       <ul>
-        <li>regexp.test( string ) // 返回 Boolean 值
-        <li>regexp.exec( string ) // 返回数组, 元素为匹配字符和捕获结果(如果存在的话)
-        <li>string.match( regexp )   // 返回数组, 两种情况:
+        <li><code>regexp.test( string );</code>返回 Boolean 值
+        <li><code>regexp.exec( string );</code>返回数组, 元素为匹配字符和捕获结果(如果存在的话)
+        <li><code>string.match( regexp );</code>返回数组, 两种情况:
           <ul>
             <li>regexp 为 global 模式, 元素为所有匹配到的字符串
             <li>其他, 元素为匹配到的字符串和捕获结果(如果存在的话)
@@ -73,7 +73,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var reg = /abc/i;
 var string = 'abcdefabc';
 console.log( 'reg.test: ', reg.test(string) );
@@ -126,7 +126,7 @@ console.log( 'string.match: ', string.match(reg) );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var reg = /qq|baidu/;
 console.log( 'qq', reg.exec('qq') );
 console.log( 'baidu', reg.exec('baidu') );
@@ -161,7 +161,7 @@ console.log( 'baidu>qq?', reg.exec('baidu>qq?') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
 var reg = /[0-9a-zA-Z_]/;
 console.log( reg );
 console.log( 'google', reg.exec('google') );
@@ -195,7 +195,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var reg = /./;
   console.log( reg );
   console.log( 'Google', reg.exec('Google') );
@@ -224,7 +224,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 取代码块中的字符串.
   var string = "var string ='I love Google! I\\'m too.';";
   var regexp = /(['"])(?:\\.|[^\\\n])*?\1/g;
@@ -240,7 +240,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var string = 'http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=redky&rsv_enter=1&rsv_sug3=5&rsv_sug4=128&rsv_sug1=4&rsv_sug2=0&inputT=1541';
   var regexp = /(?:[?&#])(.+?)=([^&#]*)/g;
   // console.log( string.match(regexp) );
@@ -364,7 +364,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 千分位格式化数字
   function format( number ) {
     var str = '' + number;
@@ -382,7 +382,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // 在数字和字符之间添加空格
   function insertSpace( string ) {
     string = '' + string;
@@ -415,13 +415,13 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     <div class="bd">
       <h2>method</h2>
       <ul>
-        <li>regexp.exec( string ) // return Array
-        <li>regexp.test( string ) // return Boolean
+        <li><code>regexp.exec( string );</code> // return Array
+        <li><code>regexp.test( string );</code> // return Boolean
       </ul>
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   // regexp.exec
   var string = 'abc', 
       reg = /a/g;
@@ -464,7 +464,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var string = 'ab';
   console.log( '匹配首字符: ', string.split('a') );   // [ '', 'b' ]
   console.log( '匹配尾字符: ', string.split('b') );   // [ 'a', '' ]
@@ -488,7 +488,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   console.log('ababcade'.search(/a(?=d)/) );  // 5
   console.log('abcabcadef'.search(/z/) );     // -1
 </code>
@@ -512,7 +512,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   console.log( '/abc/', 'abcabd'.match(/abc/) );   //[ 'abc' ]
   console.log( '/(abc)/', 'abcabd'.match(/(abc)/) ); //[ 'abc', 'abc' ]
   console.log( '/(ab)/g', 'abcabdab'.match(/(ab)/g) );//['ab','ab', 'ab']
@@ -548,7 +548,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript block" contenteditable="true">
+<code class="javascript" contenteditable="true">
   var string = 'I love Google!';
   alert( string.replace('Google', 'Sogou') );
   alert( string.replace(/google/i, '$& & Sogou') );

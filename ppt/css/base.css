@@ -59,14 +59,20 @@ code, pre {
 
 code {
   display: inline-block;
-  vertical-align: middle;
-  padding: 0 6px;
+  vertical-align: 3px;
+  padding: 0 8px;
+  margin: 0 5px;
   border-radius: 2px;
   outline: none;
+  background-color: #DB2B79;
+  color: #EEE;
+  font-weight: 700;
+  text-indent: 0;
 }
 
 pre code {
   padding: 0 6px;
+  font-weight: 400;
 }
 
 mark, .mark {
