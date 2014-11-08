@@ -54,8 +54,6 @@ alert( getid() );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code contenteditable class="javascript">
 var jsonp = (function() {
@@ -91,8 +89,6 @@ setTimeout(function() {
         <li>然后, 把大象放进去
         <li>最后, 关闭冰箱门
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code contenteditable class="javascript">
 function openDoor() {
@@ -129,6 +125,7 @@ window.onload = function() {
         <li>jQuery.toArray
         <li>jQuery.extend
         <li>...
+      </ul>
     </div>
   </section>  
   <section class="slide">
@@ -139,8 +136,7 @@ window.onload = function() {
       <ul>
         <li>jQuery.toArray
         <li>_.toArray
-    </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function toArray( list ) {
@@ -171,8 +167,7 @@ try {
     <div class="bd">
       <ul>
         <li>_.flatten
-    </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function type(s) {
@@ -206,8 +201,7 @@ console.log( flatten(array) );
         <li>Array.prototype.forEach
         <li>jQuery.each
         <li>_.each
-    </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function type(s) {
@@ -240,8 +234,7 @@ function each( obj, handler ) {
       <ul>
         <li>jQuery.extend
         <li>_.mixin
-    </div>
-    <div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function mixin( base ) {
@@ -279,8 +272,7 @@ console.log( config, object, options );
       <ul>
         <li>Function.prototype.bind
         <li>_.bind
-      </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function bind( method, context ) {
@@ -314,8 +306,7 @@ log();
         <li>Array.prototype.sort
         <li>_.sort..
         <li>_.shuffle
-      </div>
-      <div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
@@ -335,8 +326,6 @@ alert( array );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code contenteditable class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
@@ -366,8 +355,7 @@ alert( array );
     <div class="bd">
       <ul>
         <li>_.once
-      </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function once( method ) {
@@ -402,8 +390,7 @@ _alert(1);
       <ul>
         <li>_.delay
         <li>_.defer
-      </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code contenteditable class="javascript">
 function delay(func, wait) {
@@ -434,8 +421,7 @@ console.log( 'end' );
       <ul>
         <li>_.throttle 节流, 频率控制器
         <li>_.debounce 调用后, 在给定的时间后, 才真正执行
-      </div>
-<div class="bd">
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable>
 // 先处理一次, 然后计时, 给定时间内不处理.
@@ -493,8 +479,6 @@ while( i++ < 200 ) {
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-  <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable>
 // 给定时间以后才真正执行
@@ -759,8 +743,6 @@ alert( ret );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
       <h2>Namespace</h2>
 <pre class="codebox">
 <code class="javascript" contenteditable>
@@ -779,8 +761,7 @@ alert( is.isArray([]) );
 </code>
 <div class="runcase">Run</div>
 </pre>
-
-<pre class="codebox" style="margin-top: 20px;">
+<pre class="codebox">
 <code class="javascript" contenteditable>
 var is = (function() {
   function type(s) {
@@ -795,8 +776,6 @@ alert( is.isArray([]) );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
       <h2>data structure</h2>
 <pre class="codebox">
 <code class="javascript" contenteditable>
