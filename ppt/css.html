@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
   <title>CSS</title>
-  <link rel="stylesheet" href="./css/base.css?v=2.1">
-  <link rel="stylesheet" href="./css/app.css?v=2.1">
-  <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/base.css?v=3" media="screen and (min-width: 600px)">
+  <link rel="stylesheet" href="./css/app.css?v=3" media="screen and (min-width: 600px)">
+  <link rel="stylesheet" href="./css/scrollbar.css" media="screen and (min-width: 600px)">
   <link rel="stylesheet" href="./css/default.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
@@ -22,56 +22,40 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>CSS Box Model</h1>
+      <h1>import css</h1>
     </div>
     <div class="bd">
-      <li>margin
-      <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
-      <li>padding
-      <li>content(width/height)
-      <li>box-sizing(border-box/content-box) - width/height
-      <li>outline(?)
+      <li>&lt;{element} style="{css-code}">
+      <li>&lt;style&gt;/* code */&lt;/style&gt;
+      <li>&lt;link rel="stylesheet" href="_file_name.css"&gt;
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Document Flow</h1>
+      <h1>Meida Type/Media Query</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>static
-        <li>fixed(body)
-        <li>relative(self)
-        <li>absolute(closest-parent-relative-element/body)
-        <li>float
-        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+        <li>all/screen/print
+        <li>and/not/only
+        <li>condition:
+          <ul>
+            <li>max/min-width
+            <li>max-device-width
+            <li>min-device-pixel-ratio: 2
+            <li>orientation:portrait/orientation:landscape
+          </ul>
       </ul>
-      <h2>About</h2>
-      <ul>
-        <li>top/right/bottom/left(0, 1, 2, 3, 4)
-        <li>z-index(require: relative/absolute)
-        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left)
-        <li>clear(left/right/both)
-        <li>overflow(hidden/auto/visible/scroll)        
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Display</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>initial
-        <li>none
-        <li>inline
-        <li>inline-block
-        <li>block
-        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
-        <li>inline-flex
-        <li>table/table-cell
-        <li>...
-      </ul>
+      <p><a href="http://www.w3.org/TR/css3-mediaqueries/">http://www.w3.org/TR/css3-mediaqueries/</a>
+<pre class="codebox">
+<code class="css" contenteditable="true">
+@media screen {
+  selector {
+    property: value;
+  }
+}
+</code>
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -165,17 +149,71 @@
       <a href="http://www.w3.org/TR/CSS2/cascade.html#cascade">http://www.w3.org/TR/CSS2/cascade.html#cascade</a>
     </div>
   </section>
-  <section class="slide toggle">
+  <section class="slide">
     <div class="hd">
-      <h1>Link</h1>
+      <h1>CSS Box Model</h1>
+    </div>
+    <div class="bd">
+      <li>margin - 非置换元素没有垂直方向外边距
+      <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
+      <li>padding
+      <li>content(width/height)
+      <li>box-sizing(border-box/content-box) - width/height
+      <li>[outline/box-shadow]
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Document Flow</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>static
+        <li>fixed(body)
+        <li>relative(self)
+        <li>absolute(closest-parent-relative-element/body)
+        <li>float
+        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+      </ul>
+      <h2>About</h2>
+      <ul>
+        <li>top/right/bottom/left(0, 1, 2, 3, 4)
+        <li>z-index(require: relative/absolute)
+        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left)
+        <li>clear(left/right/both)
+        <li>overflow(hidden/auto/visible/scroll)        
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Display</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>initial
+        <li>none
+        <li>inline
+        <li>inline-block
+        <li>block
+        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
+        <li>inline-flex
+        <li>table/table-cell
+        <li>...
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Link & Button</h1>
     </div>
     <div class="bd">
       <li>Normal
       <li>Hover
       <li>Focus
       <li>Active
-      <li>Visited
-      <li>Disabled(?)
+      <li>Visited(link)
+      <li>Disabled
     </div>
   </section>
   <section class="slide">
@@ -191,6 +229,34 @@
         <li>display: table-cell(table), table-caption, inline-block - 非块级盒子的块级容器
         <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
       </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>margin collapse</h1>
+    </div>
+    <div class="bd">
+      <p>相邻的两个box(兄弟关系或祖先关系)的外边距<em>可能</em>合并为一个外边距.
+      <h2>合并的计算规则</h2>
+      <ul>
+        <li>两外边距都是正数时, 合并结果是其中较大的值
+        <li>两外边距都是负数时, 合并结果是两者绝对值较大的那个
+        <li>两外边距一正一负时, 合并结果是两者的相加的结果
+      </ul>
+      <h2>合并条件</h2>
+      <ul>
+        <li>在同一个 Block Formatting Context 中, 处于静态文档流中的块级(block/table/list-item)元素.
+        <li>盒子没有 padding 和 border.
+        <li>渲染相邻的两个元素在垂直方向上.
+        <li>设置 clear 属性的元素不和任何元素发生margin合并
+        </ul>
+      </ul>
+      <h2>现象</h2>
+      <ul>
+        <li>BFC 内部的元素和外部元素不会发生 margin 合并.
+        <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
+        <li>非 block 元素不会发生 margin 合并.
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -236,18 +302,17 @@
         <li>组合大于继承
         <li>自适应 - 可任意移植到其他模块(位置)
       </ol>
-    </div>
-    <div class="bd">
+      <h2>相关链接</h2>
       <ul>
-        <li>http://www.slideshare.net/stubbornella/presentations
-        <li>https://github.com/stubbornella/oocss-code-standards
-        <li>https://github.com/stubbornella/oocss-accessibility-guidelines
+        <li><a href="http://www.slideshare.net/stubbornella/presentations">http://www.slideshare.net/stubbornella/presentations</a>
+        <li><a href="https://github.com/stubbornella/oocss-code-standards">https://github.com/stubbornella/oocss-code-standards</a>
+        <li><a href="https://github.com/stubbornella/oocss-accessibility-guidelines">https://github.com/stubbornella/oocss-accessibility-guidelines</a>
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>组合大于继承</h1>
+      <h1>组合 & 继承</h1>
     </div>
     <div class="box">
       <div class="grid">
@@ -297,13 +362,17 @@
       <h1>SASS</h1>
     </div>
     <div class="bd">
-      <p>说在开头: <br />
-      CSS 可以解决时, 不必要使用预处理工具. <br />
-      当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.
+      <h2>说在开头</h2>
+      <ul>
+        <li>CSS 可以解决问题时, 不必要使用预处理工具.
+        <li>当在使用 CSS 的很复杂, 不再容易开发或维护时, 可使用工具来辅助完成.
+        <li>如何把预处理工具整合到项目工程中, 就是另外的问题.
+      </ul>
       <p><a href="http://sass-lang.com/">SASS</a>: CSS 预处理器, 即在上线部署之前, 把 SASS 文件编译成 .css 文件.
       <ul>
         <li>SASS 的 .scss 格式兼容 CSS 语法.
         <li>chrome 通过 <abbr title=".CSS 文件末尾添加 /*# sourceMappingURL=mixin.css.map */ 即可.">sourceMap</abbr>, 支持调试 sass 文件.
+      </ul>
     </div>
   </section>  
   <section class="slide">
@@ -939,7 +1008,7 @@ h3 {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1><a href="http://zhanhongtao.github.io/blog/ppt/sass/">Layout</a></h1>
+      <h1>Layout</h1>
     </div>
     <div class="bd">
       <ul>
@@ -947,6 +1016,7 @@ h3 {
         <li>Side + Main + Extra
         <li>Main + Side
       </ul>
+      <a href="http://zhanhongtao.github.io/blog/ppt/demo/sass/">demo(sass)</a>
     </div>
   </section>
   <section class="slide">
@@ -971,10 +1041,9 @@ h3 {
     </div>
     <div class="bd">
       <ul>
-        <li>http://oocss.org/
-        <li>http://www.w3.org/TR/css3-selectors/
-        <li>https://www.chromestatus.com/features
-        <li>http://www.zhihu.com/question/20086234
+        <li><a href="http://oocss.org/">ooscss</a>
+        <li><a href="http://www.w3.org/TR/css3-selectors/">css3 selector</a>
+        <li><a href="http://www.zhihu.com/question/20086234">inline/block/inline-block</a>
       </ul>
     </div>
   </section>
@@ -988,7 +1057,6 @@ h3 {
   <script src="./js/runcase.js?v=1"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/app.js"></script>
-  <script src="./js/touch.js"></script>
   <script src="./js/auto.slide.js"></script>
 </body>
 </html>

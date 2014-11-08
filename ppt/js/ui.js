@@ -1,13 +1,12 @@
 ;(function() {
-  
-  var slides = document.querySelectorAll( '.slide:not(.toggle)' );
+  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
+  var slides = document.querySelectorAll( selector );
   var TARGET_CLASS = 'target';
   var TARGET_FROM_DIRECTION_PREV_CLASS = 'prev';
   var TARGET_FROM_DIRECTION_NEXT_CLASS = 'next';
   var nav = document.querySelector( '#navigator' );
 
   var updateui = function( message ) {
-
     var page = message.page;
     var pages = message.pages;
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
-  <title>函数应用扩展</title>
+  <title>应用扩展</title>
   <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=2.1">
-  <link rel="stylesheet" href="./css/app.css?v=2.1">
+  <link rel="stylesheet" href="./css/base.css?v=3">
+  <link rel="stylesheet" href="./css/app.css?v=3">
   <link rel="stylesheet" href="./css/scrollbar.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
@@ -17,8 +17,11 @@
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
-    <h1>函数应用扩展</h1>
+    <h1>应用扩展</h1>
     <h2 class="h3">redky@qq.com</h2>
+  </section>
+  <section class="slide slide-cover">
+    <h1>函数</h1>
   </section>
   <section class="slide">
     <div class="hd">
@@ -38,7 +41,7 @@
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 var getid = (function() {
   var id = 0;
   return function() {
@@ -48,6 +51,31 @@ var getid = (function() {
 
 alert( getid() );
 alert( getid() );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code contenteditable class="javascript">
+var jsonp = (function() {
+  var prefix = '_callback_prefix_';
+  var id = 0;
+  return function( listener ) {
+    var ret = prefix + (++id);
+    window[ret] = listener;
+    return ret;
+  };
+})();
+
+var callbackid = jsonp(function( message ) {
+  alert( message );
+});
+
+setTimeout(function() {
+  window[callbackid]( 'callback' );
+}, 100);
+
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -66,7 +94,7 @@ alert( getid() );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function openDoor() {
   console.log( 'open-status' );
 }
@@ -114,7 +142,7 @@ window.onload = function() {
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function toArray( list ) {
   return Array.prototype.slice.call( list );
 }
@@ -146,7 +174,7 @@ try {
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
@@ -181,7 +209,7 @@ console.log( flatten(array) );
     </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
@@ -215,7 +243,7 @@ function each( obj, handler ) {
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function mixin( base ) {
   var list = Array.prototype.slice.call( arguments );
   var method = typeof list[list.length - 1] === 'function' ?
@@ -254,7 +282,7 @@ console.log( config, object, options );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function bind( method, context ) {
   return function() {
     return method.apply( context, arguments );
@@ -289,7 +317,7 @@ log();
       </div>
       <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 array.sort();
 alert( array );
@@ -310,7 +338,7 @@ alert( array );
     </div>
     <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 function shuffle( array ) {
   var i = 0, l = array.length;
@@ -341,7 +369,7 @@ alert( array );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function once( method ) {
   var run = false, ret;
   return function() {
@@ -377,7 +405,7 @@ _alert(1);
       </div>
 <div class="bd">
 <pre class="codebox">
-<code contenteditable="true" class="javascript">
+<code contenteditable class="javascript">
 function delay(func, wait) {
   return setTimeout(function() {
     func();
@@ -409,7 +437,7 @@ console.log( 'end' );
       </div>
 <div class="bd">
 <pre class="codebox">
-<code class="javascript" contenteditable="true">
+<code class="javascript" contenteditable>
 // 先处理一次, 然后计时, 给定时间内不处理.
 // 这样会丢失处理函数.
 function throttle(func, wait) {
@@ -468,7 +496,7 @@ while( i++ < 200 ) {
     </div>
   <div class="bd">
 <pre class="codebox">
-<code class="javascript" contenteditable="true">
+<code class="javascript" contenteditable>
 // 给定时间以后才真正执行
 function debounce(func, wait, immediate) {
   var timer, later = function() {
@@ -534,7 +562,7 @@ while ( i++ < 200 ) {
     </div>
     <div class="bd">
 <pre class="codebox">
-<code class="javascript">
+<code class="javascript" contenteditable>
 function wrap( self, func ) {
   return function() {
     var _arguments = arguments;
@@ -572,7 +600,7 @@ _alert();
     <div class="bd">
     <p><a href="./demo/queue.html">demo</a>
 <pre class="codebox">
-<code class="javascript">
+<code contenteditable class="javascript">
 function queue( list, fn, callback, index, ret ) {
   "use strict";
   index = index || 0;
@@ -616,7 +644,7 @@ queue( [1, 2, 3], function( item, index, array, next ) {
     </div>
     <div class="bd">
     <p><a href="./demo/sync.html">sync</a>
-<pre class="codebox">
+<pre class="codebox" contenteditable>
 <code class="javascript">
 function sync( list, fn, callback, tag ) {
   var n = list.length;
@@ -705,7 +733,96 @@ sync( [1, 2, 3], function( item, index, array, next ) {
 <div class="runcase">Run</div>
 </pre>
     </div>
-  </section> 
+  </section>
+  <section class="slide slide-cover">
+    <h1>Object</h1>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Object</h1>
+    </div>
+    <div class="bd">
+      <h2>Hash</h2>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var cache = {};
+var list = [ 1, 2, 3, 4, 1, 2, 3, 4, 5 ];
+var ret = [];
+for ( var i = 0, l = list.length; i < l; ++i ) {
+  var item = list[i];
+  if ( !cache[item] ) {
+    cache[item] = 1;
+    ret.push( item );
+  }
+}
+alert( ret );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+    <div class="bd">
+      <h2>Namespace</h2>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+;(function( root ) {
+  var is = root.is = {};
+  function type(s) {
+    return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
+  }
+  is.isArray = function( array ) {
+    return type(array) === 'array';
+  };
+  // is....
+})(this);
+
+alert( is.isArray([]) );
+</code>
+<div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox" style="margin-top: 20px;">
+<code class="javascript" contenteditable>
+var is = (function() {
+  function type(s) {
+    return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
+  }
+  return {
+    isArray: function(s) { return type(s) === 'array' }
+  };
+})();
+
+alert( is.isArray([]) );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+    <div class="bd">
+      <h2>data structure</h2>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var searchMap = {
+  'baidu': {
+    id: '_baidu',
+    text: '百度',
+    url: 'http://www.baidu.com/'
+  },
+  'sogou': {
+    id: '_sogou',
+    text: '搜狗',
+    url: 'http://www.sogou.com/'
+  },
+  '360': {
+    id: '_so',
+    text: '360搜索',
+    url: 'http://www.so.com'
+  }
+};
+alert( searchMap.baidu.id );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
   <section class="slide slide-cover">
     <h1>?</h1>
   </section>
@@ -716,7 +833,6 @@ sync( [1, 2, 3], function( item, index, array, next ) {
   <script src="./js/runcase.js?v=1"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/app.js"></script>
-  <script src="./js/touch.js"></script>
   <script src="./js/auto.slide.js"></script>
 </body>
 </html>

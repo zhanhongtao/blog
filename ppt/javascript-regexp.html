@@ -6,8 +6,8 @@
   <base target="_blank" />
   <title>RegExp</title>
   <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=2.1">
-  <link rel="stylesheet" href="./css/app.css?v=2.1">
+  <link rel="stylesheet" href="./css/base.css?v=3">
+  <link rel="stylesheet" href="./css/app.css?v=3">
   <link rel="stylesheet" href="./css/scrollbar.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
@@ -34,24 +34,21 @@
       <h1>声明正则表达式</h1>
     </div>
     <div class="bd">
+      <h2>初始化</h2>
       <ul>
         <li><code>var reg = new RegExp( string, pattern );</code>构造函数
         <li><code>var reg = /string/pattern;</code>直接量
       </ul>
-    </div>
-    <div class="bd">
       <h2>pattern</h2>
       <ul>
         <li>i: ignorecase 不区分大小写
         <li>g: global 匹配到字符串结束
         <li>m: multiline 多行
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
-  var reg = /abc/i; // 匹配 'abc', 'Abc', 'aBc', 'abC', 'ABc', 'AbC', 'aBC', 'ABC'
-  var reg = new RegExp( '\\w', 'i' ); // 匹配不区分大小写字母, 数字和下划线
+var reg = /abc/i; // 匹配 'abc', 'Abc', 'aBc', 'abC', 'ABc', 'AbC', 'aBC', 'ABC'
+var reg = new RegExp( '\\w', 'i' ); // 匹配不区分大小写字母, 数字和下划线
 </code>
 </pre>
     </div>
@@ -70,8 +67,6 @@
             <li>其他, 元素为匹配到的字符串和捕获结果(如果存在的话)
           </ul>
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var reg = /abc/i;
@@ -90,18 +85,15 @@ console.log( 'string.match: ', string.match(reg) );
     </div>
     <div class="bd">
       <ul>
-        <li>/a/  匹配单个字符 'a'
-        <li>/ab/ 匹配两个字符 'ab'
-      <ul>
-    </div>
-    <div class="bd">
+        <li><code>/a/</code>匹配单个字符 'a'
+        <li><code>/ab/</code>匹配两个字符 'ab'
+      </ul>
       <h2>保留字符</h2>
       <ul>
         <li>/ 字符表示正则表达式的开始和结束. 如果需求本身是匹配 / 字符, 就需要对 / 字符进行转义, 即: <code>/\//</code>
         <li>\ 字符既然表示转义跟在它后面的字符, 那需求本身是匹配 \ 字符时, 就需要再对 \ 字符转义, 即: <code>/\\/</code>
       </ul>
-    </div>
-   
+    </div>   
   </section>
   <section class="slide">
     <div class="hd">
@@ -109,12 +101,10 @@ console.log( 'string.match: ', string.match(reg) );
     </div>
     <div class="bd">
       <ul>
-        <li>/a|b/  匹配单个字符 'a' 或 'b'.
-        <li>/ab|bc/ 匹配两个字符 'ab' 或 'bc'
-        <li>/z(ab|bc)/ 匹配三个字符 'zab' 或 'zbc'
-      <ul>
-    </div>
-    <div class="bd">
+        <li><code>/a|b/</code>匹配单个字符 'a' 或 'b'.
+        <li><code>/ab|bc/</code>匹配两个字符 'ab' 或 'bc'
+        <li><code>/z(ab|bc)/</code>匹配三个字符 'zab' 或 'zbc'
+      </ul>
       <h2>保留字符</h2>
       <ul>
           <li>| - 关系或
@@ -123,8 +113,6 @@ console.log( 'string.match: ', string.match(reg) );
             </ul>
           <li>() - 范围和分组
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var reg = /qq|baidu/;
@@ -134,7 +122,7 @@ console.log( 'baidu>qq?', reg.exec('baidu>qq?') );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div> 
+    </div>
   </section>
   <section class="slide">
     <div class="hd">
@@ -142,11 +130,9 @@ console.log( 'baidu>qq?', reg.exec('baidu>qq?') );
     </div>
     <div class="bd">
       <ul>
-        <li>/[ab]/ 匹配单个字符 'a' 或 'b';
-        <li>/[^ab]/ 匹配除了 'a' 和 'b' 外的单个字符.
-      <ul>
-    </div>
-    <div class="bd">
+        <li><code>/[ab]/</code>匹配单个字符 'a' 或 'b';
+        <li><code>/[^ab]/</code>匹配除了 'a' 和 'b' 外的单个字符.
+      </ul>
       <h2>保留字符</h2>
       <ul>
           <li>[] 匹配[]字符对里面的<mark>单个</mark>字符
@@ -158,8 +144,6 @@ console.log( 'baidu>qq?', reg.exec('baidu>qq?') );
             </ul>
           <li>^ <mark>[] 字符对里面的 ^ 字符</mark>表示排除关系
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var reg = /[0-9a-zA-Z_]/;
@@ -175,7 +159,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>   
+    </div>  
   </section>
   <section class="slide">
     <div class="hd">
@@ -184,16 +168,12 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     <div class="bd">
       <ul>
         <li>. 匹配除换行符外的任意一个字符
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
       <h2>保留字符</h2>
       <ul>
           <li>.
       </ul>
       <mark>在不确定字符是否为特殊字符时, 可以在它前面添加转义字符 \.</mark>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   var reg = /./;
@@ -209,7 +189,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>      
+    </div>     
   </section>
   <section class="slide">
     <div class="hd">
@@ -220,9 +200,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>() 分组
         <li>(a)\1 引用
         <li>(?:) 不捕获
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   // 取代码块中的字符串.
@@ -237,8 +215,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   var string = 'http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=redky&rsv_enter=1&rsv_sug3=5&rsv_sug4=128&rsv_sug1=4&rsv_sug2=0&inputT=1541';
@@ -271,7 +247,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>\s 空白字符
         <li>\S 非空白字符
         <li>\s\S 全部字符
-      <ul>
+      </ul>
     </div>
   </section>  
   <section class="slide">
@@ -284,9 +260,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>+ 至少一个
         <li>* 任意个
         <li>?? +? *? 尽可能少的匹配
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
       <h2>保留字符</h2>
       <ul>
           <li>?
@@ -304,9 +278,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>{3} 3个
         <li>{3, 10} 3到10个
         <li>{3,} 至少3个
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
       <h2>保留字符</h2>
       <ul>
           <li>{
@@ -320,12 +292,10 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
       <ul>
-        <li>/^a/  匹配以 a 开头的字符串
-        <li>/b$/ 匹配以 b 结束的字符串
-        <li>/^ab$/ 匹配 ab 字符串
-      <ul>
-    </div>
-    <div class="bd">
+        <li><code>/^a/</code>匹配以 a 开头的字符串
+        <li><code>/b$/</code>匹配以 b 结束的字符串
+        <li><code>/^ab$/</code>匹配 ab 字符串
+      </ul>
       <h2>保留字符</h2>
       <ul>
         <li>^ 表示开头
@@ -341,9 +311,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
       <ul>
         <li>\b 单词边界
         <li>\B 非单词边界
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
       <h2>边界</h2>
       <ul>
         <li>开始或结束
@@ -360,9 +328,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
       <ul>
         <li>(?= ) 后面满足
         <li>(?!= ) 后面不满足
-      <ul>
-    </div>
-    <div class="bd">
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   // 千分位格式化数字
@@ -379,8 +345,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
 </code>
 <div class="runcase">Run</div>
 </pre>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   // 在数字和字符之间添加空格
@@ -396,7 +360,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>    
   </section>
   <section class="slide slide-cover">
-    <h1>JavaScript - RegExp</h1>
+    <h1>RegExp In JavaScript</h1>
   </section>
   <section class="slide">
     <div class="hd">
@@ -411,29 +375,25 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>regexp.lastIndex
         <li>regexp.source
       </ul>
-    </div>
-    <div class="bd">
       <h2>method</h2>
       <ul>
-        <li><code>regexp.exec( string );</code> // return Array
-        <li><code>regexp.test( string );</code> // return Boolean
+        <li><code>regexp.exec( string );</code>return Array
+        <li><code>regexp.test( string );</code>return Boolean
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
-  // regexp.exec
-  var string = 'abc', 
-      reg = /a/g;
-  console.log( reg.exec(string), reg.lastIndex ); // ["a"]
-  console.log( reg.exec(string) ); // null
-  
-  // g 模式下会更新 reg.lastIndex 属性.
-  var string = 'abc', 
-      reg = /a/g;
-  console.log( 'g:', reg.exec(string) ); // ["a"]
-  reg.lastIndex = 0;
-  console.log( 'g:', reg.exec(string) ); // ["a"]
+// regexp.exec
+var string = 'abc', 
+    reg = /a/g;
+console.log( reg.exec(string), reg.lastIndex ); // ["a"]
+console.log( reg.exec(string) ); // null
+
+// g 模式下会更新 reg.lastIndex 属性.
+var string = 'abc', 
+    reg = /a/g;
+console.log( 'g:', reg.exec(string) ); // ["a"]
+reg.lastIndex = 0;
+console.log( 'g:', reg.exec(string) ); // ["a"]
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -461,8 +421,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>delimiter - 匹配首/尾字符时, 在最前/最后添加空白字符.
         <li>正则包括捕获时, 把捕获的值做为元素放到结果数组中.
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   var string = 'ab';
@@ -485,8 +443,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
         <li>'string'.search( regexp ); // 参数不是 Regexp 时, 进行转换
         <li>return {Number}
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   console.log('ababcade'.search(/a(?=d)/) );  // 5
@@ -509,8 +465,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
             <li>其它, 返回首个匹配的值和捕获的结果(如果存在的话)
           </ul>
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   console.log( '/abc/', 'abcabd'.match(/abc/) );   //[ 'abc' ]
@@ -545,8 +499,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
             <li>string 字符串本身
           </ul>
       </ul>
-    </div>
-    <div class="bd">
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
   var string = 'I love Google!';
@@ -581,9 +533,9 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
       <ul>
-        <li>http://regex101.com/
-        <li>https://github.com/zhanhongtao/blog/issues/126
-        <li>https://github.com/zhanhongtao/blog/issues/123
+        <li><a href="http://regex101.com/">http://regex101.com/</a>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/126">https://github.com/zhanhongtao/blog/issues/126</a>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/123">https://github.com/zhanhongtao/blog/issues/123</a>
       </ul>
     </div>
   </section>
@@ -600,7 +552,6 @@ console.log( '_clearfix', reg.exec('_clearfix') );
   <script src="./js/runcase.js?v=1"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/app.js"></script>
-  <script src="./js/touch.js"></script>
   <script src="./js/auto.slide.js"></script>
 </body>
 </html>

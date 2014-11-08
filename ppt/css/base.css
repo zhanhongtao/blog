@@ -1,22 +1,27 @@
 body {
-  font: 24px/1.5 "Consolas", "lucida Grande", Verdana;
+  font: 20px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
   color: #34362E;
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6, ul, ol, li, dl { 
+h1, h2, h3, h4, h5, h6, dl { 
   margin: 0;
   padding: 0;
 }
 
+ol {
+  padding-left: 40px;
+}
+ul {
+  padding-left: 25px;
+}
 li {
   margin: 15px auto;
-  list-style-position: inside;
 }
 
-h1, .ppt .h1 { font-size: 28px; }
-h2, .ppt .h2 { font-size: 24px; }
-h3, .ppt .h3 { font-size: 20px; }
+h1, .ppt .h1 { font-size: 24px; }
+h2, .ppt .h2 { font-size: 20px; }
+h3, .ppt .h3 { font-size: 18px; }
 h4, .ppt .h4 { font-size: 16px; }
 h5, .ppt .h5 { font-size: 14px; }
 h6, .ppt .h6 { font-size: 12px; }
@@ -26,9 +31,6 @@ h6, .ppt .h6 { font-size: 12px; }
 
 dt, dd { margin: 15px auto; }
 dd { text-indent: 2em; }
-li ul, li ol {
-  margin-left: 60px;
-}
 
 .box {
   display: -webkit-flex;
@@ -44,13 +46,13 @@ li ul, li ol {
 .c1, .c2, .c3, .c4, .c5, .c6, .c7 {
   padding: 0 20px;
 }
-.c1 { background-color: rgba( 0, 0, 0, 0.1) }
-.c2 { background-color: rgba( 0, 0, 0, 0.1) }
-.c3 { background-color: rgba( 0, 0, 0, 0.1) }
-.c4 { background-color: rgba( 0, 0, 0, 0.1) }
-.c5 { background-color: rgba( 0, 0, 0, 0.1) }
-.c6 { background-color: rgba( 0, 0, 0, 0.1) }
-.c7 { background-color: rgba( 0, 0, 0, 0.1) }
+.c1 { background-color: rgba(105, 94, 197, 0.05); }
+.c2 { background-color: rgba(105, 94, 197, 0.05); }
+.c3 { background-color: rgba(105, 94, 197, 0.05); }
+.c4 { background-color: rgba(105, 94, 197, 0.05); }
+.c5 { background-color: rgba(105, 94, 197, 0.05); }
+.c6 { background-color: rgba(105, 94, 197, 0.05); }
+.c7 { background-color: rgba(105, 94, 197, 0.05); }
 
 code, pre {
   line-height: 1.5;
@@ -59,41 +61,34 @@ code, pre {
 
 code {
   display: inline-block;
-  vertical-align: 3px;
-  padding: 0 8px;
+  padding: 0 5px;
   margin: 0 5px;
   border-radius: 2px;
-  outline: none;
-  background-color: #DB2B79;
-  color: #EEE;
-  font-weight: 700;
+  background-color: #f0f0f0;
+  vertical-align: 3px;
+  color: #333;
   text-indent: 0;
-}
-
-pre code {
-  padding: 0 6px;
-  font-weight: 400;
+  outline: none;
 }
 
 mark, .mark {
   padding: 0 6px;
-}
-
-.codebox {
-  position: relative;
-  overflow: auto;
-  box-sizing: border-box;
-  padding: 10px;
+  font-size: .9em;
+  color: #200707;
 }
 
 pre {
   margin: 0;
   display: block;
   outline: none;
-  overflow: auto;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #F0F0F0;
+  position: relative;
+  overflow: auto;
+}
+
+pre + pre {
+  margin-top: 20px;
 }
 
 .runcase {
@@ -103,8 +98,9 @@ pre {
   display: none;
   cursor: pointer;
   padding: 2px 20px;
-  color: #DB2B79;
-  background-color: #ffa;
+  color: #1A69AB;
+  background-color: #BDBDB4;
+  font-weight: 700;
 }
 
 sub, sup {
@@ -112,12 +108,7 @@ sub, sup {
 }
 
 a, a:active {
-  text-decoration: none;
-  color: #2988B4;
-}
-
-a:hover, a:active, a:focus {
-  text-decoration: underline;
+  color: #168599;
 }
 
 .image {

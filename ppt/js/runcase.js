@@ -1,6 +1,10 @@
 var cloest = function ( element, target ) {
+  var matches = element.matches || 
+    element.msMatchesSelector ||
+    element.webkitMatchesSelector ||
+    element.mozMatchesSelector;
   while ( element && element.nodeType === 1 ) {
-    if ( element.matches(target) ) {
+    if ( matches.call( element, target) ) {
       return element;
     }
     element = element.parentNode;
@@ -65,7 +69,8 @@ var cloest = function ( element, target ) {
 
   document.addEventListener( 'click', function( event ) {
     var target = event.target;
-    if ( target.matches('.runcase') ) {
+    var isRun = cloest( target, '.runcase' );
+    if ( isRun ) {
       var codebox = cloest(target, '.codebox');
       // var pre = codebox.querySelector( 'pre' );
       var pre = codebox.querySelector( 'code' );

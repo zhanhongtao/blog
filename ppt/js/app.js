@@ -3,7 +3,8 @@
 
   // 无 new 实例化.
   var eventemitter = eventEmitter();
-  var slides = document.querySelectorAll( '.slide:not(.toggle)' ); // Command API -> $$
+  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
+  var slides = document.querySelectorAll( selector ); // Command API -> $$
   
   // 伪数组处理
   Array.prototype.forEach.call( slides, function( slide, index ) {
@@ -21,7 +22,8 @@
 
   var getIndex = function() {
     var hash = location.hash;
-    return ~~(hash.slice(1));    
+    var index = parseInt( hash.slice(1), 10 );
+    return isNaN(index) ? 0 : index;
   }
   
   var page = getIndex();
