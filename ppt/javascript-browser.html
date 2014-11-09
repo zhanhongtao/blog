@@ -25,22 +25,23 @@
       <h1>window</h1>
     </div>
     <div class="bd">
-      <li>window/document.defaultView
-      <li>top/self/parent
-      <li>iframe.contentWindow/iframe.contentDocument(iframe.contentWindow.document)
-    </div>
-    <div class="bd">
+      <h2>window object</h2>
+      <ul>
+        <li>window/document.defaultView
+        <li>top/parent/self
+        <li>iframe.contentWindow/iframe.contentDocument(iframe.contentWindow.document)
+      </ul>
+      <h2>property/method</h2>
       <ul>
         <li>.name
         <li>.open()/.close()
         <li>.focus()/.blur()
         <li>.alert()/.confirm()/.prompt()
+        <li>.print()/.find( keywords )
         <li>.postMessage()
       </ul>
-    </div>
-    <div class="bd">
+      <h2>cross-domain</h2>
       <ul>
-        <li>Security - cross-domain
         <li>document.domain
       </ul>
     </div>
@@ -50,8 +51,9 @@
       <h1>navigator</h1>
     </div>
     <div class="bd">
-      <li>.userAgent
-      <li>.onLine
+      <li>userAgent
+      <li>onLine
+      <li>geolocation
     </div>
   </section>
   <section class="slide">
@@ -60,10 +62,11 @@
     </div>
     <div class="bd">
       <ul>
-        <li>.origin/host/href/port/path/search/hash
-        <li>.assign( url )
-        <li>.replace( url )
-        <li>.reload()
+        <li>protocol/host/hostname/href/port/pathname/search/hash
+        <li>assign( url )
+        <li>replace( url )
+        <li>reload()
+        <li>location = {url};
       </ul>
     </div>
   </section>
@@ -72,29 +75,21 @@
       <h1>history</h1>
     </div>
     <div class="bd">
+      <h2>property/method</h2>
       <ul>
-        <li>.length
-        <li>.state
-        <li>.go([delta])
-        <li>.back()
-        <li>.forward()
-        <li>.pushState( data, title[, url] )
-        <li>.replaceState( data, title[, url] )
+        <li>length
+        <li>state
+        <li>go([delta])
+        <li>back()
+        <li>forward()
+        <li>pushState( data, title[, url] )
+        <li>replaceState( data, title[, url] )
       </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>screen</h1>
-    </div>
-    <div class="bd">
+      <h2>event</h2>
       <ul>
-        <li>width
-        <li>height
-        <li>avaiWidth
-        <li>availHeight
-        <li>pixelDepth
-        <li>colorDepth
+        <li>window.onhashchange
+        <li>window.onpopstate
+        <li><a href="https://github.com/jashkenas/backbone/blob/master/backbone.js#L1494">iframe(ie)</a>
       </ul>
     </div>
   </section>
@@ -144,7 +139,7 @@
         <li>.clear()
         <li>'storage'(event)
       </ul>
-      <a href="https://html.spec.whatwg.org/multipage/webstorage.html">https://html.spec.whatwg.org/multipage/webstorage.html</a>
+      <p><a href="https://html.spec.whatwg.org/multipage/webstorage.html">https://html.spec.whatwg.org/multipage/webstorage.html</a>
     </div>
   </section>
   <section class="slide">
@@ -152,7 +147,22 @@
       <h1>Application Cache</h1>
     </div>
     <div class="bd">
-
+      <p><a href="https://html.spec.whatwg.org/multipage/browsers.html#offline">https://html.spec.whatwg.org/multipage/browsers.html#offline</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>screen</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>width
+        <li>height
+        <li>avaiWidth
+        <li>availHeight
+        <li>pixelDepth
+        <li>colorDepth
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -171,7 +181,7 @@
     </div>
     <div class="bd">
       <ul>
-        <li>https://html.spec.whatwg.org/multipage/browsers.html
+        <li><a href="https://html.spec.whatwg.org/multipage/browsers.html">https://html.spec.whatwg.org/multipage/browsers.html</a>
       </ul>
     </div>
   </section>

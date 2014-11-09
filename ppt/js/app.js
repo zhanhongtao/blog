@@ -179,21 +179,6 @@
     }
   }, false );
 
-  /*
-  // @note: 不再支持 mousewheel
-  var mousewheel = se.throttle(function( event ) {
-    if ( event.wheelDelta ) {
-      event.wheelDelta < 0 ? nextSlide() : prevSlide();
-    }
-    else if ( event.detail ) {
-      -1 * event.detail < 0 ? nextSlide() : prevSlide();
-    }
-  }, 50 );
-  */
-
-  // document.addEventListener( 'mousewheel', mousewheel, false );
-  // document.addEventListener( 'DOMMouseScroll', mousewheel, false );
-
   eventemitter.on( 'on-focus-target', function( page ) {
     slides[ page ].focus();
   });
@@ -224,10 +209,12 @@
     updatePage( page, hash );
   }
   init( false );
-  window.addEventListener( 'hashchange', function() {
+  
+  window.onpopstate = function() {
     page = getIndex();
     init( true );
-  }, false );
+  };
+  
   eventemitter.emit( 'ppt-init', page );
   eventemitter.on( 'ppt-next', nextSlide );
   eventemitter.on( 'ppt-prev', prevSlide );
