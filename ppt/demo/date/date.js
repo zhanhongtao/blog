@@ -19,13 +19,12 @@ function fixedWeekList( start ) {
 }
 
 function firstDayOfDate( day, week ) {
-  week = week === 0 ? 7 : week;
   day = day % 7;
-  while ( day ) {
+  while ( day > 1 ) {
     --week;
     --day;
   }
-  return ( 8 + week % 8 ) % 8;
+  return ( 7 + week % 7 ) % 7;
 }
 
 function isLeapYear( year ) {
@@ -41,15 +40,12 @@ var calendar = root.calendar = function( config ) {
   if ( !(this instanceof calendar) ) {
     return new calendar( config );
   }
-  // @todo: 缓存初始化数据.
-  var date = this.date = new Date();
-  this.year = date.getFullYear();
-  this.month = date.getMonth();
-  this.day = date.getDate();
-  this.week = date.getDay();
+  this.date = config.date ? new Date( config.date ) : new Date;
+  this.box = config.box;
   // 认为周日是第一天.
-  this.start = 0;
+  this.start = 1;
   fixedWeekList( this.start );
+  this.render();
 };
 
 // 方便重写 render 方法.
@@ -60,8 +56,16 @@ calendar.util = {
   weekTextList: weekTextList
 };
 
-calendar.prototype.render = function() {
-  var html = '<table>'
+calendar.prototype._render = function() {
+  var date = this.date;
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var day = date.getDate();
+  var week = date.getDay();
+
+  var html = '';
+  html += '<table>'
+  html += '<caption>' + [year, month + 1].join('/') + '</caption>';
   // 生成 head 部分
   html += '<tr>';
   for ( var i = 0; i < 7; ++i ) {
@@ -71,11 +75,10 @@ calendar.prototype.render = function() {
   
   var i = 1, j,
     havePadding = false,
-    week = firstDayOfDate( this.day, this.week ),
-    days = getDaysInMonth( this.year, this.month );
-  
+    week = firstDayOfDate( day, week ),
+    days = getDaysInMonth( year, month );
   // 确认当月第一天是周几, 然后补充多少个格子.
-  week = this.start === 0 ? week : week - 1;
+  week = this.start === 0 ? week: week - 1;
   // 生成表格部分
   while( i <= days ) {
     j = 0;
@@ -84,13 +87,13 @@ calendar.prototype.render = function() {
       havePadding = true;
       // 不提前加一, 方便下面条件判断
       while ( j < week ) {
-        console.count( 'week' );
         html += '<td></td>';
         ++j;
       }
     }
     while ( j++ < 7 && i <= days ) {
-      html += '<td>' + (i++) + '</td>';
+      html += '<td class="' + (i === day ? 'current' : '') + '">' + (i) + '</td>';
+      ++i;
     }
     html += '</tr>';   
   }
@@ -99,20 +102,57 @@ calendar.prototype.render = function() {
   return html;
 };
 
-// 下一月
-calendar.prototype.nextMonth = function() {
+function calc( year, month, day ) {
+  if ( month > 11 ) {
+    ++year;
+    month = 0;
+  } else if ( month < 0 ) {
+    --year;
+    month = 11;
+  }
+  var days = getDaysInMonth( year, month );
+  day = day <= days ? day : days;
+  return new Date( [year, month + 1, day].join('/') );
+}
 
+calendar.prototype.nextMonth = function() {
+  var date = this.date;
+  this.date = calc( date.getFullYear(), date.getMonth() + 1, date.getDate() );
+  this.render();
 };
 
-// 下一年
-calendar.prototype.nextYear = function() {
+calendar.prototype.prevMonth = function() {
+  var date = this.date;
+  this.date = calc( date.getFullYear(), date.getMonth() - 1, date.getDate() );
+  this.render();
+};
 
+calendar.prototype.nextYear = function() {
+  var date = this.date;
+  this.date = calc( date.getFullYear() + 1, date.getMonth(), date.getDate() );
+  this.render();
+};
+
+calendar.prototype.prevYear = function() {
+  var date = this.date;
+  this.date = calc( date.getFullYear() - 1, date.getMonth(), date.getDate() );
+  this.render();
+};
+
+calendar.prototype.render = function() {
+  var html = this._render();
+  if ( this.box ) {
+    this.box.innerHTML = html;
+  } else {
+    return html;
+  }
+  return this;
 };
 
 })( this );
 
 
+var c = calendar({
+  box: document.getElementById('box')
+});
 
-var c = calendar();
-var html = c.render();
-document.getElementById( 'box' ).innerHTML = html;
