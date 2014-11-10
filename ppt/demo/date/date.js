@@ -19,7 +19,13 @@ function fixedWeekList( start ) {
 }
 
 function firstDayOfDate( day, week ) {
-  return (week === 0 ? 7 : week) - ( day % 7 - 1 );
+  week = week === 0 ? 7 : week;
+  day = day % 7;
+  while ( day ) {
+    --week;
+    --day;
+  }
+  return ( 8 + week % 8 ) % 8;
 }
 
 function isLeapYear( year ) {
@@ -70,7 +76,6 @@ calendar.prototype.render = function() {
   
   // 确认当月第一天是周几, 然后补充多少个格子.
   week = this.start === 0 ? week : week - 1;
-  
   // 生成表格部分
   while( i <= days ) {
     j = 0;
