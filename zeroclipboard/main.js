@@ -4,7 +4,7 @@ var pasteBox = document.getElementById( 'paste' );
 var btnCopy = document.getElementById( 'copy' );
 var btnClear = document.getElementById( 'clear' );
 
-var client = new ZeroClipboard( btnCopy );
+var client = new ZeroClipboard( btnCopy, { moviePath: "./swf/ZeroClipboard.swf" } );
 
 client.on( 'load', function( client ) {
   client.on( 'mousedown', function(){
