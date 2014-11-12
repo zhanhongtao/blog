@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>css</title>
+  <style>
+    * { margin: 0; padding: 0;}
+    
+    /* 包裹 side/main */
+    .clearfix {
+      zoom: 1;
+    }
+    .clearfix:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    
+    body {
+      font: 14px/1.5 "Microsoft Yahei";
+    }
+    
+    .box {
+      width: 80%;
+      margin: 25px auto; 
+      background-color: #F3F6F7;
+    }
+    
+    .side {
+      float: left;
+      width: 30%;
+      height: 180px;
+      background-color: #FEAFBD;
+      margin-right: 10px;
+    }
+    
+    .main {
+      /* 保证和 side 占到同行 */
+      display: table;
+      zoom: 1;
+      /* 设置相对位置 */
+      position: relative;
+    }
+    .main:after {
+      /* 中间添加 space, 防止不换行 */
+      content: 'X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X';
+      /* 放大字体, 保证占满整个剩下的空间 */
+      font-size: 2em;
+      /* 保证 content 生成的文本不可见 */
+      height: 0;
+      line-height: 0;
+      overflow: hidden;
+      /* 块状才可设置 height */
+      display: inline-block;      
+    }
+    .new {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: #FA7F00;
+    }
+    
+    .inner {
+      width: 100%;
+      margin: 0;
+    }
+    
+    .inner .side {
+      float: right;
+      margin-right: 0;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box clearfix">
+    <div class="side"></div>
+    <div class="main">
+      <div class="inner box clearfix">
+        <div class="side"></div>
+        <div class="main">
+          <p>由于某些原因，台湾和香港的繁体中文阅读者一点都不喜欢阅读简体中文，反过来，大陆的中国人阅读起繁体也很吃力。中文字体非常多，作为一个设计师的你，该如何区分字体是繁体的还是简体的？
+        </div>
+      </div>      
+      <p>很简单，输入全角的逗号和句号，如果字符是居中的，那就是繁体中文；如果和日文一样位于左下角的话，那就是简体中文。千万别忘了，所有的符号都要是全角的。由于某些原因，台湾和香港的繁体中文阅读者一点都不喜欢阅读简体中文，反过来，大陆的中国人阅读起繁体也很吃力。中文字体非常多，作为一个设计师的你，该如何区分字体是繁体的还是简体的？很简单，输入全角的逗号和句号，如果字符是居中的，那就是繁体中文；如果和日文一样位于左下角的话，那就是简体中文。千万别忘了，所有的符号都要是全角的。</p>
+      <i class="new"></i>
+    </div>
+  </div>
+</body>
+</html>
