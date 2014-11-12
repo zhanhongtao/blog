@@ -4,8 +4,19 @@
   <meta charset="UTF-8">
   <title>date</title>
   <style>
+    .clearfix {
+      zoom: 1;
+    }
+    .clearfix:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
     table { border-collapse: collapse; width: 100%; }
-    caption { font-weight: 700; margin: 10px 0; }
+    caption { font-weight: 700; margin: 10px 0; line-height: 28px; }
+    .btn-next, .btn-prev { font-size: 14px; padding: 5px 10px; }
+    .btn-prev { float: left;}
+    .btn-next { float: right;}
     th { padding: 4px 10px; border-bottom: 1px dotted #eee; }
     td { padding: 4px; text-align: center; }
     td:hover { background-color: #faa; color: #fff; }

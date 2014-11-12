@@ -45,6 +45,7 @@ var calendar = root.calendar = function( config ) {
   // 认为周日是第一天.
   this.start = 1;
   fixedWeekList( this.start );
+  this.init();
   this.render();
 };
 
@@ -65,7 +66,10 @@ calendar.prototype._render = function() {
 
   var html = '';
   html += '<table>'
-  html += '<caption>' + [year, month + 1].join('/') + '</caption>';
+  html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
+  html += [year, month + 1].join('/');
+  html += '<button class="btn-next" data-id="next-month">Next</button></caption>';
+  
   // 生成 head 部分
   html += '<tr>';
   for ( var i = 0; i < 7; ++i ) {
@@ -137,6 +141,31 @@ calendar.prototype.prevYear = function() {
   var date = this.date;
   this.date = calc( date.getFullYear() - 1, date.getMonth(), date.getDate() );
   this.render();
+};
+
+calendar.prototype.init = function() {
+  var self = this;
+  this.box.onclick = function( e ) {
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    var id = target.getAttribute( 'data-id' );
+    switch( id ) {
+      case 'next-month':
+        self.nextMonth();
+        break;
+      case 'next-year':
+        self.nextYear();
+        break;
+      case 'prev-month':
+        self.prevMonth();
+        break;
+      case 'prev-year':
+        self.prevYear();
+        break;
+      default:
+        break;
+    }
+  };
 };
 
 calendar.prototype.render = function() {
