@@ -1,15 +1,12 @@
-
-
 ;(function() {
-
-  var slides = document.querySelectorAll( '.slide' );
-  var TARGET_CLASS = 'slide-target';
-  var TARGET_FROM_DIRECTION_PREV_CLASS = 'slide-target-prev';
-  var TARGET_FROM_DIRECTION_NEXT_CLASS = 'slide-target-next';
+  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
+  var slides = document.querySelectorAll( selector );
+  var TARGET_CLASS = 'target';
+  var TARGET_FROM_DIRECTION_PREV_CLASS = 'prev';
+  var TARGET_FROM_DIRECTION_NEXT_CLASS = 'next';
   var nav = document.querySelector( '#navigator' );
 
   var updateui = function( message ) {
-
     var page = message.page;
     var pages = message.pages;
 
@@ -17,21 +14,24 @@
     var old = document.querySelector( '.' + TARGET_CLASS );
     if ( old ) {
       old.classList.remove( TARGET_CLASS );
-      old.classList.remove( TARGET_FROM_DIRECTION_NEXT_CLASS );
-      old.classList.remove( TARGET_FROM_DIRECTION_PREV_CLASS );
     }
-
-    // 更新内容
-    var target = slides[ page ] || slides[0];
-    if ( target ) {
-      target.classList.add( TARGET_CLASS );
-      if ( [ 'next', 'prev' ].indexOf(message.direction) > -1 ) {
-        target.classList.add( message.direction === 'next' ? TARGET_FROM_DIRECTION_NEXT_CLASS : TARGET_FROM_DIRECTION_PREV_CLASS );
-      }
-    }
+    
+    [ TARGET_CLASS, TARGET_FROM_DIRECTION_NEXT_CLASS, TARGET_FROM_DIRECTION_PREV_CLASS ].forEach(function( className ) {
+      try {
+        document.querySelector( '.' + className ).classList.remove( className );
+      } catch(e) {}
+    });
+    
+    var target = slides[ page ];
+    target.classList.add( TARGET_CLASS );
+    if ( page != message.prev )
+      slides[ message.prev ].classList.add( TARGET_FROM_DIRECTION_PREV_CLASS );
+    if ( page != message.next )
+    slides[ message.next ].classList.add( TARGET_FROM_DIRECTION_NEXT_CLASS );
 
     // 让元素可见.
-    target.scrollIntoView();
+    target.scrollTop = 0;
+    target.focus();
 
     // 更新 title.
     var h1 = target.querySelector( 'h1' );

@@ -7,9 +7,7 @@
   <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/base.css?v=2">
   <link rel="stylesheet" href="./css/app.css?v=2">
-  <link rel="stylesheet" href="./css/fullscreen.css">
   <link rel="stylesheet" href="./css/scrollbar.css">
-  <link rel="stylesheet" href="./css/animation.function.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
   hljs.tabReplace = '    ';
@@ -17,103 +15,74 @@
   </script>
 </head>
 <body spellcheck="false" class="ppt">
-  <section class="pc-helper content-toggle">
-    <div class="head"><h1>文档说明</h1></div>
-    <div class="body">
-      <ul>
-        <li>alt+p 切换显示模式</li>
-        <li>在 ppt 显示模式下, ctrl + r 让ppt轮循显示</li>
-        <li>上/下/左/右/PageUp/PageDown键切换ppt</li>
-        <li>Home/End 切换到文档开头/结尾</li>
-        <li>ctrl+g 手动指定到页数</li>
-      </ul>
-    </div>
-  </section>
   <section class="slide slide-cover">
-    <div class="head">
-      <h1>XSS - 网页中的编码</h1>
-      <h2 class="h6">redky@qq.com</h2>
-    </div>
+    <h1>XSS - 网页中的编码</h1>
+    <h2 class="h3">redky@qq.com</h2>
   </section>
+  <section class="slide" style="background:url(./css.png) no-repeat 50% 50%; background-size: contain"></section>
   <section class="slide">
-    <div class="head">
-      <h1>自我介绍</h1>
-    </div>
-    <div class="body">
-      <ul>
-        <li>占红涛</li>
-        <li>QQ: 295143921</li>
-        <li>github: <a href="http://github.com/zhanhongtao/" target="_blank">@zhanhongtao</a></li>
-      </ul>
-    </div>
-  </section>
-  <section class="slide" style="background:url(./css.png) no-repeat 50% 50%; background-size: contain">
-  </section>
-  <section class="slide">
-    <div class="head">
+    <div class="hd">
       <h1>HTML 编码</h1>
     </div>
-    <div class="body">
+    <div class="bd">
       <ul>
-        <li>HTML 实体 —— &amp;copy; —— &copy;</li>
-        <li>十进制  —— &amp;#169; —— &#169;</li>
-        <li>十六进制 —— &amp;#xa9; —— &#xa9;</li>
+        <li>HTML 实体 —— &amp;copy; —— &copy;
+        <li>十进制  —— &amp;#169; —— &#169;
+        <li>十六进制 —— &amp;#xa9; —— &#xa9;
       </ul>
     </div>
   </section>
   <section class="slide">
-    <div class="head">
+    <div class="hd">
       <h1>URL 编码</h1>
     </div>
-    <div class="body">
+    <div class="bd">
       <ul>
-        <li><a href="http://0334.0265.0157.0125">0334.0265.0157.0125(8进制表示)</a></li>
-        <li><a href="&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;">&amp;#x0068;&amp;#x0074;...(16进制)</a></li>
-        <li><a href="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;">&amp;#104;&amp;#116;&amp;#116;&amp;#112;&amp;#58;...(10进制)</a></li>
-        <li><a href="http://033455267525">http://033455267525(ip - 8 -join- 16)</a></li>
-        <li><a href="http://www.sogou.com/web?query=京东">http://www.sogou.com/web?query=京东</a></li>
-        <li><a href="http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C">http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C (encodeURI)</a></li>
+        <li><a href="http://0334.0265.0157.0125">0334.0265.0157.0125(8进制表示)</a>
+        <li><a href="&#x0068;&#x0074;&#x0074;&#x0070;&#x003a;&#x0077;&#x0077;&#x0077;&#x002e;&#x0073;&#x006f;&#x0067;&#x006f;&#x0075;&#x002e;&#x0063;&#x006f;&#x006d;&#x002f;">&amp;#x0068;&amp;#x0074;...(16进制)</a>
+        <li><a href="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#119;&#119;&#119;&#46;&#115;&#111;&#103;&#111;&#117;&#46;&#99;&#111;&#109;&#47;">&amp;#104;&amp;#116;&amp;#116;&amp;#112;&amp;#58;...(10进制)</a>
+        <li><a href="http://033455267525">http://033455267525(ip - 8 -join- 16)</a>
+        <li><a href="http://www.sogou.com/web?query=京东">http://www.sogou.com/web?query=京东</a>
+        <li><a href="http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C">http://www.sogou.com/web?query=%E4%BA%AC%E4%B8%9C (encodeURI)</a>
       </ul>
     </div>
   </section>
   <section class="slide">
-    <div class="head">
+    <div class="hd">
       <h1>JavaScript 编码</h1>
     </div>
-    <div class="body">
+    <div class="bd">
       <ul>
-        <li title="前导为 \u, 且长度为 4 位的 16 进制表示">支持 unicode 表示 - \u0065. [ECMAScript]</li>
-        <li>支持以 \x 开头的十六进制表示.</li>
-        <li>支持以 \ 开头的 8 进制表示.</li>
-        <li>支持 c 语言编码: \b 表示退格. \n ...</li>
+        <li title="前导为 \u, 且长度为 4 位的 16 进制表示">支持 unicode 表示 - \u0065. [ECMAScript]
+        <li>支持以 \x 开头的十六进制表示.
+        <li>支持以 \ 开头的 8 进制表示.
+        <li>支持 c 语言编码: \b 表示退格. \n ...
       </ul>
     </div>
   </section>
   <section class="slide">
-    <div class="head">
+    <div class="hd">
       <h1>CSS 编码</h1>
     </div>
-    <div class="body">
+    <div class="bd">
       <p>支持 \65, \065, ..., \000065 格式编码 - 16 进制</p>
     </div>
   </section>
   <section class="slide">
-    <div class="head">
+    <div class="hd">
       <h1>其它</h1>
     </div>
-    <div class="body">
+    <div class="bd">
       <ul>
         <li><a href="./utils.html" target="_blank">编码相关工具</a>
-        <li><a href="http://webdesign.about.com/od/localization/l/blhtmlcodes-ascii.htm">HTML实体</a></li>
-        <li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">腾讯实例教程：那些年我们一起学XSS</a></li>
-        <li><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" target="_blank">XSS_Filter_Evasion_Cheat_Sheet</a></li>
+        <li><a href="http://webdesign.about.com/od/localization/l/blhtmlcodes-ascii.htm">HTML实体</a>
+        <li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">腾讯实例教程：那些年我们一起学XSS</a>
+        <li><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" target="_blank">XSS_Filter_Evasion_Cheat_Sheet</a>
       </ul>
     </div>
   </section>
   <section class="slide slide-cover">
-    <div class="head">
-      <h1>?</h1>
-    </div>
+    <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
   <script src="./js/event.js"></script>

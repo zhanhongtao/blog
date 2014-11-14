@@ -101,3 +101,18 @@
     display: none;
   }
 }
+
+/* 黄色淡出 */
+.yellowfade {
+  -webkit-animation: yellowFade 1s linear;
+  animation: yellowFade 1s linear;
+}
+@-webkit-keyframes yellowFade {
+  10% {
+    background: rgb( 255, 255, 171 );
+  },
+  100% {
+    background: transparent;
+  }
+}
+

@@ -1,117 +1,94 @@
-
-
 body {
-  font: 16px/1.5 "lucida Grande", Verdana;
+  font: 20px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
   color: #34362E;
+  overflow-x: hidden;
 }
 
-a, a:active {
-  text-decoration: none;
-  color: #2988B4;
-}
-
-a:hover, a:active, a:focus {
-  text-decoration: underline;
-}
-
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, dl { 
   margin: 0;
+  padding: 0;
 }
 
-h1, .ppt .h1 {
-  font-size: 24px;
+ol {
+  padding-left: 40px;
+}
+ul {
+  padding-left: 25px;
+}
+li {
+  margin: 15px auto;
+}
+
+h1, .ppt .h1 { font-size: 24px; }
+h2, .ppt .h2 { font-size: 20px; }
+h3, .ppt .h3 { font-size: 18px; }
+h4, .ppt .h4 { font-size: 16px; }
+h5, .ppt .h5 { font-size: 14px; }
+h6, .ppt .h6 { font-size: 12px; }
+
+.hd { margin: 10px auto; overflow: hidden; }
+.bd { margin: 15px auto; overflow: hidden; }
+
+dt, dd { margin: 15px auto; }
+dd { text-indent: 2em; }
+
+.box {
+  display: -webkit-flex;
+  display: flex;
+}
+.grid {
+  -webkit-flex: 1;
+  flex: 1;
   margin: 10px 0;
 }
+.grid +.grid  { margin-left: 10px; }
 
-.ppt h1 {
-  font-size: 6vh;
+.c1, .c2, .c3, .c4, .c5, .c6, .c7 {
+  padding: 0 20px;
 }
-
-h2, .ppt .h2 {
-  font-size: 22px;
-}
-
-h3, .ppt .h3 {
-  font-size: 20px;
-}
-
-h4, .ppt .h4 {
-  font-size: 18px;
-}
-
-h5, .ppt .h5 {
-  font-size: 16px;
-}
-
-h6, .ppt .h6 {
-  font-size: 12px;
-}
-
-p, ul, ol {
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  margin: 5px 0 0 20px;
-}
-
-dl {
-  margin: 0;
-  padding: 0;
-}
-
-dd {
-  margin: 0 0 5px;
-}
+.c1 { background-color: rgba(105, 94, 197, 0.05); }
+.c2 { background-color: rgba(105, 94, 197, 0.05); }
+.c3 { background-color: rgba(105, 94, 197, 0.05); }
+.c4 { background-color: rgba(105, 94, 197, 0.05); }
+.c5 { background-color: rgba(105, 94, 197, 0.05); }
+.c6 { background-color: rgba(105, 94, 197, 0.05); }
+.c7 { background-color: rgba(105, 94, 197, 0.05); }
 
 code, pre {
   line-height: 1.5;
   font-size: 14px;
-  /*font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;*/
 }
 
 code {
-  font-size: 2.5vh;
   display: inline-block;
-  vertical-align: middle;
-  padding: 5px 10px;
+  padding: 0 5px;
+  margin: 0 5px;
   border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: 3px;
+  color: #333;
+  text-indent: 0;
   outline: none;
 }
 
-code.block {
-  margin-top: -18px;
-}
-
-pre code {
-  padding: 5px 10px;
-}
-
-mark,
-.mark {
+mark, .mark {
   padding: 0 6px;
-  font-size: 14px;
-}
-
-.codebox {
-  position: relative;
-  resize: horizontal;
-  overflow: auto;
-  box-sizing: border-box;
-  background-color: #EBEBEB;
-  zoom: 1;
+  font-size: .9em;
+  color: #200707;
 }
 
 pre {
   margin: 0;
   display: block;
   outline: none;
-  overflow: auto;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  /*padding: 10px;
-  background-color: #EBEBEB;*/*/
+  background-color: #F0F0F0;
+  position: relative;
+  overflow: auto;
+}
+
+pre + pre {
+  margin-top: 20px;
 }
 
 .runcase {
@@ -120,11 +97,33 @@ pre {
   right: 0;
   display: none;
   cursor: pointer;
-  padding: 0 10px;
-  font-size: 12px;
+  padding: 2px 20px;
+  color: #1A69AB;
+  background-color: #BDBDB4;
+  font-weight: 700;
 }
 
-
-.body {
-  margin-left: 20px;
+sub, sup {
+  font-size: 0.5em;
 }
+
+a, a:active {
+  color: #168599;
+}
+
+.image {
+  text-align: center;
+}
+.image img {
+  margin: 10px;
+  max-width: 100%;
+}
+
+.helper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+

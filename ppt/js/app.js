@@ -84,7 +84,9 @@
       // 其他位置直接处理.
       fixed = sections[ index ];
       fixed.classList.add( 'sub-slide-toggle' );
+      fixed.classList.add( 'yellowfade' );
       fixed.style.display = '';
+      fixed.scrollIntoView();
     } else {
       // 第一位置
       if ( index == 0 ) return next();
