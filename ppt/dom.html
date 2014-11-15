@@ -25,19 +25,24 @@
       <h1>DOM</h1>
     </div>
     <div class="bd">
-      <li>Document Object Model
-      <li>Tree
-      <li>Node/Element
+      <ul>
+        <li>DOM: Document Object Model
+        <li>DOM Tree
+        <li>由 Node/Element 组成
+      </ul>
+      <div class="image" style="text-align: left;">
+        <img src="./images/dom/dom-tree.jpg" />
+      </div>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>node/element</h1>
+      <h1>Node/Element</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>element.nodeName
-        <li>element.tagName
+        <li>element.id/element.className/...
+        <li>element.nodeName/element.tagName
         <li>element.nodeType
           <ul>
             <li>Element(1)
@@ -48,13 +53,12 @@
             <li>DocumentFragment(11)
           </ul>
         <li>element.nodeValue - Text Node
-        <li>element.id
-        <li>element.className
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>attributes</h1>
+      <h1>Attributes</h1>
     </div>
     <div class="bd">
       <ul>
@@ -78,6 +82,12 @@
         <li>element.classList.remove()
         <li>element.classList.toggle()
       </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>让低版本浏览器支持以上方法
+        <li>(可选)实现 jQuery 中的 <a href="http://api.jquery.com/category/manipulation/class-attribute/">class</a> 操作
+        <li>查找 class 含有 a, 但不包含 b 的 DOM 节点
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -85,7 +95,11 @@
       <h1>dataset<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
-      <p>element.dataset</p>
+      <p>element.dataset
+      <h2>Homework</h2>
+      <ul>
+        <li>实现 namespace.data - 可参考 jQuery.data
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -101,45 +115,48 @@
         <li>document.querySelector()<sup><mark title="静态">?</mark></sup>
         <li>document.querySelectorAll()<sup><mark title="静态">?</mark></sup>
       </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>DOM 节点关系(1)</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>element.parentNode
-        <li>element.nextSibling
-        <li>element.previousSibling
-        <li>element.childNodes/element.children
-        <li>element.firstChild
-        <li>element.lastChild
-        <li>element.parentElement<sup><mark>?</mark></sup>
-        <li>element.nextElementSibling<sup><mark>?</mark></sup>
-        <li>element.previousElementSibling<sup><mark>?</mark></sup>
-        <li>element.hasChildNodes()<sup><mark>?</mark></sup>
-        <li>element.childElementCount<sup><mark>?</mark></sup>
-        <li>element.firstElementChild<sup><mark>?</mark></sup>
-        <li>element.lastElmentChild<sup><mark>?</mark></sup>
-      </ul>
-      JavaScript DOM 编程艺术 - Image Gallery
+      <p>JavaScript DOM 编程艺术 - Image Gallery
       <a href="./demo/gallery/01/gallery.html">01</a>
       <a href="./demo/gallery/02/gallery.html">02</a>
       <a href="./demo/gallery/03/gallery.html">03</a>
       <a href="./demo/gallery/04/gallery.html">04</a>
+      <h2>Homework</h2>
+      <ul>
+        <li>实现 getElementsByClassName 方法
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>DOM 节点关系(1)<sup><mark>?</mark></sup></h1>
+      <h1>DOM 节点关系</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.parentNode/element.parentElement<sup><mark>?</mark></sup>
+        <li>element.nextSibling/element.nextElementSibling<sup><mark>?</mark></sup>
+        <li>element.previousSibling/element.previousElementSibling<sup><mark>?</mark></sup>
+        <li>element.firstChild/element.firstElementChild<sup><mark>?</mark></sup>
+        <li>element.lastChild/element.lastElmentChild<sup><mark>?</mark></sup>        
+        <li>element.childNodes/element.children
+        <li>element.hasChildNodes()<sup><mark>?</mark></sup>
+        <li>element.childElementCount<sup><mark>?</mark></sup>
+      </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>向上遍历所有 DOM 节点 - 冒泡.
+        <li>广度/深度遍历所有 DOM 节点 - 深度小于 3 的所有节点
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>DOM 节点关系<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
         <li>element.matches( selector )/element.matchesSelector( selector )
         <li>element.isEqualNode( node )
-        <li>element.contains( node )
-        <li>element.compareDocumentPosition( node )
+        <li>element.contains( node )/element.compareDocumentPosition( node )
           <ul>
             <li>0 相同元素
             <li>1 文档无关 - 两个节点不在相同文档
@@ -149,6 +166,7 @@
             <li>16 node 被 element 节点包含
             <li>32 扩展
           </ul>
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -166,7 +184,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>操作 DOM 节点(1)</h1>
+      <h1>操作 DOM 节点</h1>
     </div>
     <div class="bd">
       <ul>
@@ -176,29 +194,34 @@
         <li>element.parentNode.removeChild( element )
         <li>element.remove()<sup><mark>?</mark></sup>
       </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>实现 insertAfter
+        <li>删除所有的 div 标签
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>操作 DOM 节点(2)</h1>
+      <h1>操作 DOM 节点</h1>
     </div>
     <div class="bd">
       <ul>
         <li>element.innerHTML
         <li>element.innerText/element.textContent
           <ul>
-            <li>node.innerText 不支持 `style` 和 `script` 标签.
+            <li>node.innerText 不支持 style 和 script 标签.
             <li>node.innerText 不返回隐藏标签的内容.
             <li>node.innerText 会引起 reflow.
           </ul>
         <li>element.outerHTML
         <li>element.outerText
-
+      </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>操作 DOM 节点(3)<sup><mark>?</mark></sup></h1>
+      <h1>操作 DOM 节点<sup><mark>?</mark></sup></h1>
     </div>
     <div class="bd">
       <ul>
@@ -207,6 +230,11 @@
         <li>element.insertAdjacentText( position, text )
       </ul>
       <p>position: beforebegin/afterbegin/beforeend/afterend
+<pre>
+<code class="html" contenteditable>
+  &lt;!-- beforebegin --&gt;&lt;p&gt;&lt;!-- afterbegin --&gt;foo&lt;!--beforeend --&gt;&lt;/p&gt;&lt;!-- afterend --&gt;
+</code>
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -243,6 +271,10 @@
         <li>document.readyState - complete
         <li>document.activeElement
       </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li><a href="./demo/domsters/index.html">DOM 练习(JavaScript-DOM编程艺术)</a>
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -257,6 +289,10 @@
         <li>style = window.getComputedStyle( element, pseudo_class )
         <li>style = document.defaultView.getComputedStyle( element, pseduo_class )
         <li>style = element.currentStyle
+      </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>.css( key ) - opacity/background-position/z-index/css3
       </ul>
     </div>
   </section>
@@ -287,6 +323,29 @@
   </section>
   <section class="slide">
     <div class="hd">
+      <h1>relative viewport</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>element.getBoundingClientRect()
+          <ul>
+            <li>.top
+            <li>.right
+            <li>.bottom
+            <li>.left
+            <li>.width/.height
+          </ul>
+        <li>ie6/7 - 2px
+      </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>判断元素是否在窗口内
+        <li>实现 stricy 效果
+      </ul>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
       <h1>Page Size</h1>
     </div>
     <div class="bd">
@@ -306,27 +365,10 @@
         <li>element.offsetParent(~parentNode)
         <li>element.offsetTop/element.offsetLeft
       </ul>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement</a>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement</a>
     </div>
   </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>relative viewport</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>element.getBoundingClientRect()
-          <ul>
-            <li>.top
-            <li>.right
-            <li>.bottom
-            <li>.left
-            <li>.width/.height
-          </ul>
-        <li>ie6/7 - 2px
-      </ul>
-    </div>
-  </section>
+
   <section class="slide">
     <div class="hd">
       <h1>scroll position</h1>
@@ -337,10 +379,10 @@
         <li>document.documentElement.scrollTop/document.documentElement.scrollLeft
         <li>document.body.scrollTop/document.body.scrollTop
       </ul>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY">https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY</a>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY">https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY</a>
     </div>
   </section>
-  <section class="slide">
+  <section class="slide toggle">
     <div class="hd">
       <h1>Homework</h1>
     </div>
@@ -351,19 +393,12 @@
         <li>列表的斑马线效果 - 高亮鼠标所在行
         <li>元素的规则运动动画
         <li>slideUp/slideDown/fadein/fadeout 效果
-        <li><a href="./demo/domsters/index.html">DOM 练习(JavaScript-DOM编程艺术)</a>
         <li>优化选择框(效果见QQ邮箱)
         <li>滚动加载新内容(无限加载/只加载n次, 然后显示页码)
-        <li>实现 stricy 效果
-        <li>判断元素是否在窗口内
         <li>图片惰性加载
-        <li>删除所有的 div 标签
         <li>placeholder - ie6/7/8
         <li>高度自适应的 DIV/Textarea
         <li>颜色选择器
-        <li>查找 class 含有 a, 但不包含 b 的 DOM 节点
-        <li>.css( key ) - opacity/background-position/z-index/css3
-        <li>.data( key[, value] )
       </ul>
     </div>
   </section>
@@ -373,6 +408,7 @@
     </div>
     <div class="bd">
       <ul>
+        <li>http://w3help.org/
         <li>https://developer.mozilla.org/en-US/docs/Web/API/Node
         <li>https://developer.mozilla.org/en-US/docs/Web/API/Element
         <li>https://github.com/jquery/jquery/blob/master/src/offset.js

@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>Event</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=3">
+  <link rel="stylesheet" href="./css/app.css?v=3">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide slide-cover">
+    <h1>Event</h1>
+    <h2 class="h3">redky@qq.com</h2>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Event</h1>
+    </div>
+    <div class="bd">
+      <li>事件流
+      <li>事件处理
+      <li>事件类型
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>事件流</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>捕获(ie部分不支持)
+        <li>冒泡 - 有些事件不支持冒泡(ex: focus)
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>事件处理</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>行内事件
+        <li>DOM0
+        <li>DOM2
+      </ul>
+<pre>
+<code class="JavaScript">
+&lt;a href="http://www.baidu.com/" onclick="alert(1);return false;"&gt;百度&lt;/a&gt; <a href="http://www.baidu.com/" onclick="alert(1);return false;">百度</a>
+</code>
+</pre>
+<pre class="codebox">
+<code id="_click_dom0" class="javascript" contenteditable>
+document.getElementById( '_click_dom0' ).onclick = function() {
+  alert( 'click' );
+};
+</code><div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code id="_click_dom2" class="javascript" contenteditable>
+var dom = document.getElementById( '_click_dom2' );
+dom.addEventListener( 'click', function() {
+  alert( 'click' );
+}, false);
+</code><div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code id="_click_dom2_ie" class="javascript" contenteditable>
+// ie
+var dom = document.getElementById( '_click_dom2_ie' );
+dom.attachEvent( '<mark>on</mark>click', function() {
+  alert( 'click' );
+});
+</code><div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>this</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code id="_click_this_dom0" class="javascript" contenteditable>
+document.getElementById( '_click_this_dom0' ).onclick = function(e) {
+  alert( this );
+};
+</code><div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code id="_click_this_dom2" class="javascript" contenteditable>
+document.getElementById( '_click_this_dom2' ).addEventListener( 'click', function(e) {
+  alert( this );
+}, false);
+</code><div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox">
+<code id="_click_this_ie" class="javascript" contenteditable>
+document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) {
+  alert( this );
+}, false);
+</code><div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>事件代理</h1>
+    </div>
+    <div class="bd">
+      <p>利用事件冒泡性质.
+<pre class="codebox">
+<code id="_click_delegate" class="javascript" contenteditable>
+document.onclick = function(e) {
+  e = e || window.event;
+  var target = e.target || e.srcElement;
+  if ( target.id == '_click_delegate' ) {
+    alert( 'delegate' );
+  }
+};
+</code><div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Event 对象</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event
+        <li>window.event
+        <li>event = event || window.event;
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>事件类型</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>UI事件
+        <li>焦点事件
+        <li>鼠标事件
+        <li>滚轮事件
+        <li>键盘事件
+        <li>文本事件
+        <li>变动事件 - mutation
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>UI 事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>load
+        <li>unload
+        <li>abort
+        <li>error
+        <li>select - input/textarea
+        <li>resize
+        <li>scroll - dom/window
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>焦点事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>focus - 不冒泡
+        <li>blur - 不冒泡
+        <li>focusin - 支持冒泡(确认 firefox 支持情况)
+        <li>focusout - 同 focusin
+        <li>abort
+        <li>error
+        <li>select - input/textarea
+        <li>resize
+        <li>scroll
+      </ul>
+      <h2>Homework</h2>
+      <p>焦点从节点 A, 移动到焦点 B 时, 发生了哪些事件?
+      <h2>相关</h2>
+      <p><a href="http://quirksmode.org/blog/archives/2008/04/delegating_the.html">http://quirksmode.org/blog/archives/2008/04/delegating_the.html</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>鼠标事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>mouseenter - 不冒泡/光标移动到后代元素上时不触发
+        <li>mousedown - 任意鼠标键点击
+        <li>mouseup
+        <li>click - 主键/Enter - 滚动条没有 click 事件
+        <li>dblclick
+        <li>mosuemove
+        <li>mouseleave - 同 mouseenter
+        <li>mouseover
+        <li>mouseout - 移动到子元素上时, 也会触发
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>鼠标事件 - 光标位置</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>clientX/clientY - 相对于浏览器窗口
+        <li>pageX/pageY - 相对于文档
+          <ul>
+            <li>ie8以更早浏览器版本不支持, 但可通过 clientX/clientY 和滚动条位置计算
+            <li>clientX + ( document.documentElement.scrollLeft || document.body.scrollLeft )
+            <li>clientY + ( document.documentElement.scrollTop || document.body.scrollTop )
+          </ul>
+        <li>screenX/screenY - 相对于屏幕
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>鼠标事件 - 功能键</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>altKey
+        <li>ctrlKey
+        <li>shiftKey
+        <li>metaKey - IE9 之前浏览器不支持
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>鼠标事件 - 相关元素</h1>
+    </div>
+    <div class="bd">
+      <h2>事件</h2>
+      <ul>
+        <li>mouseover
+        <li>mouseout
+      </ul>
+      <h2>取值</h2>
+      <ul>
+        <li>event.relatedTarget
+        <li>ie9 之前版本支持:
+          <ul>
+            <li>event.fromElement - mouseover
+            <li>event.toElement - mouseout
+          </ul>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>鼠标事件 - 鼠标按钮</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>e.which - 1(主)/2(中)/3(副) - IE 不支持
+        <li>e.button
+          <ul>
+            <li>0 - 没有按
+            <li>1 - 按下主鼠标键
+            <li>2 - 按下次鼠标键
+            <li>3 - 同时按下主、次鼠标键
+            <li>4 - 按下中键
+            <li>5 - 同时按下主、中鼠标键
+            <li>6 - 同时按下次、中鼠标键
+            <li>7 - 同时按下主、中、次鼠标键
+          </ul>
+      </ul>
+      <h2>Homework</h2>
+      <p>确认 jQuery 怎么实现兼容. <a href="http://api.jquery.com/event.which/">event.which</a>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>滚轮事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>mousewheel - wheelDelta/120的倍数/下负, 上正
+        <li>DOMMouseScroll - firefox/detail/3的倍数/下正, 上负
+      </ul>
+      <h2>Homework</h2>
+      <p>实现具有兼容性的 mousewheel 事件
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>键盘事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>keydown - 按下任意键触发/按住不放时, 重复触发
+        <li>keypress - 按下字符键或影响到字符输入(退格键)时触发
+        <li>keyup
+      </ul>
+      <h2>键码</h2>
+      <ul>
+        <li>keyCode - ASCII 编码
+        <li>charCode - keypress 事件
+        <li>DOM3 - key/char 属性
+      </ul>
+      <h2>Homework</h2>
+      <p>确认 jQuery 怎么兼容.
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>文本事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>input - other
+        <li>propertychange - ie
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>变动事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>DOM 节点变化时触发
+      </ul>
+      <h2>Link</h2>
+      <ul>
+        <li>https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events
+        <li>https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>其它事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>DOMContentLoaded - IE9+
+        <li>readystatechange - laoding/<mark>loaded</mark>/interactive/<mark>complete</mark>
+        <li>contextMenu
+        <li>beforeunload
+        <li>pageshow/pagehide
+        <li>hashchange - ie8+
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>自定义事件</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>createElement
+        <li>new Event
+      </ul>
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>?</h1>
+  </section>
+  <nav id="navigator"></nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>
