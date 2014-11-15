@@ -205,19 +205,6 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Link & Button</h1>
-    </div>
-    <div class="bd">
-      <li>Normal
-      <li>Hover
-      <li>Focus
-      <li>Active
-      <li>Visited(link)
-      <li>Disabled
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
       <h1>Block Formatting Contexts</h1>
     </div>
     <div class="bd">
@@ -229,34 +216,6 @@
         <li>display: table-cell(table), table-caption, inline-block - 非块级盒子的块级容器
         <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
       </ol>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>margin collapse</h1>
-    </div>
-    <div class="bd">
-      <p>相邻的两个box(兄弟关系或祖先关系)的外边距<em>可能</em>合并为一个外边距.
-      <h2>合并的计算规则</h2>
-      <ul>
-        <li>两外边距都是正数时, 合并结果是其中较大的值
-        <li>两外边距都是负数时, 合并结果是两者绝对值较大的那个
-        <li>两外边距一正一负时, 合并结果是两者的相加的结果
-      </ul>
-      <h2>合并条件</h2>
-      <ul>
-        <li>在同一个 Block Formatting Context 中, 处于静态文档流中的块级(block/table/list-item)元素.
-        <li>盒子没有 padding 和 border.
-        <li>渲染相邻的两个元素在垂直方向上.
-        <li>设置 clear 属性的元素不和任何元素发生margin合并
-        </ul>
-      </ul>
-      <h2>现象</h2>
-      <ul>
-        <li>BFC 内部的元素和外部元素不会发生 margin 合并.
-        <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
-        <li>非 block 元素不会发生 margin 合并.
-      </ul>
     </div>
   </section>
   <section class="slide">
@@ -288,7 +247,48 @@
 </code>
 </pre>
     </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>margin collapse</h1>
+    </div>
+    <div class="bd">
+      <p>相邻的两个box(兄弟关系或祖先关系)的外边距<em>可能</em>合并为一个外边距.
+      <h2>合并的计算规则</h2>
+      <ul>
+        <li>两外边距都是正数时, 合并结果是其中较大的值
+        <li>两外边距都是负数时, 合并结果是两者绝对值较大的那个
+        <li>两外边距一正一负时, 合并结果是两者的相加的结果
+      </ul>
+      <h2>合并条件</h2>
+      <ul>
+        <li>在同一个 Block Formatting Context 中, 处于静态文档流中的块级(block/table/list-item)元素.
+        <li>盒子没有 padding 和 border.
+        <li>渲染相邻的两个元素在垂直方向上.
+        <li>设置 clear 属性的元素不和任何元素发生margin合并
+        </ul>
+      </ul>
+      <h2>现象</h2>
+      <ul>
+        <li>BFC 内部的元素和外部元素不会发生 margin 合并.
+        <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
+        <li>非 block 元素不会发生 margin 合并.
+      </ul>
+    </div>
   </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Link & Button</h1>
+    </div>
+    <div class="bd">
+      <li>Normal
+      <li>Hover
+      <li>Focus
+      <li>Active
+      <li>Visited(link)
+      <li>Disabled
+    </div>
+  </section>  
   <section class="slide">
     <div class="hd">
       <h1>OOCSS</h1>
@@ -1033,6 +1033,7 @@ h3 {
         <li>右侧要求占满余下空间
         <li>右侧内容可能超出容器 - ex: New! 小图标
       </ul>
+      <p><a href="./demo/css.html">demo</a>
     </div>
   </section>
   <section class="slide">
@@ -1041,9 +1042,9 @@ h3 {
     </div>
     <div class="bd">
       <ul>
-        <li><a href="http://oocss.org/">ooscss</a>
-        <li><a href="http://www.w3.org/TR/css3-selectors/">css3 selector</a>
         <li><a href="http://www.zhihu.com/question/20086234">inline/block/inline-block</a>
+        <li><a href="http://oocss.org/">OOCSS</a>
+        <li><a href="http://sass-lang.com/">SASS</a>
       </ul>
     </div>
   </section>
