@@ -12,6 +12,14 @@ var cloest = function ( element, target ) {
   return null;
 };
 
+function walkToRoot( node, handle ) {
+  while ( node ) {
+    if ( handle(node) === false ) break;
+    node = node.parentNode;
+  }
+  return node;
+}
+
 ;(function() {
   // @note: 仅考虑了元素节点和文本节点.
   // @note: 使用 pre, 然后再 innerText 和 直接使用 textarea.

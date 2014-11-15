@@ -118,7 +118,14 @@
     if ( preventDefaultElements.indexOf(target.nodeName.toLowerCase()) > -1 ) {
       return true;
     }
-    if ( target.getAttribute('contenteditable') === 'true' ) {
+    var node = walkToRoot( target, function( target ) {
+      if ( target.nodeName.toLowerCase() === 'code' || 
+        (target.getAttribute && target.getAttribute('contenteditable') == 'true')
+      ) {
+        return false;
+      }
+    });
+    if ( node ) {
       return true;
     }
   };

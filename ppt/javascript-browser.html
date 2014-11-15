@@ -29,7 +29,7 @@
       <ul>
         <li>window/document.defaultView
         <li>top/parent/self
-        <li>iframe.contentWindow/iframe.contentDocument(iframe.contentWindow.document)
+        <li>iframe.contentWindow/iframe.contentDocument(兼容: iframe.contentWindow.document)
       </ul>
       <h2>property/method</h2>
       <ul>
@@ -42,7 +42,9 @@
       </ul>
       <h2>cross-domain</h2>
       <ul>
-        <li>document.domain
+        <li>不同协议/不同域名/不同端口(ie例外)
+        <li>不同子域名可使用 document.domain 修正
+        <li>限制: XMLHttpRequest/iframe
       </ul>
     </div>
   </section>
@@ -51,9 +53,15 @@
       <h1>navigator</h1>
     </div>
     <div class="bd">
-      <li>userAgent
-      <li>onLine
-      <li>geolocation
+      <ul>
+        <li>userAgent
+        <li>onLine
+          <ul>
+            <li>window.addEventListener( 'online', function() {});
+            <li>window.addEventListener( 'offline', function() {});
+          </ul>
+        <li>geolocation
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -66,6 +74,7 @@
         <li>assign( url )
         <li>replace( url )
         <li>reload()
+        <li>location.href = {url}
         <li>location = {url};
       </ul>
     </div>
@@ -91,6 +100,10 @@
         <li>window.onpopstate
         <li><a href="https://github.com/jashkenas/backbone/blob/master/backbone.js#L1494">iframe(ie)</a>
       </ul>
+      <h2>Homework</h2>
+      <ul>
+        <li>router
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -113,13 +126,13 @@
       <h1>Cookie</h1>
     </div>
     <div class="bd">
+      <p>存储到特定域名(domain)的特定目录(path)下, 存在过期时间(expires), 浏览器对 cookie 总大小有限制.
+      <p>网页中请求子文件(css/js/image等)时, 请求 head 信息中会加上 cookie.
+      <h2>Homework</h2>
       <ul>
-        <li>Cookie(string)
-        <li>Session
-        <li>LocalStorage(key/value)
-        <li>SessionStorage
-        <li>IndexedDB(SQL)
-        <li>Application Cache(file)
+        <li>cookie.get( key )
+        <li>cookie.set( key, value, expires, domain, path );
+        <li>cookie.remove( key )
       </ul>
     </div>
   </section>
@@ -128,8 +141,8 @@
       <h1>LocalStorage</h1>
     </div>
     <div class="bd">
-      <p>localStorage 会把数据存储在本地, 并且数据没有过期时间; <br />
-        各个浏览器对存储空间有大小要求, 一般可存储 5M; 超出时, 会抛出异常.
+      <p>localStorage 会把数据存储在本地, 并且数据没有过期时间; 各个浏览器对存储空间有大小要求, 一般可存储 5M; 超出 size 限制时, 会抛出异常.
+      <p>IE 低版本不支持 localStorage, 但支持 <a href="http://msdn.microsoft.com/zh-cn/vstudio/ms531424">userdata</a>
       <ul>
         <li>.length
         <li>.key( n )
@@ -137,9 +150,9 @@
         <li>.getItem( key, value )
         <li>.removeItem( key, value )
         <li>.clear()
-        <li>'storage'(event)
+        <li>'storage' 事件, 在其他页面触发<a href="http://zhanhongtao.github.io/blog/localstorage/">event</a>/<a href="http://zhanhongtao.github.io/blog/localstorage/localstorage.html">other page</a>
       </ul>
-      <p><a href="https://html.spec.whatwg.org/multipage/webstorage.html">https://html.spec.whatwg.org/multipage/webstorage.html</a>
+      <p>规范：<a href="https://html.spec.whatwg.org/multipage/webstorage.html">https://html.spec.whatwg.org/multipage/webstorage.html</a>
     </div>
   </section>
   <section class="slide">
@@ -162,16 +175,6 @@
         <li>availHeight
         <li>pixelDepth
         <li>colorDepth
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>应用</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>Router 实现
       </ul>
     </div>
   </section>
