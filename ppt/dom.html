@@ -244,7 +244,8 @@
     <div class="bd">
       <ul>
         <li>node.length
-        <li>textNode.nodeValue/textNode.data
+				<li><mark>textNode.nodeValue</mark>
+				<li>textNode.data
         <li>textNode.appendData( text )
         <li>textNode.deleteData( text )
         <li>textNode.insertData( offset, count )
@@ -283,10 +284,10 @@
     </div>
     <div class="bd">
       <ul>
-        <li>element.style.property
         <li>element.style[ property ] = value
+        <li>element.style.property
         <li>element.style.cssText = CSS_TEXT_STRING
-        <li>style = window.getComputedStyle( element, pseudo_class )
+        <li class="toggle">style = window.getComputedStyle( element, pseudo_class )
         <li>style = document.defaultView.getComputedStyle( element, pseduo_class )
         <li>style = element.currentStyle
       </ul>
@@ -352,8 +353,9 @@
       <ul>
         <li>(document.documentElement || document.body).scrollHeight
         <li>(document.documentElement || document.body).offsetHeight
-        <li>document.documentElement.clientHeight - Math.max
+        <li>document.documentElement.clientHeight
       </ul>
+			<p>求以上最大值
     </div>
   </section>
   <section class="slide">
@@ -377,7 +379,7 @@
       <ul>
         <li>window.pageYOffset/window.pageXOffset
         <li>document.documentElement.scrollTop/document.documentElement.scrollLeft
-        <li>document.body.scrollTop/document.body.scrollTop
+        <li>document.body.scrollTop/document.body.scrollLeft
       </ul>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY">https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY</a>
     </div>
