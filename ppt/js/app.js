@@ -21,8 +21,24 @@
   var debug = false;
 
   var getIndex = function() {
-    var hash = location.hash;
-    var index = parseInt( hash.slice(1), 10 );
+    // 支持 id 访问.
+    var regexp = /(?:[\?&#])id=([^&#]+)/i;
+    var id;
+    location.href.replace( regexp, function( match, $1 ) {
+      id = $1;
+    });
+    if ( id ) {
+      for ( var i = 0, l = slides.length; i < l; ++i ) {
+        if ( id == slides[i].id ) {
+          index = i;
+          break;
+        }
+      }
+    }
+    if ( !index ) {
+      var hash = location.hash;
+      var index = parseInt( hash.slice(1), 10 );
+    }
     return isNaN(index) ? 0 : index;
   }
   
@@ -54,7 +70,8 @@
       next: next,
       prev: prev,
       pages: pages,
-      direction: direction
+      direction: direction,
+      id: slides[page].id || ''
     });
   };
 

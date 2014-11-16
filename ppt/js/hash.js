@@ -11,6 +11,7 @@
     if ( history.pushState ) {
       var uri = '';
       var page = message.page || 0;
+      // @todo: 支持 sub.
       var sub  = message.sub == null ? '' : '/' + message.sub;
       var href = location.href;
       if ( href.indexOf('#') === -1 ) {
@@ -22,6 +23,12 @@
           return uri;
         });
       }
+      // 支持 id 访问页数
+      uri = uri.replace(/([?&#])id=[^&#]*|[?&#]$/i, '');
+      if ( message.id ) {
+        uri += '&id=' + message.id;
+      }
+      
       if ( uri !== location.href ) {
         setTimeout(function() {
           history.pushState( {}, document.title, uri );

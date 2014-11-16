@@ -25,8 +25,8 @@
       <h1>Event</h1>
     </div>
     <div class="bd">
-      <li>事件流
-      <li>事件处理
+      <li>事件流 - 捕获/冒泡
+      <li>事件帧听器和事件对象
       <li>事件类型
     </div>
   </section>
@@ -43,13 +43,13 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>事件处理</h1>
+      <h1>事件处理 - 事件帧听器</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>行内事件
-        <li>DOM0
-        <li>DOM2
+        <li>element.on{EventName}
+        <li>element.addEventListener/element.removeEventListener
+        <li>element.attachEvent/element.detachEvent - ie
       </ul>
 <pre>
 <code class="JavaScript">
@@ -82,11 +82,173 @@ dom.attachEvent( '<mark>on</mark>click', function() {
 </pre>
     </div>
   </section>
+
   <section class="slide">
     <div class="hd">
-      <h1>this</h1>
+      <h1>事件代理</h1>
     </div>
     <div class="bd">
+      <p>利用事件流 - 冒泡特性.
+<pre class="codebox">
+<code id="_click_delegate" class="javascript" contenteditable>
+document.onclick = function(e) {
+  e = e || window.event;
+  var target = e.target || e.srcElement;
+  // 拦截, 做处理
+  if ( target.id == '_click_delegate' ) {
+    alert( 'delegate' );
+  }
+};
+</code><div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Event 对象</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event - 作为参数传递
+        <li>window.event - 在 event 结束时, 销毁
+      </ul>
+      <p>兼容代码： <code>event = event || window.event;</code>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>事件类型</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event.type - mousedown/mouseup/click/....
+      </ul>
+<pre class="codebox" id="_event_type">
+<code class="javascript" contenteditable>
+var dom = document.getElementById( '_event_type' );
+
+dom.addEventListener( 'mousedown', function(e) {
+  console.log( e.type );
+}, false);
+
+dom.addEventListener( 'mouseup', function(e) {
+  console.log( e.type );
+}, false);
+
+dom.addEventListener( 'click', function(e) {
+  console.log( e.type );
+}, false);
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>触发事件的节点对象</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event.target - 标准
+        <li>event.srcElement
+      </ul>
+      <p>兼容代码： <code>var target = event.target || event.srcElement;</code>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>阻止默认行为</h1>
+    </div>
+    <div class="bd">
+      <p>当 cancelable 属性为 true 时, <code>event.preventDefault();</code> 才有效. <br />
+      当 <code>event.preventDefault();</code> 调用后, <code>event.defaultPrevented;</code> 为 Ture.
+      <ul>
+        <li>event.preventDefault();
+        <li>event.returnValue = true; - ie
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+// 兼容代码：
+event.preventDefault = event.preventDefault || function() {
+  event.returnValue = true;
+};
+</code>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>阻止冒泡</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event.stopPropregation();
+        <li>event.cancelBubble = true; - ie
+      </ul>
+<pre>
+<code class="javascript" contenteditable>
+// 兼容代码：
+event.stopPropregation = event.stopPropregation || function() {
+  event.cancelBubble = true;
+};
+</code>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>阻止后续事件处理函数以及冒泡行为</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event.stopImmediatePropagation();
+      </ul>
+<pre class="codebox">
+<code id="_click_stop_immediate_propagation" class="javascript" contenteditable>
+var dom = document.getElementById( '_click_stop_immediate_propagation' );
+dom.addEventListener( 'click', function(e) {
+  alert(1);
+  e.stopImmediatePropagation();
+}, false);
+
+dom.addEventListener( 'click', function() {
+  alert(2);
+}, false);
+</code><div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>功能键</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>altKey
+        <li>ctrlKey
+        <li>shiftKey
+        <li>metaKey - IE9 之前浏览器不支持
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>其它属性</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>event.bubbles - 事件是否是冒泡上来的
+        <li>event.isTruest - Boolean 值, 是否为用户操作行为
+        <li>event.timeStamp
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>事件运行时, this</h1>
+    </div>
+    <div class="bd">
+      <p>jQuery 中的 delegateTarget/currentTarget.
 <pre class="codebox">
 <code id="_click_this_dom0" class="javascript" contenteditable>
 document.getElementById( '_click_this_dom0' ).onclick = function(e) {
@@ -110,37 +272,6 @@ document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) 
 </code><div class="runcase">Run</div>
 </pre>
     </div>
-  </section>  
-  <section class="slide">
-    <div class="hd">
-      <h1>事件代理</h1>
-    </div>
-    <div class="bd">
-      <p>利用事件冒泡性质.
-<pre class="codebox">
-<code id="_click_delegate" class="javascript" contenteditable>
-document.onclick = function(e) {
-  e = e || window.event;
-  var target = e.target || e.srcElement;
-  if ( target.id == '_click_delegate' ) {
-    alert( 'delegate' );
-  }
-};
-</code><div class="runcase">Run</div>
-</pre>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Event 对象</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>event
-        <li>window.event
-        <li>event = event || window.event;
-      </ul>
-    </div>
   </section>
   <section class="slide">
     <div class="hd">
@@ -148,45 +279,45 @@ document.onclick = function(e) {
     </div>
     <div class="bd">
       <ul>
-        <li>UI事件
-        <li>焦点事件
-        <li>鼠标事件
-        <li>滚轮事件
-        <li>键盘事件
-        <li>文本事件
-        <li>变动事件 - mutation
+        <li>Load
+        <li>Ctrol
+        <li>Mouse
+        <li>Keyboard
+        <li>DOM Mutation
       </ul>
+      <p>参考开发者工具事件类型
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>UI 事件</h1>
+      <h1>Load</h1>
     </div>
     <div class="bd">
       <ul>
+        <li>DOMContentLoaded - IE9+
+        <li>readystatechange - document.readystate[ loading/<mark>loaded</mark>/interactive/<mark>complete</mark> ]
         <li>load
+        <li>beforeunload
         <li>unload
         <li>abort
         <li>error
-        <li>select - input/textarea
-        <li>resize
-        <li>scroll - dom/window
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>焦点事件</h1>
+      <h1>Control</h1>
     </div>
     <div class="bd">
       <ul>
         <li>focus - 不冒泡
         <li>blur - 不冒泡
-        <li>focusin - 支持冒泡(确认 firefox 支持情况)
-        <li>focusout - 同 focusin
-        <li>abort
-        <li>error
+        <li>focusin - 支持冒泡
+        <li>focusout - 支持冒泡
         <li>select - input/textarea
+        <li>change
+        <li>reset
+        <li>submit
         <li>resize
         <li>scroll
       </ul>
@@ -198,7 +329,7 @@ document.onclick = function(e) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>鼠标事件</h1>
+      <h1>Mouse</h1>
     </div>
     <div class="bd">
       <ul>
@@ -211,12 +342,13 @@ document.onclick = function(e) {
         <li>mouseleave - 同 mouseenter
         <li>mouseover
         <li>mouseout - 移动到子元素上时, 也会触发
+        <li>contextMenu - 右键菜单
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>鼠标事件 - 光标位置</h1>
+      <h1>光标位置</h1>
     </div>
     <div class="bd">
       <ul>
@@ -233,20 +365,7 @@ document.onclick = function(e) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>鼠标事件 - 功能键</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>altKey
-        <li>ctrlKey
-        <li>shiftKey
-        <li>metaKey - IE9 之前浏览器不支持
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>鼠标事件 - 相关元素</h1>
+      <h1>相关元素</h1>
     </div>
     <div class="bd">
       <h2>事件</h2>
@@ -267,12 +386,12 @@ document.onclick = function(e) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>鼠标事件 - 鼠标按钮</h1>
+      <h1>鼠标按钮</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>e.which - 1(主)/2(中)/3(副) - IE 不支持
-        <li>e.button
+        <li>event.which - 1(主)/2(中)/3(副) - IE 不支持
+        <li>event.button - ie
           <ul>
             <li>0 - 没有按
             <li>1 - 按下主鼠标键
@@ -283,14 +402,15 @@ document.onclick = function(e) {
             <li>6 - 同时按下次、中鼠标键
             <li>7 - 同时按下主、中、次鼠标键
           </ul>
+        <li class="toggle">event.which = ( button & 1 ? 1 : ( button & 2 ? 3 : ( button & 4 ? 2 : 0 ) ) );
       </ul>
       <h2>Homework</h2>
       <p>确认 jQuery 怎么实现兼容. <a href="http://api.jquery.com/event.which/">event.which</a>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
-      <h1>滚轮事件</h1>
+      <h1>Mouse - wheel</h1>
     </div>
     <div class="bd">
       <ul>
@@ -300,16 +420,18 @@ document.onclick = function(e) {
       <h2>Homework</h2>
       <p>实现具有兼容性的 mousewheel 事件
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
-      <h1>键盘事件</h1>
+      <h1>Keyboard</h1>
     </div>
     <div class="bd">
       <ul>
         <li>keydown - 按下任意键触发/按住不放时, 重复触发
         <li>keypress - 按下字符键或影响到字符输入(退格键)时触发
         <li>keyup
+        <li>input - other
+        <li>propertychange - ie
       </ul>
       <h2>键码</h2>
       <ul>
@@ -323,18 +445,39 @@ document.onclick = function(e) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>文本事件</h1>
+      <h1>Clipboard</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>input - other
-        <li>propertychange - ie
+        <li>copy
+        <li>cut
+        <li>paste
+        <li>beforecopy
+        <li>beforecut
+        <li>beforepaste
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>变动事件</h1>
+      <h1>drag/drop</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>dragstart
+        <li>dragenter
+        <li>dragover
+        <li>dragleave
+        <li>drag
+        <li>drop
+        <li>dragend
+      </ul>
+      <p>参考: <a href="https://developer.mozilla.org/zh-CN/docs/DragDrop/Drag_and_Drop">https://developer.mozilla.org/zh-CN/docs/DragDrop/Drag_and_Drop</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>DOM Mutation</h1>
     </div>
     <div class="bd">
       <ul>
@@ -353,13 +496,17 @@ document.onclick = function(e) {
     </div>
     <div class="bd">
       <ul>
-        <li>DOMContentLoaded - IE9+
-        <li>readystatechange - laoding/<mark>loaded</mark>/interactive/<mark>complete</mark>
-        <li>contextMenu
-        <li>beforeunload
-        <li>pageshow/pagehide
+        <li>visibilitychange/document.hidden
         <li>hashchange - ie8+
+        <li>popstate
       </ul>
+<pre class="codebox">
+<code id="_user_event" class="javascript" contenteditable>
+document.addEventListener( 'visibilitychange', function(e) {
+  console.log( 'hidden: ' + document.hidden );
+}, false );
+</code><div class="runcase">Run</div>
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -368,9 +515,28 @@ document.onclick = function(e) {
     </div>
     <div class="bd">
       <ul>
-        <li>createElement
-        <li>new Event
+        <li>new CustomEvent( name, {bubbles: true, cancelable: true, detail: {}});
+        <li>var event = document.createEvent( 'Event' ); event.initEvent( name, true, true);
+        <li>element.dispatchEvent( event )
       </ul>
+<pre class="codebox">
+<code id="_user_event" class="javascript" contenteditable>
+function notify( element, name, data ) {
+  var event = new CustomEvent( name, {
+    bubbles: true,
+    cancelable: true,
+    detail: data
+  });
+  element.dispatchEvent( event );
+}
+document.addEventListener( '_click', function(e) {
+  alert( JSON.stringify(e.detail) );
+}, false);
+
+notify( document, '_click', { name: 'redky', id: 806 } );
+</code><div class="runcase">Run</div>
+</pre>
+      <p><a href="http://www.w3.org/TR/dom/">http://www.w3.org/TR/dom/</a>
     </div>
   </section>
   <section class="slide slide-cover">
