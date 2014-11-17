@@ -171,16 +171,16 @@
         <li>static
         <li>fixed(body)
         <li>relative(self)
-        <li>absolute(closest-parent-relative-element/body)
+        <li>absolute(closest-relative-element/body)
         <li>float
         <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
       </ul>
       <h2>About</h2>
       <ul>
         <li>top/right/bottom/left(0, 1, 2, 3, 4)
-        <li>z-index(require: relative/absolute)
-        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left)
-        <li>clear(left/right/both)
+        <li>z-index(require: relative/absolute/fixed)
+        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left) (require: absolute)
+        <li><a href="#clearfix" target="_self">clear</a>(left/right/both)
         <li>overflow(hidden/auto/visible/scroll)        
       </ul>
     </div>
@@ -213,7 +213,9 @@
       <ol>
         <li>float: 除 none 以外的值 - 浮动元素
         <li>position: absolute, fixed - 绝对定位元素
-        <li>display: table-cell(table), table-caption, inline-block - 非块级盒子的块级容器
+        <li>display: table-cell(table), table-caption
+        <li>inline-block - 非块级盒子的块级容器
+        <li>display: flex/inline-flex; 弹性盒.
         <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
       </ol>
     </div>
@@ -1045,6 +1047,7 @@ h3 {
         <li><a href="http://www.zhihu.com/question/20086234">inline/block/inline-block</a>
         <li><a href="http://oocss.org/">OOCSS</a>
         <li><a href="http://sass-lang.com/">SASS</a>
+        <li><a href="http://josh.github.io/css-explain/">http://josh.github.io/css-explain/</a>
       </ul>
     </div>
   </section>
