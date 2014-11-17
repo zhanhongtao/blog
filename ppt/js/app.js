@@ -206,6 +206,15 @@
     }
   }, false );
 
+  document.addEventListener( 'click', function( event ) {
+    var target = event.target;
+    var dataset = target.dataset;
+    if ( dataset.id == 'nav' ) {
+      dataset.direction == 'next' ? nextSlide() : prevSlide();
+      event.preventDefault();
+    }
+  }, false );
+  
   eventemitter.on( 'on-focus-target', function( page ) {
     slides[ page ].focus();
   });
@@ -234,7 +243,11 @@
 
   function init( hash ) {
     updatePage( page, hash );
+    if ( location.href.indexOf('nav=show') > -1 ) {
+      document.body.classList.add( 'display-navigator' );
+    }
   }
+  
   init( false );
   
   window.onpopstate = function() {

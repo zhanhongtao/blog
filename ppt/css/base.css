@@ -9,15 +9,10 @@ h1, h2, h3, h4, h5, h6, dl {
   padding: 0;
 }
 
-ol {
-  padding-left: 40px;
-}
-ul {
-  padding-left: 25px;
-}
-li {
-  margin: 15px auto;
-}
+ol { padding-left: 40px; }
+ul { padding-left: 25px; }
+li { margin: 15px auto; }
+.no-style { list-style: none; padding-left: 0; }
 
 h1, .ppt .h1 { font-size: 24px; }
 h2, .ppt .h2 { font-size: 20px; }

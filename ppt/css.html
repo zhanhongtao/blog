@@ -210,14 +210,14 @@
     <div class="bd">
       <p>块级格式化上下文, 有自己独立的布局环境和规则, 它不受外部环境影响, 也不会影响外部环境; 可以包裹内部的 float 元素, 同时不与外部 float 元素重叠.</p>
       <h2>触发条件</h2>
-      <ol>
+      <ul>
         <li>float: 除 none 以外的值 - 浮动元素
         <li>position: absolute, fixed - 绝对定位元素
         <li>display: table-cell(table), table-caption
         <li>inline-block - 非块级盒子的块级容器
         <li>display: flex/inline-flex; 弹性盒.
         <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
-      </ol>
+      </ul>
     </div>
   </section>
   <section class="slide" id="clearfix">
@@ -1055,6 +1055,10 @@ h3 {
     <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
+  <nav>
+    <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
+    <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
+  </nav>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
   <script src="./js/hash.js"></script>

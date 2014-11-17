@@ -95,6 +95,35 @@
   height: 1px;
 }
 
+.nav-next,
+.nav-prev {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 64px;
+  height: 64px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 64px 64px;
+  display: none;
+}
+
+.display-navigator .nav-next,
+.display-navigator .nav-prev {
+  display: block;
+}
+
+.nav-next {
+  right: 10px;
+  background-image: url(../images/next.png);
+}
+
+.nav-prev {
+  right: 20px;
+  margin-right: 64px;
+  background-image: url(../images/prev.png);
+}
+
 /* 手机下样式 */
 @media screen and ( max-width: 480px ) {
   .helper {
