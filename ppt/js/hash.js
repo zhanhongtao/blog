@@ -2,7 +2,7 @@
 // 支持 history 更新.
 ;(function() {
   var eventemitter = eventEmitter();
-  
+
   function updateHash( message ) {
     // 如果已经是 hash 触发的事件,
     // 就不再 pushState.
@@ -10,31 +10,24 @@
     // 修正 ie 不支持 pushState 问题.
     if ( history.pushState ) {
       var uri = '';
-      var page = message.page || 0;
-      // @todo: 支持 sub.
-      var sub  = message.sub == null ? '' : '/' + message.sub;
+      var id = message.id || message.page || 0;
       var href = location.href;
-      if ( href.indexOf('#') === -1 ) {
-        uri = href + '#' + page + sub;
+      var hashIndex = href.indexOf('#');
+      if ( hashIndex === -1 ) {
+        uri = href + '#' + id;
+      } else {
+        var b = href.slice(0, hashIndex + 1);
+        var c = id;
+        var hash = href.slice( hashIndex);
+        var l = hash.replace( /#(?:&|[^=&]*(?:=|&|=&|$))/, '');
+        uri = b + c + (l ? '&' + l : '');
       }
-      else {
-        uri = href.replace( /#([^&]*)/i, function () {
-          var uri = '#' + page + sub;
-          return uri;
-        });
-      }
-      // 支持 id 访问页数
-      uri = uri.replace(/([?&#])id=[^&#]*|[?&#]$/i, '');
-      if ( message.id ) {
-        uri += '&id=' + message.id;
-      }
-      
       if ( uri !== location.href ) {
         setTimeout(function() {
           history.pushState( {}, document.title, uri );
-        }, 50);        
+        }, 50);
       }
-    }    
+    }
   }
 
   eventemitter.on( 'on-page-changed', updateHash );

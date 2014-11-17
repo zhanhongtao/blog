@@ -22,24 +22,25 @@
 
   var getIndex = function() {
     // 支持 id 访问.
-    var regexp = /(?:[\?&#])id=([^&#]+)/i;
-    var id;
-    location.href.replace( regexp, function( match, $1 ) {
+    var reg = /#([^&]*)/i;
+    var id, index = 0;
+    location.href.replace( reg, function( match, $1 ) {
       id = $1;
     });
-    if ( id ) {
-      for ( var i = 0, l = slides.length; i < l; ++i ) {
-        if ( id == slides[i].id ) {
-          index = i;
-          break;
-        }
-      }
+    if( id && id.indexOf('=') == -1 ) {
+      index = Number(id);
+      if ( isNaN(index) ) {
+        for ( var i = 0, l = slides.length; i < l; ++i ) {
+          if ( id == slides[i].id ) {
+            index = i;
+            break;
+          }
+        }         
+      } else {
+        index = index >= slides.length ? 0 : index;
+      }     
     }
-    if ( !index ) {
-      var hash = location.hash;
-      var index = parseInt( hash.slice(1), 10 );
-    }
-    return isNaN(index) ? 0 : index;
+    return index;
   }
   
   var page = getIndex();
