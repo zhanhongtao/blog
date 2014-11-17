@@ -567,7 +567,7 @@ alert( result );
       </ul>
     </div>
   </section>
-  <section class="slide">
+  <section class="slide" id="json">
     <div class="hd">
       <h1>window.JSON</h1>
     </div>
@@ -577,6 +577,68 @@ alert( result );
         <li>JSON.stringify( value[, replacer][, space] );
         <li><a href="https://github.com/douglascrockford/JSON-js">https://github.com/douglascrockford/JSON-js</a>
       </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var result;
+var object = {
+  name: 'redky',
+  id: 97
+};
+
+// 只有一个参数
+result = JSON.stringify( object );
+console.log( result );
+
+// 第二个参数 - 数组, 用来过滤 KEY
+result = JSON.stringify( object, ['id'] );
+console.log( result);
+
+// 第二个参数 - 函数
+// root 时, key 为空字符串
+result = JSON.stringify( object, function( key, value ) {
+  if ( key == 'id' ) {
+    value *= 10;
+  }
+  return value;
+});
+console.log( result );
+
+// 第三个参数 - 字符
+result = JSON.stringify( object, null, '  ' );
+console.log( result );
+
+// 第三个参数 - 数字
+result = JSON.stringify( object, null, 4 );
+console.log( result );
+</code>
+<div class="runcase">Run</div>
+</pre>  
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var result;
+var string = '{"name": "redky", "id": 97}';
+
+result = JSON.parse( string );
+console.log( result );
+
+result = JSON.parse( string, function( key, value ) {
+  if ( key == 'id' ) {
+    return;
+  }
+  return value;
+});
+console.log( result );
+
+result = JSON.parse( string, function( key, value ) {
+  if ( key == 'id' ) {
+    value *= 10;
+  }
+  return value;
+});
+console.log( result );
+</code>
+<div class="runcase">Run</div>
+</pre>
     </div>
   </section>
   <section class="slide">
