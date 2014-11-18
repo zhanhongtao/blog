@@ -38,7 +38,7 @@
     <div class="bd">
       <p><code>xhr.open( method, url, async, username, password );</code>
       <ul>
-        <li>method: POST/GET/PUT/HEAD..
+        <li>method: GET/POST/PUT/HEAD..
         <li>url: 接口地址
         <li>async: Boolean 是否为异步; 默认为 Ture.
         <li>username
@@ -46,7 +46,8 @@
       </ul>
 <pre>
 <code class="javascript" contenteditable>
-  xhr.open( 'GET', 'http://www.google.com/' );
+// 后三个参数可选
+xhr.open( 'GET', 'http://www.google.com/' );
 </code>
 </pre>
     </div>
@@ -61,6 +62,8 @@
 <code class="javascript" contenteditable>
 // Content-Type
 xhr.setRequestHeader( 'Content-Type', 'text/plain;charset=UTF-8' );
+// Form
+xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
 
 //  自定义
 xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
@@ -269,11 +272,12 @@ fd.append( 'files[]', files[i] );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>参考</h1>
+      <h1>参考/扩展</h1>
     </div>
     <div class="bd">
       <ul>
         <li><a href="http://xhr.spec.whatwg.org/">http://xhr.spec.whatwg.org/</a>
+        <li><a href="http://api.jquery.com/jQuery.ajax/">jQuery.ajax</a>
       </ul>
     </div>
   </section>  
