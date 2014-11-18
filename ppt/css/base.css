@@ -24,6 +24,10 @@ h6, .ppt .h6 { font-size: 12px; }
 .hd { margin: 10px auto; overflow: hidden; }
 .bd { margin: 15px auto; overflow: hidden; }
 
+.bd h2 {
+  margin: 10px 0;
+}
+
 dt, dd { margin: 15px auto; }
 dd { text-indent: 2em; }
 
@@ -60,7 +64,6 @@ code {
   margin: 0 5px;
   border-radius: 2px;
   background-color: #f0f0f0;
-  vertical-align: 3px;
   color: #333;
   text-indent: 0;
   outline: none;

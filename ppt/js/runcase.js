@@ -100,7 +100,7 @@ function walkToRoot( node, handle ) {
   document.addEventListener( 'keydown', function( event ) {
     var target = event.target;
     if ( event.which === 9 || event.keyCode === 9 ) {
-      if ( matchesSelector(target, 'code[contenteditable=true]') ) {
+      if ( cloest(target, 'code[contenteditable=true]') ) {
         insertTextAtCursor( '  ' );
         event.preventDefault();
       }

@@ -60,29 +60,9 @@
         <% var demos = it.demos; %>
         <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
           <% var item = demos[i]; %>
-          <li><a href="<%= item.address %>"><%= item.title %></a></li>
+          <li><a href="<%= item.address %>"><%= item.title %></a><% if(item.description) {%> -- <%= item.description %><%} %></li>
         <% } %>
       </ul>    
-    <% } %>
-  </div>
-</script>
-
-<script type="text" id="tmpl-github">
-  <div id="github">
-    <h1>Github</h1>
-    <% var repositories = it.repositories %>
-    <% for ( var i = 0, l = repositories.length; i < l; ++i ) { %>
-    <% var item = repositories[i]; %>
-      <div class="git-item">
-        <h2><%= item.title %></h2>
-        <p><%= item.description %></p>
-        <ul>
-          <li>address: <a href="<%= item.address %>"><%= item.title %></a></li>
-          <% if( item.demo ) { %>
-          <li>demo: <a href="<%= item.demo %>">demo</a></li>
-          <% } %>
-        </ul>
-      </div>
     <% } %>
   </div>
 </script>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
-  <title>CSS</title>
+  <title>Ajax</title>
   <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/base.css?v=3">
   <link rel="stylesheet" href="./css/app.css?v=3">
@@ -17,314 +17,274 @@
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
-    <h1>CSS</h1>
+    <h1>Ajax</h1>
     <h2 class="h3">redky@qq.com</h2>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>CSS Box Model</h1>
-    </div>
-    <div class="bd">
-      <li>margin
-      <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
-      <li>padding
-      <li>content(width/height)
-      <li>box-sizing(border-box/content-box)
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Document Flow</h1>
+      <h1>XMLHttpRequest</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>static
-        <li>fixed(top/right/bottom/left)
-        <li>relative(top/right/bottom/left)
-        <li>absolute(top/right/bottom/left)
-        <li>z-index(require: relative/absolute)
-        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left)
-        <li>float(none/left/right)
-        <li>clear(left/right/both)
-        <li>overflow(hidden/auto/visible/scroll)
-        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+        <li>var xhr = new XMLHttpRequest();
+        <li>var xhr = new Active( 'Microsoft.XMLHTTP' );
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Display</h1>
+      <h1>开始建立连接</h1>
     </div>
     <div class="bd">
+      <p><code>xhr.open( method, url, async, username, password );</code>
       <ul>
-        <li>inherit
-        <li>initial
-        <li>none
-        <li>inline
-        <li>inline-block
-        <li>block
-        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
-        <li>inline-flex
-        <li>table/table-cell
+        <li>method: POST/GET/PUT/HEAD..
+        <li>url: 接口地址
+        <li>async: Boolean 是否为异步; 默认为 Ture.
+        <li>username
+        <li>password
       </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Selector</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>E
-        <li>#id
-        <li>.class
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/sibling-selectors.html">siblings</a>
-          <ul>
-            <li>E F
-            <li>E > F
-            <li>E + F
-            <li><a href="http://zhanhongtao.github.io/blog/fe/selector/~.html">E ~ F</a>
-          </ul>
-        </li>
-        <li><a href="http://jsfiddle.net/redky/DaG94/">pseudo-element</a>
-          <ul>
-            <li>E::before
-            <li>E::after
-          </ul>
-        <li>E:link
-        <li>E:visited
-        <li>E:hover
-        <li>E:active
-        <li>E:focus
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/attribute-selectors.html">attribute</a>
-          <ul>
-            <li>E[foo]
-            <li>E[foo="bar"]
-            <li>E[foo~="bar"]
-            <li>E[foo^="bar"]
-            <li>E[foo$="bar"]
-            <li>E[foo*="bar"]
-            <li>E[foo|="en"]
-          </ul>
-        <li>E:root
-        <li><a href="http://jsfiddle.net/redky/hR3q3/">:nth-child</a>
-          <ul>
-            <li>E:first-child
-            <li>E:last-child
-            <li>E:nth-child(n)
-            <li>E:nth-last-child(n)
-            <li>E:nth-child(even)/E:nth-child(5)/E:nth-child(n+6)/E:nth-child(5-n)
-          </ul>
-        </li>
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/type-child.html">type of child</a>
-          <ul>
-            <li>E:nth-of-type(n)
-            <li>E:nth-last-of-type(n)
-            <li>E:first-of-type
-            <li>E:last-of-type
-            <li>E:only-child
-            <li>E:only-of-type
-          </ul>
-        <li>E:empty
-        <li>E:target
-        <li><a href="http://jsfiddle.net/redky/E8DRF/">E:selection</a>
-        <li>E:lang(fr)
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/input-type.html">status</a>
-            <ul>
-              <li>E:disabled
-              <li>E:enabled
-              <li>E:checked
-            </ul>
-        <li>E::first-line
-        <li>E::first-letter
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/not.html">not</a>
-        <li>*
-      </ul>
-      <a href="http://www.w3.org/TR/css3-selectors/">http://www.w3.org/TR/css3-selectors/</a>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Cascade Order</h1>
-    </div>
-    <div class="bd">
-      <ol>
-        <li>!important
-        <li>inline style
-        <li>ID
-        <li>class/pseudo-class/property
-        <li>tag/pseudo-element
-        <li>css
-        <li>*
-      </ol>
-      <a href="http://www.w3.org/TR/CSS2/cascade.html#cascade">http://www.w3.org/TR/CSS2/cascade.html#cascade</a>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Block Formatting Contexts</h1>
-    </div>
-    <div class="bd">
-      <p>块级格式化上下文, 有自己独立的布局环境和规则, 它不受外部环境影响, 也不会影响外部环境; 可以包裹内部的 float 元素, 同时不与外部 float 元素重叠.</p>
-      <h2>触发条件</h2>
-      <ol>
-        <li>float: 除 none 以外的值 - 浮动元素
-        <li>position: absolute, fixed - 绝对定位元素
-        <li>display: table-cell(table), table-caption, inline-block - 非块级盒子的块级容器
-        <li>overflow: 除了 visible 以外的值( hidden/auto/scroll )
-      </ol>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>clearfix</h1>
-    </div>
-    <div class="bd">
-<pre class="codebox">
-<code class="css block" contenteditable="true">
-.clearfix:before,
-.clearfix:after {
-  content: '';
-  /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
-  display: table;
-  /* 其他方法:
-    display: block;
-    height: 0;
-    overflow: hidden;
-  */
-}
-/* 清除浮动 */
-.clearfix:after {
-  clear: both;
-}
-/* IE 6/7 */
-.clearfix {
-  *zoom: 1;
-}
+<pre>
+<code class="javascript" contenteditable>
+  xhr.open( 'GET', 'http://www.google.com/' );
 </code>
 </pre>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>OOCSS</h1>
+      <h1>添加 Head 信息</h1>
     </div>
     <div class="bd">
-      <ol>
-        <li>抽象模块 - title/list/button/media/popup/grid/form/table/link/icon 等
-        <li>分离容器和内容
-        <li>结构和皮肤分离 - 皮肤(颜色/边框/图像)
-        <li>分离轮廓和背景
-        <li>组合大于继承
-        <li>自适应 - 可任意移植到其他模块(位置)
-      </ol>
+      <p><code>xhr.setRequestHeader( headerKEY, value );</code>
+<pre>
+<code class="javascript" contenteditable>
+// Content-Type
+xhr.setRequestHeader( 'Content-Type', 'text/plain;charset=UTF-8' );
+
+//  自定义
+xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
+
+xhr.setRequestHeader( 'X-test', 'a' );
+xhr.setRequestHeader( 'X-test', 'b' );
+// X-test: a, b
+</code>
+</pre>
+      <div class="toggle">
+        <h2>header key list</h2>
+        <ul>
+          <li>Accept-Charset
+          <li>Accept-Encoding
+          <li>Access-Control-Request-Headers
+          <li>Access-Control-Request-Method
+          <li>Connection
+          <li>Content-Length
+          <li>Cookie
+          <li>Cookie2
+          <li>Date
+          <li>DNT
+          <li>Expect
+          <li>Host
+          <li>Keep-Alive
+          <li>Origin
+          <li>Referer
+          <li>TE
+          <li>Trailer
+          <li>Transfer-Encoding
+          <li>Upgrade
+          <li>User-Agent
+          <li>Via
+        </ul>
+      </div>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>设置返回类型</h1>
     </div>
     <div class="bd">
+      <p><code>xhr.responseType [ = value;] </code>
       <ul>
-        <li>http://www.slideshare.net/stubbornella/presentations
-        <li>https://github.com/stubbornella/oocss-code-standards
-        <li>https://github.com/stubbornella/oocss-accessibility-guidelines
+        <li>''
+        <li>arraybuffer
+        <li>blob
+        <li>document
+        <li>json
+        <li>text
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>SASS</h1>
+      <h1>是否支持跨域</h1>
     </div>
     <div class="bd">
-      <p>CSS 可以解决时, 不必要使用预处理工具. <br />
-当在使用 CSS 的很复杂或文件很大, 不再容易维护时, 可使用工具来辅助开发.</p>
-      <ol>
-        <li>install:
-          <ol>
-            <li>install ruby
-            <li>gem install sass
-          </ol>
-        </li>
-        <li>command:
-          <ol>
-            <li>sass --watch index.scss:output.css
-            <li>sass --watch app/sass:public/css
-            <li>--style nested/compact/expanded/compress
-          </ol>
-        </li>
-      </ol>
+      <p>需要 server 端配合, 默认配置是 false.
+      <p><code>request.withCredentials = false;</code>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>SASS Features</h1>
+      <h1>设置超时时间和事件</h1>
+    </div>
+    <div class="bd">
+      <p><code>request.timeout = 0;</code>
+<pre>
+<code class="javascript" contenteditable>
+  request.ontimeout = function() {
+    request.abort();
+  };
+</code>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>绑定回调</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>comments - // + /*! #{$var} */
-        <li>variables($var)
-        <li>nested(&)
-        <li>@import
-        <li>%placeholder/@mixin/@include
-        <li>@extend
-        <li>Operator(+/-/...)
-        <li>` - #{$var}
-        <li>dateType(list, map...)
-        <li>@at-root/@at-root(with:..)/@at-root(without:..)
-        <li>@if..@else/@for..in/@for .. from ..though../@each/@while
-        <li>@function/@return
+        <li>xhr.onloadstart
+        <li>xhr.onprogress
+        <li>xhr.onload
+        <li>xhr.onabort
+        <li>xhr.onerror
+        <li>xhr.onloadend
+        <li>xhr.onreadystatechange
       </ul>
+<pre>
+<code class="javascript" contenteditable>
+xhr.onreadystatechange = function () {
+  handle( xhr );
+};
+// 或.
+xhr.onload = function() {
+  handle( xhr );
+};
+</code>
+</pre>
+    <h2>文件上传进度事件</h2>
+    <p><code>xhr.upload;</code>
+    <ul>
+      <li>xhr.upload.loadstart
+      <li>xhr.upload.progress
+      <li>xhr.upload.abort
+      <li>xhr.upload.error
+      <li>xhr.upload.load
+      <li>xhr.upload.timeout
+      <li>xhr.upload.loadend
+    </ul>
+<pre>
+<code class="javascript" contenteditable>
+xhr.uplaod.onprogress = function(e) {
+  // lengthCommutable
+  // loaded
+  // total
+};
+</code>
+</pre>
+    <h2>xhr.readyState</h2>
+    <ol start="0">
+      <li>UNSENT 未初始化   - 还没调用 open 方法
+      <li>OPENED 初始化     - 还没调用 Send 方法.
+      <li>HEADER_RECEIVED 发送数据   - 拿到 header 信息.
+      <li>LOADING 数据发送中 - 已接收部分数据. 响应不全.
+      <li>DONE 完成
+    </ol>
+    <p>可定期检查 header 信息.<code>xhr.getResponseHeader( headerKey ); </code> 一般用于取 server 的时间: <code>xhr.getResponseHeader( 'Date' );</code>
+<pre>
+<code class="javascript" contenteditable>
+function handle( xhr ) {
+  // xhr.state
+  if ( xhr.readyState === 4 ) {
+    var status = xhr.status;
+    // http 状态码.
+    // 200+ 认为是成功.
+    // 304 缓存也认为是成功.
+    // request.statusText
+    if ( status &gt;= 200 && status &lt; 300 || status == 304 ) {
+      success( xhr );
+    } else {
+      fail();
+    }
+  }
+);
+</code>
+</pre>
+    <h2>请求成功</h2>
+    <ul>
+      <li>xhr.getAllResponseHeaders()
+      <li>xhr.responseText
+      <li>xhr.responseXML
+      <li>xhr.response
+      <li class="toggle">xhr.responseURL
+      <li class="toggle">xhr.overrideMimeType( mime );
+    </ul>
+<pre>
+<code class="javascript" contenteditable>
+function success( xhr ) {
+  var headers = xhr.getAllResponseHeaders();
+  // @todo..
+  var response = xhr.response || xhr.responseText;
+  // @todo..
+}
+</code>
+</pre>
+      <h2>请求失败</h2>
+      <p>网络异常. 不会再有 xhr.response
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Grunt/Gulp</h1>
-    </div>
-    <div class="bd">
-      <p>合并/优化/压缩文件 - 配置/流</p>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1><a href="http://zhanhongtao.github.io/blog/ppt/sass/">Layout</a></h1>
+      <h1>发送数据</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>Side + Main
-        <li>Side + Main + Extra
-        <li>Main + Side
+        <li>xhr.send(); - GET
+        <li>xhr.send( data ); - POST
       </ul>
+<pre>
+<code class="javascript" contenteditable>
+var formdata = new FormData( /* form */ );
+formdata.append( name, value );
+formdata.delete( name );
+formdata.get( name );
+formdata.getAll( name );
+formdata.set( name, value );
+formdata.has( name );
+
+// 多文件上传.
+fd.append( 'files[]', files[i] );
+</code>
+</pre>      
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>取消请求</h1>
+    </div>
+    <div class="bd">
+      <p>xhr.abort();
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Homework</h1>
+      <h1>参考</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>有一个容器, 左右两列组成
-        <li>左侧是图片, 右侧是内容(有可能很复杂)
-        <li>左右两侧存在间隙 - ex: 10px;
-        <li>左侧图片的尺寸不固定( width/height 都不固定 )
-        <li>右侧内容不能环绕左侧图片
-        <li>右侧要求占满余下空间
-        <li>右侧内容可能超出容器 - ex: New! 小图标
+        <li><a href="http://xhr.spec.whatwg.org/">http://xhr.spec.whatwg.org/</a>
       </ul>
     </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Links</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>http://oocss.org/
-        <li>http://www.w3.org/TR/css3-selectors/
-        <li>https://www.chromestatus.com/features
-        <li>http://www.zhihu.com/question/20086234
-      </ul>
-    </div>
-  </section>
+  </section>  
   <section class="slide slide-cover">
     <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
+  <nav>
+    <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
+    <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
+  </nav>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
   <script src="./js/hash.js"></script>

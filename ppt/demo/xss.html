@@ -18,8 +18,8 @@
     a, a:visited { color: #333; text-decoration: none }
     a:hover, a:active { text-decoration: underline }
   </style>
-  <script src="../jquery-1.11.0.min.js"></script>
-  <script src="../template/rTemplate.js"></script>
+  <script src="http://zhanhongtao.github.io/blog/jquery-1.11.0.min.js"></script>
+  <script src="http://zhanhongtao.github.io/blog/rt/rt.js"></script>
 </head>
 <body>
   <!--
@@ -207,8 +207,8 @@
 <h3>实例： href/src 编码</h3>
 <script id="js-tmpl" type="text/html">
   <ul>
-    <% for ( var i = 0, l = context.length; i < l; i++ ) { %>
-      <% var item = context[i]; %>
+    <% for ( var i = 0, l = it.length; i < l; i++ ) { %>
+      <% var item = it[i]; %>
       <li><a href="<%&item.href%>" target="_blank"><%=item.text%></a></li>
     <%}%>
   </ul>
@@ -243,7 +243,7 @@
     { href: encodeURIComponent(href), text: 'encodeURIComponent' },
     { href: htmlEncode(href), text: 'htmlEncode' }
   ];
-  document.getElementById('js-result').innerHTML = rTemplate.render( section.innerHTML, data );
+  document.getElementById('js-result').innerHTML = rt.render( section.innerHTML, data );
 </script>
   
 </body>

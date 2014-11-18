@@ -1,16 +1,17 @@
 <!doctype html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>CSS</title>
+  <base target="_blank" />
+  <title>XSS</title>
   <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=2">
-  <link rel="stylesheet" href="./css/app.css?v=2">
+  <link rel="stylesheet" href="./css/base.css?v=3">
+  <link rel="stylesheet" href="./css/app.css?v=3">
   <link rel="stylesheet" href="./css/scrollbar.css">
   <script src="./js/highlight.pack.js"></script>
   <script type="text/javascript">
-  hljs.tabReplace = '    ';
+  hljs.tabReplace = '  ';
   hljs.initHighlightingOnLoad();
   </script>
 </head>
@@ -19,7 +20,11 @@
     <h1>XSS - 网页中的编码</h1>
     <h2 class="h3">redky@qq.com</h2>
   </section>
-  <section class="slide" style="background:url(./css.png) no-repeat 50% 50%; background-size: contain"></section>
+  <section class="slide toggle">
+    <div class="image">
+      <img src="./images/xss/css.png" />
+    </div>
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>HTML 编码</h1>
@@ -70,7 +75,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>其它</h1>
+      <h1>补充扩展</h1>
     </div>
     <div class="bd">
       <ul>
@@ -85,15 +90,16 @@
     <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
-  <script src="./js/event.js"></script>
-  <script src="./js/se.js?v=1"></script>
-  <script src="./js/hash.js"></script>
-  <script src="./js/runcase.js?v=1"></script>
-  <script src="./js/pattern.js"></script>
-  <script src="./js/ui.js"></script>
-  <script src="./js/resize.js"></script>
-  <script src="./js/app.js"></script>
-  <script src="./js/touch.js"></script>
-  <script src="./js/auto.slide.js"></script>
+  <nav>
+    <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
+    <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
+  </nav>
+  <script src="../ppt/js/event.js"></script>
+  <script src="../ppt/js/se.js?v=1"></script>
+  <script src="../ppt/js/hash.js"></script>
+  <script src="../ppt/js/runcase.js?v=1"></script>
+  <script src="../ppt/js/ui.js"></script>
+  <script src="../ppt/js/app.js"></script>
+  <script src="../ppt/js/auto.slide.js"></script>
 </body>
 </html>
