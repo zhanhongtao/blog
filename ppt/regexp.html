@@ -362,6 +362,76 @@ console.log( '_clearfix', reg.exec('_clearfix') );
   <section class="slide slide-cover">
     <h1>RegExp In JavaScript</h1>
   </section>
+  <section class="slide" id="new-regexp">
+    <div class="hd">
+      <h1>RegExp - 构造函数</h1>
+    </div>
+    <div class="bd">
+    <p><code>new RegExp( string, pattern );</code> 需要注意 string 中一些字符, 当它们是正则表达式特殊字符时, 需要转义.
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var reg = new RegExp( '.', 'ig' );
+// 相当于 var reg = /./ig;
+alert( reg );
+</code>
+<div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var reg = new RegExp( '\.', 'ig' );
+// 字符串中的 \. 相当于 . 一个字符, 所以结果同上.
+// 相当于 var reg = /./ig;
+alert( reg );
+</code>
+<div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var reg = new RegExp( '\\.', 'ig' );
+// 字符串中的 \\ 表示一个字符 \, 所以结果是字符 \ 和 . 两个字符.
+// 相当于 var reg = /\./ig;
+alert( reg );
+</code>
+<div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+// 如果需要匹配 \ 字符本身, 就需要转义.
+var reg = new RegExp( '\\\\', 'ig' );
+// 字符串中两个字符 \\ 表示单个 \, 那么到正则表达式里面就是 /\\/
+// 相当于 var reg = /\\/ig;
+alert( reg );
+</code>
+<div class="runcase">Run</div>
+</pre>
+
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+// 其它:
+// 当用户在 input/textarea 等出入框输入 c:\ 字符串, 程序读到的结果是: c:\\.
+// 即, 字符 \ 已经被转义过 - <mark>但在 alert 或者 console.log 显示时, 会把转义的字符 \ 去掉</mark>
+// 那么流程:
+// 1. 获取用户输入.
+// 2. 转义字符 => \ -> \\
+// 3. new RegExp( string )
+
+var input;
+while ( input = prompt('输入字符串: ') ) {
+  if ( input.length ) {
+    input = input.replace( /[\\\?\+\*\.]/g, '\\$&' );
+    break;
+  }
+}
+var reg = new RegExp( input );
+alert( reg );
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div> 
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>RegExp</h1>
