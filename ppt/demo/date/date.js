@@ -175,23 +175,31 @@ calendar.prototype._render = function() {
   });
   html += '</tr>';
   
+  // 拼格子
+  var today = this.date.getDate();
   this.createGrid(function(data) {
+    var classlist = [];
+    if ( today == data.day ) classlist.push( 'current' );
+    if ( !current ) classlist.push( 'not-current-month' );
+    
     var index = data.index;
     var title = [ data.year, data.month + 1, data.day ].join('-');
     var current = data.current;
     if ( index % 7 === 0 ) {
       html += '<tr>'
     }
-    html += '<td class="' + ( current ? '' : 'not-current-month' ) + '" title="' + title + '">' + data.day + '</td>';
+    html += '<td class="' + ( classlist.join(' ') ) + '" title="' + title + '">' + data.day + '</td>';
     if ( index % 7 === 6 ) {
       html += '</tr>';
     }
   });
 
+  // 结束.
   html += '</table>';
   return html;
 };
 
+// @todo: 有没有必要返回 Date 对象.
 function calc( year, month, day ) {
   if ( month > 11 ) {
     ++year;
@@ -205,6 +213,7 @@ function calc( year, month, day ) {
   return new Date( [year, month + 1, day].join('/') );
 }
 
+// @todo: 整合下面四个方法.
 calendar.prototype.nextMonth = function() {
   var date = this.date;
   this.date = calc( date.getFullYear(), date.getMonth() + 1, date.getDate() );
