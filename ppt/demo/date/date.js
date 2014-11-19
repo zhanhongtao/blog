@@ -1,15 +1,17 @@
 
 ;(function( root ) {
-
-var weekTextList = [
-  '星期一',
-  '星期二',
-  '星期三',
-  '星期四',
-  '星期五',
-  '星期六',
-  '星期日',
-];
+  
+{
+  var weekTextList = [
+    '星期一',
+    '星期二',
+    '星期三',
+    '星期四',
+    '星期五',
+    '星期六',
+    '星期日',
+  ];
+};
 
 function fixedWeekList( start ) {
   if ( start === 0 ) {
@@ -36,6 +38,10 @@ function getDaysInMonth( year, month ) {
   return month === 1 && isLeapYear(year) ? 29 : days[month];;
 }
 
+function fixedWeek( week ) {
+  return week > 6 ? 0 : week < 0 ? 6 : week;
+}
+
 var calendar = root.calendar = function( config ) {
   if ( !(this instanceof calendar) ) {
     return new calendar( config );
@@ -43,7 +49,7 @@ var calendar = root.calendar = function( config ) {
   this.date = config.date ? new Date( config.date ) : new Date;
   this.box = config.box;
   // 认为周日是第一天.
-  this.start = 1;
+  this.start = 0;
   fixedWeekList( this.start );
   this.init();
   this.render();
@@ -54,53 +60,133 @@ calendar.util = {
   firstDayOfDate: firstDayOfDate,
   isLeapYear: isLeapYear,
   getDaysInMonth: getDaysInMonth,
-  weekTextList: weekTextList
+  weekTextList: weekTextList,
+  fixedWeek: fixedWeek
+};
+
+calendar.prototype.createTitle = function( func ) {
+  var date = this.date;
+  var year = date.getFullYear(), 
+      month = date.getMonth(),
+      day = date.getDate();
+  func( year, month, day, date );
+};
+
+calendar.prototype.createWeekPanel = function( func ) {
+  for ( var i = 0; i < 7; ++i ) {
+    func( weekTextList[i], i );
+  }
+}
+
+calendar.prototype.createGrid = function( func ) {
+  var disabled = false, selected = false;
+  var date = this.date;
+  var theWeekOfFirstDay = firstDayOfDate( date.getDate(), date.getDay() );
+  var index = 0;
+  
+  theWeekOfFirstDay = theWeekOfFirstDay == this.start ? theWeekOfFirstDay + 7 : theWeekOfFirstDay;
+  
+  // 需要补充格子 - 上个月日期
+  if ( theWeekOfFirstDay > this.start ) {
+    var week = theWeekOfFirstDay - 1;
+    var _date = calc( date.getFullYear(), date.getMonth() - 1 ),
+        year = _date.getFullYear(),
+        month = _date.getMonth(),
+        days = getDaysInMonth( year, month ) - week;
+    while( week >= 0 ) {
+      func({
+        year: year,
+        month: month,
+        day: days++,
+        week: fixedWeek(--week),
+        disabled: disabled,
+        selected: selected,
+        index: index++,
+        current: false
+      });
+    }
+  }
+  
+  // 当月格子.
+  var year = date.getFullYear(),
+      month = date.getMonth(),
+      days = getDaysInMonth( year, month ), 
+      week = theWeekOfFirstDay,
+      i = 1;      
+  while ( i <= days ) {
+    func({
+      year: year,
+      month: month,
+      day: i++,
+      week: fixedWeek(week++),
+      disabled: disabled,
+      selected: selected,
+      index: index++,
+      current: true
+    });
+  }
+  
+  // 补充格子 - 下个月.
+  // 28, 29, 30, 31 => +6 => 7 * 6
+  if ( index <= 42 ) {
+    var _date = calc( date.getFullYear(), date.getMonth() + 1 ),
+        year = _date.getFullYear(),
+        month = _date.getMonth(),
+        i = 1;
+    while ( index < 42 ) {
+      func({
+        year: year,
+        month: month,
+        day: i++,
+        week: fixedWeek(week++),
+        disabled: disabled,
+        selected: selected,
+        index: index++,
+        current: false
+      });
+    }
+  }
+
+};
+
+calendar.prototype.disabled = function( date ) {
+  // @todo.
+};
+
+calendar.prototype.selected = function( date ) {
+  // @todo.
 };
 
 calendar.prototype._render = function() {
-  var date = this.date;
-  var year = date.getFullYear();
-  var month = date.getMonth();
-  var day = date.getDate();
-  var week = date.getDay();
-
   var html = '';
-  html += '<table>'
-  html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
-  html += [year, month + 1].join('/');
-  html += '<button class="btn-next" data-id="next-month">Next</button></caption>';
   
-  // 生成 head 部分
+  // 拼头部导航
+  html += '<table>'
+  this.createTitle(function( year, month ) {
+    html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
+    html += [ year, month + 1 ].join('/');
+    html += '<button class="btn-next" data-id="next-month">Next</button></caption>';  
+  });  
+  
+  // 拼星期
   html += '<tr>';
-  for ( var i = 0; i < 7; ++i ) {
-    html += '<th>' + weekTextList[i] + '</th>';
-  }
+  this.createWeekPanel(function( value ) {
+    html += '<th>' + value + '</th>';
+  });
   html += '</tr>';
   
-  var i = 1, j,
-    havePadding = false,
-    week = firstDayOfDate( day, week ),
-    days = getDaysInMonth( year, month );
-  // 确认当月第一天是周几, 然后补充多少个格子.
-  week = this.start === 0 ? week: week - 1;
-  // 生成表格部分
-  while( i <= days ) {
-    j = 0;
-    html += '<tr>';
-    if ( havePadding == false ) {
-      havePadding = true;
-      // 不提前加一, 方便下面条件判断
-      while ( j < week ) {
-        html += '<td></td>';
-        ++j;
-      }
+  this.createGrid(function(data) {
+    var index = data.index;
+    var title = [ data.year, data.month + 1, data.day ].join('-');
+    var current = data.current;
+    if ( index % 7 === 0 ) {
+      html += '<tr>'
     }
-    while ( j++ < 7 && i <= days ) {
-      html += '<td class="' + (i === day ? 'current' : '') + '">' + (i) + '</td>';
-      ++i;
+    html += '<td class="' + ( current ? '' : 'not-current-month' ) + '" title="' + title + '">' + data.day + '</td>';
+    if ( index % 7 === 6 ) {
+      html += '</tr>';
     }
-    html += '</tr>';   
-  }
+  });
 
   html += '</table>';
   return html;
@@ -115,7 +201,7 @@ function calc( year, month, day ) {
     month = 11;
   }
   var days = getDaysInMonth( year, month );
-  day = day <= days ? day : days;
+  day = day == null ? 1 : day <= days ? day : days;
   return new Date( [year, month + 1, day].join('/') );
 }
 

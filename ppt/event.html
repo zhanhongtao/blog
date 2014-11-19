@@ -512,6 +512,13 @@ document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) 
         <li>mousewheel - wheelDelta/120的倍数/下负, 上正
         <li>DOMMouseScroll - firefox/detail/3的倍数/下正, 上负
       </ul>
+      <h2>兼容性</h2>
+      <ul>
+        <li>document.attachEvent( 'onmousewheel', handle ); - ie8以及以下版本
+        <li>window.attachEvent( 'onmousewheel', handle ); - ie9+
+        <li>window.addEventListener( 'DOMMouseWheel', handle, false ); - firefox
+        <li>window.addEventListener( 'mousewheel', handle, false ); - other
+      </ul>
       <h2>Homework</h2>
       <p>实现具有兼容性的 mousewheel 事件
     </div>
