@@ -57,12 +57,17 @@
       <h1>JavaScript 编码</h1>
     </div>
     <div class="bd">
+      <h2>JavaScript 文件中的编码</h2>
       <ul>
         <li title="前导为 \u, 且长度为 4 位的 16 进制表示">支持 unicode 表示 - \u0065. [ECMAScript]
         <li>支持以 \x 开头的十六进制表示.
         <li>支持以 \ 开头的 8 进制表示.
         <li>支持 c 语言编码: \b 表示退格. \n ...
       </ul>
+      <h2>HTML 中的 inline-script 编码</h2>
+      <p>先使用 script 编码方式编码, 再使用 HTML 编码方式编码<br />
+      需要注意使用 server 端语言生成到 <code>&lt;script&gt;</code>中的 JavaScript 代码.<br />
+      <mark>不推荐在 html 标签中绑定 script 代码(事件/伪协议等)</mark>
     </div>
   </section>
   <section class="slide">

@@ -154,12 +154,15 @@
       <h1>CSS Box Model</h1>
     </div>
     <div class="bd">
-      <li>margin - 非置换元素没有垂直方向外边距
-      <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
-      <li>padding
-      <li>content(width/height)
-      <li>box-sizing(border-box/content-box) - width/height
-      <li>[outline/box-shadow]
+      <img src="./images/css/box.png" />
+      <ul>
+        <li>margin - 非置换元素没有垂直方向外边距
+        <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
+        <li>padding
+        <li>content(width/height)
+        <li>box-sizing(border-box/content-box) - width/height
+        <li>[outline/box-shadow]
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -169,9 +172,9 @@
     <div class="bd">
       <ul>
         <li>static
-        <li>fixed(body)
-        <li>relative(self)
-        <li>absolute(closest-relative-element/body)
+        <li>fixed(相对于 body 元素定位)
+        <li>relative(相对于元素自身在 static 状态下位置)
+        <li>absolute(相对于祖先元素中存在 position: relative/aboslute/fixed; 的元素; 不存在时, 相对于 body 元素)
         <li>float
         <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
       </ul>
@@ -280,14 +283,14 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Link & Button</h1>
+      <h1>链接/按钮状态</h1>
     </div>
     <div class="bd">
-      <li>Normal
+      <li>Normal - 默认
       <li>Hover
-      <li>Focus
-      <li>Active
-      <li>Visited(link)
+      <li>Focus - 获得焦点
+      <li>Active - Press
+      <li>Visited(link) - 访问过后
       <li>Disabled
     </div>
   </section>  

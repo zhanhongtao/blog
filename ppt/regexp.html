@@ -169,7 +169,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     </div>
     <div class="bd">
       <ul>
-        <li>. 匹配除换行符外的任意一个字符
+        <li>. 匹配除\n, \r, \u2028, \u2029 四个字符外的任意一个字符
       </ul>
       <h2>保留字符</h2>
       <ul>
@@ -200,7 +200,7 @@ console.log( '_clearfix', reg.exec('_clearfix') );
     <div class="bd">
       <ul>
         <li>() 分组
-        <li>(a)\1 引用
+        <li>(a)\1 引用 - 支持先使用引用, 但是匹配到的是位置.
         <li>(?:) 不捕获
       </ul>
 <pre class="codebox">
@@ -208,6 +208,10 @@ console.log( '_clearfix', reg.exec('_clearfix') );
   // 取代码块中的字符串.
   var string = "var string ='I love Google! I\\'m too.';";
   var regexp = /(['"])(?:\\.|[^\\\n])*?\1/g;
+  
+  // var regexp = /\1(?:\\.|[^\\\n])*?(['"])/g;
+  // 上面正则表达式 \1 会匹配空.
+  
   console.log( regexp.exec(string) );
   var ret = '';
   string.replace( regexp, function( match ) {
@@ -444,8 +448,9 @@ alert( reg );
         <li>regexp.ignoreCase
         <li>regexp.global
         <li>regexp.multiline
-        <li>regexp.lastIndex
+        <li>regexp.lastIndex - 只在 g 模式有效.
         <li>regexp.source
+        <li>regexp.stricy
       </ul>
       <h2>method</h2>
       <ul>
@@ -461,11 +466,15 @@ console.log( reg.exec(string), reg.lastIndex ); // ["a"]
 console.log( reg.exec(string) ); // null
 
 // g 模式下会更新 reg.lastIndex 属性.
+// 重新开始匹配时, 需要手动修正 lastIndex.
 var string = 'abc', 
     reg = /a/g;
 console.log( 'g:', reg.exec(string) ); // ["a"]
 reg.lastIndex = 0;
 console.log( 'g:', reg.exec(string) ); // ["a"]
+
+// y 模式时, 匹配失败时, 会设置 lastIndex = 0;
+// y 模式让 ^ 字符意义变更, 表示从 lastIndex 位置开头.
 </code>
 <div class="runcase">Run</div>
 </pre>
