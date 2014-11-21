@@ -44,6 +44,8 @@
         <li>i: ignorecase 不区分大小写
         <li>g: global 匹配到字符串结束
         <li>m: multiline 多行
+        <li class="toggle">u: \uXXXX 模式 -> 处理字符编码大于 \uFFFF 的字符(JavaScript 会使用两个 \uXXXX 来表示)
+        <li class="toggle">y: stricy 模式 -> 默认在当前匹配位置开始, 相当于添加 ^ 字符.
       </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">

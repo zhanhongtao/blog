@@ -307,7 +307,7 @@ alert( typeof(a) );
       </ol>
     </div>
   </section>
-  <section class="slide">
+  <section class="slide" id="string">
     <div class="hd">
       <h1>String</h1>
     </div>
@@ -342,16 +342,18 @@ alert( typeof(a) );
       <div class="grid">
 <pre class="codebox">
 <code class="javascript" contenteditable>
-  alert( '\x61' ); // 'a'
-  // '\u0020' 格式转换
-  var code = ' '.charCodeAt( 0 ); // 得到字符编码 32
-  code = code.toString( 16 );     // 转换为十六进制 '20'
-  alert( '\\xnn 格式: \\x' + code );
-  if ( code.length < 4 ) {
-    code = ( new Array(5 - code.length) ).join('0') + code;
-  }
-  code = '\\u' + code;
-  alert( code ); </code> <div class="runcase">Run</div>
+alert( '\x61' ); // 'a'
+// '\u0020' 格式转换
+var code = ' '.charCodeAt( 0 ); // 得到字符编码 32
+code = code.toString( 16 );     // 转换为十六进制 '20'
+alert( '\\xnn 格式: \\x' + code );
+if ( code.length &lt; 4 ) {
+  code = ( new Array(5 - code.length) ).join('0') + code;
+}
+code = '\\u' + code;
+alert( code ); 
+</code> 
+<div class="runcase">Run</div>
 </pre>
       </div>
     </div>
@@ -394,11 +396,24 @@ alert( typeof(a) );
         <li>charAt()/charCodeAt()
         <li>String.fromCharCode() - 静态方法, 参数可是多个编码
         <li>trim()/trimLeft()/trimRight()
-        <li>startsWith()/endsWith()
-        <li>repeat()/contains()
-        <li>codePointAt()
+        <li>startsWith()/endsWith()/repeat()/contains()<mark class="toggle">includes()</mark>
+        <li>.codePointAt()
         <li>String.fromCodePoint() - 静态方法
       </ul>
+      <h2>区别</h2>
+      <p>.codePointAt(index)/String.fromCodePoint(code) 相关方法支持 U+FFFF 之外的字符. ex: '𠾜'
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var chr = '𠾜'; // \uD843\uDF9C
+alert( chr.length );
+alert( '\uD843\uDF9C' === chr );
+for ( var i = 0, l = chr.length; i &lt; l; ++i ) {
+  alert( '.charCodeAt: ' + chr.charCodeAt(i) );
+  alert( '.codePointAt: ' + chr.codePointAt(i) );
+}
+</code>
+<div class="runcase">Run</div>
+</pre>
     </div>
   </section>
   <section class="slide">

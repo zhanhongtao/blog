@@ -1,17 +1,24 @@
 .ppt {
-  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
 }
 .ppt .slide {
   display: none;
   position: absolute;
-  left: 5%;
-  right: 5px;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 20px 5%;
   -webkit-transition: all .5s ease;
   transition: all .5s ease;
   height: 100%;
-  height: 100vh;
-  overflow-y: auto;
   outline: 0;
+  overflow: auto;
 }
 
 .ppt .slide-cover {
@@ -44,11 +51,13 @@
 }
 .ppt .next {
   z-index: 3;
-  left: 100%;
+  -webkit-transform: translateX( 100% );
+  transform: translateX( 100% );
 }
 .ppt .prev {
   z-index: 1;
-  left: -100%;
+  -webkit-transform: translateX( -100% );
+  transform: translateX( -100% );
 }
 
 /* cover 页面下特殊样式 */

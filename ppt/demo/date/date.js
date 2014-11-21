@@ -1,7 +1,23 @@
 
 ;(function( root ) {
-  
+
+var calendar = root.calendar = function( config ) {
+  if ( !(this instanceof calendar) ) {
+    return new calendar( config );
+  }
+  this.today = this.date = config.date ? new Date( config.date ) : new Date;
+  this.box = config.box;
+  this.start = 0;  // 认为周日是第一天.
+  this.min = '2014-11-10';
+  this.max = '2014-12-31';
+  this.gridclass = 'item';
+  this.selectedclass = 'selected';
+  fixedWeekList( this.start );
+  this.init();
+};
+
 {
+  // @todo: 放到类里面.
   var weekTextList = [
     '星期一',
     '星期二',
@@ -12,6 +28,10 @@
     '星期日',
   ];
 };
+
+function type(s) {
+  return Object.prototype.toString.call(s).slice( 8, -1 ).toLowerCase();
+}
 
 function fixedWeekList( start ) {
   if ( start === 0 ) {
@@ -38,21 +58,94 @@ function getDaysInMonth( year, month ) {
   return month === 1 && isLeapYear(year) ? 29 : days[month];;
 }
 
+function inRange( date, range ) {
+  var min = range[0], max = range[1];
+  var bottom = new Date( min ).getTime();
+  var top = new Date( max ).getTime();
+  date = date instanceof Date ? date : new Date( date );
+  var test = date.getTime();
+  return test >= bottom && test <= top;
+}
+
+function swap() {
+  return [].slice.call(arguments).sort(function( a, b ) {
+    a = a instanceof Date ? a : new Date(a);
+    b = b instanceof Date ? b : new Date(b);
+    return a.getTime() - b.getTime();
+  });
+}
+
 function fixedWeek( week ) {
   return week > 6 ? 0 : week < 0 ? 6 : week;
 }
 
-var calendar = root.calendar = function( config ) {
-  if ( !(this instanceof calendar) ) {
-    return new calendar( config );
+function valide
+// @todo: 网页里面怎么补充空白
+function padding( num ) {
+  num = +num;
+  return '' + (num < 10 ? ' ' + num : num);
+}
+
+// @NOTE: 只修正一个值.
+function calc( obj ) {
+  var year = obj.year, month = obj.month, day = obj.day;
+  var days = getDaysInMonth( year, month );
+  if ( day > days ) {
+    ++month;
+  } else if ( day < 1 ) {
+    --month;
   }
-  this.date = config.date ? new Date( config.date ) : new Date;
-  this.box = config.box;
-  // 认为周日是第一天.
-  this.start = 0;
-  fixedWeekList( this.start );
-  this.init();
-  this.render();
+  if ( month > 11 ) {
+    ++year;
+    month = 0;
+  } else if ( month < 0 ) {
+    --year;
+    month = 11;
+  }
+  var days = getDaysInMonth( year, month );
+  obj.year = year, obj.month = month, obj.day = day <= days ? day : days;
+  return obj;
+}
+
+function render( instance ) {
+  var self = instance;
+  var html = '';
+  
+  // 拼头部导航
+  html += '<table>'
+  var year = self.date.getFullYear(), month = self.date.getMonth();
+  html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
+  html += [ year, month + 1 ].join('/');
+  html += '<button class="btn-next" data-id="next-month">Next</button></caption>';  
+  
+  // 拼星期
+  html += '<tr>';
+  self.weekpanel(function( value ) {
+    html += '<th>' + value + '</th>';
+  });
+  html += '</tr>';
+  
+  // 拼格子
+  var today = self.date.getDate();
+  self.gridpanel(function(data) {
+    var current = data.current;
+    var classlist = [];
+    if ( today == data.day ) classlist.push( 'today' );
+    if ( !current ) classlist.push( 'not-current-month' );
+    var index = data.index;
+    var title = [ data.year, data.month + 1, data.day ].join('-');
+    if ( index % 7 === 0 ) {
+      html += '<tr>'
+    }
+    html += '<td class="item ' + ( classlist.join(' ') ) + '" title="' + title + '">' + padding(data.day) + '</td>';
+    if ( index % 7 === 6 ) {
+      html += '</tr>';
+    }
+  });
+
+  // 结束.
+  html += '</table>';
+  return html;
 };
 
 // 方便重写 render 方法.
@@ -61,24 +154,37 @@ calendar.util = {
   isLeapYear: isLeapYear,
   getDaysInMonth: getDaysInMonth,
   weekTextList: weekTextList,
-  fixedWeek: fixedWeek
+  fixedWeek: fixedWeek,
+  calc: calc
 };
 
-calendar.prototype.createTitle = function( func ) {
-  var date = this.date;
-  var year = date.getFullYear(), 
-      month = date.getMonth(),
-      day = date.getDate();
-  func( year, month, day, date );
+[ 'next', 'prev' ].forEach(function( prefix ) {
+  [ 'year', 'month', 'day' ].forEach(function( type ) {
+    var _type = type.charAt(0).toUpperCase() + type.slice(1);
+    calendar.prototype[ prefix + _type ] = function() {
+      var date = this.date, obj = {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate()
+      };
+      obj[type] = obj[type] + ( prefix == 'next' ? 1 : -1 );
+      obj = calc(obj, type);
+      this.date = new Date( [obj.year, obj.month + 1, obj.day].join('/') );
+    };
+  });
+});
+
+calendar.prototype.today = function() {
+  return this.today;
 };
 
-calendar.prototype.createWeekPanel = function( func ) {
+calendar.prototype.weekpanel = function( func ) {
   for ( var i = 0; i < 7; ++i ) {
     func( weekTextList[i], i );
   }
 }
 
-calendar.prototype.createGrid = function( func ) {
+calendar.prototype.gridpanel = function( func ) {
   var disabled = false, selected = false;
   var date = this.date;
   var theWeekOfFirstDay = firstDayOfDate( date.getDate(), date.getDay() );
@@ -89,14 +195,12 @@ calendar.prototype.createGrid = function( func ) {
   // 需要补充格子 - 上个月日期
   if ( theWeekOfFirstDay > this.start ) {
     var week = theWeekOfFirstDay - 1;
-    var _date = calc( date.getFullYear(), date.getMonth() - 1 ),
-        year = _date.getFullYear(),
-        month = _date.getMonth(),
-        days = getDaysInMonth( year, month ) - week;
+    var _date = calc( {year: date.getFullYear(), month: date.getMonth() - 1, day: date.getDate()} ),
+        days = getDaysInMonth( _date.year, _date.month ) - week;
     while( week >= 0 ) {
       func({
-        year: year,
-        month: month,
+        year: _date.year,
+        month: _date.month,
         day: days++,
         week: fixedWeek(--week),
         disabled: disabled,
@@ -129,14 +233,12 @@ calendar.prototype.createGrid = function( func ) {
   // 补充格子 - 下个月.
   // 28, 29, 30, 31 => +6 => 7 * 6
   if ( index <= 42 ) {
-    var _date = calc( date.getFullYear(), date.getMonth() + 1 ),
-        year = _date.getFullYear(),
-        month = _date.getMonth(),
+    var _date = calc( {year: date.getFullYear(), month: date.getMonth() + 1, day: 1} ),
         i = 1;
     while ( index < 42 ) {
       func({
-        year: year,
-        month: month,
+        year: _date.year,
+        month: _date.month,
         day: i++,
         week: fixedWeek(week++),
         disabled: disabled,
@@ -149,102 +251,67 @@ calendar.prototype.createGrid = function( func ) {
 
 };
 
-calendar.prototype.disabled = function( date ) {
-  // @todo.
+calendar.prototype.gototoday = function() {
+  this.date = this.old;
+  return this;
 };
 
-calendar.prototype.selected = function( date ) {
-  // @todo.
+calendar.prototype.inmonth = function( date ) {
+  // date/this.date
+  var date = this.date;
 };
 
-calendar.prototype._render = function() {
-  var html = '';
-  
-  // 拼头部导航
-  html += '<table>'
-  this.createTitle(function( year, month ) {
-    html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
-    html += [ year, month + 1 ].join('/');
-    html += '<button class="btn-next" data-id="next-month">Next</button></caption>';  
-  });  
-  
-  // 拼星期
-  html += '<tr>';
-  this.createWeekPanel(function( value ) {
-    html += '<th>' + value + '</th>';
-  });
-  html += '</tr>';
-  
-  // 拼格子
-  var today = this.date.getDate();
-  this.createGrid(function(data) {
-    var classlist = [];
-    if ( today == data.day ) classlist.push( 'current' );
-    if ( !current ) classlist.push( 'not-current-month' );
-    
-    var index = data.index;
-    var title = [ data.year, data.month + 1, data.day ].join('-');
-    var current = data.current;
-    if ( index % 7 === 0 ) {
-      html += '<tr>'
+calendar.prototype.get = function() {
+  return this.selected;
+};
+
+calendar.prototype.set = function( min, max ) {
+  max = max ? max : this.max;
+  var _min = swap( min, this.min );
+  var _max = swap( max, this.max );
+  this.selected = [ _min[1], _max[0] ];
+};
+
+
+
+
+
+
+
+function handle( target, self, event ) {
+  var className = target.className;
+  var reg = new RegExp( '\\b' + self.gridclass + '\\b', 'g' );
+  var selectedReg = new RegExp( '\\b' + self.selectedclass + '\\b', 'g' );
+  // 目前只支持单个值.
+  // @todo: 支持区间.
+  if ( reg.test(className) ) {
+    // 取消.
+    if ( selectedReg.test(className) ) {
+      self.selected = [];
+      target.classList.remove( self.selectedclass );
+    } else {
+      // 设置.
+      var min = target.getAttribute( 'title' );
+      // @todo: 确认 value 合法性.
+      if ( min ) {
+        self.selected = [min];
+        var needRemoveClassGrid = self.box.querySelectorAll( '.' + self.selectedclass );
+        [].slice.call(needRemoveClassGrid).forEach(function( grid ) {
+          grid.classList.remove( self.selectedclass );
+        });
+        target.classList.add( self.selectedclass );
+      }      
     }
-    html += '<td class="' + ( classlist.join(' ') ) + '" title="' + title + '">' + data.day + '</td>';
-    if ( index % 7 === 6 ) {
-      html += '</tr>';
-    }
-  });
-
-  // 结束.
-  html += '</table>';
-  return html;
-};
-
-// @todo: 有没有必要返回 Date 对象.
-function calc( year, month, day ) {
-  if ( month > 11 ) {
-    ++year;
-    month = 0;
-  } else if ( month < 0 ) {
-    --year;
-    month = 11;
   }
-  var days = getDaysInMonth( year, month );
-  day = day == null ? 1 : day <= days ? day : days;
-  return new Date( [year, month + 1, day].join('/') );
 }
 
-// @todo: 整合下面四个方法.
-calendar.prototype.nextMonth = function() {
-  var date = this.date;
-  this.date = calc( date.getFullYear(), date.getMonth() + 1, date.getDate() );
-  this.render();
-};
-
-calendar.prototype.prevMonth = function() {
-  var date = this.date;
-  this.date = calc( date.getFullYear(), date.getMonth() - 1, date.getDate() );
-  this.render();
-};
-
-calendar.prototype.nextYear = function() {
-  var date = this.date;
-  this.date = calc( date.getFullYear() + 1, date.getMonth(), date.getDate() );
-  this.render();
-};
-
-calendar.prototype.prevYear = function() {
-  var date = this.date;
-  this.date = calc( date.getFullYear() - 1, date.getMonth(), date.getDate() );
-  this.render();
-};
-
 calendar.prototype.init = function() {
+  var html = render( this );
+  this.box.innerHTML = html;
   var self = this;
   this.box.onclick = function( e ) {
-    e = e || window.event;
-    var target = e.target || e.srcElement;
-    var id = target.getAttribute( 'data-id' );
-    switch( id ) {
+    var target = e.target, dataset = target.dataset;
+    switch( dataset.id ) {
       case 'next-month':
         self.nextMonth();
         break;
@@ -258,23 +325,13 @@ calendar.prototype.init = function() {
         self.prevYear();
         break;
       default:
+        handle( target, self, e );
         break;
     }
   };
 };
 
-calendar.prototype.render = function() {
-  var html = this._render();
-  if ( this.box ) {
-    this.box.innerHTML = html;
-  } else {
-    return html;
-  }
-  return this;
-};
-
 })( this );
-
 
 var c = calendar({
   box: document.getElementById('box')

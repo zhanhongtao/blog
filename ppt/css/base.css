@@ -2,7 +2,7 @@ body {
   font: 20px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
   color: #34362E;
   overflow-x: hidden;
-  margin: 0;
+  /* margin: 0; */
 }
 
 h1, h2, h3, h4, h5, h6, dl { 
@@ -22,10 +22,7 @@ h4, .ppt .h4 { font-size: 16px; }
 h5, .ppt .h5 { font-size: 14px; }
 h6, .ppt .h6 { font-size: 12px; }
 
-.hd { 
-  margin: 20px auto 10px; 
-  overflow: hidden; 
-}
+.hd { margin: 10px auto; overflow: hidden; }
 .bd { margin: 15px auto; overflow: hidden; }
 
 .bd h2 {
