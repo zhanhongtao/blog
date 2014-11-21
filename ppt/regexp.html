@@ -450,7 +450,7 @@ alert( reg );
         <li>regexp.multiline
         <li>regexp.lastIndex - 只在 g 模式有效.
         <li>regexp.source
-        <li>regexp.stricy
+        <li class="toggle">regexp.stricy - y
       </ul>
       <h2>method</h2>
       <ul>
@@ -473,6 +473,7 @@ console.log( 'g:', reg.exec(string) ); // ["a"]
 reg.lastIndex = 0;
 console.log( 'g:', reg.exec(string) ); // ["a"]
 
+// 补充:
 // y 模式时, 匹配失败时, 会设置 lastIndex = 0;
 // y 模式让 ^ 字符意义变更, 表示从 lastIndex 位置开头.
 </code>

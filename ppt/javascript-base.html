@@ -30,7 +30,7 @@
         <dd>由数字/字母/下划线/美元符号和其它 unicode 字符组成, 但不能以数字开头</dd>
         <dd>标识符区分大小写</dd>
         <dt>保留字</dt>
-        <dd>不能做标识符使用, 遇到保留字做对象属性时, 需要添加引号</dd>
+        <dd>不能做标识符使用 - 低版本解析器保留字不能直接做属性, 需要使用引号包裹.</dd>
       </dl>
       <p>参考: <a href="https://mathiasbynens.be/notes/javascript-identifiers">标识符</a>
     </div>
@@ -51,8 +51,8 @@
     </div>
     <div class="bd">
       <ul>
-        <li>// comment</li>
-        <li>/* comment */,  /*! 压缩/合并代码工具会保留注释 - version/copyright */</li>
+        <li><code>// comment</code>
+        <li><code>/* comment */</code>,  <code>/*! 压缩/合并代码工具会保留注释 - version/copyright */</code>
         <li class="toggle">&lt!-- 基本不用</li>
       </ul>
     </div>
@@ -118,7 +118,7 @@ user = {
       <ul>
         <li>全局变量<code>window.browserVersion = '5.3';</code>全局环境下<code>var browserVersion = '5.3';</code>
         <li>局部变量<code>function test() { var bar = 'local'; }</code> - JavaScript 的变量范围是按函数划分的.<mark class="toggle">ES6 会支持块作用域 - let</mark>
-        <li>[常量]<code>var BROWSER_VERSION = 5;</code> <mark>JavaScript 没有常量</mark> "潜规则"把定义在全局的变量大写. <mark class="toggle">ES6 - const</mark>
+        <li>[常量]<code>var BROWSER_VERSION = 5;</code> "潜规则"把全局变量名字大写. <mark class="toggle">ES6 - const</mark>
     </div>
     <div class="box">
       <div class="grid">
@@ -431,6 +431,17 @@ for ( var i = 0, l = chr.length; i &lt; l; ++i ) {
 </code>
 <div class="runcase">Run</div>
 </pre>
+      <h2>Homework</h2>
+      <ul>
+        <li>小写字母转换为大写(逆运算)
+        <li>判断是否为小写字母/大写字母/数字并统计它们的个数
+        <li>把字符串中的\t转换为 2 个空格
+        <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
+        <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
+        <li>查找字符串中第一个唯一出现的字符 - indexOf(key) === lastIndexOf(key)
+        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
+        <li>KMP 算法
+      </ul>
     </div>
   </section>
   <section class="slide" id="boolean">
@@ -494,6 +505,26 @@ alert( array );
 </code>
 <div class="runcase">Run</div>
 </pre>
+      <h2>Homework</h2>
+      <ul>
+        <li>创建 n 个元素组成的, 值全为 k 的数组
+        <li>求数组中的最大值和最小值
+        <li>扁平化 Array - [ 1, [2, 3], [4,[5]] ] -> [ 1, 2, 3, 4, 5 ]
+        <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
+        <li>移除数组中重复的值 - 数组元素全数数字
+        <li>实现数组的 [].reverse 方法
+        <li>使用<mark>递归</mark>方法, 顺序打印和倒序打印数组元素
+        <li><mark>扩展</mark>一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
+        <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
+        <li>打乱数组 - 类似洗牌 shuffle
+        <li>抽奖算法(要求不重复)
+        <li>二分查找
+        <li>求数组中出现次数超过一半的元素
+        <li>合并两个有序的数组
+        <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
+        <li>快速排序和插入排序算法 js 描述
+        <li>求数组中第 K 大/小的值
+      </ul>
     </div>
   </section>  
   <section class="slide" id="array-es5">
@@ -543,7 +574,7 @@ alert( 'End!' );
 </pre>
     </div>
   </section>
-  <section class="slide" id="array-es6">
+  <section class="slide toggle" id="array-es6">
     <div class="hd">
       <h1>Array - ES6</h1>
     </div>
@@ -673,7 +704,13 @@ for ( var i = 0, l = keys.length; i < l; ++i ) {
 alert( result );
 </code>
 <div class="runcase">Run</div>
-</pre>      
+</pre>     
+      <h2>Homework</h2>
+      <ul>
+        <li>判断变量数据类型
+        <li>合并对象(jQuery.extend)
+        <li>实现 each 函数 - forEach/for..in
+      </ul>
     </div>  
   </section>
   <section class="slide" id="math">
@@ -691,6 +728,12 @@ alert( result );
         <li>floor()/round()/ceil()
         <li>sin()/cos()/atan2()
       </ul>
+      <h2>Homewrk</h2>
+      <ul>
+        <li>幻灯片播放时, 可轮询播放 - <code>index = (max + index % max) % max;</code>
+        <li>实现 Math.pow 函数
+        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
+      </ul>
     </div>
   </section>
   <section class="slide" id="url">
@@ -707,6 +750,7 @@ alert( result );
         <li class="toggle">URL.revokeObjectURL();
       </ul>
       <p>编码规则: 转成 UTF-8 编码, 然后再转成 16 进制表示.
+      <p>参考: <a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a>
     </div>
   </section>
   <section class="slide" id="json">
@@ -816,7 +860,7 @@ console.log( result );
     </div>
   </section>
   
-  <section class="slide" id="map">
+  <section class="slide toggle" id="map">
     <div class="hd">
       <h1>Map</h1>
     </div>
@@ -835,7 +879,7 @@ console.log( result );
       <p>当 KEY 为 NaN 时, 所有的 NaN 是相同的.
     </div>
   </section>    
-  <section class="slide" id="weakmap">
+  <section class="slide toggle" id="weakmap">
     <div class="hd">
       <h1>WeakMap</h1>
     </div>
@@ -851,7 +895,7 @@ console.log( result );
       </ul>
     </div>
   </section>
-  <section class="slide" id="set">
+  <section class="slide toggle" id="set">
     <div class="hd">
       <h1>Set</h1>
     </div>
@@ -869,7 +913,7 @@ console.log( result );
       <p>Null/Null, NaN/NaN 是相同的值.
     </div>
   </section>  
-  <section class="slide" id="weakset">
+  <section class="slide toggle" id="weakset">
     <div class="hd">
       <h1>WeakSet</h1>
     </div>
@@ -1263,7 +1307,7 @@ alert( array );
           <li>undefined/string/number/bolean/object/function
           <li>Object.prototype.toString.call( _var ); // '[object __]'
           </ul>
-        <li>delete
+        <li>delete - 删除对象上的属性.
         <li>void
       </ul>
     </div>
@@ -1287,9 +1331,9 @@ alert( window.b );
 <pre class="codebox">
 <code class="javascript" contenteditable>
 function test( a ) {
-if ( a == void 0 ) {
-alert( 'undefined' );
-}
+  if ( a == void 0 ) {
+    alert( 'undefined' );
+  }
 }
 test();
 // 虽然 void 永远返回 undefined, 但是它后面的表达式还是会计算的
@@ -1573,7 +1617,7 @@ test('1');
         <div class="bd">
           <ul>
             <li>变量声明 (ex: <code>var a = 1, b = 2;</code>)
-            <li>逗号表达式
+            <li>逗号表达式(ex: <code>var a = ( 5, 4, 3 );</code>)
             <li>函数参数列表
             <li>分隔符 (ex: <code>var array = [ 1, 2 ];</code>)
           </ul>
@@ -1586,7 +1630,7 @@ test('1');
         <div class="bd">
           <ul>
             <li>数组
-            <li>属性访问 (ex: <code>window[ 'eval' ];</code>)
+            <li>属性访问 (ex: <code>window[ variable ];</code>)
           </ul>
         </div>
       </div>
@@ -1656,76 +1700,6 @@ test('1');
           </ul>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="slide slide-cover">
-    <h1>应用</h1>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Math</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>幻灯片播放时, 可轮询播放 - <code>index = (max + index % max) % max;</code>
-        <li>实现 Math.pow 函数
-        <li>计算器小程序 - 加/减/乘/除/括号的计算(注意优先级)
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>String</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>小写字母转换为大写(逆运算)
-        <li>判断是否为小写字母/大写字母/数字并统计它们的个数
-        <li>把字符串中的\t转换为 2 个空格
-        <li>把 query 转换为 Object - ex: a=a&b=b&c= -> {a: 'a', b: 'b', c: undefined}
-        <li>一个 pattern 字符串, 其中 ? 符号代表 0 个或1个字符, 分析字符串 string 是否匹配此 pattern.
-        <li>查找字符串中第一个唯一出现的字符 - indexOf(key) === lastIndexOf(key)
-        <li>把数字字符串转换为 Number 值(不适用 +, Number 转换)
-        <li>KMP 算法
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Array</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>创建 n 个元素组成的, 值全为 k 的数组
-        <li>求数组中的最大值和最小值
-        <li>扁平化 Array - [ 1, [2, 3], [4,[5]] ] -> [ 1, 2, 3, 4, 5 ]
-        <li>有两个数组a、b, 查找 a 中存在而 b 中不存在的元素/求两个数组a、b中相同的元素
-        <li>移除数组中重复的值 - 数组元素全数数字
-        <li>实现数组的 [].reverse 方法
-        <li>使用<mark>递归</mark>方法, 顺序打印和倒序打印数组元素
-        <li><mark>扩展</mark>一个reverseList函数，该函数使[1,[2,[3,null]]] 返回 [3,[2,[1, null]]]
-        <li>输入一个整数数组, 调整数组中数字的顺序, 使得所有奇数位于数组的前半部分.
-        <li>打乱数组 - 类似洗牌 shuffle
-        <li>抽奖算法(要求不重复)
-        <li>二分查找
-        <li>求数组中出现次数超过一半的元素
-        <li>合并两个有序的数组
-        <li>找出数组中特定的元素, 它比左边的元素都大, 比右边元素都小
-        <li>快速排序和插入排序算法 js 描述
-        <li>求数组中第 K 大/小的值
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Object</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>判断变量数据类型
-        <li>合并对象(jQuery.extend)
-        <li>实现 each 函数 - forEach/for..in
-      </ul>
     </div>
   </section>
   <section class="slide">

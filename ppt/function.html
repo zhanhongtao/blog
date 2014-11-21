@@ -85,6 +85,8 @@
         <li>getUserName.call( context, arg1, arg2, ..., argN );
         <li>getUserName.apply( context, args );
       </ul>
+      <h2>其它</h2>
+      <p>函数也是对象, 所以可以添加属性/方法: <code>getUserName.userKey = '_value'</code>;
     </div>
   </section>
   <section class="slide">
@@ -126,7 +128,7 @@
           <ul>
             <li>动态指定
             <li>调用函数所属对象, 不存在时, 指向 global(window);
-            <li>使用 .bind(context)/.call/.apply 手动指定 this
+            <li>使用 .bind(context)/.call( context, arg1, ..., argn )/.apply( context, [arg1, ..., argn ] ) 手动指定 this
           </ul>
         <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>
           <ul>
