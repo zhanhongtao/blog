@@ -22,19 +22,6 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>实例: 杂志订阅</h1>
-    </div>
-    <div class="bd">
-      <ul class="no-style">
-        <li>A: 杂志社
-        <li>a: 交钱, 留下地址
-        <li>b: 交钱, 留下地址
-        <li>A: 杂志更新, 向 a,b 留下的地址分发杂志
-      </ul>
-    </div>
-  </section>  
-  <section class="slide">
-    <div class="hd">
       <h1>实例: 邮件组</h1>
     </div>
     <div class="bd">
@@ -92,7 +79,7 @@ var remove = function( name, callback ) {
 var broadcast = function( name ) {
   var events = manager[name];
   if ( typeof name == 'string' && events ) {
-    for ( var i = 0, l = events.length; i < l; ++i ) {
+    for ( var i = 0; i < events.length; ++i ) {
       var callback = events[i];
       if ( typeof callback == 'function' ) {
         if ( callback.apply(null, [].slice.call(arguments, 1)) === false ) {
@@ -101,7 +88,6 @@ var broadcast = function( name ) {
       } else {
         events.splice( i, 1 );
         --i;
-        --l;
       }
     }
   }

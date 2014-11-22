@@ -3,7 +3,13 @@
 
   // 无 new 实例化.
   var eventemitter = eventEmitter();
-  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
+  var isOpenToggle = /[?&#]v=1/i.test( location.href );
+  if ( isOpenToggle ) {
+    [].slice.call( document.querySelectorAll( '.toggle' ), 0 ).forEach(function( dom ) {
+      dom.classList.remove( 'toggle' );
+    });
+  }
+  var selector = isOpenToggle ? '.slide' : '.slide:not(.toggle)';
   var slides = document.querySelectorAll( selector ); // Command API -> $$
   
   // 伪数组处理

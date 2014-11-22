@@ -100,7 +100,7 @@ xhr.setRequestHeader( 'X-test', 'b' );
         </ul>
       </div>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>设置返回类型</h1>
@@ -259,15 +259,165 @@ formdata.has( name );
 // 多文件上传.
 fd.append( 'files[]', files[i] );
 </code>
-</pre>      
+</pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>取消请求</h1>
     </div>
     <div class="bd">
       <p>xhr.abort();
+    </div>
+  </section>
+  <section class="slide" id="data">
+    <div class="hd">
+      <h1>URL - Data 协议</h1>
+    </div>
+    <div class="bd">
+      <p>data:[&lt;mime type&gt;][;charset=&lt;charset&gt;][;base64],&lt;encoded data&gt;
+      <h2>Text</h2>
+<pre>
+<code class="html" contenteditable>
+data:, Hello world
+// 或
+data:text/plain,Hello world
+// 或
+data:text/plain;base64,aGVsbG8gd29ybGQ=
+</code>
+</pre>
+      <h2>HTML</h2>
+<pre>
+<code class="html" contenteditable>
+// 简易自用记事本.
+data:text/html,&lt;html contenteditable&gt;</html>
+// 使用 window.btoa( string ) 生成 base64 编码.
+data:text/html;base64,PGh0bWwgY29udGVudGVkaXRhYmxlPjwvaHRtbD4=
+</code>
+</pre>
+      <h2>image</h2>
+<pre>
+<code class="html" contenteditable>
+  // 以下图片来自 chrome.
+  data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5BAEAAAcALAAAAAAcACYAAAO9eLpMIMYIQJi9DcYtKv6KtnHgB4yoAZSXKAyDy1rjoAzjzOQLrx8+4OanCAZnxiExGSEKmz3lj2lwUq3SZ3WZPbKuXGgxu9t4tLYDTkpIRQILF0x2G4lWipM7gj/oJQUkcXsCDCIFATULBCIcZ2tvB3QLDxETFnR/BgU/gRt9jX0gnpYMkJZpFzEoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=
+  
+  // 以下图片来自 chrome. 
+  data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAiElEQVR42r2RsQrDMAxEBRdl8SDcX8lQPGg1GBI6lvz/h7QyRRXV0qUULwfvwZ1tenw5PxToRPWMC52eA9+WDnlh3HFQ/xBQl86NFYJqeGflkiogrOvVlIFhqURFVho3x1moGAa3deMs+LS30CAhBN5nNxeT5hbJ1zwmji2k+aF6NENIPf/hs54f0sZFUVAMigAAAABJRU5ErkJggg==
+  
+  // jpg 的图片会很大. 自己截的小图.
+  data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7otNMXbgR7fu+uB8z9RjOAcc5/iySQCT8Q1rL1/Wf/Afzavpd+t7/AHj+Pl5eX4vsdJa6WuCSBxsxgZ/ifOeMgnAxx3bOcGrp/b+REr6Xt12v/Xp+OpqppqhcBTj/AHT6t6Aj0/TvnGhA+00/AJOOCvOD/fmA42++PqT1HNKy7L7h3fd/e/8AM3IbP5RgYx1IHu2M4GeenXPLc/K2RJLZJei/4P8An8zObemr69X/AJl9LNtv3CfwX+8/rz/k8cHLM7vu/vf+ZHFEgLcD74/Rsencf/rB5oK535fc/wD5I17eKPLDA4284548zH8v58kk5BOTfbr3/wA/68y4EUcAfz9T6H3/AMkmgk//2Q==
+  
+  // 从 ppurl 网站上借来的 icon 文件.
+  data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Asoxmv8Olh5Tm2s48////AP///wDm2s48w6WHlJlmM/+ZZjP/w6WHlObazjz///8A////AObazjzDpYeUsoxmv5xpNv+4hVL/p3RB/5xpNv+caTb/p3RB/7iFUv/MmWb/zJlm/7iFUv+ndEH/nGk2/5xpNv+ndEH/uIVS/5xpNv+gbTr/z5xp/9qvhP/PnGn/z5xp/9qvhP/rzKz//+7d///Mmf/rzKz/2q+E/8+caf/PnGn/2q+E/8+caf+gbTr/pXI//9Shbv//7t3//+7d///u3f//7t3//+7d///u3f//zJn//+7d///u3f//7t3//+7d///u3f/UoW7/pXI//6p3RP/ZpnP//+/f///v3///79///+/f///v3///7t3//8yZ///v3///79///+/f///v3///79//2aZz/6p3RP+wfUr/36x5///x4//Mu6r/3cy7/+7dzP//8eP//+7d///Mmf//8eP/7t3M/93Mu//Mu6r///Hj/9+sef+wfUr/tYJP/+WygP//8+f///Pn///z5///8+f///Pn///u3f//zJn///Pn///z5///8+f///Pn///z5//lsoD/tYJP/7uIVf/suYb///Xs/8y7qv/dzLv/7t3M///17P//7t3//8yZ///17P/u3cz/3cy7/8y7qv//9ez/7LmG/7uIVf/AjVr/8r+M///48P//+PD///jw///48P//+PD//+7d///Mmf//+PD///jw///48P//+PD///jw//K/jP/AjVr/xZJf//fEkf//+vX/zLuq/93Mu//u3cz///r1///u3f//zJn///r1/+7dzP/dzLv/zLuq///69f/3xJH/xZJf/8mWY//8yZb///z5///8+f///Pn///z5///8+f//7t3//8yZ///8+f///Pn///z5///8+f///Pn//MmW/8mWY//MmWb//8yZ///+/f/Mu6r/3cy7/+7dzP///v3//+7d///Mmf///v3/7t3M/93Mu//Mu6r///79///Mmf/MmWb/2LKMv+Gue///8+f/////////////8+f//+HE///Mmf//zJn//+HE///z5//////////////z5//hrnv/2LKMv////wDp075q/tewwv/Mmf//zJn//tewwv7p02r///8A////AP7p02r+17DC/8yZ///Mmf/+17DC6dO+av///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AADw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDwwAA//8AAA==
+</code>
+</pre>
+      <h2>CSS</h2>
+<pre>
+<code class="html" contenteditable>
+  data:type/css,body{color:red}
+  // 或
+  data:type/css;base64,Ym9keXtjb2xvcjpyZWR9
+</code>
+</pre>
+      <h2>JavaScript</h2>
+<pre>
+<code class="html" contenteditable>
+data:text/javascript,alert(1);
+// 或
+data:text/javascript;base64,YWxlcnQoMSk=
+</code>
+</pre>
+      <h2>指定字符集</h2>
+<pre>
+<code class="html" contenteditable>
+data:text/html;charset=utf-8,Hello world
+data:text/html;charset=utf-8;base64,aGVsbG8gd29ybGQ=
+</code>
+</pre>
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>Promise</h1>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Promise 状态</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>pending
+        <li>resolved
+        <li>Rejected
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Promise API</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>promise.then( done, fail );
+        <li>promise.catch( fail );
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var promise = new Promise(function( resolve, reject ) {
+  setTimeout(function() {
+    Math.random() > 0.5 ? resolve( 'done' ) : reject( 'fail' );
+    // 状态更新后, 再记录一次.
+    setTimeout(function() {
+      if ( timer ) {
+        clearInterval( timer );
+        timer = null;
+      }
+    }, 1000);
+  }, 1000);
+});
+
+// 每隔 100ms 打印当前 promise 对象, 以查看状态.
+var timer = setInterval(function() {
+  console.log( 'state: ', promise );
+}, 100);
+
+// 绑定回调函数.
+promise.then(function( message ) {
+  console.log( 'done: ', message );
+}, function( message ) {
+  console.log( 'fail:', message );
+});
+
+// 捕获异常
+/*
+promise.catch(function( message ) {
+  console.log( 'fail: ', message );
+});
+*/
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </ul>
+    </div>
+  </section>
+  <section class="slide toggle">
+    <div class="hd">
+      <h1>Promise API</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Promise.cast( o )
+        <li>Promise.all()
+        <li>Promise.race()
+        <li>Promise.resolve()
+        <li>Promise.reject()
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+
+</code>
+<div class="runcase">Run</div>
+</pre>
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -278,9 +428,11 @@ fd.append( 'files[]', files[i] );
       <ul>
         <li><a href="http://xhr.spec.whatwg.org/">http://xhr.spec.whatwg.org/</a>
         <li><a href="http://api.jquery.com/jQuery.ajax/">jQuery.ajax</a>
+        <li><a href="http://api.jquery.com/promise/">jQuery.Promise</a>
+        <li><a href="http://medikoo.com/asynchronous-javascript-interfaces/callback-hell-aid/">Callback-Hell</a>
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide slide-cover">
     <h1>?</h1>
   </section>
