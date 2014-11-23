@@ -27,7 +27,7 @@
     <div class="bd">
       <ul>
         <li>var xhr = new XMLHttpRequest();
-        <li>var xhr = new Active( 'Microsoft.XMLHTTP' );
+        <li>var xhr = new Active( 'Microsoft.XMLHTTP' ); // 低版本 IE 浏览器
       </ul>
     </div>
   </section>
@@ -40,7 +40,7 @@
       <ul>
         <li>method: GET/POST/PUT/HEAD..
         <li>url: 接口地址
-        <li>async: [optional]; 是否为异步; 默认为 True; 
+        <li>async: [optional]; 是否为异步; 默认为 True;
         <li>username [optional]
         <li>password [optional]
       </ul>
@@ -59,8 +59,8 @@ xhr.open( 'GET', 'http://www.google.com/' );
     </div>
     <div class="bd">
       <p><code>xhr.setRequestHeader( headerKEY, value );</code>
-      <p>在发送任意请求时, 浏览器会自动把相应的 Header 信息发送给 server. 比如: cookie; 
-      <p>这里 setRequestHeader 是为了添加额外头信息数据. 比如: jQuery 的请求会添加 X-Requested-With
+      <p>在发送任意请求时, 浏览器会自动把相应的 Header 信息发送给 server. 比如: cookie;
+      <p>setRequestHeader 是为了添加额外头信息数据. 比如: jQuery 的请求会添加 X-Requested-With
 <pre class="codebox">
 <code class="javascript" contenteditable>
 // Content-Type
@@ -110,11 +110,10 @@ xhr.setRequestHeader( 'X-test', 'b' );
     </div>
     <div class="bd">
       <p><code>xhr.responseType [ = value;] </code>
-      <p>网络请求返回文本数据, 这里设置后, 浏览器会帮我们解析成相应格式.
+      <p>网络请求返回文本数据, 这里设置后, 浏览器会帮我们解析成相应数据结构.
       <ul>
-        <li>''
+        <li>'' => text
         <li>text
-        <li>json
         <li>arraybuffer
         <li>blob
         <li>document
@@ -123,11 +122,12 @@ xhr.setRequestHeader( 'X-test', 'b' );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>是否支持跨域</h1>
+      <h1>支持跨域</h1>
     </div>
     <div class="bd">
       <p>浏览器存在同源策略, 它限制 XMLHttpRequest 向其它域发送请求.
-      <p>如果向第三方发送, 就需要 server 端配合, 打开限制, 默认配置是 false.
+      <p>如果向第三方发送, 就需要 server 端配合, 打开限制;
+      <p>默认不支持跨域: false;
       <p><code>request.withCredentials = false;</code>
     </div>
   </section>
@@ -140,13 +140,22 @@ xhr.setRequestHeader( 'X-test', 'b' );
       <p>设置请求超时时间, 以及相应回调函数.
 <pre class="codebox">
 <code class="javascript" contenteditable>
-  request.ontimeout = function() {
+request.ontimeout = function() {
+  request.abort();
+};
+// 不支持 timeout 的浏览器.
+// 使用定时器来模拟.
+// @NOTE: 需要在请求正常回来时, 清除 timer;
+var timer;
+if ( timeout ) {
+  timer = setTimeout(function() {
     request.abort();
-  };
+  }, timeout * 1000 );  
+}
 </code>
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>请求状态</h1>
@@ -159,10 +168,6 @@ xhr.setRequestHeader( 'X-test', 'b' );
 xhr.onreadystatechange = function () {
   handle( xhr );
 };
-// 或.
-xhr.onload = function() {
-  handle( xhr );
-};
 </code>
 </pre>
       <h2>xhr.readyState</h2>
@@ -173,7 +178,7 @@ xhr.onload = function() {
         <li>LOADING 数据发送中 - 已接收部分数据. 响应不全.
         <li>DONE 完成
       </ol>
-      <p>可定期检查 header 信息.<code>xhr.getResponseHeader( headerKey ); </code> 一般用于取 server 的时间: <code>xhr.getResponseHeader( 'Date' );</code>
+      <p>可定期检查 header 信息.<code>xhr.getResponseHeader( headerKey ); </code> 可用来获取服务器时间: <code>xhr.getResponseHeader( 'Date' );</code>
 <pre class="codebox">
 <code class="javascript" contenteditable>
 function handle( xhr ) {
@@ -208,7 +213,6 @@ function handle( xhr ) {
         <li>xhr.onloadend
       </ul>
       <h2>文件上传进度事件</h2>
-      <p><code>xhr.upload;</code>
       <ul>
         <li>xhr.upload.loadstart
         <li>xhr.upload.progress
@@ -221,6 +225,7 @@ function handle( xhr ) {
 <pre class="codebox">
 <code class="javascript" contenteditable>
 xhr.upload.onprogress = function(e) {
+  // 进度数据信息
   // lengthCommutable
   // loaded
   // total
@@ -238,6 +243,7 @@ xhr.upload.onprogress = function(e) {
         <li>xhr.send(); - GET
         <li>xhr.send( data ); - POST
       </ul>
+      <h2>FormData 对象</h2>
 <pre class="codebox">
 <code class="javascript" contenteditable>
 var formdata = new FormData( /* form */ );
@@ -303,10 +309,10 @@ function success( xhr ) {
 function __sendFile( formdata, callback ) {
   // 修正 callback 参数.
   callback = typeof callback === 'function' ? callback : noop;
-  
+
   // 实例化
   var xhr = new XMLHttpRequest();
-  
+
   // 绑定事件.
   xhr.onreadystatechange = function() {
     if ( xhr.readyState === 4 ) {
@@ -318,10 +324,10 @@ function __sendFile( formdata, callback ) {
       }
     }
   };
-  
+
   // 打开连接.
   xhr.open( 'POST', 'http://sync.mse.sogou.com/sendfile', true );
-  
+
   // 绑定 upload 事件.
   xhr.upload.addEventListener( 'progress', uploadProgress, false);
   xhr.addEventListener('loadstart', uploadStart, false);
@@ -330,7 +336,7 @@ function __sendFile( formdata, callback ) {
   xhr.addEventListener('error', uploadError, false);
   xhr.addEventListener('abort', uploadAbort, false);
   xhr.addEventListener('loadend', uploadEnd, false);
-  
+
   // 发送数据.
   xhr.send( formdata );
 }
@@ -338,7 +344,7 @@ function __sendFile( formdata, callback ) {
 function sendFiles( files ) {
   // 使用 FormData 准备数据.
   var formdata = new FormData();
-  
+
   // append 调用 key/value 格式.
   formdata.append( 'hid', getHid() );
   formdata.append( 'uuid', currentUUID.get() );
@@ -373,7 +379,7 @@ function sendFiles( files ) {
 </pre>
       <p><a href="./demo/ajax.zip">完整代码</a>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="jsonp">
     <div class="hd">
       <h1>JSONP</h1>
@@ -386,7 +392,7 @@ function sendFiles( files ) {
 // 注: 一般使用 jsonp 时, server 允许定制 callback 名字.
 // http://xxx.xxx.com/path/file.js?callback={Your_callback_name}
 // 在定制 callback 名字时, 建议和 server 端约定使用字符的范围, 防止xss.
-// 比如: 字母, _, 数字; 
+// 比如: 字母, _, 数字;
 window._callback = function( data ) {
   alert( data );
 };
@@ -428,13 +434,13 @@ data:text/html;base64,PGh0bWwgY29udGVudGVkaXRhYmxlPjwvaHRtbD4=
 <code class="html" contenteditable>
   // 以下图片来自 chrome.
   data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5BAEAAAcALAAAAAAcACYAAAO9eLpMIMYIQJi9DcYtKv6KtnHgB4yoAZSXKAyDy1rjoAzjzOQLrx8+4OanCAZnxiExGSEKmz3lj2lwUq3SZ3WZPbKuXGgxu9t4tLYDTkpIRQILF0x2G4lWipM7gj/oJQUkcXsCDCIFATULBCIcZ2tvB3QLDxETFnR/BgU/gRt9jX0gnpYMkJZpFzEoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=
-  
-  // 以下图片来自 chrome. 
+
+  // 以下图片来自 chrome.
   data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAiElEQVR42r2RsQrDMAxEBRdl8SDcX8lQPGg1GBI6lvz/h7QyRRXV0qUULwfvwZ1tenw5PxToRPWMC52eA9+WDnlh3HFQ/xBQl86NFYJqeGflkiogrOvVlIFhqURFVho3x1moGAa3deMs+LS30CAhBN5nNxeT5hbJ1zwmji2k+aF6NENIPf/hs54f0sZFUVAMigAAAABJRU5ErkJggg==
-  
+
   // jpg 的图片会很大. 自己截的小图.
   data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7otNMXbgR7fu+uB8z9RjOAcc5/iySQCT8Q1rL1/Wf/Afzavpd+t7/AHj+Pl5eX4vsdJa6WuCSBxsxgZ/ifOeMgnAxx3bOcGrp/b+REr6Xt12v/Xp+OpqppqhcBTj/AHT6t6Aj0/TvnGhA+00/AJOOCvOD/fmA42++PqT1HNKy7L7h3fd/e/8AM3IbP5RgYx1IHu2M4GeenXPLc/K2RJLZJei/4P8An8zObemr69X/AJl9LNtv3CfwX+8/rz/k8cHLM7vu/vf+ZHFEgLcD74/Rsencf/rB5oK535fc/wD5I17eKPLDA4284548zH8v58kk5BOTfbr3/wA/68y4EUcAfz9T6H3/AMkmgk//2Q==
-  
+
   // 从 ppurl 网站上借来的 icon 文件.
   data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Asoxmv8Olh5Tm2s48////AP///wDm2s48w6WHlJlmM/+ZZjP/w6WHlObazjz///8A////AObazjzDpYeUsoxmv5xpNv+4hVL/p3RB/5xpNv+caTb/p3RB/7iFUv/MmWb/zJlm/7iFUv+ndEH/nGk2/5xpNv+ndEH/uIVS/5xpNv+gbTr/z5xp/9qvhP/PnGn/z5xp/9qvhP/rzKz//+7d///Mmf/rzKz/2q+E/8+caf/PnGn/2q+E/8+caf+gbTr/pXI//9Shbv//7t3//+7d///u3f//7t3//+7d///u3f//zJn//+7d///u3f//7t3//+7d///u3f/UoW7/pXI//6p3RP/ZpnP//+/f///v3///79///+/f///v3///7t3//8yZ///v3///79///+/f///v3///79//2aZz/6p3RP+wfUr/36x5///x4//Mu6r/3cy7/+7dzP//8eP//+7d///Mmf//8eP/7t3M/93Mu//Mu6r///Hj/9+sef+wfUr/tYJP/+WygP//8+f///Pn///z5///8+f///Pn///u3f//zJn///Pn///z5///8+f///Pn///z5//lsoD/tYJP/7uIVf/suYb///Xs/8y7qv/dzLv/7t3M///17P//7t3//8yZ///17P/u3cz/3cy7/8y7qv//9ez/7LmG/7uIVf/AjVr/8r+M///48P//+PD///jw///48P//+PD//+7d///Mmf//+PD///jw///48P//+PD///jw//K/jP/AjVr/xZJf//fEkf//+vX/zLuq/93Mu//u3cz///r1///u3f//zJn///r1/+7dzP/dzLv/zLuq///69f/3xJH/xZJf/8mWY//8yZb///z5///8+f///Pn///z5///8+f//7t3//8yZ///8+f///Pn///z5///8+f///Pn//MmW/8mWY//MmWb//8yZ///+/f/Mu6r/3cy7/+7dzP///v3//+7d///Mmf///v3/7t3M/93Mu//Mu6r///79///Mmf/MmWb/2LKMv+Gue///8+f/////////////8+f//+HE///Mmf//zJn//+HE///z5//////////////z5//hrnv/2LKMv////wDp075q/tewwv/Mmf//zJn//tewwv7p02r///8A////AP7p02r+17DC/8yZ///Mmf/+17DC6dO+av///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AADw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDwwAA//8AAA==
 </code>
@@ -442,9 +448,9 @@ data:text/html;base64,PGh0bWwgY29udGVudGVkaXRhYmxlPjwvaHRtbD4=
       <h2>CSS</h2>
 <pre class="codebox">
 <code class="css" contenteditable>
-  data:type/css,body{color:red}
+  data:css/text,body{color:red}
   // 或
-  data:type/css;base64,Ym9keXtjb2xvcjpyZWR9
+  data:css/text;base64,Ym9keXtjb2xvcjpyZWR9
 </code>
 </pre>
       <h2>JavaScript</h2>
@@ -466,7 +472,7 @@ data:text/html;charset=utf-8;base64,aGVsbG8gd29ybGQ=
   </section>
   <section class="slide slide-cover">
     <h1>Promise</h1>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>jQuery.promise</h1>
@@ -489,8 +495,8 @@ setTimeout(function() {
 <div class="runcase">Run</div>
 </pre>
       <h2>deferred 和 promise 区别</h2>
-      <p>promise 只可以绑定事件(done/fail/progress), 而 deferred 对象可以改变状态.
       <p>内部(deferred)改变自身状态(state-pending/resolved/rejected), 并且触发(notify/resolve/reject)外部(promise)绑定的事件.
+      <p>promise 只可以绑定事件(done/fail/progress), 而 deferred 对象可以改变状态.
     </div>
   </section>
   <section class="slide">
@@ -499,7 +505,7 @@ setTimeout(function() {
     </div>
     <div class="bd">
       <h2>state</h2>
-      <p>每个 promise 的状态只可改变一次, 最初为 preding 状态, 最终状态只有 resolved 或者 rejected 两种.
+      <p>每个 promise 的状态只可改变一次, 最初为 pending 状态, 最终状态只有 resolved 或者 rejected.
       <ul>
         <li>pending - 正在处理(progress)
         <li>resolved - 正确处理(done)
@@ -518,7 +524,7 @@ setTimeout(function() {
       <h1>jQuery 接口</h1>
     </div>
     <div class="bd">
-      <h2>progress state</h2>
+      <h2>pending state</h2>
       <ul>
         <li>.progress( progressHandle )
         <li>.notify([data])
@@ -527,19 +533,19 @@ setTimeout(function() {
 
       <h2>resolved state</h2>
       <ul>
-        <li>.done( doneHandle )        
+        <li>.done( doneHandle )
         <li>.resolve([data])
-        <li>.resolveWith( context, data )
+        <li>.resolveWith( context, arrayData )
       </ul>
       <h2>rejected state</h2>
       <ul>
         <li>.fail( failHandle )
         <li>.reject([data])
-        <li>.rejectWith( context, data )
+        <li>.rejectWith( context, arrayData )
       </ul>
       <h2>other</h2>
       <ul>
-        <li>.then( done, fail, progress )
+        <li>.then( doneHandle, failHandle, progressHandle )
         <li>.always( handle )
         <li>.when( derfer, derfer ) => 返回 promise 对象.
       </ul>
@@ -553,13 +559,13 @@ function ajax() {
   // 实例化
   var deferred = jQuery.Deferred();
   setTimeout(function() {
-    Math.random() > 0.5 ? 
-      deferred.resolveWith( object, ['name'] ) : 
+    Math.random() > 0.5 ?
+      deferred.resolveWith( object, ['name'] ) :
       deferred.rejectWith( object, ['id'] );
     if ( timer ) {
       clearInterval( timer );
-      timer = null;  
-    }    
+      timer = null;
+    }
   }, 1000);
   var timer = setInterval(function() {
     deferred.notify();
@@ -605,7 +611,7 @@ d.always(function() {
 <div class="runcase">Run</div>
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>封装 ajax</h1>
@@ -630,58 +636,179 @@ ajax().done(function( message ) {
 });
 </code>
 <div class="runcase">Run</div>
-</pre> 
+</pre>
     </div>
-  </section>  
-  <section class="slide slide-cover">
-    <h1>浏览器内置 Promise</h1>
   </section>
-  <section class="slide toggle">
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>原生 Promise</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable>
+// 实例化 - 只能在内部修改状态.
+var promise = new Promise(function( resolve, reject ) {
+  setTimeout(function() {
+    Math.random() > 0.5 ? resolve() : reject();
+  }, 100);
+});
+
+promise.then(function() {
+  alert( 'done' );
+}, function() {
+  alert( 'fail' );
+});
+</code>
+<div class="runcase">Run</div>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
     <div class="hd">
       <h1>Promise API</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>promise.then( done, fail );
-        <li>promise.catch( fail );
+        <li>promise.then( doneHandle, failHandle );
+          <ul>
+            <li>多个 .then 链式书写时, return 值会像 pipe 一样使用.
+            <li>多个 .then 非链式书写时, 相当于绑定多个回调函数, 回掉函数之间没有关系.
+          </ul>
+        <li>promise.catch( failHandle ); // .then 方法的语法糖.
       </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable>
 var promise = new Promise(function( resolve, reject ) {
+  // 模拟异步操作
   setTimeout(function() {
     Math.random() > 0.5 ? resolve( 'done' ) : reject( 'fail' );
-    // 状态更新后, 再记录一次.
-    setTimeout(function() {
-      if ( timer ) {
-        clearInterval( timer );
-        timer = null;
-      }
-    }, 1000);
-  }, 1000);
+  }, 100);
 });
 
-// 每隔 100ms 打印当前 promise 对象, 以查看状态.
-var timer = setInterval(function() {
-  console.log( 'state: ', promise );
-}, 100);
-
-// 绑定回调函数.
+// 绑定回调函数 - .then( doneHandle, failHandle )
 promise.then(function( message ) {
   console.log( 'done: ', message );
+  // 非链式写法时, return 值无效.
+  return 'DONE';
 }, function( message ) {
   console.log( 'fail:', message );
 });
 
-// 捕获异常
-/*
+// 捕获 fail.
 promise.catch(function( message ) {
   console.log( 'fail: ', message );
 });
-*/
+
+// 多个 .then 绑定回调函数
+promise.then(function( message ) {
+  console.log( 'done: ', message );
+  return message + ':then';
+}, function() {
+  return 1;
+}).then(function( message ) {
+  console.log( message + ': end!' );
+}, function( value ) {
+  console.log( 'fail: ', value );
+});
+
+// 支持链式写法, 是因为返回值有 .then 方法.
+var newPromise = promise.then(function() {
+  return 1;
+}, function() {
+  return 2;
+});
+// 当 promise 对象回调函数执行完后, 
+// 才执行 newPromise 的回调函数.
+newPromise.then(function( value ) {
+  console.log( 'new promise value: ', value );
+}, function() {
+  console.log( 'new promise value: ', value );
+});
+
+// 先执行 promise 绑定的回调函数.
+// 然后再执行 .then 生成的 Promise 的回调函数.
+promise.then(function() {
+  console.log( '确认回调函数执行顺序 - done' );
+}, function() {
+  console.log( '确认回调函数执行顺序 - fail' );
+});
 </code>
 <div class="runcase">Run</div>
 </pre>
+      <p><a href="http://zhanhongtao.github.io/blog/queue/queuePromise.js">queue.js - promise 版本</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>静态方法</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Promise.resolve() - 创建 resolved 状态的 Promise 对象
+        <li>Promise.reject() - 创建 rejected 状态的 Promise 对象
+        <li>Promise.all( array ) - 类似 Array.prototype.every
+        <li>Promise.race( array ) - 类似 Array.prototype.some
+        <li class="toggle">Promise.defer() - 返回 Promise, 不再推荐使用.
       </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+Promise.resolve('done').then(function( value ) {
+  alert( value );
+});
+</code>
+<div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+Promise.reject('fail').catch(function( message ) {
+  alert( message );
+});
+</code>
+<div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var array = [1, 2];
+array = array.map(function( value ) {
+  return new Promise(function( resolve, reject ) {
+    setTimeout(function() {
+      resolve(value);
+    }, 1);
+  });
+});
+var promise = Promise.all( array );
+promise.then(function( values ) {
+  console.log( 'done: ', values );
+});
+</code>
+<div class="runcase">Run</div>
+</pre>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var array = [1, 2, 3, 4];
+array = array.map(function( value, index ) {
+  return new Promise(function( resolve, reject ) {
+    setTimeout(function() {
+      value % 2 === 1 ? resolve(value) : reject(value);
+    }, 1);
+  });
+});
+var promise = Promise.all( array );
+promise.then(function( values ) {
+  // 全部 resolved 时, 才执行 then.
+  console.log( 'done: ', values );
+}, function( values ) {
+  // 只收到第一个 reject 的结果.
+  console.log( 'fail: ', values );
+});
+
+// .race 
+// 当有一个 promise 状态为 resolved 时, 就执行 done 回调函数.
+// 全部 rejected 时, 执行 fail 回调函数.
+</code>
+<div class="runcase">Run</div>
+</pre>
     </div>
   </section>
   <section class="slide">
@@ -691,8 +818,11 @@ promise.catch(function( message ) {
     <div class="bd">
       <ul>
         <li><a href="http://xhr.spec.whatwg.org/">http://xhr.spec.whatwg.org/</a>
+        <li><a href="http://www.html5rocks.com/zh/tutorials/file/xhr2/">xhr2 - html5rocks</a>
         <li><a href="http://api.jquery.com/jQuery.ajax/">jQuery.ajax</a>
         <li><a href="http://api.jquery.com/promise/">jQuery.Promise</a>
+        <li><a href="http://www.html5rocks.com/zh/tutorials/es6/promises/">promise - html5rocks</a>
+        <li><a href="https://github.com/jakearchibald/es6-promise">es6-promise - polyfill</a>
         <li><a href="http://medikoo.com/asynchronous-javascript-interfaces/callback-hell-aid/">Callback-Hell</a>
       </ul>
     </div>
