@@ -79,7 +79,10 @@ function fixedWeek( week ) {
   return week > 6 ? 0 : week < 0 ? 6 : week;
 }
 
-function valide
+function valideDateFormat( date ) {
+  return /^\d{4}([-\/])\d\d\1\d\d$/.test( date );
+}
+
 // @todo: 网页里面怎么补充空白
 function padding( num ) {
   num = +num;
@@ -110,27 +113,28 @@ function calc( obj ) {
 function render( instance ) {
   var self = instance;
   var html = '';
-  
+
   // 拼头部导航
   html += '<table>'
   var year = self.date.getFullYear(), month = self.date.getMonth();
   html += '<caption class="clearfix"><button class="btn-prev" data-id="prev-month">Previous</button>';
   html += [ year, month + 1 ].join('/');
-  html += '<button class="btn-next" data-id="next-month">Next</button></caption>';  
-  
+  html += '<button class="btn-next" data-id="next-month">Next</button></caption>';
+
   // 拼星期
   html += '<tr>';
   self.weekpanel(function( value ) {
     html += '<th>' + value + '</th>';
   });
   html += '</tr>';
-  
+
   // 拼格子
   var today = self.date.getDate();
+  var month = self.date.getMonth();
   self.gridpanel(function(data) {
     var current = data.current;
     var classlist = [];
-    if ( today == data.day ) classlist.push( 'today' );
+    if ( today == data.day && month === data.month ) classlist.push( 'today' );
     if ( !current ) classlist.push( 'not-current-month' );
     var index = data.index;
     var title = [ data.year, data.month + 1, data.day ].join('-');
@@ -189,9 +193,9 @@ calendar.prototype.gridpanel = function( func ) {
   var date = this.date;
   var theWeekOfFirstDay = firstDayOfDate( date.getDate(), date.getDay() );
   var index = 0;
-  
+
   theWeekOfFirstDay = theWeekOfFirstDay == this.start ? theWeekOfFirstDay + 7 : theWeekOfFirstDay;
-  
+
   // 需要补充格子 - 上个月日期
   if ( theWeekOfFirstDay > this.start ) {
     var week = theWeekOfFirstDay - 1;
@@ -210,13 +214,13 @@ calendar.prototype.gridpanel = function( func ) {
       });
     }
   }
-  
+
   // 当月格子.
   var year = date.getFullYear(),
       month = date.getMonth(),
-      days = getDaysInMonth( year, month ), 
+      days = getDaysInMonth( year, month ),
       week = theWeekOfFirstDay,
-      i = 1;      
+      i = 1;
   while ( i <= days ) {
     func({
       year: year,
@@ -229,7 +233,7 @@ calendar.prototype.gridpanel = function( func ) {
       current: true
     });
   }
-  
+
   // 补充格子 - 下个月.
   // 28, 29, 30, 31 => +6 => 7 * 6
   if ( index <= 42 ) {
@@ -257,8 +261,9 @@ calendar.prototype.gototoday = function() {
 };
 
 calendar.prototype.inmonth = function( date ) {
-  // date/this.date
-  var date = this.date;
+  var t = new Date( date );
+  return t.getFullYear() === this.date.getFullYear() &&
+      t.getMonth() == this.date.getMonth();
 };
 
 calendar.prototype.get = function() {
@@ -271,12 +276,6 @@ calendar.prototype.set = function( min, max ) {
   var _max = swap( max, this.max );
   this.selected = [ _min[1], _max[0] ];
 };
-
-
-
-
-
-
 
 function handle( target, self, event ) {
   var className = target.className;
@@ -300,29 +299,39 @@ function handle( target, self, event ) {
           grid.classList.remove( self.selectedclass );
         });
         target.classList.add( self.selectedclass );
-      }      
+      }
     }
   }
 }
 
 calendar.prototype.init = function() {
-  var html = render( this );
-  this.box.innerHTML = html;
   var self = this;
+  function createHTML() {
+    var html = render( self );
+    self.box.innerHTML = html;
+  }
+
+  createHTML();
+
   this.box.onclick = function( e ) {
-    var target = e.target, dataset = target.dataset;
+    var target = e.target,
+        dataset = target.dataset;
     switch( dataset.id ) {
       case 'next-month':
         self.nextMonth();
+        createHTML();
         break;
       case 'next-year':
         self.nextYear();
+        createHTML();
         break;
       case 'prev-month':
         self.prevMonth();
+        createHTML();
         break;
       case 'prev-year':
         self.prevYear();
+        createHTML();
         break;
       default:
         handle( target, self, e );
@@ -336,4 +345,3 @@ calendar.prototype.init = function() {
 var c = calendar({
   box: document.getElementById('box')
 });
-
