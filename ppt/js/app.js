@@ -34,6 +34,7 @@
       id = $1;
     });
     if( id && id.indexOf('=') == -1 ) {
+      // @todo: 提取成方法, 方便 Ctrl + G 使用.
       index = Number(id);
       if ( isNaN(index) ) {
         for ( var i = 0, l = slides.length; i < l; ++i ) {
@@ -41,7 +42,7 @@
             index = i;
             break;
           }
-        }         
+        }
       } else {
         index = index >= slides.length ? 0 : index;
       }     
@@ -212,6 +213,7 @@
     }
   }, false );
 
+  // @NOTE: 方便无键盘用户使用. ex: 手机.
   document.addEventListener( 'click', function( event ) {
     var target = event.target;
     var dataset = target.dataset;
@@ -221,10 +223,6 @@
     }
   }, false );
   
-  eventemitter.on( 'on-focus-target', function( page ) {
-    slides[ page ].focus();
-  });
-
   eventemitter.on( 'on-next-editor', function() {
     var pre = cloest( document.activeElement, 'code' );
     var slide = cloest( document.activeElement, '.slide' );

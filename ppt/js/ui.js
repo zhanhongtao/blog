@@ -31,6 +31,7 @@
 
     // 让元素可见.
     target.scrollTop = 0;
+    // @todo: 查找第一个可拿到焦点的元素.
     target.focus();
 
     // 更新 title.
