@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>animate</title>
+  <style>
+    #box, #pk {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+    }
+    #box { background-color: #faa; }
+    #pk  { background-color: #ffa; top: 100px; }    
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <div id="pk"></div>
+  <script src="timer.js"></script>
+  <script>
+    var box = document.getElementById( 'box' ),
+        pk = document.getElementById( 'pk' );
+    var left, pkleft;
+    left = pkleft = 0;
+    var max = 300;
+    timers.add(function() {
+      left += (max - left) * 0.04;
+      left = Math.ceil( left );
+      left = Math.min( left, max );
+      box.style.left = left + 'px';
+      if ( left >= max ) return false;      
+    });
+    timers.add(function() {
+      pkleft += 3;
+      pkleft = Math.min( pkleft, max );
+      pk.style.left = pkleft + 'px';
+      if ( pkleft >= max ) return false;
+    });
+    timers.add((function() {
+      var last = 0, count = 0;
+      return function() {
+        if ( count >= 10 ) return false;
+        var current = new Date();
+        if ( !last ) last = current;
+        if ( current - last > 2000 ) {
+          console.log( 'hi, just do it' );
+          last = current;
+          ++count;
+        }
+      };
+    })());
+    timers.start();
+  </script>
+</body>
+</html>

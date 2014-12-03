@@ -1,10 +1,10 @@
-var timers = { 
-  timerID: 0, 
-  timers: [], 
-  add: function(fn) { 
+var timers = {
+  timerID: 0,
+  timers: [],
+  add: function(fn) {
     this.timers.push(fn);
   },
-  start: function() { 
+  start: function() {
     if (this.timerID) return;
     (function runNext() {
       if (timers.timers.length > 0) {
@@ -18,7 +18,7 @@ var timers = {
       }
     })();
   },
-  stop: function() { 
+  stop: function() {
     clearTimeout(this.timerID);
     this.timerID = 0;
   }
