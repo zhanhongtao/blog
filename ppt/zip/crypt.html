@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <script>
+function crypt( string ) {
+  string = string.toLowerCase();
+  string = string.replace( /[^0-9a-z ]/g, '' );
+  var estr = [];
+  var t = string.split(' ');
+  for ( var i = 0, l = t.length; i < l; ++i ) {
+    if ( !t[i].length ) continue;
+    var temp = '';
+    while ( t[i].length > 8 ) {
+      temp += str2num( t[i].slice(0,8) + '..toString(36) + ' );
+      t[i] = t[i].slice(8);
+    }
+    temp += str2num( t[i] ) + '..toString(36)';
+    estr[ estr.length ] = temp;
+  }
+  return estr.join( '+" " +' );
+}
+
+
+function str2num( string ) {
+  if ( !string.length ) return 0;
+  var n = 0;
+  for ( var i = string.length; i; --i ) {
+    var q = string.charCodeAt( string.length - i );
+    if ( q < 58 ) q -= 48;
+    else q -= 87;
+    n += q * Math.pow( 36, i - 1 );
+  }
+  return n;
+}
+
+  </script>
+</body>
+</html>
+

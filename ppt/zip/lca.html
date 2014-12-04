@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript">
+//<![CDATA[
+    // http://yiminghe.iteye.com/blog/481953
+		/***
+		对于频繁计算树中任意两个节点最小公共祖先问题的最优解法.
+		***/
+
+
+		function Lca(root){
+		//记录节点访问顺序与深度
+		this.sequence=[];
+		//RMQ sparse table
+		this.matrix=[];
+		this.preprocessForLca(root,0);
+		this.processForRmq();
+
+		}
+
+
+		/*
+		将树转化为对应的先序访问顺序的层次队列，利用 rmq 算法快速求解
+		*/
+		Lca.prototype.preprocessForLca = function(node,l){
+		//第一次访问记录节点与节点深度
+		this.sequence.push({
+		node:node,
+		level:l
+		});
+		var childs=node.childNodes;
+		if(childs) {
+		for(var i=0 , len=childs.length;i<len;++i) {
+				var c=childs[i];
+				if(c.nodeType == 3) continue;
+				this.preprocessForLca(c,l+1);
+				//子节点子树处理完毕，子树父节点即当前节点顺序记录。
+				this.sequence.push({
+					node:node,
+					level:l
+				});
+				
+		}
+		}
+		};
+
+
+		/*
+		利用动态规划算法计算 sparse table matrix , M[0, N-1][0, logN] ,
+		log 以 2 为底
+		M[i][j] 是从原数组i开始的子数组中最小元素在原数组中的下标，
+		这个子数组的长度为2^j
+		可以再 O(1) 的时间复杂度中得到 数组中任意子数组的最小值
+		*/
+		Lca.prototype.processForRmq = function () {
+		var sl=this.sequence.length;
+		var col = Math.ceil(Math.log(sl) / Math.log(2));
+		for(var i=0;i<sl;i++) {
+		this.matrix[i] = [];
+		}   
+		// initialize M for the intervals with length 1
+		for (var i = 0; i < sl; i++)
+		this.matrix[i][0] = i;
+		// 从小间隔计算，直到最后的整个数组间隔 ，即 M[0][sl]
+		for (var j = 1; (1 << j) <= sl; j++) {
+		for (i = 0; i + (1 << j) - 1 < sl; i++) {
+			if (this.sequence[this.matrix[i][j - 1]].level < 
+			this.sequence[this.matrix[i + (1 << (j - 1))][j - 1]].level)
+				this.matrix[i][j] = this.matrix[i][j - 1];
+			else
+				this.matrix[i][j] = this.matrix[i + (1 << (j - 1))][j - 1];
+		}
+		}
+		};
+
+		Lca.prototype.equalNode =function(n1,n2) {
+		if(n1 == n2 ) return true;
+		//if(n1.id == n2.id) return true;
+		};
+		/*
+		利用matrix得到 n1,n2 在树中的最小祖先
+		每次时间复杂度为 O(1)
+		*/
+		Lca.prototype.getCommonParent = function(n1,n2) {
+
+		if (this.equalNode(n1,n2))
+		return n1;
+		if (n1.parentNode == n2)
+		return n2;
+		if (n2.parentNode == n1)
+		return n1;
+
+		var sl=this.sequence.length;
+		var n1Index=-1;
+		var n2Index=-1;
+		//找到节点对应于访问顺序的下标
+		for(var i=0;i<sl;i++) {
+		var t=this.sequence[i].node;
+		if(n1==t){
+			n1Index=i;
+			break;
+		}
+		}
+
+		for(var i=0;i<sl;i++) {
+		var t=this.sequence[i].node;
+		if(n2==t){
+			n2Index=i;
+			break;
+		}
+		}
+
+		if(n1Index == -1 || n2Index == -1) {
+		alert("-1");
+		return;
+		}
+
+		//确保n1Index小
+		if(n1Index > n2Index) {
+		var t=n1Index;
+		n1Index=n2Index;
+		n2Index=t;
+		}
+
+
+
+		// 2^k*2>= |n1Index-n2Index|.
+		//这样就可以在 
+		//子数组 n1Index ~ n1Index+2^k
+		//子数组 n2Index-2^k ~ n2Index
+		//两个子数组中的深度最小值比较得到
+		//n1Index ~ n2Index
+		//的深度最小值，即 n1 n2最小公共祖先节点在访问顺序数组中的下标
+
+		var k = Math.ceil(Math.log(Math.abs(n1Index - n2Index))
+		  / Math.log(2)) - 1;
+
+		var n1Min = this.matrix[n1Index][k];
+		//2^k == 1 << k
+		var n2Min = this.matrix[n2Index - (1<<k) ][k];
+
+		if(this.sequence[n1Min].level > this.sequence[n2Min].level )
+		return this.sequence[n2Min].node;
+		return this.sequence[n1Min].node;
+
+		};
+		//]]>
+		</script>
+		<title>
+			Test Lca In Javascript
+		</title>
+	</head>
+	<body>
+		<p>
+			node1 的 id :<input id="node1" />
+		</p>
+		<p>
+			node2 的 id :<input id="node2" />
+		</p>
+		<p>
+			<input id="btn" type="button" value="点击得到公共祖先id" />
+		</p>
+		<div id="a" style="width:600px;height:550px;border:1px solid green;padding:50px;">
+			a
+			<div id="b" style="width:300px;height:450px;border:1px solid green;padding:20px;margin:20px 0;">
+				b
+				<div id="d" style="width:100px;height:100px;border:1px solid green;padding:20px;margin-bottom:20px;">
+					d
+					<div id="f" style="width:20px;height:20px;border:1px solid green;padding:10px;margin-bottom:10px;">
+						f
+					</div>
+					<div id="i" style="width:20px;height:20px;border:1px solid green;padding:10px;">
+						i
+					</div>
+				</div>
+				<div id="e" style="width:100px;height:100px;border:1px solid green;padding:20px;">
+					e
+					<div id="g" style="width:20px;height:20px;border:1px solid green;padding:10px;margin-bottom:10px;">
+						g
+					</div>
+					<div id="h" style="width:20px;height:20px;border:1px solid green;padding:10px;">
+						h
+					</div>
+				</div>
+			</div>
+			<div id="c" style="width:10px;height:10px;border:1px solid green;padding:10px;margin-top:10px;">
+				c
+			</div>
+		</div><script type="text/javascript">
+//<![CDATA[
+		window.onload=function(){
+
+		//整个子树转化为访问顺序队列数组
+		var lca=new Lca(document.getElementById("a"));
+		/*
+		var visit="";
+		var levels="";      
+		for(var i=0 , len=lca.sequence.length;i<len;++i) {
+				var c=lca.sequence[i];
+				visit+=","+c.node.id;
+				levels+=","+c.level;                
+		}
+		console.log(visit);
+		console.log(levels);
+		*/
+
+		//O(1) 时间内得到任意两个节点的最小公共祖先
+
+
+		document.getElementById("btn").onclick=function(){
+			var n1=document.getElementById("node1").value;
+			var n2=document.getElementById("node2").value;
+			if(document.getElementById(n1) && document.getElementById(n2)){
+				var cp=lca.getCommonParent(document.getElementById(n1),document.getElementById(n2));
+				alert("最小公共祖先 :"+cp.id);
+			}
+			else {
+				alert("DOM 树中没有输入id节点");
+			}
+			
+		}
+		}
+
+		//]]>
+		</script>
+	</body>
+</html>
+
+

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>queue</title>
+</head>
+<body>
+<div style="width: 100px;height: 100px;background-color: #ffa;display: none; position: relative;"></div>
+<script src="jquery.1.11.0.min.js"></script>
+<script src="queue.js"></script>
+<script>
+  var elem = $( 'div' );
+  // queue 支持同步和异步 - 因为 next 函数是使用者手动调用的.
+  // 下面 queueList 中的 animate/slideDown/slideUp 是异步调用.
+  // 而 .css();next() 是同步调用 - 所以可以把它当 for 使用.
+  var queueList = [
+    function( next ) {
+      elem.slideDown( 1000, next );
+    },
+    function( next ) {
+      elem.animate({ left: '300px'}, 1000, next );
+    },
+    function( next ) {
+      elem.css( 'background-color', 'green' );
+      next();
+    },
+    function( next ) {
+      elem.animate({ top: '300px'}, 1000, next );
+    },
+    function( next ) {
+      elem.css( 'background-color', 'red' );
+      next();
+    },
+    function( next ) {
+      elem.animate({left: '0'}, 1000, next );
+    },
+    function(next ) {
+      elem.animate({top: '0'}, 1000, next );
+    },
+    function( next ) {
+      elem.slideUp( 1000, next );
+    }
+  ];
+  queue( queueList, function( current, index, next ) {
+    current(next);
+  }, function() {
+    // alert('end');
+  });
+  
+  // 2. 
+  // value 当前值
+  // index 当前索引
+  // ret 已处理过处理的返回值 - 通过 next(returnValue) 返回.
+  // next 调用下一个
+  queue( [1,2,3,4], function( value, index, ret, next ) {
+    console.log( value, index, ret.join() );
+    next( index * 2 );
+  });
+  
+  // 3.
+  // 所以 item 处理完后, 执行回调.
+  queue( [1, 2], function( value, next ) {
+    // 使用 setTimeout 模拟异步.
+    setTimeout(function() {
+      next( value * value );
+    }, 10 );
+  }, function() {
+    console.log( '3:', arguments ); // 1, 4
+  });
+  
+  // 4. 
+  // 提前结束, 返回已处理数据.
+  queue( [1, 2, 3], function( value, index, next) {
+    // 给 next 两个参数.
+    // 第一个是当前处理后的返回值.
+    // 第二个是 boolean 值, 表示是否提示中止, 直接执行回调函数.
+    if ( index === 1 )
+      next( value, true );
+    else
+      next( value );
+  }, function() {
+    console.log( '4:', arguments ); // 1, 2
+  });
+  
+  // 5.
+  // 提前结束, 返回当前处理后的数据.
+  queue( [1,2,3], function( value, index, next ) {
+    if ( index === 1 ) {
+      next( value, true, true );
+    }
+    else
+      next( value );
+  }, function() {
+    console.log( '5:', arguments ); // 2
+  });
+</script>
+</body>
+</html>

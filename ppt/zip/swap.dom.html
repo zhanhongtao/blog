@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>swap - dom</title>
+</head>
+<body>
+  <ul>
+    <li>0</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <script>
+    function insertBefore( node, dom, parentNode ) {
+      if ( dom ) {
+        parentNode.insertBefore( node, dom );
+      }
+      else { 
+        parentNode.appendChild( node ); 
+      }
+    }
+    function swapDOM( di, dj ) {
+      var parenti = di.parentNode, 
+          parentj = dj.parentNode;
+      var nexti = di.nextSibling, 
+          nextj = dj.nextSibling;
+      parenti.removeChild( di ), 
+      parentj.removeChild( dj );
+      insertBefore( di, nextj, parentj ), 
+      insertBefore( dj, nexti, parenti );
+    }
+
+    var list = document.getElementsByTagName( 'li' );
+    swapDOM( list[1], list[3] );
+  </script>
+</body>
+</html>

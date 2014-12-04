@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>do.task</title>
+</head>
+<body>
+<!-- dom -->
+
+<div><!-- body node -->
+  <div id="main">
+    <p>I love Google!</p>
+  </div>
+  <div></div><!-- side node -->
+</div>
+<script>
+  var main = document.getElementById( 'main' );
+  var body, p, side, text;
+  // ²»¿¼ÂÇ¼æÈÝÐÔ.
+  body = main.parentNode;
+  p = main.firstElementChild;
+  side = main.nextElementSibling;
+  text = p.firstChild.nodeValue;
+  // ¿¼ÂÇ¼æÈÝÐÔ.
+  body = main.parentNode;
+  p = main.firstChild;
+  while ( p.nodeType !== 1 ) {
+    p = p.nextSibling;
+  }
+  side = main.nextSibling;
+  while ( side.nodeType !== 1 ) {
+    side = main.nextSibling;
+  }
+  text = p.firstChild.nodeValue;
+  // or
+  text = p.innerText || p.textContent;
+  // or
+  text = p.innerHTML;
+</script>
+
+<!-- Regexp -->
+<script>
+  // JavaScript
+  var str = 'abc123ab1c2';
+  str.replace( /[a-z](?=\d)|\d(?=[a-z])/ig, '$& ' );
+
+  // ag
+  function r( string ) {
+    string = String( string );
+    var i = 0;
+    var length = string.length;
+    if ( length === i ) return string;
+    var chr = string[i];
+    var st = /\d/.test( chr );
+    var result = chr;
+    while ( chr = string[++i] ) {
+      if ( st === /\d/.test(chr) ) {
+        result += chr;
+      }
+      else {
+        st = !st;
+        result += ' ' + chr;
+      }
+    }
+    return result;
+  }
+</script>
+
+<!-- ag -->
+<script>
+  // JavaScript.
+  var str = 'I love Google';
+  str.split( ' ' ).map(function( word ) {
+    return word.split('').reverse().join('');
+  }).join(' ');
+  // ag
+  function reverse( string ) {
+    string = String( string );
+    var i = 0;
+    var l = string.length;
+    if ( i === l ) return string;
+    var t = [];
+    var chr;
+    var result = '';
+    for ( ; i <= l; ++i ) {
+      chr = string[ i ];
+      if ( chr == null || chr === ' ' ) {
+        while ( chr = t.pop(), chr != null ) {
+          result += chr;
+        }
+        result += i === l ? '' : ' ';
+      }
+      else t.push( chr );
+    }
+    return result;
+  }
+  // ag1.
+  function reverse( string ) {
+    string = String( string );
+    var t = [], base = -1;
+    for ( var i = 0, l = string.length, j = 0; i < l; ++i ) {
+      if ( string[i] === '\40' ) {
+        for ( j = i; --j > base; ) t.push( string[j] );
+        base = i, t.push( string[i] );
+      }
+    }
+    while ( --i > base ) t.push( string[i] );
+    return t.join( '' );
+  }
+  // ag2.
+  function reverse( string ) {
+    var array = String( string ).split( '' ), base = 0;
+    array.push( ' ' );
+    for ( var i = 1, l = array.length; i < l; ++i ) {
+      if ( array[i] === ' ' ) {
+        _reverse( array, base, i - 1 );
+        base = i + 1;
+      }
+    }
+    array.length = l - 1;
+    return array.join('');
+  }
+  function _reverse( array, i, j ) {
+    for ( ; i < j; ++i, --j ) {
+      var t = array[i];
+      array[i] = array[j];
+      array[j] = t;
+    }
+  }
+</script>
+</body>
+</html>
