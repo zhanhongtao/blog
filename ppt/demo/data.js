@@ -1,7 +1,7 @@
-(function () {
+;(function () {
   var cache = {}, 
-    guidCounter = 1,
-    expando = "data" + (new Date).getTime();
+      guidCounter = 1,
+      expando = 'data' + (new Date).getTime();
   this.getData = function (elem) { 
     var guid = elem[expando];
     if (!guid) {
