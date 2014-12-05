@@ -346,11 +346,135 @@ var canvas = document.getElementById( 'rotate' );
 var context = canvas.getContext( '2d' );
 context.fillStyle="green";
 context.rotate(Math.PI/4);   //旋转45°。
-context.fillRect(100,100,100,100);
+context.fillRect(0,0,100,100);
 </code>
 <div class="runcase">Run</div>
 </pre>
       <canvas id="rotate" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 变形 - 平移&旋转</h1>
+    </div>
+    <div class="bd">
+    <p>做矩阵变换时, 需要注意变换顺序.
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'translate-rotate' );
+var context = canvas.getContext( '2d' );
+context.fillStyle="green";
+context.translate( 100, 100 );
+context.rotate(Math.PI/4);   //旋转45°
+context.fillRect(-50,-50,50,50);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="translate-rotate" width="200px" height="200px"></canvas>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'rotate-translate' );
+var context = canvas.getContext( '2d' );
+context.fillStyle="green";
+context.rotate(Math.PI/4);   //旋转45°
+context.translate( 100, 100 );
+context.fillRect(-50,-50,50,50);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="rotate-translate" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 变形 - 矩阵</h1>
+    </div>
+    <div class="bd">
+    <ul>
+      <li>context.setTransform(1, 0, 0, 1, 0, 0);
+      <li>context.transform( a, b, c, d, e, f );
+      <ul>
+        <li>a: X 轴缩放 cos
+        <li>b: Y 轴倾斜 -sin
+        <li>c: X 轴倾斜 sin
+        <li>d: Y 轴缩放 cos
+        <li>e: X 轴平移
+        <li>f: Y 轴平移
+      </ul>
+    </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'transform' );
+var context = canvas.getContext( '2d' );
+context.setTransform(1, 0, 0, 1, 0, 0);
+var xScale = Math.cos( 0.7854 );
+var ySkew = -Math.sin( 0.7854 );
+var xSkew = Math.sin( 0.7854 );
+var yScale = Math.cos( 0.7854 );
+var xTransform = 200;
+var yTransform = 200;
+context.transform( xScale, ySkew, xSkew, yScale, xTransform, yTransform );
+context.fillRect( -50, -50, 100, 100 );
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="transform" width="500px" height="500px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - globalAlpha</h1>
+    </div>
+    <div class="bd">
+      <p>全局的 alpha 基数, 再使用 rgba 时, 透明度需要乘以 globalAlpha.
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'alpha' );
+var context = canvas.getContext( '2d' );
+context.fillStyle="green";
+context.fillRect( 0, 0, 50, 50 );
+context.globalAlpha = 0.5;
+context.fillRect( 50, 50, 50, 50);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="alpha" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - globalCompositeOperation</h1>
+    </div>
+    <div class="bd">
+    <p>图层合并方法. source: 当前正在绘制的路径; destination: 已绘制的路径;
+    <ul>
+      <li>source-over - Default. 后绘制的覆盖已绘制的.
+      <li>destination-over. 已绘制的覆盖后绘制的.
+      <li>source-atop 把source绘制在destination上, 重叠区域两者都不透明; 不重叠区域, source 透明, destination 不透明.
+      <li>destination-atop 同 source-atop 相反.
+      <li>source-in 绘制 source 和 destination 重叠部分的 source.
+      <li>destination-int 同 source-in 相反, 绘制 source 和 destination 重叠部分的 destination.
+      <li>source-out 在与 destination 不重复的区域绘制 source, 其它部分变成透明
+      <li>destination-out 同 source-out 相反. 但设置透明度时, 重叠部分保留.
+      <li>lighter 把 source 和 destination 重叠部分, 颜色相加, 最大值为 255;
+      <li>copy 只绘制 source
+      <li>xor 重叠区域透明.
+    </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'composite' );
+var context = canvas.getContext( '2d' );
+// @NOTE: 存在 alpha 透明.
+// context.globalAlpha = 0.5;
+context.fillStyle = 'green';
+context.fillRect( 0, 0, 100, 100 );
+context.fillStyle = '#faa';
+context.globalCompositeOperation = 'xor';
+context.fillRect( 50, 50, 100, 100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="composite" width="200px" height="200px"></canvas>
     </div>
   </section>
   <section class="slide">
@@ -358,14 +482,20 @@ context.fillRect(100,100,100,100);
       <h1>canvas - 阴影</h1>
     </div>
     <div class="bd">
+    <ul>
+      <li>context.shadowOffsetX
+      <li>context.shadowOffsetY
+      <li>context.shadowBlur
+      <li>context.shadowColor
+    </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var canvas = document.getElementById( 'shadow' );
 var context = canvas.getContext( '2d' );
-context.fillStyle="green";
+context.fillStyle = '#faa';
+context.shadowOffsetX = 0;
+context.shadowOffsetY = 0;
 context.shadowBlur = 20;
-context.shadowOffsetX = 10;
-context.shadowOffsetY = 10;
 context.shadowColor = "red";
 context.fillRect(50,50,100,100);
 </code>
@@ -379,15 +509,21 @@ context.fillRect(50,50,100,100);
       <h1>canvas - 线性渐变</h1>
     </div>
     <div class="bd">
+      <ul>
+        <li>var gradient = context.createLinearGradient(x0, y0, x1, y1);
+        <li>gradient.addColorStop(step, color);
+        <li>context.fillStyle = gradient; // context.strokeStyle;
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var canvas = document.getElementById( 'linear-gradient' );
 var context = canvas.getContext( '2d' );
-var gradient = context.createLinearGradient(0,0,0,canvas.height);
-gradient.addColorStop(0,"blue");
-gradient.addColorStop(1,"red");
-context.fillStyle=gradient;
-context.fillRect(0,0,canvas.width,canvas.height);
+var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+gradient.addColorStop(0, '#faa');
+gradient.addColorStop(1, '#fff');
+context.fillStyle = gradient;
+// 图像大于绘制区域
+context.fillRect(100, 100, canvas.width, canvas.height);
 </code>
 <div class="runcase">Run</div>
 </pre>
@@ -399,19 +535,96 @@ context.fillRect(0,0,canvas.width,canvas.height);
       <h1>canvas - 放射渐变</h1>
     </div>
     <div class="bd">
+      <ul>
+        <li>var gradient = context.createRadialGradient( x0, y0, radius0, x1, y1, radius1 );
+        <li>gradient.addColorStop(step, color );
+        <li>context.fillStyle = gradient;
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var canvas = document.getElementById( 'radial-gradient' );
 var context = canvas.getContext( '2d' );
-var gradient = context.createRadialGradient(300,300,10,100,100,50);
-gradient.addColorStop(0,"blue");
-gradient.addColorStop(1,"red");
+var gradient = context.createRadialGradient( 50, 50, 10, 100, 100, 50);
+gradient.addColorStop(0, '#faa');
+gradient.addColorStop(1, '#fff');
 context.fillStyle = gradient;
-context.fillRect(0,0,canvas.width,canvas.height);
+// @NOTE: gradient 确定方向.
+context.fillRect( 50, 50, canvas.width, canvas.height);
 </code>
 <div class="runcase">Run</div>
 </pre>
       <canvas id="radial-gradient" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 2次贝塞尔曲线</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.quadraticCurveTo( x0, y0, x1, y1 );
+        <ul>
+          <li>起始点
+          <li>(x0, y0) 是控制点
+          <li>(x1, y1) 是目标点
+        </ul>
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'quadraticCurveTo' );
+var context = canvas.getContext( '2d' );
+context.translate( 2, 2 );
+context.fillStyle = '#000';
+context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.fillStyle = 'red';
+context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.moveTo( 0, 0 );
+context.quadraticCurveTo( 100, 0, 50, 100 );
+context.stroke();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="quadraticCurveTo" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 3次贝塞尔曲线</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.bezierCurveTo( x0, y0, x1, y1, x2, y2 );
+        <ul>
+          <li>起始点
+          <li>(x0, y0) 是第一个控制点
+          <li>(x1, y1) 是第二个控制点
+          <li>(x2, y2) 是目标点
+        </ul>
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'bezierCurveTo' );
+var context = canvas.getContext( '2d' );
+context.translate( 2, 2 );
+context.fillStyle = '#000';
+context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.fillStyle = 'red';
+context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.moveTo( 0, 0 );
+context.bezierCurveTo( 100, 0, 50, 100, 100, 100 );
+context.stroke();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="bezierCurveTo" width="200px" height="200px"></canvas>
     </div>
   </section>
   <section class="slide">
@@ -419,11 +632,26 @@ context.fillRect(0,0,canvas.width,canvas.height);
       <h1>canvas - 处理图像</h1>
     </div>
     <div class="bd">
+      <ul>
+        <li>context.drawImage( element, x, y[, width, height] );      
+          <ul>
+            <li>element - img/canvas/video
+            <li>x, y - 画布上绘制的起点坐标
+            <li>width/height, 设置将要绘制的图像尺寸 - 会缩放图像
+          </ul>
+        <li>context.drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh );
+          <ul>
+            <li>image - 图像
+            <li>sx, sy - 图像源的 (x, y) 坐标
+            <li>sw, sh - 裁剪图像的尺寸
+            <li>dx, dy - 在画布上绘制的的起点坐标
+            <li>dw, dh - 在画布上将要绘制的尺寸
+          </ul>
+      </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable="true">
 var canvas = document.getElementById( 'image' );
 var context = canvas.getContext( '2d' );
-
 // 加载图片
 var image = new Image();
 image.onload = function() {
@@ -435,6 +663,32 @@ image.src = './images/canvas/ouba.jpg';
 </pre>
       <canvas id="image" width="600px" height="300px"></canvas>
       <p><a href="http://alloyteam.github.io/AlloyPhoto/">http://alloyteam.github.io/AlloyPhoto/</a>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 图像变形</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="transform-image" width="600px" height="400px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 读写像素值</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="image-px" width="600px" height="400px"></canvas>
     </div>
   </section>
   <section class="slide">
@@ -482,7 +736,7 @@ function drawCanvas_reverse(){
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>canvas - 保存图像</h1>
+      <h1>canvas - 导出图像</h1>
     </div>
     <div class="bd">
       <p>context.toDataURL( MIME ); // Default: image/png
