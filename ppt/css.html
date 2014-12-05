@@ -280,18 +280,38 @@
         <li>非 block 元素不会发生 margin 合并.
       </ul>
     </div>
-  </section>
+  </section>  
+  <section class="slide" id="inline-box">
+    <div class="hd">
+      <h1>Inline-box</h1>
+    </div>
+    <div class="bd">
+      <h2>box</h2>
+      <p>containing-box/line-box/inline-box(匿名)/content-box
+      <p>line-box 在 containing-box 中上下排列, 并且它的高度取决于最高的 inline-box.
+      <p>行高(line-height)与字体尺寸(font-size)的差称为行距; 行距平分后, 分别放在 content-box 上下.
+      <mark>特殊</mark>: 当 font-size 大于 line-height 时, 会折叠 line-height 以保证 inline-box 高度(或 content-box 可见).
+      <p>super/sub 存在的行高会影响 line-box 高度, 细节可设置 <code>line-height: 0; position: relative; /*+top/bottom*/</code> 修正;
+      <p>最后, 容器的高度是由 line-height 撑起的(不是 font-size).
+      <h2>vertical-align</h2>
+      <p>inline-box 在 line-box 中的对齐方式.
+      <p>super/top/text-top/middle/baseline/text-bottom/bottom/sub
+      <h2>line-height</h2>
+      <p>normal/inherit/24px(固定值)/200%(计算后的固定值)/2(因子继承, 没有单位)
+    </div>
+  </section> 
   <section class="slide">
     <div class="hd">
       <h1>链接/按钮状态</h1>
     </div>
     <div class="bd">
       <li>Normal - 默认
-      <li>Hover
+      <li>Hover - 鼠标滑过
       <li>Focus - 获得焦点
-      <li>Active - Press
+      <li>Active - 鼠标按下
       <li>Visited(link) - 访问过后
-      <li>Disabled
+      <li>Disabled - 禁用
+      <li>Readonly - 只读
     </div>
   </section>    
   <section class="slide">

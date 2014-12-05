@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>Canvas</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/base.css?v=3">
+  <link rel="stylesheet" href="./css/app.css?v=3">
+  <link rel="stylesheet" href="./css/scrollbar.css">
+  <style>canvas { margin: 15px 0; }</style>
+  <script src="./js/highlight.pack.js"></script>
+  <script type="text/javascript">
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide slide-cover">
+    <h1>Canvas</h1>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Canvas 基础</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>HTML 提供容器 Canvas(tag)，JavaScript API 提供接口来绘画.
+        <li>Canvas 拥有绘制路径、矩形、圆形、字符以及添加图片等方法
+        <li>Canvas 支持 2D, 3D(WebGL)
+      </ul>
+      <p><img src="./images/canvas/xy.jpg" alt=""></p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Example</h1>
+    </div>
+    <div class="bd">
+      <h2>HTML</h2>
+      <p>指定 Canvas 画布尺寸.
+<pre class="codebox">
+<code class="html" contenteditable="true">
+&ltcanvas id="mycanvas" width="500px" height="500px"&gt
+  您的浏览器不支持 Canvas!
+&lt/canvas&gt
+</code>
+</pre>
+      <h2>JavaScript</h2>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'mycanvas' );
+var context;
+if ( canvas.getContext ) {
+  context = canvas.getContext('2d'); // 使用 2D 渲染上下文
+}
+</code>
+</pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Canvas 绘图操作</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>填充 - 颜色/渐变/图像 - context.fillStyle
+          <ul>
+            <li>字符串 - 16进制/rgb/rgba/hsl/hsla
+            <li>渐变对象
+            <li>图像对象
+          </ul>
+        <li>描边 - context.strokeStyle
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 绘制路径</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.moveTo( x, y ); // 绘图游标移到(x, y)点, 但是不划线.
+        <li>context.lineTo( x, y ); // 从上一点,开始绘制直线, 到 (x, y)为止.
+        <li>context.stroke(); // 绘制路径
+        <li>context.fill();
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'line' );
+var context = canvas.getContext('2d');
+context.beginPath();
+context.lineWidth = 10;         // 设置画笔粗细(px)     
+context.strokeStyle = 'green';  // 描边样式
+context.lineCap = 'round';      // 设置线条末端形状 - butt/round/square
+context.lineJoin = 'bevel';     // 设置线条相交方式 - round/bevel/miter
+context.moveTo(10,10);
+context.lineTo(100,100);
+context.moveTo( 10, 100 );
+context.lineTo( 100, 10 );
+context.closePath();
+context.stroke();               
+</code>
+<div class="runcase">Run</div>
+</pre>
+     <canvas id="line" width="200px" height="120px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 绘制矩形</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.fillRect( x, y, w, h );
+        <li>context.strokeRect( x, y, w, h );
+        <li>context.clearRect( x, y, w, h );
+      </ul>
+<pre class="codebox grid">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'rect' );
+var context = canvas.getContext('2d');
+// 设置样式
+context.fillStyle = "red";
+context.strokeStyle= "#000";
+// 绘制
+context.fillRect(20,20,100,100);
+context.strokeRect(20,20,100,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="rect" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 绘制弧度</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.arc( x, y, radius, startAngle, endAngle, counterclockwise );
+          <ul>
+            <li>x, y 坐标
+            <li>radius: 半径
+            <li>开始/结束角度
+            <li>是否逆时针
+          </ul>
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'round' );
+var context = canvas.getContext('2d');
+context.beginPath();
+context.arc( 100, 100, 50, 0, Math.PI, true );
+context.closePath();
+context.stroke();
+</code>
+<div class="runcase">Run</div>
+</pre>
+       <canvas id="round" width="200px" height="200px"></canvas>
+    </div>
+  </section>    
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 绘制弧度</h1>
+    </div>
+    <div class="bd">
+      <p>context.arcTo( x1, y1, x2, y2, radius );  <br />
+        从上一点(x0, y0)开始绘制弧线, 到 (x2, y2) 为止, 并且以 radius 为半径, 同时与 (x0, y0), (x1, y1)线和(x1, y1), (x2, y2)线相切.
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'arcto' );
+var context = canvas.getContext('2d');
+context.beginPath();
+context.strokeStyle = 'red';
+// 以 100 为半径绘制 arcTo.
+context.moveTo( 0, 0 );
+context.arcTo( 100, 0, 200, 200, 100 );
+// 以 50 为半径绘制 artTo.
+context.moveTo( 0, 0 );
+context.arcTo( 100, 0, 200, 200, 50 );
+context.stroke();
+// 画两条线做辅助.
+context.strokeStyle = '#000';
+context.moveTo( 0, 0 );
+context.lineTo( 100, 0 );
+context.lineTo( 200, 200 );
+context.closePath();
+// 绘制.
+context.stroke();
+
+</code>
+<div class="runcase">Run</div>
+</pre>
+       <canvas id="arcto" width="200px" height="200px"></canvas>
+    </div>
+  </section> 
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.isPointInPath( x, y ); - 点是否在路径上
+        <li>context.closePath(); - 连接到起点
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 写文本</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.fillText( text, x, y ); // (x, y) 左上角位置.
+        <li>context.strokeText( text, x, y );
+        <li>context.font = property; // line-height/font-size/font-family/...
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'text' );
+var context = canvas.getContext( '2d' );
+context.strokeStyle = "#000";
+context.fillStyle = "#ccc";
+context.font= "italic bold 25px Microsoft yahei";
+context.fillText("小王子",50,50);
+context.strokeText("小王子",50,50);
+</code>
+<div class="runcase">Run</div>
+</pre>
+    <canvas id="text" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas基础知识 - 擦除</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.clearRect( x0, y0, x1, y1 );
+        <li>canvas.width = Width; // canvas.height = Height; => 会清除所有状态
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'clear' );
+var context = canvas.getContext( '2d' );
+context.strokeText("小王子",50,50);
+canvas.onclick = function() {
+  context.clearRect(0,0,canvas.width,canvas.height);
+};
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="clear" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 保存/恢复绘画状态</h1>
+    </div>
+    <div class="bd">
+      <h2>状态</h2>
+      <ul>
+        <li>变换矩阵
+        <li>裁剪区域
+        <li>globalAlpha
+        <li>globalCompositeOperation
+        <li>strokeStyle/fillStyle
+        <li>lineWidth/lineCap/lineJoin
+        <li>miterLimit
+        <li>shadowOffsetX/shadowOffsetY/shadowBlur/shadowColor
+        <li>font/textAlign/textBaseLine
+      </ul>
+      <h2>保存/恢复状态</h2>
+      <ul>
+        <li>context.save(); // 存在一个状态栈
+        <li>context.restore();
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'restore' );
+var context = canvas.getContext( '2d' );
+context.fillStyle = "red";
+context.save();
+
+context.fillStyle = "blue";
+context.fillRect(50,50,100,100);
+
+context.restore();
+context.fillRect(150,50,200,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="restore" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 变形 - 平移</h1>
+    </div>
+    <div class="bd">
+    <p>Canvas 上变形, 是对笛卡尔坐标系的调整.
+    <p>context.translate( x, y );
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'translate' );
+var context = canvas.getContext( '2d' );
+context.translate(50,50);
+context.fillStyle = "blue";
+context.fillRect(0,0,100,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="translate" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 变形 - 缩放</h1>
+    </div>
+    <div class="bd">
+    <p>context.scale( scaleX, scaleY );
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'scale' );
+var context = canvas.getContext( '2d' );
+context.scale(2,2);
+context.fillStyle ="red";
+context.fillRect(50,50,100,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="scale" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 变形 - 旋转</h1>
+    </div>
+    <div class="bd">
+    <p>context.rotate( value ); // 角度值. Math.PI/4
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'rotate' );
+var context = canvas.getContext( '2d' );
+context.fillStyle="green";
+context.rotate(Math.PI/4);   //旋转45°。
+context.fillRect(100,100,100,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="rotate" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 阴影</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'shadow' );
+var context = canvas.getContext( '2d' );
+context.fillStyle="green";
+context.shadowBlur = 20;
+context.shadowOffsetX = 10;
+context.shadowOffsetY = 10;
+context.shadowColor = "red";
+context.fillRect(50,50,100,100);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="shadow" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 线性渐变</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'linear-gradient' );
+var context = canvas.getContext( '2d' );
+var gradient = context.createLinearGradient(0,0,0,canvas.height);
+gradient.addColorStop(0,"blue");
+gradient.addColorStop(1,"red");
+context.fillStyle=gradient;
+context.fillRect(0,0,canvas.width,canvas.height);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="linear-gradient" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 放射渐变</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'radial-gradient' );
+var context = canvas.getContext( '2d' );
+var gradient = context.createRadialGradient(300,300,10,100,100,50);
+gradient.addColorStop(0,"blue");
+gradient.addColorStop(1,"red");
+context.fillStyle = gradient;
+context.fillRect(0,0,canvas.width,canvas.height);
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="radial-gradient" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 处理图像</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'image' );
+var context = canvas.getContext( '2d' );
+
+// 加载图片
+var image = new Image();
+image.onload = function() {
+  context.drawImage( image, 0, 200, 600, 600, 0, 0, 600, 600 );
+};
+image.src = './images/canvas/ouba.jpg';
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="image" width="600px" height="300px"></canvas>
+      <p><a href="http://alloyteam.github.io/AlloyPhoto/">http://alloyteam.github.io/AlloyPhoto/</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 处理视频</h1>
+    </div>
+    <div class="bd">
+<pre class="codebox">
+<code class="javascript" contenteditable="true">
+var canvas = document.getElementById( 'video' );
+var context = canvas.getContext( '2d' );
+var video = document.getElementById( 'myvideo' );
+canvas.onclick = function() {
+  drawCanvas_reverse();
+  video.play();
+};
+function drawCanvas_reverse(){
+  if( video.paused || video.ended ) {
+    return false;
+  }
+  context.drawImage(video,0,0,600,350);
+  var imageData = context.getImageData(0,0,canvas.width,canvas.height);
+  context.clearRect(0,0,canvas.width,canvas.height);
+  var pixels = imageData.data;
+  var numPixels = pixels.length;
+  for(var i=0;i &lt; numPixels;i++){
+    pixels[i*4] = 255-pixels[i*4];
+    pixels[i*4+1] = 255-pixels[i*4+1];
+    pixels[i*4+2] = 255-pixels[i*4+2];
+  }
+  context.putImageData(imageData,0,0);
+  setTimeout(function() {
+    drawCanvas_reverse();
+  }, 30);
+}
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="video" width="600px" height="400px">
+        <video id="myvideo" width="600" height="400" controls>
+          <source  src="./images/canvas/t1.mp4" type="video/mp4"></source>
+        </video>
+      </canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>canvas - 保存图像</h1>
+    </div>
+    <div class="bd">
+      <p>context.toDataURL( MIME ); // Default: image/png
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>?</h1>
+  </section>
+  <nav id="navigator"></nav>
+  <nav>
+    <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
+    <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
+  </nav>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>

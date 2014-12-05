@@ -22,13 +22,12 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>window</h1>
+      <h1>Window 对象</h1>
     </div>
     <div class="bd">
       <h2>window object</h2>
       <ul>
-        <li>window/document.defaultView
-        <li>top/parent/self
+        <li>window/document.defaultView/top/parent/self
         <li>iframe.contentWindow/iframe.contentDocument(兼容: iframe.contentWindow.document)
       </ul>
       <h2>property/method</h2>
@@ -40,7 +39,13 @@
         <li>.print()/.find( keywords )
         <li>.postMessage()
       </ul>
-      <h2>cross-domain</h2>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Cross-Domain</h1>
+    </div>
+    <div class="bd">
       <ul>
         <li>不同协议/不同域名/不同端口(ie例外)
         <li>不同子域名可使用 document.domain 修正
@@ -50,7 +55,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>navigator</h1>
+      <h1>Navigator</h1>
     </div>
     <div class="bd">
       <ul>
@@ -66,35 +71,34 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>location</h1>
+      <h1>Location</h1>
     </div>
     <div class="bd">
       <ul>
+        <li>location.href = {url}
         <li>protocol/host/hostname/href/port/pathname/search/hash
         <li>assign( url )
         <li>replace( url )
         <li>reload()
-        <li>location.href = {url}
         <li>location = {url};
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>history</h1>
+      <h1>History</h1>
     </div>
     <div class="bd">
-      <h2>property/method</h2>
+      <h2>属性和方法</h2>
       <ul>
         <li>length
         <li>state
         <li>go([delta])
-        <li>back()
-        <li>forward()
+        <li>back()/forward()
         <li>pushState( data, title[, url] )
         <li>replaceState( data, title[, url] )
       </ul>
-      <h2>event</h2>
+      <h2>Event</h2>
       <ul>
         <li>window.onhashchange
         <li>window.onpopstate
@@ -112,10 +116,10 @@
     </div>
     <div class="bd">
       <ul>
-        <li>Cookie(string)
-        <li>Session
+        <li>Cookie(string, expires)
+        <li>Session(server)
         <li>LocalStorage(key/value)
-        <li>SessionStorage
+        <li>SessionStorage(key/value, expires)
         <li>IndexedDB(SQL)
         <li>Application Cache(file)
       </ul>
@@ -127,13 +131,14 @@
     </div>
     <div class="bd">
       <p>存储到特定域名(domain)的特定目录(path)下, 存在过期时间(expires), 浏览器对 cookie 总大小有限制.
-      <p>网页中请求子文件(css/js/image等)时, 请求 head 信息中会加上 cookie.
+      <p>网页中请求子文件(css/js/image等)时, 请求的 head 信息中会加上 cookie - 静态资源放到其他域名下, 减少头信息数据.
       <h2>Homework</h2>
       <ul>
         <li>cookie.get( key )
         <li>cookie.set( key, value, expires, domain, path );
         <li>cookie.remove( key )
       </ul>
+      <p>参考: <a href="./demo/cookie.js" download="cookie.js">cookie.js</a>
     </div>
   </section>
   <section class="slide">
@@ -141,7 +146,9 @@
       <h1>LocalStorage</h1>
     </div>
     <div class="bd">
-      <p>localStorage 会把数据存储在本地, 并且数据没有过期时间; 各个浏览器对存储空间有大小要求, 一般可存储 5M; 超出 size 限制时, 会抛出异常.
+      <p>localStorage 会把数据存储在本地, 并且不存在过期时间;
+      <p>各个浏览器对存储空间有大小要求, 一般可存储 5M; 超出 size 限制时, 会抛出异常.
+      <p>用户可手动删除 localStorage 内容.
       <p>IE 低版本不支持 localStorage, 但支持 <a href="http://msdn.microsoft.com/zh-cn/vstudio/ms531424">userdata</a>
       <ul>
         <li>.length
@@ -180,7 +187,7 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Links</h1>
+      <h1>参考</h1>
     </div>
     <div class="bd">
       <ul>
