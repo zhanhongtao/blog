@@ -5,6 +5,7 @@
   bottom: 0;
   left: 0;
   overflow: hidden;
+  margin: 0;
 }
 .ppt .slide {
   display: none;

@@ -15,6 +15,8 @@ var timers = {
           }
         }
         timers.timerID = setTimeout(runNext, 0);
+      } else {
+        timers.stop();
       }
     })();
   },

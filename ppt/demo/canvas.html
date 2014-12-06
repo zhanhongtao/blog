@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas</title>
+  <style>* { margin: 0; padding: 0; } canvas { display: block; }</style>
+</head>
+<body>
+  <canvas id="mycanvas"></canvas>
+  <script src="timers.js"></script>
+  <script>
+    var canvas = document.getElementById( 'mycanvas' );
+    var context = canvas.getContext( '2d' );
+
+    function Sharp( x, y, radius ) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+    }
+
+    window.onresize = function() {
+      setTimeout(function() {
+        init();
+      }, 100);
+    };
+
+    var width, height, sharps = [];
+
+    function prepareCanvas() {
+      // 重新调整画布.
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+
+      // 初始化图形.
+      for ( var i = 0; i < 100; ++i ) {
+        var radius = Math.ceil(Math.random() * 5 + 2);
+        var x = Math.random() * width;
+        var y = Math.random() * height;
+        sharps[i] = new Sharp( x, y, radius );
+      }
+    }
+
+    function randomColor() {
+      var r = Math.floor(　Math.random() * 255 );
+      var g = Math.floor(　Math.random() * 255 );
+      var b = Math.floor(　Math.random() * 255 );
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+
+    function init() {
+      prepareCanvas();
+      
+      timers.add(function() {
+      
+        // 清理画布.
+        context.clearRect( 0, 0, width, height );
+        
+        // 准备背景.
+        context.save();
+        context.fillStyle = '#000';
+        context.fillRect( 0, 0, width, height );
+        context.restore();
+      
+        // 绘制.
+        for ( var i = 0, l = sharps.length; i < l; ++i ) {
+          var sharp = sharps[i];
+          if ( sharp.x < width && sharp.y < height ) {
+            sharp.x += Math.random() * 2 - 1;
+            sharp.y += Math.random() * 2 - 1;
+          }
+          // 绘制图形.
+          context.save();
+          context.beginPath();
+          context.fillStyle = randomColor();
+          context.arc( sharp.x, sharp.y, sharp.radius, 0, 2 * Math.PI, false );
+          context.fill();
+          context.restore();
+        }      
+      });
+      timers.start();
+
+    }
+
+    init();
+  </script>
+</body>
+</html>
