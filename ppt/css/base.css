@@ -54,20 +54,17 @@ dd { text-indent: 2em; }
 .c6 { background-color: rgba(105, 94, 197, 0.05); }
 .c7 { background-color: rgba(105, 94, 197, 0.05); }
 
-code, pre {
-  line-height: 1.5;
-  font-size: 14px;
-}
-
 code {
   display: inline-block;
   padding: 0 5px;
-  margin: 0 5px;
+  /* margin: 0 5px; */
   border-radius: 2px;
   background-color: #f0f0f0;
   color: #333;
   text-indent: 0;
   outline: none;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
 mark, .mark {
@@ -78,9 +75,9 @@ mark, .mark {
 
 pre {
   margin: 0;
+  font-size: 0;
   display: block;
   outline: none;
-  box-sizing: border-box;
   background-color: #F0F0F0;
   position: relative;
   overflow: auto;
@@ -100,6 +97,7 @@ pre + pre {
   color: #1A69AB;
   background-color: #BDBDB4;
   font-weight: 700;
+  font-size: 16px;
 }
 
 sub, sup {

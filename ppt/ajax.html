@@ -682,7 +682,8 @@ promise.then(function() {
 var promise = new Promise(function( resolve, reject ) {
   // 模拟异步操作
   setTimeout(function() {
-    Math.random() > 0.5 ? resolve( 'done' ) : reject( 'fail' );
+    reject('fail');
+    // Math.random() > 0.5 ? resolve( 'done' ) : reject( 'fail' );
   }, 100);
 });
 
@@ -697,7 +698,7 @@ promise.then(function( message ) {
 
 // 捕获 fail.
 promise.catch(function( message ) {
-  console.log( 'fail: ', message );
+  console.log( 'catch: ', message );
 });
 
 // 多个 .then 绑定回调函数
@@ -721,9 +722,9 @@ var newPromise = promise.then(function() {
 // 当 promise 对象回调函数执行完后, 
 // 才执行 newPromise 的回调函数.
 newPromise.then(function( value ) {
-  console.log( 'new promise value: ', value );
-}, function() {
-  console.log( 'new promise value: ', value );
+  console.log( 'new promise value - done: ', value );
+}, function(value) {
+  console.log( 'new promise value - fail: ', value );
 });
 
 // 先执行 promise 绑定的回调函数.
