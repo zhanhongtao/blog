@@ -51,7 +51,7 @@ function walkToRoot( node, handle ) {
   });
 
   var runcode = function( code ) {
-    var fixCode = '(function() {\n' + code + '\n})()';
+    var fixCode = '(function() {\n' + code + '\n})();';
     var f = new Function( 'return ' + fixCode );
     f();
   };

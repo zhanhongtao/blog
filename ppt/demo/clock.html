@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rotate</title>
+  <style>* { padding: 0; margin: 0; } canvas { display: block; }</style>
+</head>
+<body>
+  <canvas id="mycanvas"></canvas>
+  <script>
+    var canvas = document.getElementById( 'mycanvas' );
+    var context = canvas.getContext( '2d' );
+
+    var RADIUS = 250, DOT_RADIUS = 2, PI = Math.PI;
+    var width, height;
+
+    function prepareCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.onresize = function() {
+      init();
+    };
+
+    function drawRound() {
+      context.save();
+      context.translate( width/2, height/2 );
+
+      // 绘制点.
+      context.beginPath();
+      context.arc(0, 0, DOT_RADIUS, 0, 2 * PI, false );
+      context.fillStyle = '#aaa';
+      context.fill();
+
+      // 绘制大圆.
+      context.beginPath();
+      context.arc(0, 0, RADIUS, 0, 2 * PI, true );
+      context.stroke();
+
+      context.restore();
+    }
+
+    function drawMark() {
+      var LINE_LENGTH = 25, LINE_WIDTH = 1;
+      context.save();
+      context.translate( width/2, height/2 );
+
+      // 画 12 个刻度线.
+      var i = 1, l = 12;
+      while ( i <= l ) {
+        context.save();
+        context.rotate(30 * i * PI / 180);
+        context.beginPath();
+        context.moveTo(0, -RADIUS);
+        context.lineTo(0, -RADIUS + LINE_LENGTH);
+        context.lineWidth = LINE_WIDTH + 1;
+        context.stroke();
+        context.beginPath();
+        context.font = '12px Microsoft yahei';
+        context.fillText(i, -5, -RADIUS + LINE_LENGTH + 15);
+        context.restore();
+        ++i;
+      }
+
+      // 画 60 个分线.
+      i = 0, l = 60;
+      while ( i < l ) {
+        context.save();
+        context.rotate(6 * i * PI / 180);
+        context.beginPath();
+        context.moveTo(0, -RADIUS);
+        context.lineTo(0, -RADIUS + LINE_LENGTH / 2);
+        context.lineWidth = LINE_WIDTH;
+        context.stroke();
+        context.restore();
+        ++i;
+      }
+
+      context.restore();
+    }
+
+    function drawDate() {
+      var date = new Date();
+      var hour = date.getHours();
+      var minute = date.getMinutes();
+      var second = date.getSeconds();
+
+      context.save();
+      context.translate(width/2, height/2);
+      
+      // 时/分/秒
+      [ 
+        {
+          value: hour/24,
+          length: 80
+        }, 
+        {
+          value: minute/60,
+          length: 120
+        }, 
+        {
+          value: second/60,
+          length: 180
+        } 
+      ].forEach(function( item ) {
+        context.save();
+        context.rotate(item.value * 360 * PI/180);
+        context.beginPath();
+        context.moveTo(0, 0);
+        context.lineTo(0, -item.length);
+        context.stroke();
+        context.restore();        
+      });
+      
+      context.restore();
+    }
+
+    function draw() {
+      context.clearRect(0, 0, width, height);
+      drawRound();
+      drawMark();
+      drawDate();    
+      setTimeout(function() {
+        draw();
+      }, 1000);
+    }
+    
+    function init() {
+      prepareCanvas();
+      draw();
+    }
+
+    init();
+  </script>
+</body>
+</html>
