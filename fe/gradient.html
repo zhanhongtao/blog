@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Gradient</title>
+</head>
+<body>
+<style type="text/css">
+  #wrap div {
+    width: 100px;
+    float: left;
+    margin: 10px;
+    line-height: 100px;
+    text-align: center;
+    color: #fff;
+  }
+  h1 { 
+    font-size: 1.4em; 
+    clear: both; 
+  }
+</style>
+  <div id="wrap"></div>
+  <script>
+    function render(type) {
+      var i = 0, j = 0, delta = 45;
+      var templates = [
+        '-webkit-gradient(linear, {DEG}, from(#f00), to(#EAD602))',
+        '-webkit-linear-gradient({DEG}deg, #f00, #EAD602)',
+        'linear-gradient({DEG}deg, #f00, #EAD602)'
+      ];
+      var old = [
+        '0% 100%, 0% 0%',       // => 0deg
+        '0% 100%, 100% 0%',     // => 45deg
+        '0% 0%, 100% 0%',       // => 90deg
+        '0% 0%, 100% 100%',     // => 135deg
+        '0% 0%, 0% 100%',       // => 180deg
+        '100% 10%, 100% 0%',    // => 225deg
+        '100% 0, 0% 0%',        // => 270deg
+        '100% 100%, 0% 0%',     // => 315deg
+        '0% 100%, 0% 0%',       // => 360deg
+      ];
+      var comp = [
+        90,
+        45,
+        0,
+        315,
+        270,
+        225,
+        180,
+        135,
+        90
+      ];
+      while ( j < 3 ) {
+        i = 0;
+        var fragment = document.createDocumentFragment();
+        var template = templates[j];
+        var head = document.createElement( 'h1' );
+        head.appendChild( 
+          document.createTextNode( 
+            template.slice(0, template.indexOf('(') )
+          )
+        );
+        fragment.appendChild( head );
+        while( i <= 360 ) {
+          var element = document.createElement( 'div' );
+          fragment.appendChild( element );
+          element.style.background = template.replace( /{DEG}/g, 
+            j == 0 ? old[i/delta] : 
+            j == 1 ? comp[i/delta]:
+            i 
+          );
+          element.className = 'deg_' + i;
+          element.appendChild(
+            document.createTextNode(
+              j == 1 ? comp[i/delta] : i
+            )
+          );
+          i = i + delta;
+        }
+        document.getElementById('wrap').appendChild( fragment );
+        ++j;
+      }   
+    }
+    render();
+  </script>
+</body>
+</html>

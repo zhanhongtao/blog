@@ -30,21 +30,6 @@ var blog = {
   description: '记录工作生活的点点滴滴',
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
-  demos: [
-    {title: 'scroll loading..', address: './fe/scroll/' },
-    {title: 'sticky', address: './fe/scroll/sticky.html'},
-    {title: '遍历 DOM-Tree', address: './walkdomtree/'},
-    {title: 'queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
-    {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
-    {title: 'border', address: './fe/border.html'},
-    {title: 'border-radius', address: './fe/border-radius.html'},
-    {title: 'css 之 flex', address: './fe/flex/'},
-    {title: 'layout - css', address: './layout/', description: 'alt + Number 切换 css 文件)' },
-    {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' },
-    {title: 'css - Animation', address: './fe/animation.html' },
-    {title: 'css - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' },
-    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'} 
-  ],
   shares: [
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: 'expand-select', address: './expandselect/', description: '可使用 shift 辅助选择'},
@@ -54,6 +39,24 @@ var blog = {
     {title: 'rt.js', address: 'https://github.com/zhanhongtao/rt.js', description: '基于 JavaScript 语法的模板引擎' },
     {title: 'jQuery.slide.js', address: 'http://github.com/zhanhongtao/jQuery.slide.js', description: '可定制化 jQuery slide 插件' },
     {title: 'ppt', address: './ppt' }
+  ],
+  demos: [
+    {title: 'scroll loading..', address: './fe/scroll/' },
+    {title: 'sticky', address: './fe/scroll/sticky.html'},
+    {title: '遍历 DOM-Tree', address: './walkdomtree/'},
+    {title: 'queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
+    {title: 'border', address: './fe/border.html'},
+    {title: 'border-radius', address: './fe/border-radius.html'},
+    {title: 'Style About Box', address: './fe/box-style.html'},
+    {title: 'flex', address: './fe/flex/'},
+    {title: 'box', address: './fe/box.html'},
+    {title: 'gradient', address: './fe/gradient.html'},
+    {title: 'layout - css', address: './layout/', description: 'alt + Number 切换 css 文件)' },
+    {title: 'css - Animation', address: './fe/animation.html' },
+    {title: 'css - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' },
+    {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
+    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'},
+    {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' }
   ]
 };
 

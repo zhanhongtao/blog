@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>box-style</title>
+  <style>
+    .box {
+      margin: 15px auto 20px;
+      padding: 5px;
+      line-height: 100px;
+      text-align: center;
+      text-shadow: 1px 1px 2px #383838;
+      border: 5px solid #CDCDC9;
+      background-color: #E5E8E0;
+      background-clip: content-box;
+      max-width: 80%;
+    }
+    .radius {
+      border-radius: 2px;
+    }
+    .sizing {
+      box-sizing: content-box;
+    }
+    .shadow {
+      box-shadow: 0 0 4px 2px #D418D0;
+    }
+    .outline {
+      outline: 5px solid #DDCAC5;
+      outline-offset: 5px;
+    }
+    .resize {
+      height: 100px;
+      overflow: auto;
+      resize: both;
+    }
+    .resize:after {
+      content: '';
+      display: block;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box radius">border-radius</div>
+  <div class="box sizing">box-sizing</div>
+  <div class="box shadow">box-shadow</div>
+  <div class="box outline">outline</div>
+  <div class="box resize">resize</div> 
+</body>
+</html>
