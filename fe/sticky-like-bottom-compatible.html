@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实例</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    .box { 
+      min-height: 100%; 
+      overflow: hidden;
+      width: 80%;
+      margin: 0 auto;
+      background-color: #FEE;
+    }
+    .content {
+      height: 100px;
+      margin-bottom: 80px;
+      padding: 10px;
+    }
+    .foot { 
+      height: 80px; 
+      width: 80%; 
+      margin: 0 auto; 
+      background-color: #faa; 
+      margin-top: -80px;
+    }
+    p {
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="content">
+      <p>当内容比较少时, Foot 固定在窗口下方; 当内容很多时,  Foot 跟随在内容后面。</p>
+    </div>
+  </div>
+  <div class="foot"></div>
+</body>
+</html>

@@ -50,7 +50,7 @@
           <% if ( item.code ) { %>
             (<a href="<%= item.code %>">code</a>)
           <% } %>
-          <% if(item.description) {%> -- <%= item.description %><%} %>
+          <% if(item.description) {%> (<%= item.description %>)<%} %>
         </li>
       <% } %>
     </ul>
@@ -60,7 +60,18 @@
         <% var demos = it.demos; %>
         <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
           <% var item = demos[i]; %>
-          <li><a href="<%= item.address %>"><%= item.title %></a><% if(item.description) {%> -- <%= item.description %><%} %></li>
+          <li>
+            <% 
+              var tmp;
+              if ( Object.prototype.toString.call(item) == "[object Object]" ) {
+                tmp = [item];
+              } else tmp = item; 
+            for ( var j = 0, n = tmp.length; j < n; ++j ) {
+              var _item = tmp[j];
+            %>
+              <a href="<%= _item.address %>"><%= _item.title %></a><% if(_item.description) {%> (<%= _item.description %>)<%} %>
+            <% } %>
+          </li>
         <% } %>
       </ul>    
     <% } %>

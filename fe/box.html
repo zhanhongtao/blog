@@ -84,12 +84,30 @@
         line-height: 0;
         overflow: hidden;
       }
+      
+      .document {
+        width: 80%; 
+        margin: 0 auto;
+        line-height: 1.5;
+      }
     </style>
   </head>
   <body>
     <div class="example">
       <p class="item">CSS3 是 层叠样式表(Cascading Style Sheets) 语言的最新进展，目的在于扩展 CSS2.1。</p>
       <p class="item">CSS3</p>
+    </div>
+    <div class="document">
+      <h2>相关说明</h2>
+      <ul>
+        <li>display: -webkit-box/-webkit-inline-box;
+        <li>-webkit-box-orient: horizontal/vertical; 盒子中元素的摆放方向
+        <li>-webkit-box-direction: normal; 盒子中元素的摆放顺序: normal/reverse/inherit
+        <li>-webkit-box-align: center; 盒子中元素在水平方向上对齐方式: start/center/baseline/stretch/end;
+        <li>-webkit-box-pack: center; 盒子中元素在垂直方向上对齐方式: start/center/justify/end
+        <li>-webkit-box-lines: single; 盒子中元素换行时, 如何显示: single/multiple;
+        <li>-webkit-box-flex: 1; 盒子中元素分配<mark>剩余空间</mark>的大小;
+        <li>-webkit-box-ordinal-group: 1; 盒子中元素的显示顺序, 类似 flex 中的 order;
     </div>
   </body>
 </html>
