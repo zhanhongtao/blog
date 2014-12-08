@@ -26,11 +26,12 @@
     </div>
     <div class="bd">
       <ul>
-        <li>HTML 提供容器 canvas(tag)，JavaScript API 提供接口来绘画.
-        <li>Canvas 有绘制路径、矩形、圆形、字符以及添加图片等能力.
+        <li>HTML 提供容器 canvas(tag)，JavaScript API 提供接口来绘画 - 位图.
+        <li>Canvas 有绘制路径、矩形、圆形、字符以及处理图片等能力.
         <li>Canvas 支持 2D, 3D(WebGL)
-      </ul>
-      <p><img src="./images/canvas/xy.jpg" alt=""></p>
+        <li>笛卡尔坐标系统.
+          <p><img src="./images/canvas/xy.jpg" alt=""></p>
+      </ul>      
     </div>
   </section>
   <section class="slide">
@@ -75,47 +76,7 @@ if ( canvas.getContext ) {
       </ul>
     </div>
   </section>
-  <section class="slide" id="path">
-    <div class="hd">
-      <h1>绘制路径</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>context.beginPath(); (重新)开始绘制路径
-        <li>context.moveTo( x, y ); // 绘图游标移到(x, y)点, 但是不划线.
-        <li>context.lineTo( x, y ); // 从上一点,开始绘制直线, 到 (x, y)为止.
-        <li>context.closePath(); 和开始点连接
-        <li>context.stroke(); // 绘制路径
-      </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
-var canvas = document.getElementById( 'line' );
-var context = canvas.getContext('2d');
-// @NOTE: 仅仅是为了二次操作.
-context.clearRect(0, 0, canvas.width, canvas.height );
 
-context.save();
-context.beginPath();
-
-context.lineWidth = 10;         // 设置画笔粗细(px)     
-context.strokeStyle = 'green';  // 描边样式
-context.lineCap = 'round';      // 设置线条末端形状 - butt/round/square
-context.lineJoin = 'bevel';     // 设置线条相交方式 - round/bevel/miter
-
-context.moveTo(10,10);
-context.lineTo(100,100);
-context.moveTo( 100, 10 );
-context.lineTo( 10, 100 );
-// context.closePath();
-context.stroke();
-
-context.restore();
-</code>
-<div class="runcase">Run</div>
-</pre>
-     <canvas id="line" width="200px" height="120px"></canvas>
-    </div>
-  </section>
   <section class="slide" id="rect">
     <div class="hd">
       <h1>绘制矩形</h1>
@@ -175,7 +136,48 @@ context.restore();
 </pre>
        <canvas id="round" width="200px" height="200px"></canvas>
     </div>
-  </section>    
+  </section>
+  <section class="slide" id="path">
+    <div class="hd">
+      <h1>绘制路径</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.beginPath(); (重新)开始绘制路径
+        <li>context.moveTo( x, y ); // 绘图游标移到(x, y)点, 但是不划线.
+        <li>context.lineTo( x, y ); // 从上一点,开始绘制直线, 到 (x, y)为止.
+        <li>context.closePath(); 和开始点连接
+        <li>context.stroke(); // 绘制路径
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var canvas = document.getElementById( 'line' );
+var context = canvas.getContext('2d');
+// @NOTE: 仅仅是为了二次操作.
+context.clearRect(0, 0, canvas.width, canvas.height );
+
+context.save();
+context.beginPath();
+
+context.lineWidth = 10;         // 设置画笔粗细(px)
+context.strokeStyle = 'green';  // 描边样式
+context.lineCap = 'round';      // 设置线条末端形状 - butt/round/square
+context.lineJoin = 'bevel';     // 设置线条相交方式 - round/bevel/miter
+
+context.moveTo(10,10);
+context.lineTo(100,100);
+context.moveTo( 100, 10 );
+context.lineTo( 10, 100 );
+// context.closePath();
+context.stroke();
+
+context.restore();
+</code>
+<div class="runcase">Run</div>
+</pre>
+     <canvas id="line" width="200px" height="120px"></canvas>
+    </div>
+  </section>
   <section class="slide" id="arcto">
     <div class="hd">
       <h1>绘制弧度</h1>
@@ -189,30 +191,114 @@ var canvas = document.getElementById( 'myarcto' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height);
 context.save();
-context.beginPath();
-context.strokeStyle = '#f00';
+
 // 以 100 为半径绘制 arcTo.
+context.beginPath();
 context.moveTo( 0, 0 );
 context.arcTo( 100, 0, 200, 200, 100 );
+context.strokeStyle = '#f00';
+context.stroke();
+
 // 以 50 为半径绘制 artTo.
+context.beginPath();
 context.moveTo( 0, 0 );
 context.arcTo( 100, 0, 200, 200, 50 );
 context.stroke();
+
 // 画两条线做辅助.
-context.strokeStyle = '#000';
+context.beginPath();
 context.moveTo( 0, 0 );
 context.lineTo( 100, 0 );
 context.lineTo( 200, 200 );
-context.closePath();
-// 绘制.
+context.strokeStyle = '#000';
+// 保证辅助线在下面, 不影响 arcTo 绘制的线
+context.globalCompositeOperation = 'destination-over';
 context.stroke();
+
 context.restore();
 </code>
 <div class="runcase">Run</div>
 </pre>
        <canvas id="myarcto" width="200px" height="200px"></canvas>
     </div>
-  </section> 
+  </section>
+  <section class="slide" id="bezier">
+    <div class="hd">
+      <h1>2次贝塞尔曲线</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.quadraticCurveTo( x0, y0, x1, y1 );
+        <ul>
+          <li>起始点
+          <li>(x0, y0) 是控制点
+          <li>(x1, y1) 是目标点
+        </ul>
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var canvas = document.getElementById( 'quadraticCurveTo' );
+var context = canvas.getContext( '2d' );
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.translate( 2, 2 );
+context.fillStyle = '#000';
+context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.fillStyle = 'red';
+context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.moveTo( 0, 0 );
+context.quadraticCurveTo( 100, 0, 50, 100 );
+context.stroke();
+context.restore();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="quadraticCurveTo" width="200px" height="200px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>3次贝塞尔曲线</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.bezierCurveTo( x0, y0, x1, y1, x2, y2 );
+        <ul>
+          <li>起始点
+          <li>(x0, y0) 是第一个控制点
+          <li>(x1, y1) 是第二个控制点
+          <li>(x2, y2) 是目标点
+        </ul>
+      </ul>
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var canvas = document.getElementById( 'bezierCurveTo' );
+var context = canvas.getContext( '2d' );
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.translate( 2, 2 );
+context.fillStyle = '#000';
+context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.fillStyle = 'red';
+context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
+context.fill();
+context.beginPath();
+context.moveTo( 0, 0 );
+context.bezierCurveTo( 100, 0, 50, 100, 100, 100 );
+context.stroke();
+context.restore();
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="bezierCurveTo" width="200px" height="200px"></canvas>
+    </div>
+  </section>
   <section class="slide" id="other">
     <div class="hd">
       <h1>其它</h1>
@@ -223,16 +309,18 @@ context.restore();
         <li>context.closePath(); - 连接到起点
       </ul>
     </div>
-  </section>
+  </section>  
   <section class="slide" id="text">
     <div class="hd">
       <h1>写文本</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>context.fillText( text, x, y ); // (x, y) 左上角位置.
-        <li>context.strokeText( text, x, y );
-        <li>context.font = property; // line-height/font-size/font-family/...
+        <li>context.font = property; // [font-style], [font-weight], [font-size], [font-family]
+        <li>context.textAlign = align; // start[Default]/end/left/right/center
+        <li>context.textBaseLine = baseline; // top/hanging/middle/alphabetic[Default]/ideographic/bottom
+        <li>context.fillText( text, x, y[, maxWidth] ); // (x, y) 左上角位置.
+        <li>context.strokeText( text, x, y[, maxWidth] );
       </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable>
@@ -295,7 +383,7 @@ canvas.onclick = function() {
         <li>context.restore();
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="restore">
     <div class="hd">
       <h1>保存/恢复绘画状态</h1>
@@ -395,7 +483,7 @@ context.restore();
       <h1>Rotate</h1>
     </div>
     <div class="bd">
-    <p>context.rotate( value ); // 角度值. Math.PI/4; 
+    <p>context.rotate( value ); // 角度值. Math.PI/4;
 <pre class="codebox">
 <code class="javascript" contenteditable>
 var canvas = document.getElementById( 'myrotate' );
@@ -411,7 +499,7 @@ context.restore();
 </pre>
       <canvas id="myrotate" width="200px" height="200px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Translate & Rotate</h1>
@@ -449,7 +537,7 @@ context.restore();
 </pre>
       <canvas id="rotate-translate" width="200px" height="200px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="matrix">
     <div class="hd">
       <h1>Transform</h1>
@@ -488,7 +576,7 @@ context.restore();
 </pre>
       <canvas id="mymatrix" width="500px" height="500px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="alpha">
     <div class="hd">
       <h1>Alpha</h1>
@@ -511,7 +599,7 @@ context.restore();
 </pre>
       <canvas id="myalpha" width="200px" height="200px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="composite">
     <div class="hd">
       <h1>Composite</h1>
@@ -638,108 +726,24 @@ context.restore();
 </pre>
       <canvas id="my-radial-gradient" width="200px" height="200px"></canvas>
     </div>
-  </section>  
-  <section class="slide" id="bezier">
-    <div class="hd">
-      <h1>2次贝塞尔曲线</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>context.quadraticCurveTo( x0, y0, x1, y1 );
-        <ul>
-          <li>起始点
-          <li>(x0, y0) 是控制点
-          <li>(x1, y1) 是目标点
-        </ul>
-      </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
-var canvas = document.getElementById( 'quadraticCurveTo' );
-var context = canvas.getContext( '2d' );
-context.clearRect(0, 0, canvas.width, canvas.height );
-context.save();
-context.translate( 2, 2 );
-context.fillStyle = '#000';
-context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
-context.fill();
-context.beginPath();
-context.fillStyle = 'red';
-context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
-context.fill();
-context.beginPath();
-context.moveTo( 0, 0 );
-context.quadraticCurveTo( 100, 0, 50, 100 );
-context.stroke();
-context.restore();
-</code>
-<div class="runcase">Run</div>
-</pre>
-      <canvas id="quadraticCurveTo" width="200px" height="200px"></canvas>
-    </div>
-  </section>  
-  <section class="slide">
-    <div class="hd">
-      <h1>3次贝塞尔曲线</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>context.bezierCurveTo( x0, y0, x1, y1, x2, y2 );
-        <ul>
-          <li>起始点
-          <li>(x0, y0) 是第一个控制点
-          <li>(x1, y1) 是第二个控制点
-          <li>(x2, y2) 是目标点
-        </ul>
-      </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
-var canvas = document.getElementById( 'bezierCurveTo' );
-var context = canvas.getContext( '2d' );
-context.clearRect(0, 0, canvas.width, canvas.height );
-context.save();
-context.translate( 2, 2 );
-context.fillStyle = '#000';
-context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
-context.fill();
-context.beginPath();
-context.fillStyle = 'red';
-context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
-context.fill();
-context.beginPath();
-context.moveTo( 0, 0 );
-context.bezierCurveTo( 100, 0, 50, 100, 100, 100 );
-context.stroke();
-context.restore();
-</code>
-<div class="runcase">Run</div>
-</pre>
-      <canvas id="bezierCurveTo" width="200px" height="200px"></canvas>
-    </div>
   </section>
-  <section class="slide">
+
+  <section class="slide" id="image">
     <div class="hd">
       <h1>图像处理</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>context.drawImage( element, x, y[, width, height] );      
-          <ul>
-            <li>element - img/canvas/video
-            <li>x, y - 画布上绘制的起点坐标
-            <li>width/height, 设置将要绘制的图像尺寸 - 会缩放图像
-          </ul>
+        <li>context.dragImage( image, x, y );
+          <p>把 image 绘制到 canvas 的 (x, y) 位置.
+        <li>context.drawImage( image, x, y, width, height );
+          <p>把 image 按 width/height 缩放后, 绘制到 canvas 的 (x, y) 位置
         <li>context.drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh );
-          <ul>
-            <li>image - 图像
-            <li>sx, sy - 图像源的 (x, y) 坐标
-            <li>sw, sh - 裁剪图像的尺寸
-            <li>dx, dy - 在画布上绘制的的起点坐标
-            <li>dw, dh - 在画布上将要绘制的尺寸
-          </ul>
+          <p>取 image 的一部分绘制到 canvas 上; 规则：在 image 上, 以 (sx, sy) 为起点, 截取 sw/sh 尺寸, 形成新图像(newImage); 然后把 newImage 按 dw/dh 缩放后, 绘制到 canvas 的 (dx, dy) 位置.
       </ul>
 <pre class="codebox">
 <code class="javascript" contenteditable>
-var canvas = document.getElementById( 'image' );
+var canvas = document.getElementById( 'myimage' );
 var context = canvas.getContext( '2d' );
 // 加载图片
 var image = new Image();
@@ -750,10 +754,10 @@ image.src = './images/canvas/ouba.jpg';
 </code>
 <div class="runcase">Run</div>
 </pre>
-      <canvas id="image" width="600px" height="300px"></canvas>
+      <canvas id="myimage" width="600px" height="300px"></canvas>
       <p><a href="http://alloyteam.github.io/AlloyPhoto/">http://alloyteam.github.io/AlloyPhoto/</a>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>图像变形</h1>
@@ -795,9 +799,9 @@ img.src = './images/canvas/ouba.jpg';
 </code>
 <div class="runcase">Run</div>
 </pre>
-      <canvas id="rotate-image" width="600px" height="400px"></canvas>      
+      <canvas id="rotate-image" width="600px" height="400px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="px">
     <div class="hd">
       <h1>canvas - 像素处理</h1>
@@ -848,10 +852,10 @@ canvas.onclick = function(e) {
 };
 </code>
 <div class="runcase">Run</div>
-</pre>    
+</pre>
         <canvas id="px-image" width="600px" height="400px"></canvas>
       </div>
-    </section>  
+    </section>
     <section class="slide">
     <div class="hd">
       <h1>像素处理</h1>
@@ -883,10 +887,10 @@ for ( var i = 0, l = w * h; i < l; ++i ) {
 context.putImageData( image, 0, 0 );
 </code>
 <div class="runcase">Run</div>
-</pre> 
+</pre>
       <canvas id="set-px-image" width="100px" height="100px"></canvas>
     </div>
-  </section>      
+  </section>
     <section class="slide" id="video">
     <div class="hd">
       <h1>处理视频</h1>
@@ -941,9 +945,9 @@ function drawCanvas_reverse(){
   </section>
   <section class="slide slide-cover" data-color="#000" data-title="Random-Color-Round">
     <iframe src="./demo/canvas.html" width="90%" height="80%" style="border: none;"></iframe>
-  </section>  
-  <section class="slide slide-cover" data-title="Clock">
-    <iframe src="./demo/clock.html" width="90%" height="80%" style="border: none;"></iframe>
+  </section>
+  <section class="slide slide-cover" data-title="Clock" id="clock">
+    <iframe src="./demo/clock.html" width="90%" height="100%" style="border: none;"></iframe>
   </section>
   <section class="slide slide-cover">
     <h1>?</h1>

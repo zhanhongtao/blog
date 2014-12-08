@@ -11,12 +11,17 @@
     var canvas = document.getElementById( 'mycanvas' );
     var context = canvas.getContext( '2d' );
 
-    var RADIUS = 250, DOT_RADIUS = 2, PI = Math.PI;
+    var RADIUS, DOT_RADIUS = 4, PI = Math.PI;
     var width, height;
 
     function prepareCanvas() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      RADIUS = Math.min( 
+        Math.ceil( width * 0.2 ),
+        Math.ceil( height * 0.4 )
+      );
+      RADIUS = Math.max( 100, RADIUS );
     }
 
     window.onresize = function() {
@@ -30,7 +35,7 @@
       // 绘制点.
       context.beginPath();
       context.arc(0, 0, DOT_RADIUS, 0, 2 * PI, false );
-      context.fillStyle = '#aaa';
+      context.fillStyle = '#000';
       context.fill();
 
       // 绘制大圆.
@@ -56,9 +61,6 @@
         context.lineTo(0, -RADIUS + LINE_LENGTH);
         context.lineWidth = LINE_WIDTH + 1;
         context.stroke();
-        context.beginPath();
-        context.font = '12px Microsoft yahei';
-        context.fillText(i, -5, -RADIUS + LINE_LENGTH + 15);
         context.restore();
         ++i;
       }
@@ -80,6 +82,24 @@
       context.restore();
     }
 
+    function drawNumber() {
+      context.save();
+      context.translate( width/2, height/2 );
+      var x, y, deg;
+      var i = 0, n = 12, radius = RADIUS - 40;
+      while ( i < n ) {
+        deg = i * 30 * (PI / 180);
+        x = Math.floor(radius * Math.cos(deg)) - 5;
+        y = Math.floor(radius * Math.sin(deg));
+        context.beginPath();
+        // @todo.
+        context.font = '12px Microsoft yahei';
+        context.fillText((2 + i) % 12 + 1, x, y);
+        ++i;
+      }
+      context.restore();
+    }
+    
     function drawDate() {
       var date = new Date();
       var hour = date.getHours();
@@ -92,16 +112,16 @@
       // 时/分/秒
       [ 
         {
-          value: hour/24,
-          length: 80
+          value: hour/12,
+          length: RADIUS * 0.3
         }, 
         {
           value: minute/60,
-          length: 120
+          length: RADIUS * 0.5
         }, 
         {
           value: second/60,
-          length: 180
+          length: RADIUS * 0.8
         } 
       ].forEach(function( item ) {
         context.save();
@@ -120,6 +140,7 @@
       context.clearRect(0, 0, width, height);
       drawRound();
       drawMark();
+      drawNumber();
       drawDate();    
       setTimeout(function() {
         draw();
