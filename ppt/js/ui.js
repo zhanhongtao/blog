@@ -67,6 +67,13 @@
   eventemitter.on( 'on-page-changed', function( message ) {
     updateui( message );
   });
+  
+  // 移除 pre 内 code 前面换行引起的空白
+  var codes = document.querySelectorAll( 'code' );
+  Array.prototype.forEach.call( codes, function( code ) {
+    var html = code.innerHTML;
+    code.innerHTML = html.replace( /^(?:\s*|\\r?\\n*)/, '' );
+  });  
 
 })();
 

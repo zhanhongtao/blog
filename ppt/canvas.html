@@ -690,12 +690,12 @@ gradient.addColorStop(0, '#faa');
 gradient.addColorStop(1, '#fff');
 context.fillStyle = gradient;
 // 图像大于绘制区域
-context.fillRect(100, 100, canvas.width, canvas.height);
+context.fillRect(0, 0, canvas.width, canvas.height);
 context.restore();
 </code>
 <div class="runcase">Run</div>
 </pre>
-      <canvas id="my-linear-gradient" width="200px" height="200px"></canvas>
+      <canvas id="my-linear-gradient" width="200px" height="100px"></canvas>
     </div>
   </section>
   <section class="slide" id="radial-gradient">
@@ -714,12 +714,12 @@ var canvas = document.getElementById( 'my-radial-gradient' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
 context.save();
-var gradient = context.createRadialGradient( 50, 50, 10, 100, 100, 50);
+var gradient = context.createRadialGradient( 100, 100, 10, 100, 40, 40);
 gradient.addColorStop(0, '#faa');
 gradient.addColorStop(1, '#fff');
 context.fillStyle = gradient;
 // @NOTE: gradient 确定方向.
-context.fillRect( 50, 50, canvas.width, canvas.height);
+context.fillRect( 0, 0, canvas.width, canvas.height);
 context.restore();
 </code>
 <div class="runcase">Run</div>
@@ -801,10 +801,37 @@ img.src = './images/canvas/ouba.jpg';
 </pre>
       <canvas id="rotate-image" width="600px" height="400px"></canvas>
     </div>
+  </section>  
+  <section class="slide" id="repeat">
+    <div class="hd">
+      <h1>Repeat</h1>
+    </div>
+    <div class="bd">
+      <p>背景图片平铺. <code>var pattern = context.createPattern( image, type );</code> type: repeat、repeat-x、repeat-y、no-repeat 
+<pre class="codebox">
+<code class="javascript" contenteditable>
+var canvas = document.getElementById( 'repeat-image' );
+var context = canvas.getContext( '2d' );
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+var image = new Image();
+var repeat = 'repeat';
+image.onload = function() {
+  var pattern = context.createPattern(image, repeat);
+  context.fillStyle = pattern;
+  context.fillRect(0, 0, canvas.width, canvas.height );
+  context.restore();
+};
+image.src = './images/canvas/repeat.png';
+</code>
+<div class="runcase">Run</div>
+</pre>
+      <canvas id="repeat-image" width="400px" height="200px"></canvas>
+    </div>
   </section>
   <section class="slide" id="px">
     <div class="hd">
-      <h1>canvas - 像素处理</h1>
+      <h1>Canvas - 像素处理</h1>
     </div>
     <div class="bd">
       <h2>读像素值</h2>
