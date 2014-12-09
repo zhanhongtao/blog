@@ -108,11 +108,11 @@
 
       context.save();
       context.translate(width/2, height/2);
-      
+
       // 时/分/秒
       [ 
         {
-          value: hour/12,
+          value: hour/12 + minute/60/12,
           length: RADIUS * 0.3
         }, 
         {
@@ -123,9 +123,9 @@
           value: second/60,
           length: RADIUS * 0.7
         } 
-      ].forEach(function( item ) {
+      ].forEach(function( item, index ) {
         context.save();
-        context.rotate(item.value * 360 * PI/180);
+        context.rotate(item.value * 360 * PI / 180);
         context.beginPath();
         context.moveTo(0, 0);
         context.lineTo(0, -item.length);

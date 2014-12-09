@@ -12,10 +12,15 @@
     var canvas = document.getElementById( 'mycanvas' );
     var context = canvas.getContext( '2d' );
 
-    function Sharp( x, y, radius ) {
+    function Sharp( x, y, radius, vx, vy, ax, ay, color ) {
       this.x = x;
       this.y = y;
       this.radius = radius;
+      this.vx = vx;
+      this.vy = vy;
+      this.ax = ax;
+      this.ay = ay;
+      this.color = color;
     }
 
     window.onresize = function() {
@@ -25,33 +30,50 @@
     };
 
     var width, height, sharps = [];
-
-    function prepareCanvas() {
-      // 重新调整画布.
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-
-      // 初始化图形.
-      for ( var i = 0; i < 100; ++i ) {
-        var radius = Math.ceil(Math.random() * 5 + 2);
-        var x = Math.random() * width;
-        var y = Math.random() * height;
-        sharps[i] = new Sharp( x, y, radius );
-      }
+    var MAX_SPEED = 3;
+    var FRICTION = 0.9;
+    var MAX_RADIUS = 10;
+    var MIN_RADIUS = 1;
+    var timer;
+    
+    function randomRange( min, max ) {
+      return Math.floor( Math.random() * (max-min) + min );
     }
-
+    
     function randomColor() {
       var r = Math.floor(　Math.random() * 255 );
       var g = Math.floor(　Math.random() * 255 );
       var b = Math.floor(　Math.random() * 255 );
       return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
+    
+    function prepareCanvas() {
+      // 重新调整画布.
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      // 初始化图形.
+      for ( var i = 0; i < 180; ++i ) {
+        var radius = randomRange(MIN_RADIUS, MAX_RADIUS);
+        var x = randomRange(MAX_RADIUS, width - MAX_RADIUS);
+        var y = randomRange(MAX_RADIUS, height - MAX_RADIUS);
+        var vx = Math.random() * 6 - 3;
+        var vy = Math.random() * 6 - 3;
+        var ax = 0; // Math.random() * 0.1 - 0.05;
+        var ay = 0; // Math.random() * 0.1 - 0.05;
+        var color = randomColor();
+        sharps[i] = new Sharp( x, y, radius, vx, vy, ax, ay, color );
+      }
+    }
 
     function init() {
       prepareCanvas();
       
-      timers.add(function() {
+      function render() {
       
+        if ( timer ) { 
+          clearTimeout(timer) 
+        };
+        
         // 清理画布.
         context.clearRect( 0, 0, width, height );
         
@@ -64,20 +86,38 @@
         // 绘制.
         for ( var i = 0, l = sharps.length; i < l; ++i ) {
           var sharp = sharps[i];
-          if ( sharp.x < width && sharp.y < height ) {
-            sharp.x += Math.random() * 2 - 1;
-            sharp.y += Math.random() * 2 - 1;
+          if (sharp.x + sharp.radius >= width || sharp.x - sharp.radius <= 0) {
+            sharp.ax *= -1;
+            sharp.vx *= -1;
           }
+          if (sharp.y + sharp.radius >= height || sharp.y - sharp.radius <= 0) {
+            sharp.ay *= -1;
+            sharp.vy *= -1;
+          }
+          if ( Math.abs(sharp.vx) < MAX_SPEED ) {
+            sharp.vx += sharp.ax;
+          }
+          if ( Math.abs(sharp.vy) < MAX_SPEED ) {
+            sharp.vy += sharp.ay;
+          }
+          
+          sharp.x += sharp.vx * FRICTION;
+          sharp.y += sharp.vy * FRICTION;
           // 绘制图形.
           context.save();
           context.beginPath();
-          context.fillStyle = randomColor();
+          context.fillStyle = sharp.color;
           context.arc( sharp.x, sharp.y, sharp.radius, 0, 2 * Math.PI, false );
           context.fill();
           context.restore();
-        }      
-      });
-      timers.start();
+        }
+        
+        timer = setTimeout(function() {
+          render();
+        }, 16);
+      }
+      
+      render();
 
     }
 
