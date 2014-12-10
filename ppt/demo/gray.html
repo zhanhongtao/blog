@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas</title>
+  <style>* { margin: 0; padding: 0; } canvas { display: block; }</style>
+</head>
+<body>
+  <canvas id="mycanvas"></canvas>
+  <script>
+    var canvas = document.getElementById( 'mycanvas' );
+    var context = canvas.getContext( '2d' );
+
+    window.onresize = function() {
+      reload();
+    };
+
+    var lastImageSRC = '../images/canvas/google.png';
+    var width, height;
+
+    function grayHandle( image ) {
+      var data = image.data;
+      var newImage = context.createImageData( image.width, image.height );
+      var imageData = newImage.data;
+      for ( var i = 0, l = image.width * image.height; i < l; ++i) {
+        var index = 4 * i;
+        var r = data[index], g = data[index+1], b = data[index+2];
+        var gray = Math.floor( ( r + g + b )/3 );
+        imageData[index] = gray;
+        imageData[index+1] = gray;
+        imageData[index+2] = gray;
+        imageData[index+3] = data[index+3];
+      }
+      return newImage;
+    }
+
+    function drawImage( image, handle ) {
+      var w = image.width; // image.naturalWidth || image.width;
+      var h = image.height; //image.naturalHeight || image.height;
+      // @todo: 计算怎么缩放和放置图片.
+      context.save();
+      context.translate( width/2, height/2 );
+      context.drawImage( image, 0, 0, w, h, -w/2, -h/2, w, h );
+      context.restore();
+      handle = handle || grayHandle;
+      // var _image = context.getImageData( 0, 0, width, height );
+      var _image = context.getImageData( (width-w)/2, (height-h)/2, w, h );
+      // var _image = context.getImageData( -w/2, -h/2, w, h );
+      var newImage = handle( _image );
+      // context.putImageData( newImage, 0, 0 );
+      context.putImageData( newImage, (width-w)/2, (height-h)/2 );
+      // context.putImageData( newImage, -w/2, -h/2 );
+    }
+
+    function reload() {
+      // 准备画布.
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      context.clearRect( 0, 0, width, height );
+      // 准备图片.
+      var image = new Image();
+      image.onload = function() {
+        drawImage( image );
+      };
+      image.src = lastImageSRC;
+    }
+    
+    reload();
+  </script>
+</body>
+</html>
