@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas</title>
+  <style>* { margin: 0; padding: 0; } canvas { display: block; }</style>
+</head>
+<body>
+  <canvas id="mycanvas"></canvas>
+  <script>
+    var canvas = document.getElementById( 'mycanvas' );
+    var context = canvas.getContext( '2d' );
+
+    window.onresize = function() {
+      reload();
+    };
+
+    var lastImageSRC = '../images/canvas/google.png';
+    var width, height;
+
+    function grayHandle( image ) {
+      var data = image.data;
+      var newImage = context.createImageData( image.width, image.height );
+      var imageData = newImage.data;
+      for ( var i = 0, l = image.width * image.height; i < l; ++i) {
+        var index = 4 * i;
+        var r = data[index], g = data[index+1], b = data[index+2];
+        var gray = Math.floor( ( r + g + b )/3 );
+        imageData[index] = gray;
+        imageData[index+1] = gray;
+        imageData[index+2] = gray;
+        imageData[index+3] = data[index+3];
+      }
+      return newImage;
+    }
+
+    function mosaicHandle( image, w, h ) {
+      var data = image.data;
+      var newImage = context.createImageData( w, h );
+      var imageData = newImage.data;
+      // 马赛克区域
+      var rows = 10, cols = 10;
+      // 每个马赛克格子的尺寸
+      var pw = w/rows, ph = h/cols;
+      for ( var r = 0; r < rows; ++r ) {
+        for ( var c = 0; c < cols; ++c ) {
+          // 单个马赛克格子的样式.
+          var red = Math.floor( Math.random() * 255 );
+          var green = Math.floor( Math.random() * 255 );
+          var blue = Math.floor( Math.random() * 255 );
+          // 单个格子的像素
+          for ( var i = 0; i < ph; ++i ) {
+            for ( var j = 0; j < pw; ++j ) {
+              // 单个格子左上角位置
+              var px = c * pw + j;
+              var py = r * ph + i;
+              // 像素具体位置
+              var pos = px * 4 + py * (w*4);
+              // 着色
+              imageData[pos] = red;
+              imageData[pos+1] = green;
+              imageData[pos+2] = blue;
+              imageData[pos+3] = 255;
+            }
+          }
+        }
+      }
+
+      return newImage;
+    }
+
+    function drawImage( image ) {
+      var w = image.width; // image.naturalWidth || image.width;
+      var h = image.height; //image.naturalHeight || image.height;
+      // @todo: 计算怎么缩放和放置图片.
+      context.save();
+      context.translate( width/2, height/2 );
+      context.drawImage( image, 0, 0, w, h, -w/2, -h/2, w, h );
+      context.restore();
+    }
+    
+    function handle( x, y, w, h ) {
+      if ( w == 0 || h == 0 ) return;
+      var _image = context.getImageData( x, y, w, h );
+      var newImage = mosaicHandle( _image, w, h );
+      context.putImageData( newImage, x, y );    
+    }
+    
+    var data = {};
+    canvas.addEventListener( 'mousedown', function(e) {
+      data.flag = true;
+      data.x = e.offsetX;
+      data.y = e.offsetY;
+    }, false );
+    
+    canvas.addEventListener( 'mousemove', function(e) {
+      if ( data.flag ) {
+        var x = e.offsetX, y = e.offsetY;
+        handle( data.x, data.y, x - data.x, y - data.y );
+      }
+    }, false );
+    
+    canvas.addEventListener( 'mouseup', function() {
+      data.flag = false;
+    }, false );
+    
+    function reload() {
+      // 准备画布.
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      context.clearRect( 0, 0, width, height );
+      // 准备图片.
+      var image = new Image();
+      image.onload = function() {
+        drawImage( image );
+      };
+      image.src = lastImageSRC;
+    }
+
+    reload();
+  </script>
+</body>
+</html>

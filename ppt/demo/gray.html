@@ -10,31 +10,47 @@
   <script>
     var canvas = document.getElementById( 'mycanvas' );
     var context = canvas.getContext( '2d' );
-
     window.onresize = function() {
       reload();
     };
-
     var lastImageSRC = '../images/canvas/google.png';
     var width, height;
+    
+    var methods = {
+      gray: function( array, index ) {
+        var r = array[index], 
+            g = array[index+1], 
+            b = array[index+2];
+        var gray = Math.floor( ( r + g + b )/3 );
+        return [ gray, gray, gray, array[index+3] ];
+      },
+      reverse: function( array, index ) {
+        var i = 0, ret = [];
+        while ( i < 3 ) {
+          ret[i] = 255 - array[index+i];
+          ++i;
+        }
+        ret[i] = array[index+i];
+        return ret;
+      }
+    };
 
-    function grayHandle( image ) {
+    function handle( image ) {
       var data = image.data;
       var newImage = context.createImageData( image.width, image.height );
       var imageData = newImage.data;
       for ( var i = 0, l = image.width * image.height; i < l; ++i) {
         var index = 4 * i;
-        var r = data[index], g = data[index+1], b = data[index+2];
-        var gray = Math.floor( ( r + g + b )/3 );
-        imageData[index] = gray;
-        imageData[index+1] = gray;
-        imageData[index+2] = gray;
-        imageData[index+3] = data[index+3];
+        var tmp = methods.gray( data, index );
+        var j = 0;
+        while ( j < 4 ) {
+          imageData[ index + j ] = tmp[j++];
+        }
       }
       return newImage;
     }
 
-    function drawImage( image, handle ) {
+    function drawImage( image ) {
       var w = image.width; // image.naturalWidth || image.width;
       var h = image.height; //image.naturalHeight || image.height;
       // @todo: 计算怎么缩放和放置图片.
@@ -42,7 +58,6 @@
       context.translate( width/2, height/2 );
       context.drawImage( image, 0, 0, w, h, -w/2, -h/2, w, h );
       context.restore();
-      handle = handle || grayHandle;
       // var _image = context.getImageData( 0, 0, width, height );
       var _image = context.getImageData( (width-w)/2, (height-h)/2, w, h );
       // var _image = context.getImageData( -w/2, -h/2, w, h );
