@@ -1,20 +1,12 @@
 <!doctype html>
-<html lang="zh-cn">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
   <title>Canvas</title>
-  <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=3">
-  <link rel="stylesheet" href="./css/app.css?v=3">
-  <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/all.css">
   <style>canvas { margin: 15px 0; display: block; }</style>
-  <script src="./js/highlight.pack.js"></script>
-  <script type="text/javascript">
-    hljs.tabReplace = '  ';
-    hljs.initHighlightingOnLoad();
-  </script>
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -41,22 +33,18 @@
     <div class="bd">
       <h2>HTML</h2>
       <p>指定 Canvas 画布尺寸.
-<pre class="codebox">
-<code class="html" contenteditable>
+<pre class="code" data-type="html">
 &ltcanvas id="mycanvas" width="500px" height="500px"&gt
   您的浏览器不支持 Canvas!
 &lt/canvas&gt
-</code>
 </pre>
       <h2>JavaScript</h2>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 var canvas = document.getElementById( 'mycanvas' );
 var context;
 if ( canvas.getContext ) {
   context = canvas.getContext('2d'); // 使用 2D 渲染上下文
 }
-</code>
 </pre>
     </div>
   </section>
@@ -76,7 +64,6 @@ if ( canvas.getContext ) {
       </ul>
     </div>
   </section>
-
   <section class="slide" id="rect">
     <div class="hd">
       <h1>绘制矩形</h1>
@@ -87,8 +74,7 @@ if ( canvas.getContext ) {
         <li>context.strokeRect( x, y, w, h );
         <li>context.clearRect( x, y, w, h );
       </ul>
-<pre class="codebox grid">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myrect' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -100,8 +86,6 @@ context.strokeStyle= "#f00";
 context.fillRect(20,20,100,100);
 context.strokeRect(20,20,100,100);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myrect" width="200px" height="200px"></canvas>
     </div>
@@ -120,8 +104,7 @@ context.restore();
             <li>是否逆时针
           </ul>
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'round' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -131,8 +114,6 @@ context.arc( 100, 100, 50, 0, Math.PI, true );
 context.closePath();
 context.stroke();
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
        <canvas id="round" width="200px" height="200px"></canvas>
     </div>
@@ -149,8 +130,7 @@ context.restore();
         <li>context.closePath(); 和开始点连接
         <li>context.stroke(); // 绘制路径
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'line' );
 var context = canvas.getContext('2d');
 // @NOTE: 仅仅是为了二次操作.
@@ -172,8 +152,6 @@ context.lineTo( 10, 100 );
 context.stroke();
 
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
      <canvas id="line" width="200px" height="120px"></canvas>
     </div>
@@ -185,8 +163,7 @@ context.restore();
     <div class="bd">
       <p>context.arcTo( x1, y1, x2, y2, radius );  <br />
         从上一点(x0, y0)开始绘制弧线, 到 (x2, y2) 为止, 并且以 radius 为半径, 同时与 (x0, y0), (x1, y1)线和(x1, y1), (x2, y2)线相切.
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myarcto' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -216,8 +193,6 @@ context.globalCompositeOperation = 'destination-over';
 context.stroke();
 
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
        <canvas id="myarcto" width="200px" height="200px"></canvas>
     </div>
@@ -235,8 +210,7 @@ context.restore();
           <li>(x1, y1) 是目标点
         </ul>
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'quadraticCurveTo' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -254,8 +228,6 @@ context.moveTo( 0, 0 );
 context.quadraticCurveTo( 100, 0, 50, 100 );
 context.stroke();
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="quadraticCurveTo" width="200px" height="200px"></canvas>
     </div>
@@ -274,8 +246,7 @@ context.restore();
           <li>(x2, y2) 是目标点
         </ul>
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'bezierCurveTo' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -293,8 +264,6 @@ context.moveTo( 0, 0 );
 context.bezierCurveTo( 100, 0, 50, 100, 100, 100 );
 context.stroke();
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="bezierCurveTo" width="200px" height="200px"></canvas>
     </div>
@@ -322,8 +291,7 @@ context.restore();
         <li>context.fillText( text, x, y[, maxWidth] ); // (x, y) 左上角位置.
         <li>context.strokeText( text, x, y[, maxWidth] );
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'mytext' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -334,8 +302,6 @@ context.font= "italic bold 25px Microsoft yahei";
 context.fillText("小王子",50,50);
 context.strokeText("小王子",50,50);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
     <canvas id="mytext" width="200px" height="80px"></canvas>
     </div>
@@ -349,16 +315,13 @@ context.restore();
         <li>context.clearRect( x0, y0, x1, y1 );
         <li>canvas.width = Width; // canvas.height = Height; => 会清除所有状态
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myclear' );
 var context = canvas.getContext( '2d' );
 context.strokeText("小王子",50,50);
 canvas.onclick = function() {
   context.clearRect(0,0,canvas.width,canvas.height);
 };
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myclear" width="200px" height="200px"></canvas>
     </div>
@@ -389,8 +352,7 @@ canvas.onclick = function() {
       <h1>保存/恢复绘画状态</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myrestore' );
 var context = canvas.getContext( '2d' );
 context.fillStyle = "red";
@@ -401,8 +363,6 @@ context.fillRect(0, 0, 100, 100);
 
 context.restore();
 context.fillRect(100, 100, 200, 200);
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myrestore" width="200px" height="200px"></canvas>
     </div>
@@ -428,19 +388,15 @@ context.fillRect(100, 100, 200, 200);
     <div class="bd">
     <p>Canvas 上变形, 是对笛卡尔坐标系的调整. 当连续做变形时, 当前变形会在上次变形基础上操作.
     <p>context.translate( x, y );
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'mytranslate' );
 var context = canvas.getContext( '2d' );
 context.translate(10,10);
 context.fillStyle = "#ff0";
 context.fillRect(0,0,50,50);
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="mytranslate" width="200px" height="200px"></canvas>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'translate2' );
 var context = canvas.getContext( '2d' );
 context.save();
@@ -450,8 +406,6 @@ context.fillRect(0, 0, 100, 100);
 context.restore();
 context.fillStyle = "#ff0";
 context.fillRect(0, 0, 100, 100);
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="translate2" width="200px" height="200px"></canvas>
     </div>
@@ -462,8 +416,7 @@ context.fillRect(0, 0, 100, 100);
     </div>
     <div class="bd">
     <p>context.scale( scaleX, scaleY );
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myscale' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -472,8 +425,6 @@ context.scale(2, 2);
 context.fillStyle = '#f00';
 context.fillRect(0, 0, 100, 100);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myscale" width="200px" height="200px"></canvas>
     </div>
@@ -484,8 +435,7 @@ context.restore();
     </div>
     <div class="bd">
     <p>context.rotate( value ); // 角度值. Math.PI/4;
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myrotate' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -494,8 +444,6 @@ context.fillStyle = '#ff0';
 context.rotate(Math.PI/4);   //旋转45°。
 context.fillRect(0, 0, 100, 100);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myrotate" width="200px" height="200px"></canvas>
     </div>
@@ -506,8 +454,7 @@ context.restore();
     </div>
     <div class="bd">
     <p>做矩阵变换时, 需要注意变换顺序.
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'translate-rotate' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -517,12 +464,9 @@ context.translate(100, 100); // 移动旋转点, 相当于 CSS3 中的 Transform
 context.rotate(Math.PI/4);   //旋转45°
 context.fillRect(-50, -50, 50, 50);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="translate-rotate" width="200px" height="200px"></canvas>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'rotate-translate' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -532,8 +476,6 @@ context.rotate(Math.PI/4);   //旋转45°
 context.translate(100, 100);
 context.fillRect(-50, -50, 50, 50);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="rotate-translate" width="200px" height="200px"></canvas>
     </div>
@@ -555,8 +497,7 @@ context.restore();
         <li>f: Y 轴平移
       </ul>
     </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'mymatrix' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -571,8 +512,6 @@ var yTransform = 200;
 context.transform( xScale, ySkew, xSkew, yScale, xTransform, yTransform );
 context.fillRect( -50, -50, 100, 100 );
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="mymatrix" width="500px" height="500px"></canvas>
     </div>
@@ -583,8 +522,7 @@ context.restore();
     </div>
     <div class="bd">
       <p>全局的 alpha 基数, 再使用 rgba 时, 透明度需要乘以 globalAlpha.
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myalpha' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -594,8 +532,6 @@ context.fillRect( 0, 0, 50, 50 );
 context.globalAlpha = 0.5;
 context.fillRect( 50, 50, 50, 50);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myalpha" width="200px" height="200px"></canvas>
     </div>
@@ -619,8 +555,7 @@ context.restore();
       <li>copy 只绘制 source
       <li>xor 重叠区域透明.
     </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'mycomposite' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -633,8 +568,6 @@ context.fillStyle = '#faa';
 context.globalCompositeOperation = 'xor';
 context.fillRect( 50, 50, 100, 100);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="mycomposite" width="200px" height="200px"></canvas>
     </div>
@@ -650,8 +583,7 @@ context.restore();
       <li>context.shadowBlur
       <li>context.shadowColor
     </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myshadow' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -663,8 +595,6 @@ context.shadowBlur = 20;
 context.shadowColor = '#f00';
 context.fillRect(50, 50, 100, 100);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myshadow" width="200px" height="200px"></canvas>
     </div>
@@ -679,8 +609,7 @@ context.restore();
         <li>gradient.addColorStop(step, color);
         <li>context.fillStyle = gradient; // context.strokeStyle;
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'my-linear-gradient' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -692,8 +621,6 @@ context.fillStyle = gradient;
 // 图像大于绘制区域
 context.fillRect(0, 0, canvas.width, canvas.height);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="my-linear-gradient" width="200px" height="100px"></canvas>
     </div>
@@ -708,8 +635,7 @@ context.restore();
         <li>gradient.addColorStop(step, color );
         <li>context.fillStyle = gradient;
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'my-radial-gradient' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -721,13 +647,10 @@ context.fillStyle = gradient;
 // @NOTE: gradient 确定方向.
 context.fillRect( 0, 0, canvas.width, canvas.height);
 context.restore();
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="my-radial-gradient" width="200px" height="200px"></canvas>
     </div>
   </section>
-
   <section class="slide" id="image">
     <div class="hd">
       <h1>图像处理</h1>
@@ -741,8 +664,7 @@ context.restore();
         <li>context.drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh );
           <p>取 image 的一部分绘制到 canvas 上; 规则：在 image 上, 以 (sx, sy) 为起点, 截取 sw/sh 尺寸, 形成新图像(newImage); 然后把 newImage 按 dw/dh 缩放后, 绘制到 canvas 的 (dx, dy) 位置.
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myimage' );
 var context = canvas.getContext( '2d' );
 // 加载图片
@@ -751,8 +673,6 @@ image.onload = function() {
   context.drawImage( image, 0, 200, 600, 600, 0, 0, 600, 600 );
 };
 image.src = './images/canvas/ouba.jpg';
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="myimage" width="600px" height="300px"></canvas>
       <p><a href="http://alloyteam.github.io/AlloyPhoto/">http://alloyteam.github.io/AlloyPhoto/</a>
@@ -764,8 +684,7 @@ image.src = './images/canvas/ouba.jpg';
     </div>
     <div class="bd">
       <h2>平移</h2>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'translate-image' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -777,13 +696,10 @@ img.onload = function() {
   context.restore();
 };
 img.src = './images/canvas/ouba.jpg';
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="translate-image" width="600px" height="400px"></canvas>
       <h2>旋转</h2>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'rotate-image' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -796,8 +712,6 @@ img.onload = function() {
   context.restore();
 };
 img.src = './images/canvas/ouba.jpg';
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="rotate-image" width="600px" height="400px"></canvas>
     </div>
@@ -808,8 +722,7 @@ img.src = './images/canvas/ouba.jpg';
     </div>
     <div class="bd">
       <p>背景图片平铺. <code>var pattern = context.createPattern( image, type );</code> type: repeat、repeat-x、repeat-y、no-repeat 
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'repeat-image' );
 var context = canvas.getContext( '2d' );
 context.clearRect(0, 0, canvas.width, canvas.height );
@@ -823,8 +736,6 @@ image.onload = function() {
   context.restore();
 };
 image.src = './images/canvas/repeat.png';
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="repeat-image" width="400px" height="200px"></canvas>
     </div>
@@ -856,8 +767,7 @@ image.src = './images/canvas/repeat.png';
     </div>
     <div class="bd">
       <p>点击 canvas, 把 target 坐标位置的色值(rgba)设置为 code 的背景色.
-<pre class="codebox">
-<code class="javascript" contenteditable id="image-px-code">
+<pre class="code" data-type="js" data-run="1" data-autorun="1" id="image-px-code">
 var canvas = document.getElementById( 'px-image' );
 var context = canvas.getContext( '2d' );
 var img = new Image();
@@ -877,8 +787,6 @@ canvas.onclick = function(e) {
   var color = readColor( offsetX, offsetY );
   imagepxcode.style.backgroundColor = color;
 };
-</code>
-<div class="runcase">Run</div>
 </pre>
         <canvas id="px-image" width="600px" height="400px"></canvas>
       </div>
@@ -893,8 +801,7 @@ canvas.onclick = function(e) {
         <li>var image = context.createImageData( width, height );
         <li>context.putImageData( image, x, y );
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable id="image-px-code">
+<pre class="code" data-type="js" data-run="1" data-autorun="1" id="image-px-code">
 var canvas = document.getElementById( 'set-px-image' );
 var context = canvas.getContext( '2d' );
 // 100 * 100
@@ -912,8 +819,6 @@ for ( var i = 0, l = w * h; i < l; ++i ) {
   pixels[i * 4 + 3] = a;
 }
 context.putImageData( image, 0, 0 );
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="set-px-image" width="100px" height="100px"></canvas>
     </div>
@@ -926,8 +831,7 @@ context.putImageData( image, 0, 0 );
       <h1>处理视频</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'xvideo' );
 var context = canvas.getContext( '2d' );
 var video = document.getElementById( 'myvideo' );
@@ -954,8 +858,6 @@ function drawCanvas_reverse(){
     drawCanvas_reverse();
   }, 30);
 }
-</code>
-<div class="runcase">Run</div>
 </pre>
       <canvas id="xvideo" width="600px" height="400px">
         <video id="myvideo" width="600" height="400" controls>
@@ -988,6 +890,7 @@ function drawCanvas_reverse(){
     <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
     <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
   </nav>
+  <script src="./js/highlight.pack.js"></script>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
   <script src="./js/hash.js"></script>

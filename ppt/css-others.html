@@ -1,0 +1,705 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base target="_blank" />
+  <title>CSS 相关内容</title>
+  <link rel="stylesheet" href="./css/all.css">
+</head>
+<body spellcheck="false" class="ppt">
+  <section class="slide">
+    <div class="hd">
+      <h1>查看 CSS 对渲染的影响</h1>
+    </div>
+    <div class="bd">
+      <p><a href="http://csstriggers.com/">LAYOUT, PAINT, AND COMPOSITE</a>
+    </div>
+  </section> 
+  <section class="slide">
+    <div class="hd">
+      <h1>OOCSS</h1>
+    </div>
+    <div class="bd">
+      <ol>
+        <li>抽象模块 - title/list/button/media/popup/grid/form/table/link/icon 等
+        <li>分离容器和内容
+        <li>结构和皮肤分离 - 皮肤(颜色/边框/图像)
+        <li>分离轮廓和背景
+        <li>组合大于继承
+        <li>自适应 - 可任意移植到其他模块(位置)
+      </ol>
+      <h2>相关链接</h2>
+      <ul>
+        <li><a href="http://www.slideshare.net/stubbornella/presentations">http://www.slideshare.net/stubbornella/presentations</a>
+        <li><a href="https://github.com/stubbornella/oocss-code-standards">https://github.com/stubbornella/oocss-code-standards</a>
+        <li><a href="https://github.com/stubbornella/oocss-accessibility-guidelines">https://github.com/stubbornella/oocss-accessibility-guidelines</a>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>组合 & 继承</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="css">
+// html 
+&lt;div class="message success"&gt;&lt;/div&gt;
+&lt;div class="message error"&gt;&lt;/div&gt;
+
+// css
+.message {
+  border: 1px solid #eee;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+// html 
+&lt;div class="message-success"&gt;&lt;/div&gt;
+&lt;div class="message-error"&gt;&lt;/div&gt;
+
+// css
+.message-success, .message-error {
+  border: 1px solid #eee;
+}
+.message-success {
+  color: green;
+}
+.message-error {
+  color: red;
+}
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>SASS</h1>
+    </div>
+    <div class="bd">
+      <h2>说在开头</h2>
+      <ul>
+        <li>CSS 可以解决问题时, 不必要使用预处理工具.
+        <li>当在使用 CSS 的很复杂, 不再容易开发或维护时, 可使用工具来辅助完成.
+        <li>如何把预处理工具整合到项目工程中, 就是另外的问题.
+      </ul>
+      <p><a href="http://sass-lang.com/">SASS</a>: CSS 预处理器, 即在上线部署之前, 把 SASS 文件编译成 .css 文件.
+      <ul>
+        <li>SASS 的 .scss 格式兼容 CSS 语法.
+        <li>chrome 通过 <abbr title=".CSS 文件末尾添加 /*# sourceMappingURL=mixin.css.map */ 即可.">sourceMap</abbr>, 支持调试 sass 文件.
+      </ul>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Install</h1>
+    </div>
+    <div class="bd">
+      <ol>
+        <li>install:
+          <ol>
+            <li>install ruby
+            <li>gem install sass
+          </ol>
+        <li>command:
+          <ol>
+            <li>sass --watch index.scss:output.css
+            <li>sass --watch app/sass:public/css
+            <li>--style nested/compact/expanded/compressed
+          </ol>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>comments</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>//
+        <li>/* ... */
+        <li>/*! CopyRight! */
+        <li>/* #{$variable} */
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@import</h1>
+    </div>
+    <div class="bd">
+      <h2>sass</h2>
+      <ul>
+        <li>@import 'reset';
+        <li>@import 'reset.scss';
+        <li>@import 'reset', 'media';
+        <li>@import url("http://fonts.googleapis.com/css?family=#{$family}");
+        <li>#box { @import 'css3'; }
+      </ul>
+      <h2>css</h2>
+      <ul>
+        <li>.css
+        <li>http://
+        <li>url(...)
+        <li>@import 'foo' screen;
+      </ul>
+    </div>
+  </section> 
+  <section class="slide">
+    <div class="hd">
+      <h1>variables</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>$id: _prefix_;
+        <li>#{$id}
+        <li>!global
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>nested</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+#box {
+  .comment {
+    color: #f00;
+  }
+}
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+#box .comment {
+  color: #f00;
+}
+</pre>      
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+// &
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+$box: _sogou_xx_ext_;
+##{$box} {
+  ul {
+    overflow: hidden;
+  }
+  li {
+    float: left;
+    border-right: 1px solid #eee;
+  }
+  &last {
+    border-right: none;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+#_sogou_xx_ext_  ul {
+  overflow: hidden;
+}
+#_sogou_xx_ext_ li {
+  float: left;
+  border-right: 1px solid #eee;
+}
+#_sogou_xx_ext_last {
+  border-right: none;
+}
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+a {
+  color: red;
+  .webkit & {
+    color: green;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+a { color: red; }
+.webkit a { color: green; }
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="css">
+#box {
+  background: #faa;
+  @at-root .message {
+    color: #eee;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+#box {
+  background: #faa;
+}
+.message {
+  color: #eee;
+}
+</pre>
+      </div>
+    </div>
+  </section> 
+  <section class="slide">
+    <div class="hd">
+      <h1>@mixin</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+#box {
+  @include border-radius(10px);
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+// css
+
+#box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+}
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+$color: white;
+@mixin colors($color: blue) {
+  background-color: $color;
+  @content;
+  border-color: $color;
+}
+.colors {
+  @include colors { color: $color; }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+.colors {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+</pre>
+      </div>
+    </div>
+    <a href="https://github.com/airen/Sass_mixins_function">https://github.com/airen/Sass_mixins_function</a>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@extend</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend .message;
+  border-color: green;
+}
+
+.error {
+  @extend .message;
+  border-color: red;
+}
+
+.warning {
+  @extend .message;
+  border-color: yellow;
+}
+</pre>
+      </div>
+    <div class="grid">
+<pre class="code" data-type="css">
+.message, 
+.success, 
+.error, 
+.warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+</pre>
+      </div>
+    </div>
+  </section>
+<section class="slide">
+    <div class="hd">
+      <h1>%placeholder</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+%message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend %message;
+  border-color: green;
+}
+
+.error {
+  @extend %message;
+  border-color: red;
+}
+
+.warning {
+  @extend %message;
+  border-color: yellow;
+}
+</pre>
+      </div>
+    <div class="grid">
+<pre class="code" data-type="css">
+.success, 
+.error, 
+.warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Data Types</h1>
+    </div>
+    <div class="bd">
+      <li>numbers( 1.2, 13, 10px )
+      <li>string( 'foo', 'bar', baz )
+      <li>color( blue, #000, rgba(255, 0, 0, 0.5) )
+      <li>booleans( true, false )
+      <li>nulls( null )
+      <li>list (value value2 value3 value3 )
+      <li>map (key: value, key: value )
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Operator</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>+ - * / %
+        <li>== != > >= < <=
+        <li>color operator
+      </ul>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+p {
+  font: 10px/8px; // no division
+  $width: 1000px;
+  width: $width / 2;
+  width: round(1.5) / 2;
+  height: (500px / 2);
+  margin-left: 5px + 8px / 2px;
+}
+</pre>      
+      </div>
+      <div class="grid">
+<pre class="code" data-type="scss">
+#box {
+  $color: rgba( 100, 0, 0, 0.5 );
+  color: opacify( $color, 0.3 );
+  background-color: transparentize($color, 0.25);
+}
+/*
+#box {
+  color: rgba(100, 0, 0, 0.8);
+  background-color: rgba(100, 0, 0, 0.25);
+}
+*/
+</pre>      
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@if..@else</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+@mixin inline-block( $vertical, $flag ) {
+  display: inline-block;
+  @if ( $vertical ) {
+    vertical-align: $vertical;
+  }
+  @if ( $flag ) {
+    _display: inline;
+  }
+}
+#box {
+  @include inline-block( top, false );
+}
+#message {
+  @include inline-block( middle, true );
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="scss">
+#box {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#message {
+  display: inline-block;
+  vertical-align: middle;
+  _display: inline;
+}
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@for/@while</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>@for $var from {start} to {end}
+        <li>@for $var from {start} through {end}
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>@each.. in..{list/map}</h1>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+.puma-icon {
+  background-image: url("/images/puma.png");
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+}
+
+.salamander-icon {
+  background-image: url("/images/salamander.png");
+}
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+@each $animal, $color, $cursor in (puma, black, default),
+                                  (sea-slug, blue, pointer),
+                                  (egret, white, move) {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+.puma-icon {
+  background-image: url("/images/puma.png");
+  border: 2px solid black;
+  cursor: default;
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+  border: 2px solid blue;
+  cursor: pointer;
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+  border: 2px solid white;
+  cursor: move;
+}
+</pre>
+      </div>
+    </div>
+    <div class="box">
+      <div class="grid">
+<pre class="code" data-type="scss">
+@each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+  #{$header} {
+    font-size: $size;
+  }
+}
+</pre>
+      </div>
+      <div class="grid">
+<pre class="code" data-type="css">
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+</pre>
+      </div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>SASS Features</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>Arguments
+        <li>@media
+        <li>@function/@return
+        <li>@debug/@warn/@error
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Grunt/Gulp</h1>
+    </div>
+    <div class="bd">
+      <p>合并/优化/压缩文件 - 配置/流</p>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Links</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li><a href="http://www.zhihu.com/question/20086234">inline/block/inline-block</a>
+        <li><a href="http://oocss.org/">OOCSS</a>
+        <li><a href="http://sass-lang.com/">SASS</a>
+        <li><a href="http://josh.github.io/css-explain/">http://josh.github.io/css-explain/</a>
+      </ul>
+    </div>
+  </section>
+  <section class="slide slide-cover">
+    <h1>?</h1>
+  </section>
+  <nav id="navigator"></nav>
+  <nav>
+    <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
+    <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
+  </nav>
+  <script src="./js/highlight.pack.js"></script>
+  <script src="./js/event.js"></script>
+  <script src="./js/se.js?v=1"></script>
+  <script src="./js/hash.js"></script>
+  <script src="./js/runcase.js?v=1"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/auto.slide.js"></script>
+</body>
+</html>

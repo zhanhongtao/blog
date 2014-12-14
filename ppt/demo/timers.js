@@ -6,7 +6,7 @@ var timers = {
   },
   start: function() {
     if (this.timerID) return;
-    (function runNext() {
+    ;(function runNext() {
       if (timers.timers.length > 0) {
         for (var i = 0; i < timers.timers.length; i++) {
           if (timers.timers[i]() === false) {

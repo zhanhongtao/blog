@@ -1,12 +1,15 @@
 ;(function() {
-  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
-  var slides = document.querySelectorAll( selector );
+
   var TARGET_CLASS = 'target';
   var TARGET_FROM_DIRECTION_PREV_CLASS = 'prev';
   var TARGET_FROM_DIRECTION_NEXT_CLASS = 'next';
   var nav = document.querySelector( '#navigator' );
 
-  var updateui = function( message ) {
+  var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
+  var slides = document.querySelectorAll( selector );
+  var eventemitter = eventEmitter();
+
+  function updateui( message ) {
     var page = message.page;
     var pages = message.pages;
 
@@ -36,7 +39,7 @@
 
     // 检查背景.
     var dataset = target.dataset;
-    [ 'color', 'image', 'repeat', 'position', 'size', 'repeat' ].forEach(function( key ) {
+    [ 'color', 'image', 'repeat', 'position', 'size' ].forEach(function( key ) {
       if ( dataset[key] ) {
         var value = dataset[key];
         if ( key == 'image' ) {
@@ -58,22 +61,60 @@
       }
     }
 
+    // 执行 code.
+    var pres = target.querySelectorAll( '.code' );
+    Array.prototype.forEach.call( pres, function( dom ) {
+      var dataset = dom.dataset;
+      if ( dataset.autorun == '1' ) {
+        var code = dom.querySelector( 'code' );
+        if ( code ) {
+          eventemitter.emit( 'code', {
+            cmd: 'run',
+            element: code
+          });
+        }
+      }
+    });
+
     // 更新进度条.
     nav.style.width = ( (page+1) / pages ) * 100 + '%';
 
   };
 
-  var eventemitter = eventEmitter();
   eventemitter.on( 'on-page-changed', function( message ) {
     updateui( message );
   });
-  
-  // 移除 pre 内 code 前面换行引起的空白
-  var codes = document.querySelectorAll( 'code' );
-  Array.prototype.forEach.call( codes, function( code ) {
-    var html = code.innerHTML;
-    code.innerHTML = html.replace( /^(?:\s*|\\r?\\n*)/, '' );
-  });  
+
+  eventemitter.on( 'on-page-pattern-changed', function( page ) {
+    document.body.classList.toggle( 'ppt' );
+  });
+
+  // 初始化代码.
+  var pres = document.querySelectorAll( 'pre.code' );
+  Array.prototype.forEach.call( pres, function( pre ) {
+    // @NOTE: 使用 pre.innerHTML 取 code 时, 浏览器会自动把特殊字符转义.
+    var codeText = pre.firstChild.nodeValue;
+    codeText = codeText.replace( /^(?:\s*|\\r?\\n*)/, '' );
+    var dataset = pre.dataset;
+    var code = document.createElement( 'code' );
+    code.className = dataset.type;
+    code.setAttribute( 'contenteditable', true );
+    var text = document.createTextNode( codeText );
+    code.appendChild( text );
+    pre.innerHTML = '';
+    pre.appendChild( code );
+    if ( dataset.run == '1' ) {
+      var run = document.createElement( 'div' );
+      run.className = 'runcase';
+      run.innerHTML = 'Run';
+      pre.appendChild( run );
+    }
+  });
+
+  // 设置 tab 对应空白.
+  // 初始化语法高亮
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
 
 })();
 

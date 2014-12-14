@@ -1,31 +1,28 @@
-var cloest = function ( element, target ) {
-  var matches = element.matches || 
-    element.msMatchesSelector ||
-    element.webkitMatchesSelector ||
-    element.mozMatchesSelector;
-  while ( element && element.nodeType === 1 ) {
-    if ( matches.call( element, target) ) {
-      return element;
+;(function( root ) {
+
+  function cloest( element, target ) {
+    var matches = element.matches ||
+      element.msMatchesSelector ||
+      element.webkitMatchesSelector ||
+      element.mozMatchesSelector;
+    while ( element && element.nodeType === 1 ) {
+      if ( matches.call( element, target) ) {
+        return element;
+      }
+      element = element.parentNode;
     }
-    element = element.parentNode;
-  }
-  return null;
-};
+    return null;
+  };
 
-function walkToRoot( node, handle ) {
-  while ( node ) {
-    if ( handle(node) === false ) break;
-    node = node.parentNode;
+  function walkToRoot( node, handle ) {
+    while ( node ) {
+      if ( handle(node) === false ) break;
+      node = node.parentNode;
+    }
+    return node;
   }
-  return node;
-}
 
-;(function() {
-  // @note: 仅考虑了元素节点和文本节点.
-  // @note: 使用 pre, 然后再 innerText 和 直接使用 textarea.
-  // @note: 块状元素时, 取文本添加换行符 - runcode 特殊处理.
-  // @TODO: firefox 支持 textContent
-  var innerText = function( element ) {
+  function innerText( element ) {
     var text = '';
     var node = element.firstChild;
     while ( node ) {
@@ -39,22 +36,35 @@ function walkToRoot( node, handle ) {
       node = node.nextSibling;
     }
     return text;
+  }
+
+  root.dom = {
+    cloest: cloest,
+    walkToRoot: walkToRoot,
+    innerText: innerText
   };
+
+})( this );
+
+;(function() {
+
+  function runcode( code ) {
+    var fixCode = '(function() {\n' + code + '\n})();';
+    var f = new Function( 'return ' + fixCode );
+    f();
+  }
 
   // 向外提供 innerText 方法.
   // 使用 response 方式支持返回值.
   var ee = eventEmitter();
-  ee.on( 'innerText', function( element, response ) {
-    if ( typeof response === 'function' ) {
-      response( innerText(element) );
+  ee.on( 'code', function( request ) {
+    var cmd = request.cmd;
+    if ( cmd == 'run' ) {
+      runcode(
+        dom.innerText( request.element )
+      );
     }
   });
-
-  var runcode = function( code ) {
-    var fixCode = '(function() {\n' + code + '\n})();';
-    var f = new Function( 'return ' + fixCode );
-    f();
-  };
 
   var displayRunButton = function( display, target ) {
     var runcase = target.querySelector( '.runcase' );
@@ -63,8 +73,7 @@ function walkToRoot( node, handle ) {
     }
   };
 
-  var runcases = document.querySelectorAll('.codebox');
-
+  var runcases = document.querySelectorAll('.code');
   for ( var i = 0, l = runcases.length; i < l; i++ ) {
     var codebox = runcases[i];
     codebox.addEventListener( 'mouseover', function( event ) {
@@ -77,30 +86,21 @@ function walkToRoot( node, handle ) {
 
   document.addEventListener( 'click', function( event ) {
     var target = event.target;
-    var isRun = cloest( target, '.runcase' );
+    var isRun = dom.cloest( target, '.runcase' );
     if ( isRun ) {
-      var codebox = cloest(target, '.codebox');
-      // var pre = codebox.querySelector( 'pre' );
-      var pre = codebox.querySelector( 'code' );
-      if ( pre ) {
-        runcode( innerText(pre) );
+      var pre = dom.cloest(target, '.code');
+      var code = pre.querySelector( 'code' );
+      if ( code ) {
+        runcode( dom.innerText(code) );
         event.stopImmediatePropagation();
       }
     }
   }, false );
 
-  /*
-    iframe
-    if ( window.document.designMode !== 'on' ) {
-      window.document.designMode = 'on';
-    }
-  */
-
-  // @todo: 实现 tab 插入 空格.
   document.addEventListener( 'keydown', function( event ) {
     var target = event.target;
     if ( event.which === 9 || event.keyCode === 9 ) {
-      if ( cloest(target, 'code[contenteditable=true]') ) {
+      if ( dom.cloest(target, 'code[contenteditable=true]') ) {
         insertTextAtCursor( '  ' );
         event.preventDefault();
       }

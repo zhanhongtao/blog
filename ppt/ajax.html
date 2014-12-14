@@ -1,19 +1,11 @@
 <!doctype html>
-<html lang="zh-cn">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
   <title>Ajax</title>
-  <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=3">
-  <link rel="stylesheet" href="./css/app.css?v=3">
-  <link rel="stylesheet" href="./css/scrollbar.css">
-  <script src="./js/highlight.pack.js"></script>
-  <script type="text/javascript">
-    hljs.tabReplace = '  ';
-    hljs.initHighlightingOnLoad();
-  </script>
+  <link rel="stylesheet" href="./css/all.css">
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -45,11 +37,9 @@
         <li>password [optional]
       </ul>
       <p>注意第三个参数和事件系统第三参数的区别.  <code>dom.addEventListener( 'click', handle, false );</code>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 // 后三个参数可选
 xhr.open( 'GET', 'http://www.google.com/' );
-</code>
 </pre>
     </div>
   </section>
@@ -61,8 +51,7 @@ xhr.open( 'GET', 'http://www.google.com/' );
       <p><code>xhr.setRequestHeader( headerKEY, value );</code>
       <p>在发送任意请求时, 浏览器会自动把相应的 Header 信息发送给 server. 比如: cookie;
       <p>setRequestHeader 是为了添加额外头信息数据. 比如: jQuery 的请求会添加 X-Requested-With
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 // Content-Type
 xhr.setRequestHeader( 'Content-Type', 'text/plain;charset=UTF-8' );
 // Form
@@ -74,7 +63,6 @@ xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
 xhr.setRequestHeader( 'X-test', 'a' );
 xhr.setRequestHeader( 'X-test', 'b' );
 // X-test: a, b
-</code>
 </pre>
       <div class="toggle">
         <h2>header key list</h2>
@@ -138,8 +126,7 @@ xhr.setRequestHeader( 'X-test', 'b' );
     <div class="bd">
       <p><code>request.timeout = 0;</code>
       <p>设置请求超时时间, 以及相应回调函数.
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 request.ontimeout = function() {
   request.abort();
 };
@@ -152,7 +139,6 @@ if ( timeout ) {
     request.abort();
   }, timeout * 1000 );  
 }
-</code>
 </pre>
     </div>
   </section>
@@ -163,12 +149,10 @@ if ( timeout ) {
     <div class="bd">
       <h2>状态变化事件</h2>
       <p><code>xhr.onreadystatechange</code>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 xhr.onreadystatechange = function () {
   handle( xhr );
 };
-</code>
 </pre>
       <h2>xhr.readyState</h2>
       <ol start="0">
@@ -179,8 +163,7 @@ xhr.onreadystatechange = function () {
         <li>DONE 完成
       </ol>
       <p>可定期检查 header 信息.<code>xhr.getResponseHeader( headerKey ); </code> 可用来获取服务器时间: <code>xhr.getResponseHeader( 'Date' );</code>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 function handle( xhr ) {
   // xhr.state
   if ( xhr.readyState === 4 ) {
@@ -196,7 +179,6 @@ function handle( xhr ) {
     }
   }
 );
-</code>
 </pre>
   </section>
   <section class="slide">
@@ -222,15 +204,13 @@ function handle( xhr ) {
         <li>xhr.upload.timeout
         <li>xhr.upload.loadend
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 xhr.upload.onprogress = function(e) {
   // 进度数据信息
   // lengthCommutable
   // loaded
   // total
 };
-</code>
 </pre>
     </div>
   </section>
@@ -244,8 +224,7 @@ xhr.upload.onprogress = function(e) {
         <li>xhr.send( data ); - POST
       </ul>
       <h2>FormData 对象</h2>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 var formdata = new FormData( /* form */ );
 formdata.append( name, value );
 formdata.delete( name );
@@ -259,7 +238,6 @@ formdata.append( 'files[]', files[i] );
 
 // 浏览器支持.
 xhr.send( formdata );
-</code>
 </pre>
     </div>
   </section>
@@ -285,15 +263,13 @@ xhr.send( formdata );
         <li class="toggle">xhr.responseURL
         <li class="toggle">xhr.overrideMimeType( mime );
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 function success( xhr ) {
   var headers = xhr.getAllResponseHeaders();
   // @todo..
   var response = xhr.response || xhr.responseText;
   // @todo..
 }
-</code>
 </pre>
       <h2>请求失败</h2>
       <p>网络异常. 不会再有 xhr.response
@@ -304,8 +280,7 @@ function success( xhr ) {
       <h1>实例代码</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 function __sendFile( formdata, callback ) {
   // 修正 callback 参数.
   callback = typeof callback === 'function' ? callback : noop;
@@ -375,7 +350,6 @@ function sendFiles( files ) {
     console.log( response );
   });
 }
-</code>
 </pre>
       <p><a href="./demo/ajax.zip">完整代码</a>
     </div>
@@ -387,8 +361,7 @@ function sendFiles( files ) {
     <div class="bd">
       <p>XMLHttpRequest 受  cross-domain 限制, 因此提出 JSONP 思想. <br />
       即: 向页面中插入 script 标签, 引入任意 domain 的脚本文件; 而 .js 文件中可写入任意代码, JSONP 时, 一般会是 callback( data ) 格式.
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 // 注: 一般使用 jsonp 时, server 允许定制 callback 名字.
 // http://xxx.xxx.com/path/file.js?callback={Your_callback_name}
 // 在定制 callback 名字时, 建议和 server 端约定使用字符的范围, 防止xss.
@@ -399,8 +372,6 @@ window._callback = function( data ) {
 var script = document.createElement( 'script' );
 script.src = 'http://921.github.io/xss/jsonp.js';
 document.body.appendChild( script );
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -411,62 +382,50 @@ document.body.appendChild( script );
     <div class="bd">
       <p>data:[&lt;mime type&gt;][;charset=&lt;charset&gt;][;base64],&lt;encoded data&gt;
       <h2>Text</h2>
-<pre class="codebox">
-<code class="html" contenteditable>
+<pre class="code" data-type="html">
 data:, Hello world
 // 或
 data:text/plain,Hello world
 // 或
 data:text/plain;base64,aGVsbG8gd29ybGQ=
-</code>
 </pre>
       <h2>HTML</h2>
-<pre class="codebox">
-<code class="html" contenteditable>
+<pre class="code" data-type="html">
 // 简易自用记事本.
 data:text/html,&lt;html contenteditable&gt;</html>
 // 使用 window.btoa( string ) 生成 base64 编码.
 data:text/html;base64,PGh0bWwgY29udGVudGVkaXRhYmxlPjwvaHRtbD4=
-</code>
 </pre>
       <h2>image</h2>
-<pre class="codebox">
-<code class="html" contenteditable>
-  // 以下图片来自 chrome.
-  data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5BAEAAAcALAAAAAAcACYAAAO9eLpMIMYIQJi9DcYtKv6KtnHgB4yoAZSXKAyDy1rjoAzjzOQLrx8+4OanCAZnxiExGSEKmz3lj2lwUq3SZ3WZPbKuXGgxu9t4tLYDTkpIRQILF0x2G4lWipM7gj/oJQUkcXsCDCIFATULBCIcZ2tvB3QLDxETFnR/BgU/gRt9jX0gnpYMkJZpFzEoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=
+<pre class="code" data-type="html">
+// 以下图片来自 chrome.
+data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5BAEAAAcALAAAAAAcACYAAAO9eLpMIMYIQJi9DcYtKv6KtnHgB4yoAZSXKAyDy1rjoAzjzOQLrx8+4OanCAZnxiExGSEKmz3lj2lwUq3SZ3WZPbKuXGgxu9t4tLYDTkpIRQILF0x2G4lWipM7gj/oJQUkcXsCDCIFATULBCIcZ2tvB3QLDxETFnR/BgU/gRt9jX0gnpYMkJZpFzEoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=
 
-  // 以下图片来自 chrome.
-  data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAiElEQVR42r2RsQrDMAxEBRdl8SDcX8lQPGg1GBI6lvz/h7QyRRXV0qUULwfvwZ1tenw5PxToRPWMC52eA9+WDnlh3HFQ/xBQl86NFYJqeGflkiogrOvVlIFhqURFVho3x1moGAa3deMs+LS30CAhBN5nNxeT5hbJ1zwmji2k+aF6NENIPf/hs54f0sZFUVAMigAAAABJRU5ErkJggg==
+// 以下图片来自 chrome.
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAiElEQVR42r2RsQrDMAxEBRdl8SDcX8lQPGg1GBI6lvz/h7QyRRXV0qUULwfvwZ1tenw5PxToRPWMC52eA9+WDnlh3HFQ/xBQl86NFYJqeGflkiogrOvVlIFhqURFVho3x1moGAa3deMs+LS30CAhBN5nNxeT5hbJ1zwmji2k+aF6NENIPf/hs54f0sZFUVAMigAAAABJRU5ErkJggg==
 
-  // jpg 的图片会很大. 自己截的小图.
-  data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7otNMXbgR7fu+uB8z9RjOAcc5/iySQCT8Q1rL1/Wf/Afzavpd+t7/AHj+Pl5eX4vsdJa6WuCSBxsxgZ/ifOeMgnAxx3bOcGrp/b+REr6Xt12v/Xp+OpqppqhcBTj/AHT6t6Aj0/TvnGhA+00/AJOOCvOD/fmA42++PqT1HNKy7L7h3fd/e/8AM3IbP5RgYx1IHu2M4GeenXPLc/K2RJLZJei/4P8An8zObemr69X/AJl9LNtv3CfwX+8/rz/k8cHLM7vu/vf+ZHFEgLcD74/Rsencf/rB5oK535fc/wD5I17eKPLDA4284548zH8v58kk5BOTfbr3/wA/68y4EUcAfz9T6H3/AMkmgk//2Q==
+// jpg 的图片会很大. 自己截的小图.
+data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7otNMXbgR7fu+uB8z9RjOAcc5/iySQCT8Q1rL1/Wf/Afzavpd+t7/AHj+Pl5eX4vsdJa6WuCSBxsxgZ/ifOeMgnAxx3bOcGrp/b+REr6Xt12v/Xp+OpqppqhcBTj/AHT6t6Aj0/TvnGhA+00/AJOOCvOD/fmA42++PqT1HNKy7L7h3fd/e/8AM3IbP5RgYx1IHu2M4GeenXPLc/K2RJLZJei/4P8An8zObemr69X/AJl9LNtv3CfwX+8/rz/k8cHLM7vu/vf+ZHFEgLcD74/Rsencf/rB5oK535fc/wD5I17eKPLDA4284548zH8v58kk5BOTfbr3/wA/68y4EUcAfz9T6H3/AMkmgk//2Q==
 
-  // 从 ppurl 网站上借来的 icon 文件.
-  data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Asoxmv8Olh5Tm2s48////AP///wDm2s48w6WHlJlmM/+ZZjP/w6WHlObazjz///8A////AObazjzDpYeUsoxmv5xpNv+4hVL/p3RB/5xpNv+caTb/p3RB/7iFUv/MmWb/zJlm/7iFUv+ndEH/nGk2/5xpNv+ndEH/uIVS/5xpNv+gbTr/z5xp/9qvhP/PnGn/z5xp/9qvhP/rzKz//+7d///Mmf/rzKz/2q+E/8+caf/PnGn/2q+E/8+caf+gbTr/pXI//9Shbv//7t3//+7d///u3f//7t3//+7d///u3f//zJn//+7d///u3f//7t3//+7d///u3f/UoW7/pXI//6p3RP/ZpnP//+/f///v3///79///+/f///v3///7t3//8yZ///v3///79///+/f///v3///79//2aZz/6p3RP+wfUr/36x5///x4//Mu6r/3cy7/+7dzP//8eP//+7d///Mmf//8eP/7t3M/93Mu//Mu6r///Hj/9+sef+wfUr/tYJP/+WygP//8+f///Pn///z5///8+f///Pn///u3f//zJn///Pn///z5///8+f///Pn///z5//lsoD/tYJP/7uIVf/suYb///Xs/8y7qv/dzLv/7t3M///17P//7t3//8yZ///17P/u3cz/3cy7/8y7qv//9ez/7LmG/7uIVf/AjVr/8r+M///48P//+PD///jw///48P//+PD//+7d///Mmf//+PD///jw///48P//+PD///jw//K/jP/AjVr/xZJf//fEkf//+vX/zLuq/93Mu//u3cz///r1///u3f//zJn///r1/+7dzP/dzLv/zLuq///69f/3xJH/xZJf/8mWY//8yZb///z5///8+f///Pn///z5///8+f//7t3//8yZ///8+f///Pn///z5///8+f///Pn//MmW/8mWY//MmWb//8yZ///+/f/Mu6r/3cy7/+7dzP///v3//+7d///Mmf///v3/7t3M/93Mu//Mu6r///79///Mmf/MmWb/2LKMv+Gue///8+f/////////////8+f//+HE///Mmf//zJn//+HE///z5//////////////z5//hrnv/2LKMv////wDp075q/tewwv/Mmf//zJn//tewwv7p02r///8A////AP7p02r+17DC/8yZ///Mmf/+17DC6dO+av///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AADw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDwwAA//8AAA==
-</code>
+// 从 ppurl 网站上借来的 icon 文件.
+data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Asoxmv8Olh5Tm2s48////AP///wDm2s48w6WHlJlmM/+ZZjP/w6WHlObazjz///8A////AObazjzDpYeUsoxmv5xpNv+4hVL/p3RB/5xpNv+caTb/p3RB/7iFUv/MmWb/zJlm/7iFUv+ndEH/nGk2/5xpNv+ndEH/uIVS/5xpNv+gbTr/z5xp/9qvhP/PnGn/z5xp/9qvhP/rzKz//+7d///Mmf/rzKz/2q+E/8+caf/PnGn/2q+E/8+caf+gbTr/pXI//9Shbv//7t3//+7d///u3f//7t3//+7d///u3f//zJn//+7d///u3f//7t3//+7d///u3f/UoW7/pXI//6p3RP/ZpnP//+/f///v3///79///+/f///v3///7t3//8yZ///v3///79///+/f///v3///79//2aZz/6p3RP+wfUr/36x5///x4//Mu6r/3cy7/+7dzP//8eP//+7d///Mmf//8eP/7t3M/93Mu//Mu6r///Hj/9+sef+wfUr/tYJP/+WygP//8+f///Pn///z5///8+f///Pn///u3f//zJn///Pn///z5///8+f///Pn///z5//lsoD/tYJP/7uIVf/suYb///Xs/8y7qv/dzLv/7t3M///17P//7t3//8yZ///17P/u3cz/3cy7/8y7qv//9ez/7LmG/7uIVf/AjVr/8r+M///48P//+PD///jw///48P//+PD//+7d///Mmf//+PD///jw///48P//+PD///jw//K/jP/AjVr/xZJf//fEkf//+vX/zLuq/93Mu//u3cz///r1///u3f//zJn///r1/+7dzP/dzLv/zLuq///69f/3xJH/xZJf/8mWY//8yZb///z5///8+f///Pn///z5///8+f//7t3//8yZ///8+f///Pn///z5///8+f///Pn//MmW/8mWY//MmWb//8yZ///+/f/Mu6r/3cy7/+7dzP///v3//+7d///Mmf///v3/7t3M/93Mu//Mu6r///79///Mmf/MmWb/2LKMv+Gue///8+f/////////////8+f//+HE///Mmf//zJn//+HE///z5//////////////z5//hrnv/2LKMv////wDp075q/tewwv/Mmf//zJn//tewwv7p02r///8A////AP7p02r+17DC/8yZ///Mmf/+17DC6dO+av///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AADw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDwwAA//8AAA==
 </pre>
       <h2>CSS</h2>
-<pre class="codebox">
-<code class="css" contenteditable>
-  data:css/text,body{color:red}
-  // 或
-  data:css/text;base64,Ym9keXtjb2xvcjpyZWR9
-</code>
+<pre class="code" data-type="css">
+data:css/text,body{color:red}
+// 或
+data:css/text;base64,Ym9keXtjb2xvcjpyZWR9
 </pre>
       <h2>JavaScript</h2>
-<pre>
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 data:text/javascript,alert(1);
 // 或
 data:text/javascript;base64,YWxlcnQoMSk=
-</code>
 </pre>
       <h2>指定字符集</h2>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="html">
 data:text/html;charset=utf-8,Hello world
 data:text/html;charset=utf-8;base64,aGVsbG8gd29ybGQ=
-</code>
 </pre>
     </div>
   </section>
@@ -482,8 +441,7 @@ data:text/html;charset=utf-8;base64,aGVsbG8gd29ybGQ=
         <li>jQuery.<a href="http://api.jquery.com/category/deferred-object/">deferred</a>
         <li>jQuery.<a href="http://api.jquery.com/promise/">promise</a>();
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 var deferred = jQuery.Deferred();
 deferred.done(function( message ) {
   alert( message );
@@ -491,8 +449,6 @@ deferred.done(function( message ) {
 setTimeout(function() {
   deferred.resolve( 'hi' );
 }, 1000);
-</code>
-<div class="runcase">Run</div>
 </pre>
       <h2>deferred 和 promise 区别</h2>
       <p>内部(deferred)改变自身状态(state-pending/resolved/rejected), 并且触发(notify/resolve/reject)外部(promise)绑定的事件.
@@ -549,8 +505,7 @@ setTimeout(function() {
         <li>.always( handle )
         <li>.when( derfer, derfer ) => 返回 promise 对象.
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 var object = {
   name: 'redky',
   id: 921
@@ -607,8 +562,6 @@ d.then(function() {
 d.always(function() {
   console.log( 'End!' );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -617,8 +570,7 @@ d.always(function() {
       <h1>封装 ajax</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 function ajax() {
   var deferred = jQuery.Deferred();
   setTimeout(function() {
@@ -634,8 +586,6 @@ ajax().done(function( message ) {
 }).always(function() {
   alert( 'always' );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -645,8 +595,7 @@ ajax().done(function( message ) {
       <h1>原生 Promise</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 // 实例化 - 只能在内部修改状态.
 var promise = new Promise(function( resolve, reject ) {
   setTimeout(function() {
@@ -659,8 +608,6 @@ promise.then(function() {
 }, function() {
   alert( 'fail' );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -677,8 +624,7 @@ promise.then(function() {
           </ul>
         <li>promise.catch( failHandle ); // .then 方法的语法糖.
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 var promise = new Promise(function( resolve, reject ) {
   // 模拟异步操作
   setTimeout(function() {
@@ -734,8 +680,6 @@ promise.then(function() {
 }, function() {
   console.log( '确认回调函数执行顺序 - fail' );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
       <p><a href="http://zhanhongtao.github.io/blog/queue/queuePromise.js">queue.js - promise 版本</a>
     </div>
@@ -752,24 +696,17 @@ promise.then(function() {
         <li>Promise.race( array ) - 类似 Array.prototype.some
         <li class="toggle">Promise.defer() - 返回 Promise, 不再推荐使用.
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 Promise.resolve('done').then(function( value ) {
   alert( value );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 Promise.reject('fail').catch(function( message ) {
   alert( message );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 var array = [1, 2];
 array = array.map(function( value ) {
   return new Promise(function( resolve, reject ) {
@@ -782,11 +719,8 @@ var promise = Promise.all( array );
 promise.then(function( values ) {
   console.log( 'done: ', values );
 });
-</code>
-<div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 var array = [1, 2, 3, 4];
 array = array.map(function( value, index ) {
   return new Promise(function( resolve, reject ) {
@@ -807,8 +741,6 @@ promise.then(function( values ) {
 // .race 
 // 当有一个 promise 状态为 resolved 时, 就执行 done 回调函数.
 // 全部 rejected 时, 执行 fail 回调函数.
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -824,8 +756,7 @@ promise.then(function( values ) {
         <li>xhr.open( URL, 'GET' );
         <li>...
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 ;(function( root ) {
 
 // @NOTE: _pingback_ 全局变量.
@@ -871,7 +802,6 @@ function pingback( data ) {
 root.ping = pingback;
 
 })( this );
-</code>
 </pre>
     </div>
   </section>
@@ -890,7 +820,8 @@ root.ping = pingback;
         <li><a href="http://medikoo.com/asynchronous-javascript-interfaces/callback-hell-aid/">Callback-Hell</a>
       </ul>
     </div>
-  </section>  <section class="slide slide-cover">
+  </section>  
+  <section class="slide slide-cover">
     <h1>?</h1>
   </section>
   <nav id="navigator"></nav>
@@ -898,6 +829,7 @@ root.ping = pingback;
     <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
     <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
   </nav>
+  <script src="./js/highlight.pack.js"></script>
   <script src="./js/event.js"></script>
   <script src="./js/se.js?v=1"></script>
   <script src="./js/hash.js"></script>

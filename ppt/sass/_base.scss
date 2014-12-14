@@ -1,26 +1,31 @@
-body {
-  font: 20px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
-  color: #34362E;
-  overflow-x: hidden;
-  /* margin: 0; */
-}
+@charset "utf-8";
 
 h1, h2, h3, h4, h5, h6, dl { 
   margin: 0;
   padding: 0;
 }
 
+body {
+  font: 14px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
+  color: #333;
+  overflow-x: hidden;
+  &.ppt {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+h1, .h1 { font-size: 24px; }
+h2, .h2 { font-size: 18px; }
+h3, .h3 { font-size: 14px; }
+h4, .h4 { font-size: 12px; }
+
 ol { padding-left: 40px; }
 ul { padding-left: 25px; }
 li { margin: 15px auto; }
 .no-style { list-style: none; padding-left: 0; }
 
-h1, .ppt .h1 { font-size: 24px; }
-h2, .ppt .h2 { font-size: 20px; }
-h3, .ppt .h3 { font-size: 18px; }
-h4, .ppt .h4 { font-size: 16px; }
-h5, .ppt .h5 { font-size: 14px; }
-h6, .ppt .h6 { font-size: 12px; }
 
 .hd { margin: 10px auto; overflow: hidden; }
 .bd { margin: 15px auto; overflow: hidden; }
@@ -32,16 +37,18 @@ h6, .ppt .h6 { font-size: 12px; }
 dt, dd { margin: 15px auto; }
 dd { text-indent: 2em; }
 
-.box {
-  display: -webkit-flex;
-  display: flex;
+.ppt {
+  .box {
+    display: -webkit-flex;
+    display: flex;
+  }
+  .grid {
+    -webkit-flex: 1;
+    flex: 1;
+    margin: 10px 0;
+  }
+  .grid +.grid  { margin-left: 10px; }
 }
-.grid {
-  -webkit-flex: 1;
-  flex: 1;
-  margin: 10px 0;
-}
-.grid +.grid  { margin-left: 10px; }
 
 .c1, .c2, .c3, .c4, .c5, .c6, .c7 {
   padding: 0 20px;
@@ -57,7 +64,6 @@ dd { text-indent: 2em; }
 code {
   display: inline-block;
   padding: 0 5px;
-  /* margin: 0 5px; */
   border-radius: 2px;
   background-color: #f0f0f0;
   color: #333;
@@ -73,9 +79,9 @@ mark, .mark {
   color: #200707;
 }
 
-pre {
-  margin: 0;
-  font-size: 0;
+pre, pre.code {
+  margin: 10px 0 0;
+  padding: 10px;
   display: block;
   outline: none;
   background-color: #F0F0F0;
@@ -83,10 +89,7 @@ pre {
   overflow: auto;
 }
 
-pre + pre {
-  margin-top: 20px;
-}
-
+.run,
 .runcase {
   position: absolute;
   top: 0;
@@ -97,7 +100,7 @@ pre + pre {
   color: #1A69AB;
   background-color: #BDBDB4;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 sub, sup {

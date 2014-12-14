@@ -26,15 +26,9 @@
   var pages = slides.length;
   var debug = false;
 
-  var getIndex = function() {
-    // 支持 id 访问.
-    var reg = /#([^&]*)/i;
-    var id, index = 0;
-    location.href.replace( reg, function( match, $1 ) {
-      id = $1;
-    });
+  function getIndex( id ) {
+    var index = 0;
     if( id && id.indexOf('=') == -1 ) {
-      // @todo: 提取成方法, 方便 Ctrl + G 使用.
       index = Number(id);
       if ( isNaN(index) ) {
         for ( var i = 0, l = slides.length; i < l; ++i ) {
@@ -48,9 +42,22 @@
       }     
     }
     return index;
+  };
+  
+  function getPageFromHash() {
+    // 支持 id 访问.
+    var reg = /#([^&]*)/i;
+    var id;
+    location.href.replace( reg, function( match, $1 ) {
+      id = $1;
+    });
+    return id;
   }
   
-  var page = getIndex();
+  var page = (function() {
+    var id = getPageFromHash();
+    return getIndex( id );
+  })();
 
   // 修正 index - rotate!
   function fixedIndex( page, pages, rotate ) {
@@ -143,7 +150,7 @@
     if ( preventDefaultElements.indexOf(target.nodeName.toLowerCase()) > -1 ) {
       return true;
     }
-    var node = walkToRoot( target, function( target ) {
+    var node = dom.walkToRoot( target, function( target ) {
       if ( target.nodeName.toLowerCase() === 'code' || 
         (target.getAttribute && target.getAttribute('contenteditable') == 'true')
       ) {
@@ -185,7 +192,8 @@
         break;
       case 71: // ctrl + g
         if ( event.ctrlKey ) {
-          updatePage( ~~prompt('跳转到指定页:') );
+          var _index = getIndex( prompt('跳转到指定页:') );
+          updatePage( _index );
           event.preventDefault();
         }
         break;
@@ -203,7 +211,6 @@
         break;
       case 80: // alt + p
         if ( event.altKey ) {
-          // @todo: 切换为普通文档 - 方便直接打印.
           eventemitter.emit( 'on-page-pattern-changed', page );
           event.preventDefault();
         }
@@ -224,8 +231,8 @@
   }, false );
   
   eventemitter.on( 'on-next-editor', function() {
-    var pre = cloest( document.activeElement, 'code' );
-    var slide = cloest( document.activeElement, '.slide' );
+    var pre = dom.cloest( document.activeElement, 'code' );
+    var slide = dom.cloest( document.activeElement, '.slide' );
     if ( !slide ) return;
     var pres = slide.querySelectorAll( 'code' );
     if ( !pres ) return;
@@ -255,17 +262,14 @@
   init( false );
   
   window.onpopstate = function() {
-    page = getIndex();
+    var id = getPageFromHash();
+    page = getIndex( id );
     init( true );
   };
   
   eventemitter.emit( 'ppt-init', page );
   eventemitter.on( 'ppt-next', nextSlide );
   eventemitter.on( 'ppt-prev', prevSlide );
-  eventemitter.on( 'change-pattern', function( pattern ) {
-    pattern = pattern === 'ppt' ? 'ppt' : 'document';
-    eventemitter.emit( 'on-page-pattern-changed', page, pattern );
-  });
 
 })();
 

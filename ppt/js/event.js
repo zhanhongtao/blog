@@ -1,5 +1,3 @@
-
-
 ;(function() {
     var globalEventEmitter;
     var eventEmitter = function () {

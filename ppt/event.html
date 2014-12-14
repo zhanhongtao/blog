@@ -1,19 +1,11 @@
 <!doctype html>
-<html lang="zh-cn">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base target="_blank" />
   <title>Event</title>
-  <link rel="stylesheet" href="./css/default.css">
-  <link rel="stylesheet" href="./css/base.css?v=3">
-  <link rel="stylesheet" href="./css/app.css?v=3">
-  <link rel="stylesheet" href="./css/scrollbar.css">
-  <script src="./js/highlight.pack.js"></script>
-  <script type="text/javascript">
-    hljs.tabReplace = '  ';
-    hljs.initHighlightingOnLoad();
-  </script>
+  <link rel="stylesheet" href="./css/all.css">
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -37,8 +29,7 @@
       <h1>实现</h1>
     </div>
     <div class="bd">
-<pre class="codebox">
-<code id="_user_event" class="javascript" contenteditable>
+<pre id="_user_event" class="code" data-type="js" data-run="1">
 // 管理中心
 var manager = {};
 
@@ -97,7 +88,6 @@ var broadcast = function( name ) {
 add( 'a', function() { alert('a'); } );
 add( 'a', function( message ) { alert( message ); } );
 broadcast( 'a', 'Hi' );
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -132,46 +122,36 @@ broadcast( 'a', 'Hi' );
         <li>element.addEventListener/element.removeEventListener
         <li>element.attachEvent/element.detachEvent - ie
       </ul>
-<pre>
-<code class="JavaScript">
+<pre class="code" data-type="js">
 &lt;a href="http://www.baidu.com/" onclick="alert(1);return false;"&gt;百度&lt;/a&gt; <a href="http://www.baidu.com/" onclick="alert(1);return false;">百度</a>
-</code>
 </pre>
-<pre class="codebox">
-<code id="_click_dom0" class="javascript" contenteditable>
+<pre class="code" data-type="js" id="_click_dom0">
 document.getElementById( '_click_dom0' ).onclick = function() {
   alert( 'click' );
 };
-</code><div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code id="_click_dom2" class="javascript" contenteditable>
+<pre class="code" data-type="js" id="_click_dom2">
 var dom = document.getElementById( '_click_dom2' );
 dom.addEventListener( 'click', function() {
   alert( 'click' );
 }, false);
-</code><div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code id="_click_dom2_ie" class="javascript" contenteditable>
+<pre class="code" data-type="js" id="_click_dom2_ie">
 // ie
 var dom = document.getElementById( '_click_dom2_ie' );
 dom.attachEvent( '<mark>on</mark>click', function() {
   alert( 'click' );
 });
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
-
   <section class="slide">
     <div class="hd">
       <h1>事件代理</h1>
     </div>
     <div class="bd">
       <p>利用事件流 - 冒泡特性.
-<pre class="codebox">
-<code id="_click_delegate" class="javascript" contenteditable>
+<pre class="code" data-type="js" id="_click_delegate">
 document.onclick = function(e) {
   e = e || window.event;
   var target = e.target || e.srcElement;
@@ -180,7 +160,6 @@ document.onclick = function(e) {
     alert( 'delegate' );
   }
 };
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -204,8 +183,7 @@ document.onclick = function(e) {
       <ul>
         <li>event.type - mousedown/mouseup/click/....
       </ul>
-<pre class="codebox" id="_event_type">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js" id="_event_type">
 var dom = document.getElementById( '_event_type' );
 
 dom.addEventListener( 'mousedown', function(e) {
@@ -219,8 +197,6 @@ dom.addEventListener( 'mouseup', function(e) {
 dom.addEventListener( 'click', function(e) {
   console.log( e.type );
 }, false);
-</code>
-<div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -247,13 +223,11 @@ dom.addEventListener( 'click', function(e) {
         <li>event.preventDefault();
         <li>event.returnValue = true; - ie
       </ul>
-<pre class="codebox">
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 // 兼容代码：
 event.preventDefault = event.preventDefault || function() {
   event.returnValue = true;
 };
-</code>
 </pre>
     </div>
   </section>
@@ -266,13 +240,11 @@ event.preventDefault = event.preventDefault || function() {
         <li>event.stopPropregation();
         <li>event.cancelBubble = true; - ie
       </ul>
-<pre>
-<code class="javascript" contenteditable>
+<pre class="code" data-type="js">
 // 兼容代码：
 event.stopPropregation = event.stopPropregation || function() {
   event.cancelBubble = true;
 };
-</code>
 </pre>
     </div>
   </section>
@@ -284,8 +256,7 @@ event.stopPropregation = event.stopPropregation || function() {
       <ul>
         <li>event.stopImmediatePropagation();
       </ul>
-<pre class="codebox">
-<code id="_click_stop_immediate_propagation" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" id="_click_stop_immediate_propagation">
 var dom = document.getElementById( '_click_stop_immediate_propagation' );
 dom.addEventListener( 'click', function(e) {
   alert(1);
@@ -295,7 +266,6 @@ dom.addEventListener( 'click', function(e) {
 dom.addEventListener( 'click', function() {
   alert(2);
 }, false);
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -330,27 +300,20 @@ dom.addEventListener( 'click', function() {
     </div>
     <div class="bd">
       <p>jQuery 中的 delegateTarget/currentTarget.
-<pre class="codebox">
-<code id="_click_this_dom0" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" id="_click_this_dom0">
 document.getElementById( '_click_this_dom0' ).onclick = function(e) {
   alert( this );
 };
-</code><div class="runcase">Run</div>
 </pre>
-<pre class="codebox">
-<code id="_click_this_dom2" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" id="_click_this_dom2">
 document.getElementById( '_click_this_dom2' ).addEventListener( 'click', function(e) {
   alert( this );
 }, false);
-</code><div class="runcase">Run</div>
 </pre>
-
-<pre class="codebox">
-<code id="_click_this_ie" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" id="_click_this_ie">
 document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) {
   alert( this );
 }, false);
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -572,10 +535,10 @@ document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) 
       <ul>
         <li>DOM 节点变化时触发
       </ul>
-      <h2>Link</h2>
+      <h2>参考</h2>
       <ul>
-        <li>https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events
-        <li>https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events">https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events</a>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver">https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver</a>
       </ul>
     </div>
   </section>
@@ -589,12 +552,10 @@ document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) 
         <li>hashchange - ie8+
         <li>popstate
       </ul>
-<pre class="codebox">
-<code id="_user_event" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1">
 document.addEventListener( 'visibilitychange', function(e) {
   console.log( 'hidden: ' + document.hidden );
 }, false );
-</code><div class="runcase">Run</div>
 </pre>
     </div>
   </section>
@@ -608,8 +569,7 @@ document.addEventListener( 'visibilitychange', function(e) {
         <li>var event = document.createEvent( 'Event' ); event.initEvent( name, true, true);
         <li>element.dispatchEvent( event )
       </ul>
-<pre class="codebox">
-<code id="_user_event" class="javascript" contenteditable>
+<pre class="code" data-type="js" data-run="1" id="_user_event">
 function notify( element, name, data ) {
   var event = new CustomEvent( name, {
     bubbles: true,
@@ -623,7 +583,6 @@ document.addEventListener( '_click', function(e) {
 }, false);
 
 notify( document, '_click', { name: 'redky', id: 806 } );
-</code><div class="runcase">Run</div>
 </pre>
       <p><a href="http://www.w3.org/TR/dom/">http://www.w3.org/TR/dom/</a>
     </div>
@@ -636,6 +595,7 @@ notify( document, '_click', { name: 'redky', id: 806 } );
     <a href="#" class="nav-prev" data-id="nav" data-direction="previous"></a>
     <a href="#" class="nav-next" data-id="nav" data-direction="next"></a>
   </nav>
+  <script src="./js/highlight.pack.js"></script>
   <script src="./js/event.js"></script>
   <script src="./js/se.js"></script>
   <script src="./js/hash.js"></script>
