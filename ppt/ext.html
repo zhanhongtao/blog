@@ -21,8 +21,8 @@
     </div>
     <div class="bd">
       <ul>
-        <li>隔离代码块 - 流程控制
         <li>定义局部变量 - 闭包
+        <li>隔离代码块 - 流程控制
         <li>封装功能
       </ul>
     </div>
@@ -32,6 +32,7 @@
       <h1>定义局部变量 - 闭包</h1>
     </div>
     <div class="bd">
+      <p>控制生成全局唯一 ID.
 <pre class="code" data-type="js" data-run="1">
 var getid = (function() {
   var id = 0;
@@ -43,6 +44,14 @@ var getid = (function() {
 alert( getid() );
 alert( getid() );
 </pre>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>定义局部变量 - 闭包</h1>
+    </div>
+    <div class="bd">
+      <p>封装 JSONP 方法, 保证生成的 callback 函数名唯一.
 <pre class="code" data-type="js" data-run="1">
 var jsonp = (function() {
   var prefix = '_callback_prefix_';
@@ -59,6 +68,7 @@ var callbackid = jsonp(function( message ) {
 });
 
 setTimeout(function() {
+  // Server 返回后, 直接调用 callbackid 函数.
   window[callbackid]( 'callback' );
 }, 100);
 </pre>
@@ -93,9 +103,7 @@ function initApp() {
   closeDoor();
 }
 
-window.onload = function() {
-  initApp();
-};
+window.onload = initApp;
 </pre>
     </div>
   </section>
@@ -116,10 +124,7 @@ window.onload = function() {
       <h1>toArray</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>jQuery.toArray
-        <li>_.toArray
-      </ul>
+      <p>把伪数组转化为真正的数组
 <pre class="code" data-type="js" data-run="1">
 function toArray( list ) {
   return Array.prototype.slice.call( list );
@@ -142,12 +147,10 @@ try {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>flatten</h1>
+      <h1>Flatten</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>_.flatten
-      </ul>
+      <p>扁平化数组 - 把多维数组转化为一维数组.
 <pre class="code" data-type="js" data-run="1">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
@@ -171,19 +174,15 @@ console.log( flatten(array) );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>each</h1>
+      <h1>forEach</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>Array.prototype.forEach
-        <li>jQuery.each
-        <li>_.each
-      </ul>
+      <p>遍历数组, 可使用 <code>return false;</code> 提前结束.
 <pre class="code" data-type="js" data-run="1">
 function type(s) {
   return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
 }
-function each( obj, handler ) {
+function forEach( obj, handler ) {
   if ( type(obj) == 'object' ) {
     for ( var key in obj ) {
       if ( false === handler(obj[key], key, obj) ) {
@@ -203,15 +202,12 @@ function each( obj, handler ) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>extend</h1>
+      <h1>Extend</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>jQuery.extend
-        <li>_.mixin
-      </ul>
+      <p>合并对象属性 - 支持自定义合并规则(可扩展为递归).
 <pre class="code" data-type="js" data-run="1">
-function mixin( base ) {
+function extend( base ) {
   var list = Array.prototype.slice.call( arguments );
   var method = typeof list[list.length - 1] === 'function' ?
     list.pop() : function( key, base, object ) {
@@ -231,20 +227,17 @@ var object = {
 var options = {
   auto: true
 };
-var config = mixin( {}, object, options );
+var config = extend( {}, object, options );
 console.log( config, object, options );
 </pre>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>bind</h1>
+      <h1>Bind</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>Function.prototype.bind
-        <li>_.bind
-      </ul>
+      <p>类似 Function.prototype.bind, 为函数指定 context.
 <pre class="code" data-type="js" data-run="1">
 function bind( method, context ) {
   return function() {
@@ -268,14 +261,11 @@ log();
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>sort</h1>
+      <h1>Sort</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>Array.prototype.sort
-        <li>_.sort..
-        <li>_.shuffle
-      </ul>
+      <p>浏览器内置排序算法 - 默认按字符编码排序.
+      <p>可返回 -1/0/1 来表示从大/小到小/大.
 <pre class="code" data-type="js" data-run="1">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 array.sort();
@@ -292,6 +282,14 @@ function random() {
 array.sort( random );
 alert( array );
 </pre>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Sort</h1>
+    </div>
+    <div class="bd">
+      <p>自定义打乱数组.
 <pre class="code" data-type="js" data-run="1">
 var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 function shuffle( array ) {
@@ -313,12 +311,10 @@ alert( array );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>once</h1>
+      <h1>Once</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>_.once
-      </ul>
+      <p>类似单例, 只执行一次.
 <pre class="code" data-type="js" data-run="1">
 function once( method ) {
   var run = false, ret;
@@ -344,13 +340,10 @@ _alert(1);
   </section>  
   <section class="slide">
     <div class="hd">
-      <h1>.defer</h1>
+      <h1>Defer</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>_.delay
-        <li>_.defer
-      </ul>
+      <p>延迟执行函数.
 <pre class="code" data-type="js" data-run="1">
 function delay(func, wait) {
   return setTimeout(function() {
@@ -372,14 +365,11 @@ console.log( 'end' );
   </section>  
   <section class="slide">
     <div class="hd">
-      <h1>.throttle/.debounce</h1>
+      <h1>Throttle</h1>
     </div>
     <div class="bd">
-      <ul>
-        <li>_.throttle 节流, 频率控制器
-        <li>_.debounce 调用后, 在给定的时间后, 才真正执行
-      </ul>
-<pre class="code" data-type="js" data-run="1">
+      <p>函数节流
+<pre class="code" data-type="js" data-run="1" data-max-height="400">
 // 先处理一次, 然后计时, 给定时间内不处理.
 // 这样会丢失处理函数.
 function throttle(func, wait) {
@@ -431,9 +421,15 @@ while( i++ < 200 ) {
     f2();
   }, 10);
 }
-
 </pre>
-<pre class="code" data-type="js" data-run="1">
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Debounce</h1>
+    </div>
+    <div class="bd">
+<pre class="code" data-type="js" data-run="1" data-max-height="460">
 // 给定时间以后才真正执行
 function debounce(func, wait, immediate) {
   var timer, later = function() {
@@ -493,9 +489,10 @@ while ( i++ < 200 ) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>wrap</h1>
+      <h1>Wrap</h1>
     </div>
     <div class="bd">
+      <p>函数包装 - 可实现面向切面.
 <pre class="code" data-type="js" data-run="1">
 function wrap( self, func ) {
   return function() {
@@ -527,11 +524,12 @@ _alert();
   </section>    
   <section class="slide">
     <div class="hd">
-      <h1>queue</h1>
+      <h1>Queue</h1>
     </div>
     <div class="bd">
-    <p><a href="./demo/queue.html">demo</a>
-<pre class="code" data-type="js" data-run="1">
+      <p>串行执行函数, 使用 next 调用, 支持异步. <a href="./demo/queue.html">实例</a> <br />
+      其它写法: <a href="http://zhanhongtao.github.io/blog/queue/">Promise/Yield/CSS3</a>
+<pre class="code" data-type="js">
 function queue( list, fn, callback, index, ret ) {
   "use strict";
   index = index || 0;
@@ -555,25 +553,16 @@ function queue( list, fn, callback, index, ret ) {
     callback.apply( null, ret );
   }
 }
-
-queue( [1, 2, 3], function( item, index, array, next ) {
-  setTimeout(function() {
-    alert( item * 10 );
-    next();
-  }, 10);
-}, function() {
-  alert( 'done' );
-});
 </pre>
     </div>
   </section>   
   <section class="slide">
     <div class="hd">
-      <h1>sync</h1>
+      <h1>Sync</h1>
     </div>
     <div class="bd">
-    <p><a href="./demo/sync.html">sync</a>
-<pre class="code" data-type="js" data-run="1">
+    <p>并行调用异步函数, 返回数据保证顺序, 并且已完成任务可提前返回.<a href="./demo/sync.html">实例</a>
+<pre class="code" data-type="js" data-run="1" data-max-height="400">
 function sync( list, fn, callback, tag ) {
   var n = list.length;
   var times = 0;
@@ -641,6 +630,7 @@ function sync( list, fn, callback, tag ) {
   }
 };
 
+// 实例1:
 sync( [1, 2, 3], function( item, index, array, next ) {
   setTimeout(function() {
     alert( item * 10 );
@@ -650,6 +640,7 @@ sync( [1, 2, 3], function( item, index, array, next ) {
   alert( 'done' );
 });
 
+// 实例2:
 sync( [1, 2, 3], function( item, index, array, next ) {
   setTimeout(function() {
     next( index );
@@ -665,10 +656,10 @@ sync( [1, 2, 3], function( item, index, array, next ) {
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Object</h1>
+      <h1>Object - Hash</h1>
     </div>
     <div class="bd">
-      <h2>Hash</h2>
+      <p>当作哈希表使用; 推荐使用 WeakMap.
 <pre class="code" data-type="js" data-run="1">
 var cache = {};
 var list = [ 1, 2, 3, 4, 1, 2, 3, 4, 5 ];
@@ -682,7 +673,13 @@ for ( var i = 0, l = list.length; i < l; ++i ) {
 }
 alert( ret );
 </pre>
-      <h2>Namespace</h2>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Object - Namespace</h1>
+    </div>
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 ;(function( root ) {
   var is = root.is = {};
@@ -709,7 +706,14 @@ var is = (function() {
 
 alert( is.isArray([]) );
 </pre>
-      <h2>data structure</h2>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>Object - data structure</h1>
+    </div>
+    <div class="bd">
+      <p>JavaScript 中的 JSON 数据格式, 就是 Object 对象.
 <pre class="code" data-type="js" data-run="1">
 var searchMap = {
   'baidu': {

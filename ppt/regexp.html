@@ -121,15 +121,23 @@ console.log( 'baidu>qq?', reg.exec('baidu>qq?') );
       </ul>
       <h2>保留字符</h2>
       <ul>
-          <li>[] 匹配[]字符对里面的<mark>单个</mark>字符
+          <li>[] 匹配[]字符对里面的<mark>单个</mark>字符.
+          <li>支持范围
             <ul>
-              <li>a-z A-Z a-f
-              <li>0-9 1-5
+              <li>a-z A-Z a-f 0-9 1-5
               <li>/[0-9A-Za-z]/  /[0-9a-z]/i
-              <li>[]里面的特殊字符不再特殊
             </ul>
+          <li>[]里面的特殊字符不再特殊
           <li>^ <mark>[] 字符对里面的 ^ 字符</mark>表示排除关系
       </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>实例</h1>
+    </div>
+    <div class="bd">
+      <p>[] 字符对相关实例
 <pre class="code" data-type="js" data-run="1">
 var reg = /[0-9a-zA-Z_]/;
 console.log( reg );
@@ -143,7 +151,7 @@ console.log( '360', reg.exec('360') );
 console.log( '_clearfix', reg.exec('_clearfix') );
 </pre>
     </div>
-  </section>
+  </section>  
   <section class="slide">
     <div class="hd">
       <h1>RegExp 语法</h1>
@@ -170,7 +178,7 @@ console.log( 'Google', reg.exec('Google') );
 console.log( '.', reg.exec('.') );
 </pre>
     </div>
-  </section>
+  </section>  
   <section class="slide">
     <div class="hd">
       <h1>RegExp 语法 - 分组/引用/捕获</h1>
@@ -196,6 +204,14 @@ string.replace( regexp, function( match ) {
 });
 alert( ret );
 </pre>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>实例</h1>
+    </div>
+    <div class="bd">
+      <p>把 URL 地址中的 search/hash 部分, 转化成 JSON 格式.
 <pre class="code" data-type="js" data-run="1">
 var string = 'http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=redky&rsv_enter=1&rsv_sug3=5&rsv_sug4=128&rsv_sug1=4&rsv_sug2=0&inputT=1541';
 var regexp = /(?:[?&#])(.+?)=([^&#]*)/g;
@@ -348,30 +364,27 @@ alert( reg );
 
 <pre class="code" data-type="js" data-run="1">
 var reg = new RegExp( '\.', 'ig' );
-// 字符串中的 \. 相当于 . 一个字符, 所以结果同上.
-// 相当于 var reg = /./ig;
+// 字符串中的 \. 相当于 . 一个字符, 所以结果同上. 相当于 var reg = /./ig;
 alert( reg );
 </pre>
 
 <pre class="code" data-type="js" data-run="1">
 var reg = new RegExp( '\\.', 'ig' );
-// 字符串中的 \\ 表示一个字符 \, 所以结果是字符 \ 和 . 两个字符.
-// 相当于 var reg = /\./ig;
+// 字符串中的 \\ 表示一个字符 \, 所以结果是字符 \ 和 . 两个字符. 相当于 var reg = /\./ig;
 alert( reg );
 </pre>
 
 <pre class="code" data-type="js" data-run="1">
 // 如果需要匹配 \ 字符本身, 就需要转义.
 var reg = new RegExp( '\\\\', 'ig' );
-// 字符串中两个字符 \\ 表示单个 \, 那么到正则表达式里面就是 /\\/
-// 相当于 var reg = /\\/ig;
+// 字符串中两个字符 \\ 表示单个 \, 那么到正则表达式里面就是 /\\/. 相当于 var reg = /\\/ig;
 alert( reg );
 </pre>
 
 <pre class="code" data-type="js" data-run="1">
 // 其它:
 // 当用户在 input/textarea 等出入框输入 c:\ 字符串, 程序读到的结果是: c:\\.
-// 即, 字符 \ 已经被转义过 - <mark>但在 alert 或者 console.log 显示时, 会把转义的字符 \ 去掉</mark>
+// 即, 字符 \ 已经被转义过 - 但在 alert 或者 console.log 显示时, 会把转义的字符 \ 去掉
 // 那么流程:
 // 1. 获取用户输入.
 // 2. 转义字符 => \ -> \\

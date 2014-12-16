@@ -66,24 +66,6 @@
     }
   });
 
-  var displayRunButton = function( display, target ) {
-    var runcase = target.querySelector( '.runcase' );
-    if ( runcase ) {
-      runcase.style.display = display ? 'block' : 'none';
-    }
-  };
-
-  var runcases = document.querySelectorAll('.code');
-  for ( var i = 0, l = runcases.length; i < l; i++ ) {
-    var codebox = runcases[i];
-    codebox.addEventListener( 'mouseover', function( event ) {
-      displayRunButton( true, this );
-    }, false );
-    codebox.addEventListener( 'mouseout', function( event ) {
-      displayRunButton( false, this );
-    }, false );
-  }
-
   document.addEventListener( 'click', function( event ) {
     var target = event.target;
     var isRun = dom.cloest( target, '.runcase' );

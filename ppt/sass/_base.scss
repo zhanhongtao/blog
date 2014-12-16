@@ -16,9 +16,9 @@ body {
   }
 }
 
-h1, .h1 { font-size: 24px; }
-h2, .h2 { font-size: 18px; }
-h3, .h3 { font-size: 14px; }
+h1, .h1 { font-size: 28px; }
+h2, .h2 { font-size: 20px; }
+h3, .h3 { font-size: 16px; }
 h4, .h4 { font-size: 12px; }
 
 ol { padding-left: 40px; }
@@ -27,8 +27,8 @@ li { margin: 15px auto; }
 .no-style { list-style: none; padding-left: 0; }
 
 
-.hd { margin: 10px auto; overflow: hidden; }
-.bd { margin: 15px auto; overflow: hidden; }
+.hd { margin: 10px auto; }
+.bd { margin: 15px auto; }
 
 .bd h2 {
   margin: 10px 0;
@@ -73,6 +73,10 @@ code {
   font-size: 14px;
 }
 
+.code code {
+  padding: 10px;
+}
+
 mark, .mark {
   padding: 0 6px;
   font-size: .9em;
@@ -81,7 +85,7 @@ mark, .mark {
 
 pre, pre.code {
   margin: 10px 0 0;
-  padding: 10px;
+  padding: 0;
   display: block;
   outline: none;
   background-color: #F0F0F0;
@@ -93,8 +97,7 @@ pre, pre.code {
 .runcase {
   position: absolute;
   top: 0;
-  right: 20px;
-  display: none;
+  right: 10px;
   cursor: pointer;
   padding: 2px 20px;
   color: #1A69AB;

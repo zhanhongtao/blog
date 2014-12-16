@@ -53,73 +53,126 @@
       <h1>Selector</h1>
     </div>
     <div class="bd">
+      <h2>常用选择器</h2>
       <ul>
-        <li>E
+        <li>E - element/tag
         <li>#id
         <li>.class
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/sibling-selectors.html">siblings</a>
-          <ul>
-            <li>E F
-            <li>E > F
-            <li>E + F
-            <li><a href="http://zhanhongtao.github.io/blog/fe/selector/~.html">E ~ F</a>
-          </ul>
-        </li>
-        <li><a href="http://jsfiddle.net/redky/DaG94/">pseudo-element</a>
-          <ul>
-            <li>E::before
-            <li>E::after
-          </ul>
+      </ul>
+      <h2><a href="http://zhanhongtao.github.io/blog/fe/selector/sibling-selectors.html">Siblings</a></h2>
+      <ul>
+        <li>E F
+        <li>E > F
+        <li>E + F
+        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/~.html">E ~ F</a>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>属性选择器</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>E[foo]
+        <li>E[foo="bar"]
+        <li>E[foo~="bar"]
+        <li>E[foo^="bar"]
+        <li>E[foo$="bar"]
+        <li>E[foo*="bar"]
+        <li>E[foo|="en"]
+      </ul>
+      <p><a href="http://zhanhongtao.github.io/blog/fe/selector/attribute-selectors.html">实例说明</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Selector - :nth-child</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>E:first-child
+        <li>E:last-child
+        <li>E:nth-child(n)
+        <li>E:nth-last-child(n)
+        <li>E:nth-child(even)/E:nth-child(5)/E:nth-child(n+6)/E:nth-child(5-n)
+      </ul>
+      <p><a href="http://jsfiddle.net/redky/hR3q3/">实例说明</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Selector - type of child</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>E:nth-of-type(n)
+        <li>E:nth-last-of-type(n)
+        <li>E:first-of-type
+        <li>E:last-of-type
+        <li>E:only-child
+        <li>E:only-of-type
+      </ul>
+      <p><a href="http://zhanhongtao.github.io/blog/fe/selector/type-child.html">实例说明</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>伪元素</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>E::before
+        <li>E::after
+      </ul>
+      <p>可利用 before/after 选择器配合 content 属性来生成内容. <a href="http://jsfiddle.net/redky/DaG94/">实例</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>链接状态</h1>
+    </div>
+    <div class="bd">
+      <ul>
         <li>E:link
         <li>E:visited
         <li>E:hover
         <li>E:active
         <li>E:focus
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/attribute-selectors.html">attribute</a>
-          <ul>
-            <li>E[foo]
-            <li>E[foo="bar"]
-            <li>E[foo~="bar"]
-            <li>E[foo^="bar"]
-            <li>E[foo$="bar"]
-            <li>E[foo*="bar"]
-            <li>E[foo|="en"]
-          </ul>
+      </ul>
+      <p>注意在书写 CSS 时, 要保证按上面顺序.
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>控件状态</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>E:disabled
+        <li>E:enabled
+        <li>E:checked
+      </ul>
+      <p><a href="http://zhanhongtao.github.io/blog/fe/selector/input-type.html">控件状态选择器实例</a>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>其他选择器</h1>
+    </div>
+    <div class="bd">
+      <ul>
         <li>E:root
-        <li><a href="http://jsfiddle.net/redky/hR3q3/">:nth-child</a>
-          <ul>
-            <li>E:first-child
-            <li>E:last-child
-            <li>E:nth-child(n)
-            <li>E:nth-last-child(n)
-            <li>E:nth-child(even)/E:nth-child(5)/E:nth-child(n+6)/E:nth-child(5-n)
-          </ul>
-        </li>
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/type-child.html">type of child</a>
-          <ul>
-            <li>E:nth-of-type(n)
-            <li>E:nth-last-of-type(n)
-            <li>E:first-of-type
-            <li>E:last-of-type
-            <li>E:only-child
-            <li>E:only-of-type
-          </ul>
         <li>E:empty
         <li>E:target
         <li><a href="http://jsfiddle.net/redky/E8DRF/">E:selection</a>
         <li>E:lang(fr)
-        <li><a href="http://zhanhongtao.github.io/blog/fe/selector/input-type.html">status</a>
-            <ul>
-              <li>E:disabled
-              <li>E:enabled
-              <li>E:checked
-            </ul>
         <li>E::first-line
         <li>E::first-letter
         <li><a href="http://zhanhongtao.github.io/blog/fe/selector/not.html">not</a>
         <li>*
       </ul>
-      <a href="http://www.w3.org/TR/css3-selectors/">http://www.w3.org/TR/css3-selectors/</a>
+      <p><a href="http://www.w3.org/TR/css3-selectors/">http://www.w3.org/TR/css3-selectors/</a>
     </div>
   </section>
   <section class="slide" id="cascade">
@@ -168,13 +221,19 @@
         <li>float
         <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
       </ul>
-      <h2>About</h2>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>About ocument Flow</h1>
+    </div>
+    <div class="bd">
       <ul>
         <li>top/right/bottom/left(0, 1, 2, 3, 4)
         <li>z-index(require: relative/absolute/fixed)
         <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left) (require: absolute)
         <li><a href="#clearfix" target="_self">clear</a>(left/right/both)
-        <li>overflow(hidden/auto/visible/scroll)        
+        <li>overflow(hidden/auto/visible/scroll)
       </ul>
     </div>
   </section>
@@ -186,7 +245,7 @@
       <ul>
         <li>initial
         <li>none
-        <li>inline
+        <li><a href="#inline-box" target="_self">inline</a>
         <li>inline-block
         <li>block
         <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
@@ -240,7 +299,7 @@
 }
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="margin-collapse">
     <div class="hd">
       <h1>margin collapse</h1>
@@ -261,14 +320,20 @@
         <li>设置 clear 属性的元素不和任何元素发生margin合并
         </ul>
       </ul>
-      <h2>现象</h2>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>现象</h1>
+    </div>
+    <div class="bd">
       <ul>
         <li>BFC 内部的元素和外部元素不会发生 margin 合并.
         <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
         <li>非 block 元素不会发生 margin 合并.
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="inline-box">
     <div class="hd">
       <h1>Inline-box</h1>
@@ -282,12 +347,11 @@
       <p>super/sub 存在的行高会影响 line-box 高度, 细节可设置 <code>line-height: 0; position: relative; /*+top/bottom*/</code> 修正;
       <p>最后, 容器的高度是由 line-height 撑起的(不是 font-size).
       <h2>vertical-align</h2>
-      <p>inline-box 在 line-box 中的对齐方式.
       <p>super/top/text-top/middle/baseline/text-bottom/bottom/sub
       <h2>line-height</h2>
       <p>normal/inherit/24px(固定值)/200%(计算后的固定值)/2(因子继承, 没有单位)
     </div>
-  </section> 
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>链接/按钮状态</h1>
@@ -301,7 +365,7 @@
       <li>Disabled - 禁用
       <li>Readonly - 只读
     </div>
-  </section>    
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Homework</h1>
