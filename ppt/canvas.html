@@ -6,7 +6,7 @@
   <base target="_blank" />
   <title>Canvas</title>
   <link rel="stylesheet" href="./css/all.css">
-  <style>canvas { margin: 15px 0; display: block; }</style>
+  <style>canvas { margin: 10px 0; display: block; }</style>
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -14,16 +14,16 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Canvas 基础</h1>
+      <h1>基础概念</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>HTML 提供容器 canvas(tag)，JavaScript API 提供接口来绘画 - 位图.
-        <li>Canvas 有绘制路径、矩形、圆形、字符以及处理图片等能力.
+        <li>HTML 提供容器 canvas; JavaScript 提供接口来绘制 - 位图.
+        <li>Canvas 有绘制路径, 字符, 图片以及像素处理等能力.
         <li>Canvas 支持 2D, 3D(WebGL)
-        <li>笛卡尔坐标系统.
+        <li>笛卡尔坐标系统(反向).
           <p><img src="./images/canvas/xy.jpg" alt=""></p>
-      </ul>      
+      </ul>
     </div>
   </section>
   <section class="slide">
@@ -32,7 +32,7 @@
     </div>
     <div class="bd">
       <h2>HTML</h2>
-      <p>指定 Canvas 画布尺寸.
+      <p>指定 Canvas 画布尺寸 - 默认 300 x 150;
 <pre class="code" data-type="html">
 &ltcanvas id="mycanvas" width="500px" height="500px"&gt
   您的浏览器不支持 Canvas!
@@ -41,26 +41,20 @@
       <h2>JavaScript</h2>
 <pre class="code" data-type="js">
 var canvas = document.getElementById( 'mycanvas' );
-var context;
-if ( canvas.getContext ) {
-  context = canvas.getContext('2d'); // 使用 2D 渲染上下文
-}
+var context = canvas.getContext('2d'); // 使用 2D 渲染上下文
 </pre>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Canvas 绘图操作</h1>
+      <h1>Canvas 绘图</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>填充 - 颜色/渐变/图像 - context.fillStyle
-          <ul>
-            <li>字符串 - 16进制/rgb/rgba/hsl/hsla
-            <li>渐变对象
-            <li>图像对象
-          </ul>
-        <li>描边 - context.strokeStyle
+        <li>绘制路径 - rect/arc/...
+        <li>填充 - context.fillStyle/context.fill
+        <li>描边 - context.strokeStyle/context.stroke
+        <li>裁剪(mask) - context.clip
       </ul>
     </div>
   </section>
@@ -70,24 +64,58 @@ if ( canvas.getContext ) {
     </div>
     <div class="bd">
       <ul>
-        <li>context.fillRect( x, y, w, h );
-        <li>context.strokeRect( x, y, w, h );
-        <li>context.clearRect( x, y, w, h );
+        <li>context.fillRect( x, y, width, height );
+        <li>context.strokeRect( x, y, width, height );
       </ul>
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myrect' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height );
 context.save();
-// 设置样式
-context.fillStyle = "#faa";
-context.strokeStyle= "#f00";
-// 绘制
 context.fillRect(20,20,100,100);
-context.strokeRect(20,20,100,100);
 context.restore();
 </pre>
       <canvas id="myrect" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide" id="stroke-style">
+    <div class="hd">
+      <h1>描边</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.strokeStyle
+      </ul>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'stroke-rect' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.strokeStyle = '#f00';
+context.strokeRect(20,20,100,100);
+context.restore();
+</pre>
+      <canvas id="stroke-rect" width="200px" height="200px"></canvas>
+    </div>
+  </section>  
+  <section class="slide" id="fill-style">
+    <div class="hd">
+      <h1>填充</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>context.fillStyle
+      </ul>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'fill-rect' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.fillStyle = '#faa';
+context.fillRect(20,20,100,100);
+context.restore();
+</pre>
+      <canvas id="fill-rect" width="200px" height="200px"></canvas>
     </div>
   </section>
   <section class="slide" id="arc">
@@ -97,12 +125,7 @@ context.restore();
     <div class="bd">
       <ul>
         <li>context.arc( x, y, radius, startAngle, endAngle, counterclockwise );
-          <ul>
-            <li>x, y 坐标
-            <li>radius: 半径
-            <li>开始/结束角度
-            <li>是否逆时针
-          </ul>
+          <p>counterclockwise: 顺(<mark>false</mark>[Default])/逆(true)时针
       </ul>
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'round' );
@@ -111,7 +134,6 @@ context.clearRect(0, 0, canvas.width, canvas.height);
 context.save();
 context.beginPath();
 context.arc( 100, 100, 50, 0, Math.PI, true );
-context.closePath();
 context.stroke();
 context.restore();
 </pre>
@@ -124,46 +146,170 @@ context.restore();
     </div>
     <div class="bd">
       <ul>
-        <li>context.beginPath(); (重新)开始绘制路径
-        <li>context.moveTo( x, y ); // 绘图游标移到(x, y)点, 但是不划线.
-        <li>context.lineTo( x, y ); // 从上一点,开始绘制直线, 到 (x, y)为止.
-        <li>context.closePath(); 和开始点连接
-        <li>context.stroke(); // 绘制路径
+        <li>context.beginPath(); // (重新)开始绘制路径
+        <li>context.moveTo( x, y ); // 落笔点
+        <li>context.lineTo( x, y ); // 从上一点,开始绘制直线, 到 (x, y)
+        <li>context.closePath(); // 和落笔点连接
       </ul>
+      <p>以上方法只准备路径, 绘制时需要调用 <code>context.fill();</code> 或者 <code>context.storke();</code>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>绘制路径 - 实例</h1>
+    </div>
+    <div class="bd">
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'line' );
 var context = canvas.getContext('2d');
-// @NOTE: 仅仅是为了二次操作.
 context.clearRect(0, 0, canvas.width, canvas.height );
-
 context.save();
 context.beginPath();
 
 context.lineWidth = 10;         // 设置画笔粗细(px)
-context.strokeStyle = 'green';  // 描边样式
-context.lineCap = 'round';      // 设置线条末端形状 - butt/round/square
-context.lineJoin = 'bevel';     // 设置线条相交方式 - round/bevel/miter
 
-context.moveTo(10,10);
-context.lineTo(100,100);
-context.moveTo( 100, 10 );
-context.lineTo( 10, 100 );
-// context.closePath();
+var padding = 10;
+context.moveTo( padding, canvas.height - padding );
+context.lineTo( canvas.width/2, padding );
+context.lineTo( canvas.width - padding, canvas.height - padding );
 context.stroke();
 
 context.restore();
 </pre>
-     <canvas id="line" width="200px" height="120px"></canvas>
+<canvas id="line" width="200px" height="120px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>绘制路径 - 描边实例</h1>
+    </div>
+    <div class="bd">
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'line-style' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.beginPath();
+context.lineWidth = 10;         // 设置画笔粗细(px)
+context.lineCap = 'round';      // 设置线条末端形状 - butt[Default]/round/square
+context.lineJoin = 'bevel';     // 设置线条相交方式 - miter[Default]/round/bevel
+context.strokeStyle = '#faa';   // 描边样式
+
+var padding = 10;
+context.moveTo( padding, canvas.height - padding );
+context.lineTo( canvas.width/2, padding );
+context.lineTo( canvas.width - padding, canvas.height - padding );
+
+context.stroke();
+context.restore();
+</pre>
+<canvas id="line-style" width="200px" height="120px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>绘制路径 - 填充实例</h1>
+    </div>
+    <div class="bd">
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'line-style-fill' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.beginPath();
+var padding = 10;
+context.moveTo( padding, canvas.height - padding );
+context.lineTo( canvas.width/2, padding );
+context.lineTo( canvas.width - padding, canvas.height - padding );
+context.fillStyle = '#faa';   // 描边样式
+context.fill();
+context.restore();
+</pre>
+<canvas id="line-style-fill" width="200px" height="120px"></canvas>
+    </div>
+  </section>  
+  <section class="slide" id="fill">
+    <div class="hd">
+      <h1>绘制路径 - 填充复杂路径实例</h1>
+    </div>
+    <div class="bd">
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'path-fill' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.beginPath();
+context.moveTo(10,10);
+context.lineTo(100, 10);
+context.lineTo(100,100);
+context.lineTo( 10, 100 );
+context.moveTo(150, 50);
+context.lineTo(50, 50);
+context.lineTo(50, 150);
+context.lineTo(150, 150);
+context.fill();
+context.restore();
+</pre>
+<canvas id="path-fill" width="200px" height="120px"></canvas>
+    </div>
+  </section>  
+  <section class="slide">
+    <div class="hd">
+      <h1>填充规则</h1>
+    </div>
+    <div class="bd">
+    <ul>
+      <li>Initialize a winding number to 0.
+      <li>Draw a line from point P to the outside of the path (without passing through any vertexes).
+      <li>Add 1 to the winding number for every path segment the line passes through where the path is going clockwise.
+      <li>Subtract 1 from the winding number for every path segment the line passes through where the path is going counterclockwise.
+      <li>If the winding number is nonzero, the point is filled. If the winding number is 0, the point is not filled.
+    </ul>
+    </div>
+  </section>
+  <section class="slide" id="bitmap">
+    <div class="hd">
+      <h1>绘制路径 - 位图</h1>
+    </div>
+    <div class="bd">
+      <canvas id="bitmap-ct" width="300px" height="50px"></canvas>
+<pre class="code grid" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'bitmap-ct' );
+var context = canvas.getContext('2d');
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+context.beginPath();
+context.moveTo( 0, 25.5);
+context.lineTo( 200, 25.5 );
+context.stroke();
+context.restore();
+
+context.save();
+context.beginPath();
+context.moveTo( 0, 27.5);
+context.lineTo( 200, 27.5 );
+context.stroke();
+context.restore();
+
+context.save();
+context.beginPath();
+context.moveTo( 0, 26 );
+context.lineTo( 100, 26 );
+context.strokeStyle = 'red';
+context.lineWidth = 2;
+context.stroke();
+context.restore();
+</pre>
     </div>
   </section>
   <section class="slide" id="arcto">
     <div class="hd">
-      <h1>绘制弧度</h1>
+      <h1>绘制切线弧度</h1>
     </div>
     <div class="bd">
       <p>context.arcTo( x1, y1, x2, y2, radius );  <br />
         从上一点(x0, y0)开始绘制弧线, 到 (x2, y2) 为止, 并且以 radius 为半径, 同时与 (x0, y0), (x1, y1)线和(x1, y1), (x2, y2)线相切.
-<pre class="code" data-type="js" data-run="1" data-autorun="1">
+<pre class="code" data-type="js" data-run="1" data-autorun="1" data-max-height="320">
 var canvas = document.getElementById( 'myarcto' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -204,11 +350,7 @@ context.restore();
     <div class="bd">
       <ul>
         <li>context.quadraticCurveTo( x0, y0, x1, y1 );
-        <ul>
-          <li>起始点
-          <li>(x0, y0) 是控制点
-          <li>(x1, y1) 是目标点
-        </ul>
+        <p>起始点, (x0, y0) 是控制点, (x1, y1) 是目标点
       </ul>
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'quadraticCurveTo' );
@@ -218,18 +360,18 @@ context.save();
 context.translate( 2, 2 );
 context.fillStyle = '#000';
 context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
-context.fill();
+context.fill();                                     // 辅助控制点
 context.beginPath();
 context.fillStyle = 'red';
 context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
-context.fill();
+context.fill();                                     // 辅助终点
 context.beginPath();
 context.moveTo( 0, 0 );
-context.quadraticCurveTo( 100, 0, 50, 100 );
-context.stroke();
+context.quadraticCurveTo( 100, 0, 50, 100 ); 
+context.stroke();                                   // 2次贝塞尔曲线
 context.restore();
 </pre>
-      <canvas id="quadraticCurveTo" width="200px" height="200px"></canvas>
+      <canvas id="quadraticCurveTo" width="200px" height="120px"></canvas>
     </div>
   </section>
   <section class="slide">
@@ -239,12 +381,7 @@ context.restore();
     <div class="bd">
       <ul>
         <li>context.bezierCurveTo( x0, y0, x1, y1, x2, y2 );
-        <ul>
-          <li>起始点
-          <li>(x0, y0) 是第一个控制点
-          <li>(x1, y1) 是第二个控制点
-          <li>(x2, y2) 是目标点
-        </ul>
+        <p>起始点, (x0, y0) 是第一个控制点, (x1, y1) 是第二个控制点, (x2, y2) 是目标点
       </ul>
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'bezierCurveTo' );
@@ -254,18 +391,18 @@ context.save();
 context.translate( 2, 2 );
 context.fillStyle = '#000';
 context.arc( 100, 0, 2, 0, 2 * Math.PI, false );
-context.fill();
+context.fill();                                     // 1
 context.beginPath();
 context.fillStyle = 'red';
 context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
-context.fill();
+context.fill();                                     // 2
 context.beginPath();
 context.moveTo( 0, 0 );
 context.bezierCurveTo( 100, 0, 50, 100, 100, 100 );
 context.stroke();
 context.restore();
 </pre>
-      <canvas id="bezierCurveTo" width="200px" height="200px"></canvas>
+      <canvas id="bezierCurveTo" width="200px" height="120px"></canvas>
     </div>
   </section>
   <section class="slide" id="other">
@@ -278,7 +415,7 @@ context.restore();
         <li>context.closePath(); - 连接到起点
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="text">
     <div class="hd">
       <h1>写文本</h1>
@@ -288,8 +425,10 @@ context.restore();
         <li>context.font = property; // [font-style], [font-weight], [font-size], [font-family]
         <li>context.textAlign = align; // start[Default]/end/left/right/center
         <li>context.textBaseLine = baseline; // top/hanging/middle/alphabetic[Default]/ideographic/bottom
-        <li>context.fillText( text, x, y[, maxWidth] ); // (x, y) 左上角位置.
+        <li>context.direction = inherit; // ltr/rtl
+        <li>context.fillText( text, x, y[, maxWidth] ); // maxWidth 会导致缩放文本
         <li>context.strokeText( text, x, y[, maxWidth] );
+        <li>context.measureText( String ); // return Object
       </ul>
 <pre class="code grid" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'mytext' );
@@ -300,7 +439,7 @@ context.strokeStyle = "#000";
 context.fillStyle = "#ccc";
 context.font= "italic bold 25px Microsoft yahei";
 context.fillText("小王子",50,50);
-context.strokeText("小王子",50,50);
+context.strokeText("小王子",50,50, 120);
 context.restore();
 </pre>
     <canvas id="mytext" width="200px" height="80px"></canvas>
@@ -333,17 +472,18 @@ canvas.onclick = function() {
     <div class="bd">
       <h2>状态</h2>
       <ul>
-        <li>变换矩阵/裁剪区域
+        <li>translate/rotate/scale/transform(matrix)/clip
         <li>globalAlpha/globalCompositeOperation
         <li>strokeStyle/fillStyle/
         <li>lineWidth/lineCap/lineJoin/miterLimit
         <li>shadowOffsetX/shadowOffsetY/shadowBlur/shadowColor
-        <li>font/textAlign/textBaseLine
+        <li>font/textAlign/textBaseLine/..
       </ul>
       <h2>保存/恢复状态</h2>
+      <p>存在一个状态栈.
       <ul>
-        <li>context.save(); // 存在一个状态栈
-        <li>context.restore();
+        <li>context.save();     // 进栈
+        <li>context.restore();  // 出栈
       </ul>
     </div>
   </section>
@@ -466,18 +606,6 @@ context.fillRect(-50, -50, 50, 50);
 context.restore();
 </pre>
       <canvas id="translate-rotate" width="200px" height="200px"></canvas>
-<pre class="code" data-type="js" data-run="1" data-autorun="1">
-var canvas = document.getElementById( 'rotate-translate' );
-var context = canvas.getContext( '2d' );
-context.clearRect(0, 0, canvas.width, canvas.height );
-context.save();
-context.fillStyle = '#ff0';
-context.rotate(Math.PI/4);   //旋转45°
-context.translate(100, 100);
-context.fillRect(-50, -50, 50, 50);
-context.restore();
-</pre>
-      <canvas id="rotate-translate" width="200px" height="200px"></canvas>
     </div>
   </section>
   <section class="slide" id="matrix">
@@ -570,6 +698,7 @@ context.fillRect( 50, 50, 100, 100);
 context.restore();
 </pre>
       <canvas id="mycomposite" width="200px" height="200px"></canvas>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing">Compositing</a>
     </div>
   </section>
   <section class="slide" id="shadow">
@@ -623,6 +752,30 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 context.restore();
 </pre>
       <canvas id="my-linear-gradient" width="200px" height="100px"></canvas>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>线性渐变</h1>
+    </div>
+    <div class="bd">
+      <p>渐变填充文本.
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
+var canvas = document.getElementById( 'text-linear-gradient' );
+var context = canvas.getContext( '2d' );
+context.clearRect(0, 0, canvas.width, canvas.height );
+context.save();
+var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+gradient.addColorStop(0, '#faa');
+gradient.addColorStop(1, '#fff');
+context.fillStyle = gradient;
+context.font= "italic bold 25px Microsoft yahei";
+context.textAlign = 'center';
+context.textBaseline = 'middle';
+context.fillText( '小王子', canvas.width/2, canvas.height/2 );
+context.restore();
+</pre>
+      <canvas id="text-linear-gradient" width="200px" height="100px"></canvas>
     </div>
   </section>
   <section class="slide" id="radial-gradient">
@@ -715,13 +868,13 @@ img.src = './images/canvas/ouba.jpg';
 </pre>
       <canvas id="rotate-image" width="600px" height="400px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="repeat">
     <div class="hd">
       <h1>Repeat</h1>
     </div>
     <div class="bd">
-      <p>背景图片平铺. <code>var pattern = context.createPattern( image, type );</code> type: repeat、repeat-x、repeat-y、no-repeat 
+      <p>背景图片平铺. <code>var pattern = context.createPattern( image, type );</code> type: repeat、repeat-x、repeat-y、no-repeat
 <pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'repeat-image' );
 var context = canvas.getContext( '2d' );
@@ -800,6 +953,7 @@ canvas.onclick = function(e) {
       <ul>
         <li>var image = context.createImageData( width, height );
         <li>context.putImageData( image, x, y );
+        <li>context.putImageData( image, x, y, dx, dy, dw, dh );
       </ul>
 <pre class="code" data-type="js" data-run="1" data-autorun="1" id="image-px-code">
 var canvas = document.getElementById( 'set-px-image' );
@@ -874,12 +1028,21 @@ function drawCanvas_reverse(){
       <p>context.toDataURL( MIME ); // Default: image/png
     </div>
   </section>
-  </section>
   <section class="slide slide-cover" data-color="#000" data-title="Random-Color-Round">
     <iframe src="./demo/canvas.html" width="90%" height="80%" style="border: none;"></iframe>
   </section>
   <section class="slide slide-cover" data-title="Clock" id="clock">
     <iframe src="./demo/clock.html" width="90%" height="100%" style="border: none;"></iframe>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>参考</h1>
+    </div>
+    <div class="bd">
+        <ul>
+          <li><a href="https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/HTML-canvas-guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010542-CH1-SW1">Safari HTML5 Canvas Guide</a>
+        </ul>
+    </div>
   </section>
   <section class="slide slide-cover">
     <h1>?</h1>

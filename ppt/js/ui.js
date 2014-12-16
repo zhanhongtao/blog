@@ -96,11 +96,17 @@
     var codeText = pre.firstChild.nodeValue;
     codeText = codeText.replace( /^(?:\s*|\\r?\\n*)/, '' );
     var dataset = pre.dataset;
+
     var code = document.createElement( 'code' );
     code.className = dataset.type;
     code.setAttribute( 'contenteditable', true );
+    if ( dataset.maxHeight ) {
+      code.style.maxHeight = dataset.maxHeight + 'px';
+    }
+    
     var text = document.createTextNode( codeText );
     code.appendChild( text );
+    
     pre.innerHTML = '';
     pre.appendChild( code );
     if ( dataset.run == '1' ) {
