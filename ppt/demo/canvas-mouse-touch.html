@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Canvas</title>
+  <style>
+    * { margin: 0; padding: 0; } 
+    canvas { 
+      display: block; 
+      margin: 0 auto;
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="mycanvas"></canvas>
+  <script>
+    var canvas = document.getElementById( 'mycanvas' );
+    var context = canvas.getContext( '2d' );
+  
+    var width, height;
+    function init() {
+      canvas.width = width = window.innerWidth / 2;
+      canvas.height = height = window.innerHeight / 2;
+      canvas.addEventListener( 'mousedown', mousedown, false );
+      canvas.addEventListener( 'touchstart', touchstart, false );
+      draw({x:0, y:0});
+    }
+    
+    var isMouseDown = false;
+    function mousedown(e) {
+      isMouseDown = true;
+      calcMouse(e);
+      canvas.addEventListener( 'mousemove', mousemove, false );
+      document.addEventListener( 'mouseup', mouseup, false );
+    }
+    
+    function mousemove(e) {
+      if ( isMouseDown ) {
+        calcMouse(e);
+      }
+    }
+    
+    function calcMouse(e) {
+      var x = e.pageX - canvas.offsetLeft;
+      var y = e.pageY - canvas.offsetTop;
+      draw({
+        x: x,
+        y: y,
+        e: 'mouse'
+      });
+    }
+        
+    function mouseup(e) {
+      isMouseDown = false;
+      draw();
+      canvas.removeEventListener( 'mousemove', mousemove, false );
+      document.removeEventListener( 'mouseup', mouseup, false );
+    }
+    
+    function touchstart(e) {
+      isMouseDown = true;
+      calcTouch(e);
+      canvas.addEventListener( 'touchmove', touchmove, false );
+      canvas.addEventListener( 'touchend', touchcancel, false );
+      document.body.addEventListener( 'touchcancel', touchcancel, false );
+    }
+    
+    function touchmove(e) {
+      if ( isMouseDown ) {
+        calcTouch(e);
+      }
+    }
+    
+    function calcTouch(e) {
+      if ( !e ) {
+        e = event;
+      }
+      e.preventDefault();
+      draw({
+        x: e.targetTouches[0].pageX - canvas.offsetLeft,
+        y: e.targetTouches[0].pageY - canvas.offsetTop,
+        e: 'touch'
+      });
+    }
+    
+    function touchend(e) {
+      isMouseDown = false;
+      draw();
+      alert( 'touchend' );
+    }
+    
+    function touchcancel(e) {
+      isMouseDown = false;
+      canvas.removeEventListener( 'touchmove', touchmove, false );
+      canvas.removeEventListener( 'touchend', touchend, false );
+      document.body.removeEventListener( 'touchcancel', touchcancel, false );
+      draw();
+      console.log( 'touchcancel' );
+    }
+    
+    var draw = (function() {
+      var lastPos;
+      return function( pos ) {
+        if ( !pos ) {
+          if ( lastPos ) pos = lastPos;
+          else return;
+        }
+        lastPos = pos;
+        context.clearRect( 0, 0, width, height );
+        context.save();
+        context.font = '36px';
+        context.textAlign = 'center';
+        context.textBaseLine = 'middle';
+        context.fillStyle = '#faa';
+        context.translate( width/2, height/2 );
+        var text = [ (pos.e||'init'), pos.x, pos.y, isMouseDown ? 'DOWN' : 'UP' ].join( ', ' );
+        context.fillText( text, 0, 0 );
+        context.restore();      
+      };
+    })();
+
+    init();
+  </script>
+</body>
+</html>
