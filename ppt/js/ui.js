@@ -96,7 +96,9 @@
     var codeText = pre.firstChild.nodeValue;
     codeText = codeText.replace( /^(?:\s*|\\r?\\n*)/, '' );
     var dataset = pre.dataset;
-
+    if ( dataset.hidden == '1' ) {
+      pre.style.display = 'none';
+    }
     var code = document.createElement( 'code' );
     code.className = dataset.type;
     code.setAttribute( 'contenteditable', true );

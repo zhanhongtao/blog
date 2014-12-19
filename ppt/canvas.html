@@ -77,7 +77,7 @@ context.restore();
 </pre>
       <canvas id="myrect" width="200px" height="200px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="stroke-style">
     <div class="hd">
       <h1>描边</h1>
@@ -97,7 +97,7 @@ context.restore();
 </pre>
       <canvas id="stroke-rect" width="200px" height="200px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="fill-style">
     <div class="hd">
       <h1>填充</h1>
@@ -178,7 +178,7 @@ context.restore();
 </pre>
 <canvas id="line" width="200px" height="120px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>绘制路径 - 描边实例</h1>
@@ -227,7 +227,7 @@ context.restore();
 </pre>
 <canvas id="line-style-fill" width="200px" height="120px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="fill">
     <div class="hd">
       <h1>绘制路径 - 填充复杂路径实例</h1>
@@ -252,7 +252,7 @@ context.restore();
 </pre>
 <canvas id="path-fill" width="200px" height="120px"></canvas>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>填充规则</h1>
@@ -367,7 +367,7 @@ context.arc( 50, 100, 2, 0, 2 * Math.PI, false );
 context.fill();                                     // 辅助终点
 context.beginPath();
 context.moveTo( 0, 0 );
-context.quadraticCurveTo( 100, 0, 50, 100 ); 
+context.quadraticCurveTo( 100, 0, 50, 100 );
 context.stroke();                                   // 2次贝塞尔曲线
 context.restore();
 </pre>
@@ -414,6 +414,46 @@ context.restore();
         <li>context.isPointInPath( x, y ); - 点是否在路径上
         <li>context.closePath(); - 连接到起点
       </ul>
+<pre class="code" data-run="1" data-type="js" data-hidden="1">
+  var canvas = document.getElementById( 'is-point-in-path' );
+  var context = canvas.getContext( '2d' );
+  var deltaX = canvas.offsetLeft;
+  var deltaY = canvas.offsetTop;
+  var data = { x: 0, y: 0};
+  canvas.onclick = function(e) {
+    var x = e.pageX - deltaX;
+    var y = e.pageY - deltaY;
+    console.log( e, e.pageY, deltaY );
+    data.x = x;
+    data.y = y;
+  };
+  document.onclick = function(e) {
+    console.log( 'document: ', e.pageY );
+  };
+  draw();
+  function draw() {
+    context.clearRect( 0, 0, canvas.width, canvas.height );
+    context.save();
+    for ( var i = 0; i < 5; ++i ) {
+      x = (i+1) * 50;
+      y = 50;
+      context.beginPath();
+      context.arc( x, y, 20, 0, 2 * Math.PI, false );
+      context.closePath();
+      var is = context.isPointInPath( data.x, data.y );
+      console.log( is, data.x, data.y );
+      if ( !is && !data[i] ) {
+        context.stroke();
+      } else {
+        data[i] = 1;
+      }
+    }
+    context.restore();
+    // setTimeout( draw, 1150 );
+  }
+
+</pre>
+      <canvas id="is-point-in-path"></canvas>
     </div>
   </section>
   <section class="slide" id="text">
@@ -672,33 +712,57 @@ context.restore();
     <p>图层合并方法. source: 当前正在绘制的路径; destination: 已绘制的路径;
     <ul>
       <li>source-over - Default. 后绘制的覆盖已绘制的.
+        <canvas id="source-over"></canvas>
       <li>destination-over. 已绘制的覆盖后绘制的.
+        <canvas id="destination-over"></canvas>
       <li>source-atop 把source绘制在destination上, 重叠区域两者都不透明; 不重叠区域, source 透明, destination 不透明.
+        <canvas id="source-atop"></canvas>
       <li>destination-atop 同 source-atop 相反.
+        <canvas id="destination-atop"></canvas>
       <li>source-in 绘制 source 和 destination 重叠部分的 source.
-      <li>destination-int 同 source-in 相反, 绘制 source 和 destination 重叠部分的 destination.
+        <canvas id="source-in"></canvas>
+      <li>destination-in 同 source-in 相反, 绘制 source 和 destination 重叠部分的 destination.
+        <canvas id="destination-in"></canvas>
       <li>source-out 在与 destination 不重复的区域绘制 source, 其它部分变成透明
+        <canvas id="source-out"></canvas>
       <li>destination-out 同 source-out 相反. 但设置透明度时, 重叠部分保留.
+        <canvas id="destination-out"></canvas>
       <li>lighter 把 source 和 destination 重叠部分, 颜色相加, 最大值为 255;
+        <canvas id="lighter"></canvas>
       <li>copy 只绘制 source
+        <canvas id="copy"></canvas>
       <li>xor 重叠区域透明.
+        <canvas id="xor"></canvas>
     </ul>
-<pre class="code" data-type="js" data-run="1" data-autorun="1">
-var canvas = document.getElementById( 'mycomposite' );
-var context = canvas.getContext( '2d' );
-context.clearRect(0, 0, canvas.width, canvas.height );
-context.save();
-// @NOTE: 存在 alpha 透明.
-// context.globalAlpha = 0.5;
-context.fillStyle = 'green';
-context.fillRect( 0, 0, 100, 100 );
-context.fillStyle = '#faa';
-context.globalCompositeOperation = 'xor';
-context.fillRect( 50, 50, 100, 100);
-context.restore();
+<pre class="code" data-autorun="1" data-hidden="1">
+  [
+    'source-over',
+    'destination-over',
+    'source-atop',
+    'destination-atop',
+    'source-in',
+    'destination-in',
+    'source-out',
+    'destination-out',
+    'lighter',
+    'copy',
+    'xor'
+  ].forEach(function( id ) {
+    var canvas = document.getElementById( id );
+    canvas.height = 75;
+    canvas.width = 75;
+    var context = canvas.getContext( '2d' );
+    context.save();
+    context.fillStyle = '#faa';
+    context.fillRect( 0, 0, 50, 50 );
+    context.restore();
+    context.save();
+    context.fillStyle = '#f00';
+    context.globalCompositeOperation = id;
+    context.fillRect( 25, 25, 50, 50);
+    context.restore();
+  });
 </pre>
-      <canvas id="mycomposite" width="200px" height="200px"></canvas>
-      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing">Compositing</a>
     </div>
   </section>
   <section class="slide" id="shadow">

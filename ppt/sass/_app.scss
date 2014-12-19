@@ -6,8 +6,6 @@
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: hidden;
-  margin: 0;
 }
 .ppt .slide {
   display: none;
@@ -23,7 +21,6 @@
   outline: 0;
   overflow: auto;
 }
-
 .ppt .slide-cover {
   display: -webkit-flex !important;
   display: flex !important;
@@ -39,28 +36,6 @@
   -webkit-align-items: center;
   align-items: center;
   opacity: 0;
-}
-
-.ppt .target {
-  z-index: 2;
-  opacity: 1;
-  display: block;
-}
-
-.ppt .prev,
-.ppt .next {
-  opacity: 0;
-  display: block;
-}
-.ppt .next {
-  z-index: 3;
-  -webkit-transform: translateX( 100% );
-  transform: translateX( 100% );
-}
-.ppt .prev {
-  z-index: 1;
-  -webkit-transform: translateX( -100% );
-  transform: translateX( -100% );
 }
 
 /* cover 页面下特殊样式 */
@@ -126,6 +101,42 @@
   margin-right: 64px;
   background-image: url(../images/prev.png);
 }
+
+
+
+
+/* 切换效果 */
+.ppt {
+  .target, .prev, .next {
+    display: block;
+  }
+  .target {
+    z-index: 2;
+    opacity: 1;
+  }
+  .prev, .next {
+    opacity: 0;
+  }
+  .next {
+    transform: translateX( 100vw );
+  }
+  .prev {
+    transform: translateX( -100vh );
+  }
+  
+  &[data-key="cubic-horizontal"] {
+    -webkit-perspective: 1000px;
+  }
+  &[data-key="cubic-horizontal"] .next {
+    -webkit-transform: translateX(50vw) rotateY(90deg);
+  }
+  &[data-key="cubic-horizontal"] .prev {
+    -webkit-transform: translateX(-50vw) rotateY(-90deg);
+  }
+  
+}
+
+
 
 /* 黄色淡出 */
 .yellowfade {
