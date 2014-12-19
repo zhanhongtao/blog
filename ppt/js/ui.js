@@ -103,7 +103,9 @@
     if ( dataset.maxHeight ) {
       code.style.maxHeight = dataset.maxHeight + 'px';
     }
-    
+    if ( dataset.id ) {
+      code.id = dataset.id;
+    }
     var text = document.createTextNode( codeText );
     code.appendChild( text );
     
