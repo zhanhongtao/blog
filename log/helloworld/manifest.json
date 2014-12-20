@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  
+  "name": "Hello World",
+  
+  "version": "0.1",
+  
+  "description": "我的第一个插件",
+  "author": "redky",
+  
+  "icons": { 
+    "32": "default-big.png"
+  },
+  
+  "permissions": [ "tabs", "*://*/*" ],
+  
+  "content_scripts": [
+    {
+      "matches": [ "*://*/*" ],
+      "js": [ "content_script.js" ],
+      "all_frames": true
+    }
+  ],
+  
+  "background": {
+    "scripts": [ 
+      "background.js",
+      "helper.js"
+    ]
+  }
+  
+}

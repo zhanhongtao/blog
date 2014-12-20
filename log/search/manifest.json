@@ -1,0 +1,15 @@
+{
+	"manifest_version": 2,
+	"name":"serchSo" ,
+	"version":"0.1",
+	"description":"serchForSo",
+	"author":"clearfix",
+	"permissions":["tabs","*://*/*/"],
+	"background": {
+		"scripts":[ "searchSo.js" ]
+	},
+	"browser_action":{
+		"16":"16.jpg",
+		"32":"32.jpg"
+	}
+}

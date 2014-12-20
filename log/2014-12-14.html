@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tab</title>
+  <style>
+    .run {
+      display: none;
+      position: absolute;
+      font-size: 12px;
+      background: #000;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<pre class="code" data-run="1">
+  console.log( 'code_block_1' );
+</pre>
+<pre class="code">
+  console.log( 'code_block_2' );
+</pre>
+<div class="box">
+<pre class="code" data-run="1">
+var uuid = (function() {
+  var prefix = '_YOUR_PROJECT_NAME_';
+  var id = 0;
+  return function() {
+    id += 1;
+    return prefix + id;
+  };
+})();
+alert( uuid() );
+</pre>
+</div>
+  <script src="jquery-1.11.0.min.js"></script>
+  <script src="2014-12-14.done.js"></script>
+</body>
+</html>
