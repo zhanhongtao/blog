@@ -11,7 +11,7 @@ function escape( input ) {
     .replace( /</g, '&lt;' )
     .replace( />/g, '&gt;' )
     .replace( /"/g, '&#x22;' )
-    .replace( /'/g, '&#x27;' );    
+    .replace( /'/g, '&#x27;' );
 }
 
 // 'abcd'.replace( /a(b)/, '$1' );
@@ -30,7 +30,7 @@ function each( array, handle ) {
 }
 
 each( array, function( item, index, array ) {
-  console.log( item, index );  
+  console.log( item, index );
 });
 
 // 交换
@@ -104,7 +104,7 @@ function randomSort( array ) {
 randomSort( array );
 console.log( '自定义打乱数组: ', array );
 
-console.log( 'Input: ', array );
+console.log( 'input: ', array );
 
 /**
 function add(i) {
@@ -136,7 +136,7 @@ function print( array, index ) {
   console.log( 'print: ', array[index] );
 }
 
-console.log( 'PRINT Input: ', array );
+console.log( 'PRINT input: ', array );
 print( array, 0 );
 
 function merge( a, b ) {
@@ -150,17 +150,17 @@ function merge( a, b ) {
       ++i;
     }
   }
-  
+
   while ( i < m ) {
     ret.push( a[i] );
     ++i;
   }
-  
+
   while ( j < n ) {
     ret.push( b[j] );
     ++j;
   }
-  return ret;  
+  return ret;
 }
 
 var a = [ 1, 3, 5, 6, 7 ];
@@ -173,10 +173,10 @@ function mergeSort( array ) {
   var position = Math.floor(  array.length/2 );
   var a = array.slice( 0, position );
   var b = array.slice( position );
-  return merge( 
-    mergeSort(a), 
-    mergeSort(b) 
-  );  
+  return merge(
+    mergeSort(a),
+    mergeSort(b)
+  );
 }
 
 var mergeResult = mergeSort( array );
