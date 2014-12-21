@@ -3,7 +3,7 @@
   * 递归 -> 冒泡方式遍历节点/回忆 print 方法
   * List -> 选 A, 再全选 -> A,Others 保证顺序; 或者直接反选;
   * 回顾 Array 习题.
-  * 字符串表示 - 怎么表示: a; 
+  * 字符串表示 - 怎么表示: a;
   * 常见 ASCII 码回顾.
   * HTML escape
   * slice/replace 详解
@@ -19,7 +19,7 @@ var list = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 var selectedList = [ 1, 5 ];
 // 求: 没被选中的项目.
 
-// 2. 
+// 2.
 var selectedList = [ 1, 5 ];
 // selectedAll();
 // 求出: [ 1, 5, 2, 3, 4, 6, 7, 8, 9, 10 ];
@@ -85,11 +85,11 @@ function get() {
 
 // var unselectedList = [];
 
-// insert 
-  // -> before check! 
-  // -> indexOf 
+// insert
+  // -> before check!
+  // -> indexOf
   // -> Hash 查找 - helper
-      // -> exist 
+      // -> exist
         // -> delete
       // -> no
         // -> push
@@ -215,7 +215,7 @@ function reverseWord( string ) {
       if ( i != l ) {
         ret += string[i];
       }
-    }  
+    }
     ++i;
   }
   return ret;

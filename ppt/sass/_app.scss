@@ -123,7 +123,7 @@
   .prev {
     transform: translateX( -100vh );
   }
-  
+
   &[data-key="cubic-horizontal"] {
     -webkit-perspective: 1000px;
   }
@@ -133,7 +133,7 @@
   &[data-key="cubic-horizontal"] .prev {
     -webkit-transform: translateX(-50vw) rotateY(-90deg);
   }
-  
+
 }
 
 

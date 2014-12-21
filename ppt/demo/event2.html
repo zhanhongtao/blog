@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>event2</title>
+</head>
+<body>
+  <script src="./event2.js"></script>
+  <script>
+    Event.listen( 'ping', function( message ) {
+      console.log( message );
+    });
+    Event.notify( 'ping', 'pang' );
+
+    var ep = new Event();
+    ep.listen( 'ping', function(message) {
+      console.log( 'ep.ping: ', message );
+    });
+    ep.notify( 'ping', 'pang' );
+
+    Event.notify( 'ping', 'pang!!' );
+  </script>
+</body>
+</html>
