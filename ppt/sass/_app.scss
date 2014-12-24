@@ -1,47 +1,51 @@
 @charset "utf-8";
 
+// 让 html/body 占满 viewport 空间
 .ppt {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
+
 .ppt .slide {
   display: none;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  box-sizing: border-box;
-  padding: 20px 5%;
-  -webkit-transition: all .5s ease;
-  transition: all .5s ease;
   height: 100%;
+  width: 100%;
+  padding: 20px 5%;
+  box-sizing: border-box;
+  transform: translate3D(0, 0, 0);
+  transition: all .5s ease;
+  will-change: transform;
   outline: 0;
   overflow: auto;
 }
+
+.ppt .slide-iframe,
 .ppt .slide-cover {
-  display: -webkit-flex !important;
-  display: flex !important;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  -webkit-flex-direction: column;
+  display: flex !important;
   flex-direction: column;
-  -webkit-justify-content: center;
   justify-content: center;
-  -webkit-align-items: center;
   align-items: center;
   opacity: 0;
+}
+
+.ppt .cover-inner {
+  transform: translate(0, -100%);
+  text-align: center;
 }
 
 /* cover 页面下特殊样式 */
 .ppt .slide-cover h1 {
   font-size: 64px;
-  margin-top: -10%;
 }
 .ppt .slide-cover h2,
 .ppt .slide-cover h3 {
@@ -102,42 +106,6 @@
   background-image: url(../images/prev.png);
 }
 
-
-
-
-/* 切换效果 */
-.ppt {
-  .target, .prev, .next {
-    display: block;
-  }
-  .target {
-    z-index: 2;
-    opacity: 1;
-  }
-  .prev, .next {
-    opacity: 0;
-  }
-  .next {
-    transform: translateX( 100vw );
-  }
-  .prev {
-    transform: translateX( -100vh );
-  }
-
-  &[data-key="cubic-horizontal"] {
-    -webkit-perspective: 1000px;
-  }
-  &[data-key="cubic-horizontal"] .next {
-    -webkit-transform: translateX(50vw) rotateY(90deg);
-  }
-  &[data-key="cubic-horizontal"] .prev {
-    -webkit-transform: translateX(-50vw) rotateY(-90deg);
-  }
-
-}
-
-
-
 /* 黄色淡出 */
 .yellowfade {
   -webkit-animation: yellowFade 1s linear;
@@ -152,4 +120,33 @@
     background: transparent;
   }
 }
+
+/* 切换效果 */
+.ppt {
+
+  // Default
+  .target, .prev, .next {
+    display: block;
+  }
+  .target {
+    z-index: 2;
+    opacity: 1;
+  }
+  .prev, .next {
+    opacity: 0;
+  }
+
+  // 左右切换效果
+  &[data-key="slide"] {
+    .prev {
+      transform: translateX(-100vw);
+    }
+    .next {
+      transform: translateX(100vw);
+    }
+  }
+
+}
+
+
 

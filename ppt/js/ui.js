@@ -5,6 +5,17 @@
   var TARGET_FROM_DIRECTION_NEXT_CLASS = 'next';
   var nav = document.querySelector( '#navigator' );
 
+  // 保留默认效果.
+  var dataset = document.body.dataset;
+  if ( dataset.key == null ) {
+    dataset.key = 'slide';
+  }
+
+  var covers = document.querySelectorAll( '.slide-cover' );
+  Array.prototype.forEach.call(covers, function( item ) {
+    item.innerHTML = '<div class="cover-inner">' + item.innerHTML + '</div>';
+  });
+
   var selector = /[?&#]v=1/i.test( location.href ) ? '.slide' : '.slide:not(.toggle)';
   var slides = document.querySelectorAll( selector );
   var eventemitter = eventEmitter();
@@ -78,8 +89,7 @@
 
     // 更新进度条.
     nav.style.width = ( (page+1) / pages ) * 100 + '%';
-
-  };
+  }
 
   eventemitter.on( 'on-page-changed', function( message ) {
     updateui( message );
@@ -110,7 +120,7 @@
     }
     var text = document.createTextNode( codeText );
     code.appendChild( text );
-    
+
     pre.innerHTML = '';
     pre.appendChild( code );
     if ( dataset.run == '1' ) {

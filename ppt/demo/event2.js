@@ -47,4 +47,3 @@ Event.notify = Event.prototype.notify = function( name ) {
 
 // 支持定义全局消息
 // 支持内部消息
-module.exports = Event;

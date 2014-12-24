@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width" />
   <base target="_blank" />
   <title>Canvas</title>
   <link rel="stylesheet" href="./css/all.css">
@@ -309,7 +309,7 @@ context.restore();
     <div class="bd">
       <p>context.arcTo( x1, y1, x2, y2, radius );  <br />
         从上一点(x0, y0)开始绘制弧线, 到 (x2, y2) 为止, 并且以 radius 为半径, 同时与 (x0, y0), (x1, y1)线和(x1, y1), (x2, y2)线相切.
-<pre class="code" data-type="js" data-run="1" data-autorun="1" data-max-height="320">
+<pre class="code" data-type="js" data-run="1" data-autorun="1">
 var canvas = document.getElementById( 'myarcto' );
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -1041,7 +1041,7 @@ context.putImageData( image, 0, 0 );
       <canvas id="set-px-image" width="100px" height="100px"></canvas>
     </div>
   </section>
-  <section class="slide slide-cover" data-title="图像处理 - Gray" id="gray">
+  <section class="slide slide-iframe" data-title="图像处理 - Gray" id="gray">
     <iframe src="./demo/gray.html" width="90%" height="100%" style="border: none;"></iframe>
     <a href="http://cssha.com/javascript-image-blending-algorithm/">http://cssha.com/javascript-image-blending-algorithm/</a>
   </section>
@@ -1093,10 +1093,10 @@ function drawCanvas_reverse(){
       <p>context.toDataURL( MIME ); // Default: image/png
     </div>
   </section>
-  <section class="slide slide-cover" data-color="#000" data-title="Random-Color-Round">
+  <section class="slide slide-iframe" data-color="#000" data-title="Random-Color-Round">
     <iframe src="./demo/canvas.html" width="90%" height="80%" style="border: none;"></iframe>
   </section>
-  <section class="slide slide-cover" data-title="Clock" id="clock">
+  <section class="slide slide-iframe" data-title="Clock" id="clock">
     <iframe src="./demo/clock.html" width="90%" height="100%" style="border: none;"></iframe>
   </section>
   <section class="slide">

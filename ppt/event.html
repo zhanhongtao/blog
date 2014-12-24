@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <base target="_blank" />
+  <meta name="viewport" content="width=device-width" />
   <title>Event</title>
   <link rel="stylesheet" href="./css/all.css">
+  <base target="_blank" />
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -29,66 +29,7 @@
       <h1>实现</h1>
     </div>
     <div class="bd">
-<pre id="_user_event" class="code" data-type="js" data-run="1" data-max-height="400">
-// 管理中心
-var manager = {};
-
-var add = function ( name, callback ) {
-  if (
-    typeof name == 'string' ||
-    typeof callback == 'function'    
-  ) {
-    if ( manager[name] ) {
-      manager[name].push( callback );
-    } else {
-      manager[name] = [ callback ];  
-    }  
-  }
-};
-
-var remove = function( name, callback ) {
-  if ( typeof name == 'string' ) {
-    var events = manager[name];
-    if ( events ) {
-      // 直接删除 name 组.
-      if ( callback == null ) {
-        delete manager[name];
-      } else {
-        // 删除指定 callback.
-        if ( typeof callback == 'function' ) {
-          for ( var i = 0, l = events.length; i < l; ++i ) {
-            if ( callback === events[i] ) {
-              events[i] = null;
-            }
-          }       
-        }    
-      }
-    }  
-  }
-};
-
-var broadcast = function( name ) {
-  var events = manager[name];
-  if ( typeof name == 'string' && events ) {
-    for ( var i = 0; i < events.length; ++i ) {
-      var callback = events[i];
-      if ( typeof callback == 'function' ) {
-        if ( callback.apply(null, [].slice.call(arguments, 1)) === false ) {
-          break;
-        }
-      } else {
-        events.splice( i, 1 );
-        --i;
-      }
-    }
-  }
-};
-
-// test
-add( 'a', function() { alert('a'); } );
-add( 'a', function( message ) { alert( message ); } );
-broadcast( 'a', 'Hi' );
-</pre>
+      <p><a href="./demo/event2.js" download="event.js">event.js</a>
     </div>
   </section>
   <section class="slide">
@@ -122,21 +63,24 @@ broadcast( 'a', 'Hi' );
         <li>element.addEventListener/element.removeEventListener
         <li>element.attachEvent/element.detachEvent - ie
       </ul>
-<pre class="code" data-type="js">
-&lt;a href="http://www.baidu.com/" onclick="alert(1);return false;"&gt;百度&lt;/a&gt; <a href="http://www.baidu.com/" onclick="alert(1);return false;">百度</a>
+<pre class="code" data-type="html">
+&lt;!-- 行内 JavaScript 形式 --&gt;
+&lt;a href="http://www.baidu.com/" onclick="alert(1);return false;"&gt;百度&lt;/a&gt;
 </pre>
-<pre class="code" data-type="js" id="_click_dom0">
+<pre class="code" data-type="js" data-id="_click_dom0">
+// DOM1
 document.getElementById( '_click_dom0' ).onclick = function() {
   alert( 'click' );
 };
 </pre>
-<pre class="code" data-type="js" id="_click_dom2">
+<pre class="code" data-type="js" data-id="_click_dom2">
+// DOM2
 var dom = document.getElementById( '_click_dom2' );
 dom.addEventListener( 'click', function() {
   alert( 'click' );
 }, false);
 </pre>
-<pre class="code" data-type="js" id="_click_dom2_ie">
+<pre class="code" data-type="js" data-id="_click_dom2_ie">
 // ie
 var dom = document.getElementById( '_click_dom2_ie' );
 dom.attachEvent( '<mark>on</mark>click', function() {
@@ -151,7 +95,7 @@ dom.attachEvent( '<mark>on</mark>click', function() {
     </div>
     <div class="bd">
       <p>利用事件流 - 冒泡特性.
-<pre class="code" data-type="js" id="_click_delegate">
+<pre class="code" data-type="js" data-run="1" data-id="_click_delegate">
 document.onclick = function(e) {
   e = e || window.event;
   var target = e.target || e.srcElement;
@@ -183,9 +127,10 @@ document.onclick = function(e) {
       <ul>
         <li>event.type - mousedown/mouseup/click/....
       </ul>
-<pre class="code" data-type="js" id="_event_type">
+<pre class="code" data-type="js" data-run="1" data-id="_event_type">
 var dom = document.getElementById( '_event_type' );
 
+// 确认事件的执行顺序
 dom.addEventListener( 'mousedown', function(e) {
   console.log( e.type );
 }, false);
@@ -256,13 +201,14 @@ event.stopPropregation = event.stopPropregation || function() {
       <ul>
         <li>event.stopImmediatePropagation();
       </ul>
-<pre class="code" data-type="js" data-run="1" id="_click_stop_immediate_propagation">
+<pre class="code" data-type="js" data-run="1" data-id="_click_stop_immediate_propagation">
 var dom = document.getElementById( '_click_stop_immediate_propagation' );
 dom.addEventListener( 'click', function(e) {
   alert(1);
   e.stopImmediatePropagation();
 }, false);
 
+// 不会弹出 2
 dom.addEventListener( 'click', function() {
   alert(2);
 }, false);
@@ -300,17 +246,17 @@ dom.addEventListener( 'click', function() {
     </div>
     <div class="bd">
       <p>jQuery 中的 delegateTarget/currentTarget.
-<pre class="code" data-type="js" data-run="1" id="_click_this_dom0">
+<pre class="code" data-type="js" data-run="1" data-id="_click_this_dom0">
 document.getElementById( '_click_this_dom0' ).onclick = function(e) {
   alert( this );
 };
 </pre>
-<pre class="code" data-type="js" data-run="1" id="_click_this_dom2">
+<pre class="code" data-type="js" data-run="1" data-id="_click_this_dom2">
 document.getElementById( '_click_this_dom2' ).addEventListener( 'click', function(e) {
   alert( this );
 }, false);
 </pre>
-<pre class="code" data-type="js" data-run="1" id="_click_this_ie">
+<pre class="code" data-type="js" data-run="1" data-id="_click_this_ie">
 document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) {
   alert( this );
 }, false);
@@ -567,7 +513,7 @@ document.addEventListener( 'visibilitychange', function(e) {
         <li>var event = document.createEvent( 'Event' ); event.initEvent( name, true, true);
         <li>element.dispatchEvent( event )
       </ul>
-<pre class="code" data-type="js" data-run="1" id="_user_event">
+<pre class="code" data-type="js" data-run="1">
 function notify( element, name, data ) {
   var event = new CustomEvent( name, {
     bubbles: true,

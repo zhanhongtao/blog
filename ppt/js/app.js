@@ -11,12 +11,12 @@
   }
   var selector = isOpenToggle ? '.slide' : '.slide:not(.toggle)';
   var slides = document.querySelectorAll( selector ); // Command API -> $$
-  
+
   // 伪数组处理
   Array.prototype.forEach.call( slides, function( slide, index ) {
     slide.setAttribute( 'tabindex', 1 + index );
   });
-  
+
   Array.prototype.forEach.call( document.querySelectorAll('.sub-slide'), function( dom ) {
     dom.style.display = 'none';
   });
@@ -39,11 +39,11 @@
         }
       } else {
         index = index >= slides.length ? 0 : index;
-      }     
+      }
     }
     return index;
   };
-  
+
   function getPageFromHash() {
     // 支持 id 访问.
     var reg = /#([^&]*)/i;
@@ -53,7 +53,7 @@
     });
     return id;
   }
-  
+
   var page = (function() {
     var id = getPageFromHash();
     return getIndex( id );
@@ -130,12 +130,12 @@
       fixed.style.display = 'none';
     }
   });
-  
+
   // next/prev!
   var nextSlide = function() {
     updatePage( 'next' );
   };
-  
+
   var prevSlide = function() {
     updatePage( 'prev' );
   };
@@ -151,7 +151,7 @@
       return true;
     }
     var node = dom.walkToRoot( target, function( target ) {
-      if ( target.nodeName.toLowerCase() === 'code' || 
+      if ( target.nodeName.toLowerCase() === 'code' ||
         (target.getAttribute && target.getAttribute('contenteditable') == 'true')
       ) {
         return false;
@@ -229,7 +229,7 @@
       event.preventDefault();
     }
   }, false );
-  
+
   eventemitter.on( 'on-next-editor', function() {
     var pre = dom.cloest( document.activeElement, 'code' );
     var slide = dom.cloest( document.activeElement, '.slide' );
@@ -258,15 +258,15 @@
       document.body.classList.add( 'display-navigator' );
     }
   }
-  
+
   init( false );
-  
+
   window.onpopstate = function() {
     var id = getPageFromHash();
     page = getIndex( id );
     init( true );
   };
-  
+
   eventemitter.emit( 'ppt-init', page );
   eventemitter.on( 'ppt-next', nextSlide );
   eventemitter.on( 'ppt-prev', prevSlide );
