@@ -66,9 +66,8 @@
     } else {
       var h1 = target.querySelector( 'h1' );
       if ( h1 ) {
-        eventemitter.emit( 'innerText', h1, function( title ) {
-          document.title = title;
-        });
+        var title = dom.innerText(h1)
+        document.title = title;
       }
     }
 

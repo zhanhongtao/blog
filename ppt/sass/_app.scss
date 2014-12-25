@@ -38,6 +38,10 @@
   opacity: 0;
 }
 
+.slide-iframe iframe {
+  border: 0 none;
+}
+
 .ppt .cover-inner {
   transform: translate(0, -100%);
   text-align: center;

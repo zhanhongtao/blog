@@ -4,3 +4,5 @@ ppt/images/canvas/Thumbs.db
 *.scssc
 fe/action.js
 *.html
+*.map
+ppt/css/all.css.map
