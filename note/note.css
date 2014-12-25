@@ -1,0 +1,23 @@
+* { margin: 0; padding: 0; }
+canvas {
+  display: block;
+}
+
+#box {
+  position: relative;
+}
+
+#line-help {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+#tool {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+}

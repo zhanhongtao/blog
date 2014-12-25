@@ -17,7 +17,7 @@
     function prepareCanvas() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      RADIUS = Math.min( 
+      RADIUS = Math.min(
         Math.ceil( width * 0.2 ),
         Math.ceil( height * 0.4 )
       );
@@ -87,19 +87,20 @@
       context.translate( width/2, height/2 );
       var x, y, deg;
       var i = 0, n = 12, radius = RADIUS - 40;
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.font = '12px Microsoft yahei';
       while ( i < n ) {
         deg = i * 30 * (PI / 180);
-        x = Math.floor(radius * Math.cos(deg)) - 5;
+        x = Math.floor(radius * Math.cos(deg));
         y = Math.floor(radius * Math.sin(deg));
         context.beginPath();
-        // @todo.
-        context.font = '12px Microsoft yahei';
         context.fillText((2 + i) % 12 + 1, x, y);
         ++i;
       }
       context.restore();
     }
-    
+
     function drawDate() {
       var date = new Date();
       var hour = date.getHours();
@@ -110,29 +111,32 @@
       context.translate(width/2, height/2);
 
       // 时/分/秒
-      [ 
+      [
         {
           value: hour/12 + minute/60/12,
-          length: RADIUS * 0.3
-        }, 
+          length: RADIUS * 0.3,
+          lineWidth: 2
+        },
         {
           value: minute/60,
-          length: RADIUS * 0.5
-        }, 
+          length: RADIUS * 0.5,
+          lineWidth: 1.5
+        },
         {
           value: second/60,
           length: RADIUS * 0.7
-        } 
+        }
       ].forEach(function( item, index ) {
         context.save();
         context.rotate(item.value * 360 * PI / 180);
         context.beginPath();
         context.moveTo(0, 0);
         context.lineTo(0, -item.length);
+        context.lineWidth = item.lineWidth || 1;
         context.stroke();
-        context.restore();        
+        context.restore();
       });
-      
+
       context.restore();
     }
 
@@ -141,12 +145,12 @@
       drawRound();
       drawMark();
       drawNumber();
-      drawDate();    
+      drawDate();
       setTimeout(function() {
         draw();
       }, 1000);
     }
-    
+
     function init() {
       prepareCanvas();
       draw();
