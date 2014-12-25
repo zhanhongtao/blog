@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Exploding Ball</title>
+  <script type="text/javascript">
+    var can;
+    var ctx;
+    var ball;
+    var x;
+    var y;
+    var scalar;
+    var ballHi = 350;
+    var ballWide = 400;
+    // offset so ball center is drawn at x,y
+    var xOff = -1 * ballWide / 2;
+    var yOff = -1 * ballHi / 2;
+    var tiles = 25;
+    var grid;
+    var tHi;
+    var tWide;
+ 
+    function init() {
+      ball = document.getElementById("ball");
+      can = document.getElementById("can");
+      ctx = can.getContext("2d");
+      x = can.width / 2;
+      y = can.height / 2;
+      // tiles must be a perfect square--4, 9, 16, 25, etc.
+      grid = Math.sqrt(tiles);
+      tHi = ballHi / grid;
+      tWide = ballWide / grid;
+      // when scalar is 1, everything is drawn normally
+      scalar = 1;
+      drawTiles();
+    }
+ 
+    function drawTiles(){
+      ctx.clearRect(0, 0, can.width, can.height);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale = scalar;
+      ctx.rotate(scalar - 1);
+      for (var i = 0; i < grid; i++) {
+        for (var j = 0; j < grid; j++) {
+          var tileX = i * tWide;
+          var tileY = j * tHi;
+          ctx.drawImage(ball, tileX, tileY, tWide, tHi,
+                        scalar * (xOff + tileX),
+                        scalar * (yOff + tileY), tWide, tHi);
+        }
+      }
+      ctx.restore();
+    }
+ 
+    function boom() {
+      scalar += 0.05;
+      drawTiles();
+      if (scalar < 3)
+        window.setTimeout(boom, 50);
+      else
+        ctx.clearRect(0, 0, can.width, can.height);
+    }
+  </script>
+</head>
+<body onload="init()">
+  <h2>Exploding Ball</h2>
+  <p>
+    <img id="ball" src="bg.jpg" style="display:none">
+    <canvas id="can" height="350" width="400"></canvas>
+  </p>
+  <input type="button" value="BOOM" onclick="boom();" />
+  <input type="button" value="Reset" onclick="init();" />
+</body>
+</html>

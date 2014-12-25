@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>canvas-round</title>
+  <style>canvas{display: block;margin: 0 auto;}</style>
+</head>
+<body>
+  <canvas id="canvas" width="500px" height="400px"></canvas>
+  <script src="fx.js"></script>
+  <script src="easing.js"></script>
+  <script>
+  var canvas = document.querySelector( '#canvas' );
+  var ctx = canvas.getContext('2d');
+  var DEFAULT_RADIUS = 80;
+  var DEFAULT_LINE_WIDTH = 24;
+
+  function convert( n ) {
+    return n/180 * Math.PI;
+  }
+
+  function draw( n ) {
+    // 清理画布
+    ctx.clearRect( 0, 0, canvas.width, canvas.height );
+
+    ctx.save();
+    // 调整位置
+    ctx.translate( canvas.width/2, canvas.height/2 );
+
+    // 保证状态, 在写文本时使用.
+    ctx.save();
+    ctx.rotate( -Math.PI/2 );
+
+    // 绘制背景圆
+    ctx.beginPath();
+    ctx.arc( 0, 0, DEFAULT_RADIUS, 0, Math.PI * 2, false );
+    ctx.lineWidth = DEFAULT_LINE_WIDTH;
+    ctx.strokeStyle = '#F0F0F0';
+    ctx.stroke();
+
+    // 绘制前景圆
+    ctx.beginPath();
+    ctx.arc( 0, 0, 80, 0, convert(n), false );
+    ctx.lineWidth = DEFAULT_LINE_WIDTH;
+    ctx.strokeStyle = '#6EC84E';
+    ctx.stroke();
+
+    ctx.restore();
+
+    // 写文本
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = 'normal normal 24px "Arial", sans-serif';
+    ctx.fillStyle = 'green';
+    ctx.fillText( (n/360 * 100).toFixed(2) + '%', 0, 0 );
+
+    // 调整栈
+    ctx.restore();
+  }
+
+  function init( p ) {
+    var n = p * 360;
+    FX( 800, function( per ) {
+      draw( n * Easing.easeOut(per) );
+    });
+  }
+
+  init( 0.65 );
+  </script>
+</body>
+</html>

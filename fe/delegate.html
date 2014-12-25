@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>d</title>
+</head>
+<body>
+<div class="wrap" data-action="log" data-id="box">
+  <a href="http://www.github.com/" data-action="go log">Click Here!</a>
+</div>
+<script src="../log/jquery-1.11.0.min.js"></script>
+<script src="./action.js"></script>
+<script>
+  $.action.bind( 'go', function() {
+    var href = this.href;
+    console.log( 'go' );
+  });
+  $.action.bind( 'log', function() {
+    console.log( 'pingback!', this.dataset.id || this.href );
+  });
+</script>
+</body>
+</html>
