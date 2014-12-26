@@ -5,5 +5,6 @@
 
   完善动画函数
   * jQuery.easing http://gsgd.co.uk/sandbox/jquery/easing/
-
+  ../ppt/demo/fx.js
+  ../ppt/demo/easing.js
 */

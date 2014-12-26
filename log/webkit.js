@@ -13,3 +13,9 @@ zoom-in
 zoom-out
 grab
 grabbing
+
+http://dabblet.com/
+http://dabblet.com/gist/1532242
+overflow-x:-webkit-marquee;
+-webkit-marquee-speed:slow;
+-webkit-marquee-increment:large;

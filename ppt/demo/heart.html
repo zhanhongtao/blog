@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>canvas</title>
+</head>
+<body>
+  <canvas id="box" width="800" height="800"></canvas>
+  <script>
+  var box = document.getElementById( 'box' );
+  box.width = 600;
+  box.height = 600;
+  var ctx = box.getContext( '2d' );
+
+  function test() {
+    ctx.beginPath();
+    ctx.moveTo( 0, 0 );
+    for ( var x = 0; x < 300; ++x ) {
+      var y = 1/Math.sqrt(x);
+      ctx.lineTo( x, y * 200 );
+    }
+    ctx.stroke();
+  }
+
+  function heart() {
+    // [-17, 16]
+    function gx(t) {
+      return 16 * Math.pow(Math.sin(t), 3);
+    }
+    function gy(t) {
+      return 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    }
+    ctx.beginPath();
+    var xs, ys; xs = ys = [];
+    for ( var i = 0; i <= 360; ++i ) {
+      var t = i * Math.PI * 2 / 360;
+      var x = 100 + gx(t) * 1.5;
+      var y = 100 - gy(t) * 1.5;
+      xs.push( gx(t) );
+      ys.push( gy(t) );
+      ctx.lineTo( x, y );
+    }
+    ctx.fillStyle = '#f00';
+    ctx.fill();
+  }
+
+  heart();
+
+
+  </script>
+</body>
+</html>
