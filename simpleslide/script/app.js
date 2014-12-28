@@ -29,7 +29,7 @@ var transform = pfx( 'transform' );
 var myslide = slide({
   max: list.length,
   rotate: true,
-  onchange: function( to, from, oto ){
+  onchange: function( to, from, oto ) {
     var i = 0;
     while ( i < 2 ) {
       var index = to + i;

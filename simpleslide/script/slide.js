@@ -13,7 +13,7 @@
   }
 
   function fixIndex( index, config ) {
-    var max = config.max, rotate = config.rotate, 
+    var max = config.max, rotate = config.rotate,
         per = config.per, stop = config.stop;
     index = rotate ? ( index % max + max ) % max :
       index >= max ? max - 1 : index < 0 ? 0 : index;
@@ -39,6 +39,10 @@
     per: 1,                 // 每屏显示个数
     step: 1,                // 每次切换步长 - @NOTE: 显示个数可能会和步长不同
     stop: true              // 不够 per 显示时, stop 处理.
+  };
+
+  slide.prototype.update = function( config ) {
+    this.config = extend( {}, this.config, config );
   };
 
   // 初始化.

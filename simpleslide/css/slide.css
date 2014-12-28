@@ -1,5 +1,5 @@
-* { 
-  margin: 0; 
+* {
+  margin: 0;
   padding: 0;
 }
 
@@ -9,12 +9,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-ul, li { 
+ul, li {
   list-style: none;
 }
 
-a img { 
-  display: block; 
+a img {
+  display: block;
   border: none; /* ie 下, 图片存在边框  */
 }
 
