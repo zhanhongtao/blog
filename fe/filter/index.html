@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSS3 filter</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+  var box = document.getElementById( 'box' );
+  var effects = [
+    'grayscale',
+    'sepia',
+    'saturate',
+    'hue-rotate',
+    'invert',
+    'opacity',
+    'brightness',
+    'contrast',
+    'blur',
+    'drop-shadow'
+  ];
+
+  var fragment = document.createDocumentFragment();
+
+  for (var i = 0, l = effects.length; i < l; ++i) {
+    var item = document.createElement('div');
+    var image = document.createElement('img');
+    image.src = './helper.jpeg';
+    item.appendChild(image);
+    fragment.appendChild(item);
+    item.id = effects[i];
+    item.className = 'item';
+  }
+
+  box.appendChild(fragment);
+  </script>
+</body>
+</html>

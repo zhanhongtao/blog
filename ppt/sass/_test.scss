@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+/* @mixin */
+@mixin bg( $x, $y ) {
+  background: url(./images/background.png) no-repeat $x $y;
+}
+
+/* @include + @mixin */
+@for $i from 1 to 10 {
+  .title_#{$i} a {
+    @include bg( 0, 10px * $i );
+  }
+}
+
+/* @for $i from $start through $end */
+@for $i from 1 through 10 {
+  .title#{$i} a {
+    @include bg( 21px, ($i - 1) * 41px );
+  }
+}
+
+/* @while */
+$max: 10;
+$i: 0;
+@while ( $i <= $max ) {
+  .title#{$i} a {
+    @include bg( 10px, 10px * $i );
+  }
+  $i: $i + 1;
+}
+
+/* @each $i in array */
+@each $i in (0, 1, 2, 10) {
+  .title_#{$i} {
+    @include bg( 10px, 10 * $i );
+  }
+}
+
+/* @each $in in array-like */
+@each $a, $b, $c in ( a, b, c ), (x, y, z) {
+  ##{$a}.#{$b} {
+    #{$c}: 3;
+  }
+}
+
+/* @each $key, $value */
+@each $key, $value in (h1: 2) {
+  .box #{$key} {
+    line-height: $value;
+  }
+}
+
+/*
+
+@mixin
+@extend 扩展代码片段或 %placeholder
+@include @function @return
+
+*/
