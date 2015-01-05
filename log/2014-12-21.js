@@ -11,9 +11,9 @@
 */
 
 function createRGB() {
-  var r = Math.floor( Math.random() * 255 );
-  var g = Math.floor( Math.random() * 255 );
-  var b = Math.floor( Math.random() * 255 );
+  var r = Math.floor( Math.random() * (1 + 255) );
+  var g = Math.floor( Math.random() * (1 + 255) );
+  var b = Math.floor( Math.random() * (1 + 255) );
   return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 

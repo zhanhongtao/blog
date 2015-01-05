@@ -91,7 +91,7 @@ function random( min, max ) {
     min = max;
     max = tmp;
   }
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 // 自定义随机排序
