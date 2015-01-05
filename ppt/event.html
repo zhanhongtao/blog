@@ -492,13 +492,13 @@ document.getElementById( '_click_this_ie' ).attachEvent( 'onclick', function(e) 
     </div>
     <div class="bd">
       <ul>
-        <li>visibilitychange/document.hidden
+        <li>visibilitychange/document.hidden/document.visibilityState
         <li>hashchange - ie8+
         <li>popstate
       </ul>
 <pre class="code" data-type="js" data-run="1">
 document.addEventListener( 'visibilitychange', function(e) {
-  console.log( 'hidden: ' + document.hidden );
+  console.log( 'state: ', document.visibilityState, document.hidden );
 }, false );
 </pre>
     </div>
