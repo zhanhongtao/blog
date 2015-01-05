@@ -8,23 +8,25 @@
     .clearfix:after { content: ''; display: table; clear: both; }
     .calendar { border-collapse: collapse; width: 100%; }
     .calendar caption { font-weight: 700; line-height: 2; }
-    .calendar-next, 
+    .calendar-next,
     .calendar-prev { cursor: pointer; font-size: .8em; }
     .calendar-prev { float: left;}
     .calendar-next { float: right;}
     .calendar th { border-bottom: 1px dotted #eee; }
     .calendar td { text-align: center; cursor: pointer; }
     .calendar .item { border: 1px solid transparent; }
-    .calendar .item:hover,
-    .calendar .selected{ border: 1px solid #faa; }
+    .calendar .item:hover, .calendar .selected{ border: 1px solid #faa; }
     .calendar .today { background-color: #faa; color: #fff;}
+    .calendar .sameday { background-color: #ffa; color: #fff;}
     .calendar .weekend { color: #999 }
     .calendar .not-current-month { color: #BDB7B7;}
+    .calendar .disabled { color: #eee; }
   </style>
 </head>
 <body>
   <div id="box"></div>
   <script src="/ppt/js/jquery-1.11.0.min.js"></script>
   <script src="date.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
