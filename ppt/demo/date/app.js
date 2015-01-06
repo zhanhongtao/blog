@@ -4,24 +4,30 @@ var box = $( '#box' );
 // @todo: class 规则, 简单化.
 var c = calendar({
   box: box,
+  min: new Date,
+  // max: '2015-05-06',
   // @todo: 使用消息通知方式.
-  click: function( date, dom ) {
-    console.log( 'selected date: ', date );
-    var item = $( dom ).find( '.item' );
+  click: function( dom, date ) {
     box.find( '.selected' ).removeClass( 'selected' );
-    $( dom ).find( '.item' ).addClass( 'selected' );
+    $(dom).addClass( 'selected' );
   }
 });
+
+c.init().render();
 
 // @NOTE: 事件有使用者绑定.
 box.on( 'click', '.action', function() {
   var id = $(this).data('id');
   switch( id ) {
     case 'next-month':
-      c.nextMonth();
+      if (c.btnNext) {
+        c.nextMonth();
+      }
       break;
     case 'prev-month':
-      c.prevMonth();
+      if(c.btnPrev) {
+        c.prevMonth();
+      }
       break;
     default:
       break;

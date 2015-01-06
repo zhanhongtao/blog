@@ -1,8 +1,7 @@
 ;(function(root) {
 
-// @todo: 已到类里面
-// 支持全局定义语言.
-// 要求 0-6 顺序.
+// @todo: 移到类中
+// 目前是全局定义语言.
 var weekTextList = [
   '日',
   '一',
@@ -15,7 +14,49 @@ var weekTextList = [
 
 function noop() {}
 
-// 处理单个格子样式.
+// 扩展对象
+function mixin(des, src, map) {
+  if (typeof des !== 'object'
+    && typeof des !== 'function') {
+    throw new TypeError('Unable to enumerate properties of '+ des);
+  }
+  if (typeof src !== 'object'
+    && typeof src !== 'function') {
+    throw new TypeError('Unable to enumerate properties of '+ src);
+  }
+
+  map = map || function (d, s, i, des, src) {
+    //这里要加一个des[i]，是因为要照顾一些不可枚举的属性
+    if(!(des[i] || (i in des))){
+      return s;
+    }
+    return d;
+  }
+
+  if (map === true) { //override
+    map = function(d,s){
+      return s;
+    }
+  }
+
+  for (var i in src) {
+    des[i] = map(des[i], src[i], i, des, src);
+    //如果返回undefined，尝试删掉这个属性
+    if (des[i] === undefined) delete des[i];
+  }
+  return des;
+}
+
+// 遍历
+function each(array, handler) {
+  for (var i = 0, l = array.length; i < l; ++i) {
+    try {
+      handler(array[i], i, array);
+    } catch(e) {}
+  }
+}
+
+// 处理单个格子样式(class-name).
 function grid(data) {
   var config = this.config;
   var list = [config.item];
@@ -28,7 +69,7 @@ function grid(data) {
       }
     }
   }
-  return '<div class="' + list.join(' ') + '">' + data.day + '</div>';
+  return list;
 }
 
 // 修正星期显示
@@ -73,16 +114,90 @@ function getDaysInMonth(year, month) {
   // return new Date( year, month, 0 ).getDate();
 }
 
+// 指定为 2015-01-01 格式
+// 不支持 15-01-01 格式
+function format(date) {
+  return String(date).replace(/(?:-)(.)(?![0-9])/g, function(full, match) {
+    return '-0' + match;
+  });
+}
+
+function toString(year, month, day) {
+  if (year instanceof Date) {
+    var date = year;
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate();
+  }
+  return format([year, month + 1, day].join('-'));
+}
+
+// 转换为统一日期格式
+function toDate(year, month, day) {
+  if (year instanceof Date) {
+    return new Date(toString(year));
+  }
+  // 年月日参数
+  if (arguments.length == 3) {
+    year = [year, month + 1, day].join('-');
+  }
+  if (typeof year == 'string') {
+    return new Date(format(year));
+  }
+  // 保证和时间无关
+  return new Date(toString(new Date));
+}
+
 // date 是否在给定的range([min, max])区间内
-function inRange(date, range) {
+function inRange(date, range, from) {
   var min = range[0], max = range[1];
   if ( !min && !max ) return true;
-  var bottom = new Date(min).getTime();
-  date = date instanceof Date ? date : new Date(date);
+  date = toDate(date);
+  var bottom = min.getTime();
   var test = date.getTime();
   if (!max) return test >= bottom;
-  var top = new Date(max).getTime();
+  var top = max.getTime();
   return test >= bottom && test <= top;
+}
+
+// 是否支持 prev/next
+function updateState() {
+
+  if (!this.min) {
+    this.btnPrev = true;
+  }
+
+  if (!this.max) {
+    this.btnNext = true;
+  }
+
+  var date = this.date;
+  var year = date.getFullYear(),
+      month = date.getMonth(),
+      day = date.getDate();
+
+  var prev = calc({
+    year: year,
+    month: month - 1,
+    day: day
+  });
+
+  var next = calc({
+    year: year,
+    month: month + 1,
+    day: day
+  });
+
+  this.btnPrev = inRange(
+    toDate(prev.year, prev.month, prev.day),
+    [this.min, this.max],
+    'state'
+  );
+
+  this.btnNext = inRange(
+    toDate(next.year, next.month, next.day),
+    [this.min, this.max]
+  );
 }
 
 // @NOTE: 只修正一个值.
@@ -102,14 +217,10 @@ function calc(obj) {
     month = 11;
   }
   var days = getDaysInMonth(year, month);
-  obj.year = year, obj.month = month, obj.day = day <= days ? day : days;
+  obj.year = year;
+  obj.month = month;
+  obj.day = day <= days ? day : days;
   return obj;
-}
-
-// @todo: 支持 format 参数.
-function toString(obj, format) {
-  var value = [obj.getFullYear(), obj.getMonth() + 1, obj.getDate()].join('-');
-  return value;
 }
 
 // 对外公布接口
@@ -125,7 +236,7 @@ calendar.defaultConfig = {
   // 认为从星期几开始显示
   // 其中, 0 表示周日
   start: 0,
-  today: new Date,
+  today: toDate(),
   onclick: noop,
   // 星期显示文本
   weekTextList: weekTextList,
@@ -157,7 +268,7 @@ calendar.defaultConfig = {
     // 范围
     disabled: function(data) {
       if (!inRange(
-        new Date( data.year, data.month, data.day ),
+        toDate(data.year, data.month, data.day),
         [this.min, this.max]
       )) {
         return 'disabled';
@@ -168,18 +279,27 @@ calendar.defaultConfig = {
       if (this.selected) {
         for (var i = 0, l = this.selected.length; i < l; ++i) {
           var tmp = this.selected[i];
-          if ( tmp == [data.year, data.month + 1, data.day].join('-') ) {
+          if ( tmp == toString(data.year, data.month, data.day) ) {
             return 'selected';
           }
         }
       }
     },
     // 其他月, 相同日期
+    // * 防止和当天冲突
+    // * 防止高亮显示其他月份日期
     sameday: function(data) {
       var day = this.today.getDate();
       var string = toString(this.today);
-      var tmp = [data.year, data.month + 1, data.day].join('-');
-      if (data.day == day && tmp != string) {
+      var tmp = toString(data.year, data.month, data.day);
+      if (
+        // 非当天
+        tmp != string &&
+        // 天
+        data.day == day &&
+        // 当月
+        data.month == this.date.getMonth()
+      ) {
         return 'sameday';
       }
     }
@@ -193,64 +313,69 @@ calendar.util = {
   fixedWeek: fixedWeek,
   getDaysInMonth: getDaysInMonth,
   inRange: inRange,
-  calc: calc
+  calc: calc,
+  toDate: toDate,
+  toString: toString
 };
 
 function calendar(config) {
-  if (
-    !(this instanceof calendar)
-  ) {
+  var isInstance = this instanceof calendar;
+  if (!isInstance) {
     return new calendar(config);
   }
 
   // 合并 config
-  var config = $.extend({}, calendar.defaultConfig, config);
+  var _config = mixin({}, calendar.defaultConfig);
+  config = mixin(_config, config);
   this.config = config;
+
+  this.min = config.min ? toDate(config.min) : false;
+  this.max = config.max ? toDate(config.max) : false;
 
   // 调整 week 的文案顺序
   var start = this.start = config.start;
   fixedWeekList(start, config.weekTextList);
 
   // 记录今天的日期
-  this.today = config.today;
+  this.today = toDate(config.today);
 
   // 记录当前日期
   // 一般和 today 同步
   // 默认: today
   var date = this.today;
-  if (config.date) {
-    if (typeof config.date == 'string') {
-      date = new Date(config.date);
-    } else if (config.date instanceof Date) {
-      date = config.date;
-    }
-  }
-  this.date = date;
+  this.date = toDate(config.date);
+
+  // 更新状态
+  updateState.call(this);
 
   // 高亮当前日期
   this.selected = [ toString(this.date) ];
 
   // 记录容器
   this.box = config.box;
-
-  // 初始化
-  // 渲染页面
-  this.init();
 }
 
+// @todo: 是否保留事件处理.
 calendar.prototype.init = function() {
-  this.render();
   var onclick = this.config.click;
   var self = this;
+  // @todo: 手机上的 touch 事件
   $(this.box).on('click', 'td', function(e) {
     // @todo: 使用 shift/ctrl 做区间选择
     var value = $(this).data('date');
-    var date = new Date(value);
-    var ret = onclick.call(self, date);
+    var date = toDate(value);
+    var ret = onclick.call(self, e.target, date);
     if (ret !== false) {
       self.selected = [value];
     }
   });
+  return this;
+};
+
+// 更新配置信息
+calendar.prototype.setConfig = function(config) {
+  this.config = mixin(this.config, config);
+  updateState.call(this);
   return this;
 };
 
@@ -259,6 +384,7 @@ calendar.prototype.render = function() {
   var config = this.config,
       self = this,
       html = '';
+  updateState.call(this);
 
   if (!config.noweek) {
     // 拼头部导航
@@ -286,9 +412,10 @@ calendar.prototype.render = function() {
     if (index % 7 === 0) {
       html += '<tr>'
     }
-    var date = [data.year, data.month + 1, data.day ].join('-');
+    var date = toString(data.year, data.month, data.day);
     html += '<td data-date="' + date + '" data-week="' + data.week + '">';
-    html += grid.call(self, data);
+    var list = grid.call(self, data);
+    html += '<div class="' + list.join(' ') + '">' + data.day + '</div>';
     html += '</td>';
     if ( index % 7 === 6 ) {
       html += '</tr>';
@@ -341,7 +468,7 @@ calendar.prototype.grid = function(func) {
   // 当月格子.
   var year = date.getFullYear(),
       month = date.getMonth(),
-      days = getDaysInMonth( year, month ),
+      days = getDaysInMonth(year, month),
       week = theWeekOfFirstDay,
       i = 1;
   while ( i <= days ) {
@@ -383,25 +510,32 @@ calendar.prototype.grid = function(func) {
   prevYear/prevMonth
   只更新数据, 不负责渲染
 */
-$.each(['next', 'prev'], function(i, prefix) {
-  $.each(['year', 'month'], function(j, type) {
+each(['next', 'prev'], function(prefix) {
+  each(['year', 'month'], function(type) {
     var _type = type.charAt(0).toUpperCase() + type.slice(1);
-    calendar.prototype[ prefix + _type ] = function() {
-      var date = this.date, obj = {
+    calendar.prototype[prefix + _type] = calendar.util[prefix + _type] = function(date) {
+      date = date || this.date;
+      var obj = {
         year: date.getFullYear(),
         month: date.getMonth(),
         day: date.getDate()
       };
       obj[type] = obj[type] + (prefix == 'next' ? 1 : -1);
-      obj = calc(obj, type);
-      this.date = new Date( [obj.year, obj.month + 1, obj.day].join('/') );
+      var ret = calc(obj, type);
+      if (this instanceof calendar) {
+        this.date = toDate(ret.year, ret.month, ret.day);
+        return this;
+      }
+      return ret;
     };
   });
 });
 
-calendar.prototype.gototoday = function() {
-  this.date = this.config.today;
-  return this.render();
+calendar.prototype.goto = function(date) {
+  date = toDate(date);
+  this.date = date;
+  this.selected = [date];
+  return this;
 };
 
 calendar.prototype.get = function() {
