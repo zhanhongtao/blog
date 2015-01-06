@@ -1,15 +1,15 @@
-var Event = function() {
+var eProxy = function() {
   this.callbacks = {};
 };
 
-Event.callbacks = {};
+eProxy.callbacks = {};
 
-Event.listen = Event.prototype.listen = function( name, callback ) {
+eProxy.listen = eProxy.prototype.listen = function( name, callback ) {
   var callbacks = this.callbacks[name] = this.callbacks[name] || [];
   callbacks.push( callback );
 };
 
-Event.remove = Event.prototype.remove = function( name, callback ) {
+eProxy.remove = eProxy.prototype.remove = function( name, callback ) {
   if ( typeof name == 'string' ) {
     var callbacks = this.callbacks[name];
     if ( callbacks ) {
@@ -30,7 +30,7 @@ Event.remove = Event.prototype.remove = function( name, callback ) {
   }
 };
 
-Event.notify = Event.prototype.notify = function( name ) {
+eProxy.notify = eProxy.prototype.notify = function( name ) {
   var callbacks = this.callbacks[name];
   if ( callbacks && typeof name == 'string' ) {
     for ( var i = 0;  i < callbacks.length; ++i ) {

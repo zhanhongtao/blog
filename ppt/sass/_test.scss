@@ -1,5 +1,30 @@
 @charset "utf-8";
 
+
+
+$width: 100px;
+
+.box {
+    $width: 200px;
+    .main {
+      // 200px;
+      width: $width;
+    }
+    
+    /*
+      变量需要提前定义.
+      .content {
+        width: $_width;
+      }
+      $_width: 50px;
+    */
+}
+
+// 100px;
+.sidebar {
+  width: $width;
+}
+
 /* @mixin */
 @mixin bg( $x, $y ) {
   background: url(./images/background.png) no-repeat $x $y;
