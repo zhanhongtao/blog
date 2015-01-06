@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>margin 负值布局</title>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+    
+		body {
+      /* 
+        宽度 + margin: 0 auto; => 水平居中技巧 
+      */
+			width:960px;
+      margin: 0 auto;
+		}
+    
+		.wrap {
+      /* 
+        包裹浮动元素
+        包裹 padding/margin 修正的登高效果
+      */
+			overflow: hidden;
+		}
+   
+		.main,
+    .sub,
+    .extra {
+      /* float + margin 负值布局 */
+			float: left;
+      
+      /* 实现登高技巧 */
+			padding-bottom: 9999px;
+			margin-bottom: -9999px;
+		}
+
+		.main{
+			width: 100%;
+		}
+		.mainContent {
+      /* 真实容器元素 */
+			margin:0 200px 0 200px;
+			background:#f3f3f3;
+			height:300px;
+		}
+		.sub {
+			width:200px;
+      /* float + 负值, 引起元素上移 */
+			margin-left:-100%;
+			background: #6f6f6f;
+		}
+		.extra{
+			width:200px;
+			background: #6e6e6e;
+			margin-left: -200px;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="main">
+		<div class="mainContent"></div>
+	</div>
+	<div class="sub"></div>
+	<div class="extra"></div>
+</div>
+</body>
+</html>

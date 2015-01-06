@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Margin/Position - Head/Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .head {
+          background-color: #faa;
+          margin: 20px auto;
+          width: 80%;
+          position: relative;
+          line-height: 1.5;
+          /* height: 32px */
+        }
+        
+        h2 {
+          font-weight: 400;
+          font-size: 16px;
+          padding: 4px 10px;
+        }
+        
+        .margin .more {
+          position: absolute;
+          width: 100%;
+          text-align: right;
+          margin-top: -28px; /* 32px - 4px */
+        }
+        .margin .more a {
+          margin-right: 10px;
+        }
+        
+        .relative .more {
+          position: relative;
+        }
+        .relative .more a {
+          position: absolute;
+          top: 4px;
+          right: 10px;
+        }
+    </style>
+</head>
+<body>
+	<div class="margin head">
+    <h2>应用介绍</h2>
+    <div class="more">
+      <a href="http://github.com/">More</a>
+    </div>
+  </div>
+  <div class="relative head">
+    <div class="more"><a href="http://github.com/">More</a></div>
+    <h2>应用介绍</h2>
+  </div>
+</body>
+</html>

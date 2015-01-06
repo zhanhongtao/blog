@@ -14,17 +14,20 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>import css</h1>
+      <h1>引入 CSS</h1>
     </div>
     <div class="bd">
-      <li>&lt;{element} style="{css-code}">
-      <li>&lt;style&gt;/* code */&lt;/style&gt;
-      <li>&lt;link rel="stylesheet" href="_file_name.css"&gt;
+      <h2>把 css 和 html 关联起来</h2>
+      <ul>
+        <li><code>&lt;{element} style="{css-code}">&lt;/{element}&gt;</code>
+        <li><code>&lt;style&gt;/* code */&lt;/style&gt;</code>
+        <li><code>&lt;link rel="stylesheet" href="_file_name.css"&gt;</code>
+      </ul>
     </div>
   </section>
-  <section class="slide" id="media">
+  <section class="slide toggle" id="media">
     <div class="hd">
-      <h1>Meida Type/Media Query</h1>
+      <h1>Media Query</h1>
     </div>
     <div class="bd">
       <ul>
@@ -50,7 +53,7 @@
   </section>
   <section class="slide" id="selector">
     <div class="hd">
-      <h1>Selector</h1>
+      <h1>选择器</h1>
     </div>
     <div class="bd">
       <h2>常用选择器</h2>
@@ -125,7 +128,7 @@
         <li>E::before
         <li>E::after
       </ul>
-      <p>可利用 before/after 选择器配合 content 属性来生成内容. <a href="http://jsfiddle.net/redky/DaG94/">实例</a>
+      <p>可利用 before/after 选择器配合 content 属性来生成内容, 以及实现各种样式. <a href="http://jsfiddle.net/redky/DaG94/">实例</a>
     </div>
   </section>
   <section class="slide">
@@ -140,7 +143,7 @@
         <li>E:active
         <li>E:focus
       </ul>
-      <p>注意在书写 CSS 时, 要保证按上面顺序.
+      <p>注意在书写 CSS 时, 要保证按上面顺序. (L)o(v)e, (H)a(t)e
     </div>
   </section>
   <section class="slide">
@@ -197,23 +200,25 @@
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>CSS Box Model</h1>
+      <h1>盒子模型</h1>
     </div>
     <div class="bd">
       <img src="./images/css/box.png" />
       <ul>
-        <li>margin - 非置换元素没有垂直方向外边距
-        <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a>/<a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
-        <li>padding
-        <li>content(width/height)
-        <li>box-sizing(border-box/content-box) - width/height
-        <li>[outline/box-shadow]
+        <li>margin - 外边距
+        <li><a href="http://zhanhongtao.github.io/blog/fe/border.html">border</a> /
+          <a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
+        <li>padding - 内边距
+        <li>content - width/height/min(max)-width(height)
+        <li>box-sizing
       </ul>
+      <h2>其他相关</h2>
+      <p>outline/box-shadow
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>Document Flow</h1>
+      <h1>文档流</h1>
     </div>
     <div class="bd">
       <ul>
@@ -222,21 +227,105 @@
         <li>relative(相对于元素自身在 static 状态下位置)
         <li>absolute(相对于祖先元素中存在 position: relative/aboslute/fixed; 的元素; 不存在时, 相对于 body 元素)
         <li>float
-        <li><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
+        <li class="toggle"><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
       </ul>
     </div>
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>About ocument Flow</h1>
+      <h1>文档流相关属性</h1>
     </div>
     <div class="bd">
       <ul>
         <li>top/right/bottom/left(0, 1, 2, 3, 4)
         <li>z-index(require: relative/absolute/fixed)
         <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left) (require: absolute)
-        <li><a href="#clearfix" target="_self">clear</a>(left/right/both)
-        <li>overflow(hidden/auto/visible/scroll)
+        <li><a href="#clearfix" target="_self">clear</a> - left/right/both
+        <li>overflow - visible/hidden/auto/scroll
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>外边距(margin)</h1>
+    </div>
+    <div class="bd">
+      <p>margin: 元素与父元素或其它元素之间的距离.
+      <h2>对自身和附近元素的影响</h2>
+      <ul>
+        <li>在 top 和 left 方向移动, 同时影响附近元素
+          <ul>
+            <li>正值, 向下/右移动
+            <li>负值, 向上/左移动
+          </ul>
+        <li>在 bottom 和 right 方向, 只影响附近元素
+          <ul>
+            <li>正值, 附近元素向下/右移动
+            <li>负值, 附近元素向上/左移动(可能出现覆盖现象)
+          </ul>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>margin与其他属性关系对比</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>position: relative;
+        <p>设置 relative + 方向, 元素原位置留白(即相邻元素位置不变), 自身向指定方向移动.
+        <li>position: absolute;
+        <p>设置 absolute 属性, 元素脱离文档流. 相邻元素做移动.
+      </ul>
+    </div>
+  </section>
+  <section class="slide" id="margin-collapse">
+    <div class="hd">
+      <h1>外边距合并</h1>
+    </div>
+    <div class="bd">
+      <p>相邻的两个box(兄弟关系或祖先关系)的外边距<em>可能</em>合并为一个外边距.
+      <h2>合并的计算规则</h2>
+      <ul>
+        <li>两外边距都是正数时, 合并结果是其中较大的值
+        <li>两外边距都是负数时, 合并结果是两者绝对值较大的那个
+        <li>两外边距一正一负时, 合并结果是两者的相加的结果
+      </ul>
+      <h2>合并条件</h2>
+      <ul>
+        <li>在同一个 Block Formatting Context 中, 处于静态文档流中的块级(block/table/list-item)元素.
+        <li>盒子没有 padding 和 border.
+        <li>渲染相邻的两个元素在垂直方向上.
+        <li>设置 clear 属性的元素不和任何元素发生margin合并
+        </ul>
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>现象</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>BFC 内部的元素和外部元素不会发生 margin 合并.
+        <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
+        <li>非 block 元素不会发生 margin 合并.
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Margin 应用</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/margin/layout.html">Layout</a>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/margin/list.html">增加元素宽度</a>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/margin/head.html">模块 Head</a>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/margin/nav.html">隐藏导航分割线</a>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/margin/rank.html">排行榜/分类</a>/
+            <a href="http://zhanhongtao.github.io/blog/fe/margin/media.html">Media</a>/
+            <a href="http://zhanhongtao.github.io/blog/fe/margin/media-ext.html">Media-ext</a>
       </ul>
     </div>
   </section>
@@ -249,9 +338,9 @@
         <li>initial
         <li>none
         <li><a href="#inline-box" target="_self">inline</a>
-        <li>inline-block
+        <li><a href="http://zhanhongtao.github.io/blog/fe/property/inline-block.html">inline-block</a>
         <li>block
-        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(box)
+        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(<a href="http://zhanhongtao.github.io/blog/fe/box.html">box</a>)
         <li>inline-flex
         <li>table/table-cell
         <li>...
@@ -303,40 +392,6 @@
 </pre>
     </div>
   </section>
-  <section class="slide" id="margin-collapse">
-    <div class="hd">
-      <h1>margin collapse</h1>
-    </div>
-    <div class="bd">
-      <p>相邻的两个box(兄弟关系或祖先关系)的外边距<em>可能</em>合并为一个外边距.
-      <h2>合并的计算规则</h2>
-      <ul>
-        <li>两外边距都是正数时, 合并结果是其中较大的值
-        <li>两外边距都是负数时, 合并结果是两者绝对值较大的那个
-        <li>两外边距一正一负时, 合并结果是两者的相加的结果
-      </ul>
-      <h2>合并条件</h2>
-      <ul>
-        <li>在同一个 Block Formatting Context 中, 处于静态文档流中的块级(block/table/list-item)元素.
-        <li>盒子没有 padding 和 border.
-        <li>渲染相邻的两个元素在垂直方向上.
-        <li>设置 clear 属性的元素不和任何元素发生margin合并
-        </ul>
-      </ul>
-    </div>
-  </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>现象</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>BFC 内部的元素和外部元素不会发生 margin 合并.
-        <li>脱离文档流的元素不会发生 margin 合并 - float/absolute/fixed 元素.
-        <li>非 block 元素不会发生 margin 合并.
-      </ul>
-    </div>
-  </section>
   <section class="slide" id="inline-box">
     <div class="hd">
       <h1>Inline-box</h1>
@@ -355,7 +410,7 @@
       <p>normal/inherit/24px(固定值)/200%(计算后的固定值)/2(因子继承, 没有单位)
     </div>
   </section>
-  <section class="slide">
+  <section class="slide toggle">
     <div class="hd">
       <h1>链接/按钮状态</h1>
     </div>
@@ -367,6 +422,16 @@
       <li>Visited(link) - 访问过后
       <li>Disabled - 禁用
       <li>Readonly - 只读
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>Homework</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>图片(或其他元素)水平垂直居中
+        <li>你能想到多少种隐藏(指: 用户看不到)元素的方法
     </div>
   </section>
   <section class="slide">

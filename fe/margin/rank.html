@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>margin + absolute 实现文本内容自适应效果</title>
+    <style type="text/css">
+        * {
+          margin: 0;
+          padding: 0;
+        }
+
+        ul,
+        li {
+          list-style: none;
+        }
+        
+        ul {
+          width: 60%;
+          margin: 0 auto;
+        }
+        
+        li {
+          margin: 10px 0 10px 30px;
+        }
+        
+        span {
+          position: absolute;
+          margin-left: -30px;
+        }
+    </style>
+</head>
+<body>
+	<ul>
+		<li><span>一、</span>现任豌豆荚Front-end Team Lead。他2011年加入豌豆实验室，曾负责豌豆荚 Windows 版的前端架构设计和主要开发工作，以及 Front-end Infrastructure 的研发工作。</li>
+		<li><span>二、</span>当豌豆荚从一家初创公司成长为一家获得上亿美元投资的企业的时候，赵望野也在他的职业道路上不断成长着。</li>
+		<li><span>三、</span>随着业界对前端工程师价值的逐渐认可，越来越多的人才开始进入这个领域，而赵望野却认为这一切都“有点晚了”。</li>
+		<li><span>四、</span>而他，也逐渐从一个单纯的工程师变成了一个以解决问题为目的的人。</li>
+	</ul>
+</body>
+</html>
