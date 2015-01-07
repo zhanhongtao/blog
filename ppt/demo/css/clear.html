@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Float</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    h1 {
+      font-size: 16px;
+      font-weight: 400;
+      margin: 20px;
+    }
+    .demo {
+      background-color: #f1f1f1;
+    }
+    .demo div {
+      float: left;
+      margin: 10px;
+      background-color: #faa;
+      width: 100px;
+      height: 100px;
+    }
+    .tag {
+      line-height: 100px;
+      text-align: center;
+      color: #fff;
+    }
+    
+    /*
+      两种情况:
+      1. 包裹浮动元素的容器元素里面的最后元素添加 clear 属性.
+         结果是容器可以包裹浮动元素, 效果是有背景颜色.
+      2. 在包裹浮动元素容器元素的下一个兄弟节点添加 clear 属性.
+         这里就是 h2 元素上.
+         结果, 自身会重新从一行开始排版.
+         包裹浮动元素的容器元素依然高度为0, 即不包裹浮动元素.
+         效果, 没有背景颜色
+         demo: 
+         http://zhanhongtao.github.io/blog/ppt/demo/css/clear-1.html
+    */
+    .demo .clear {
+      display: block;
+      clear: left;
+    }
+    
+    /*
+      或者使用 zoom: 1 + :after(content) 
+    .demo {
+      zoom: 1;
+    }
+    .demo:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    */
+    
+    h2 {
+      margin: 20px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <h1>Float</h1>
+  <div class="demo">
+    <div></div>
+    <div class="tag">DEMO</div>
+    <div></div>
+    <div></div>
+    <span class="clear"></span>
+  </div>
+  <h2>Other Document</h2>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Float</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    h1 {
+      font-size: 16px;
+      font-weight: 400;
+      margin: 20px;
+    }
+    .demo {
+      /* 
+        注意这里: 背景色没有显示 
+        因为 .demo 容器没有高度.
+        子元素添加 float 后, 这些元素会脱离正常文档流,
+        并且浮动元素不会和附近的元素发生重叠现象.
+        float 存在的缘由是, 文本环绕图片.
+        导致 .demo 父容器没有内容, 也因此没有高度, 没有空间显示颜色.
+      */
+      background-color: #f1f1f1;
+    }
+    .demo div {
+      float: left;
+      margin: 10px;
+      background-color: #faa;
+      width: 100px;
+      height: 100px;
+    }
+    
+    /* 为了让文本居中 */
+    .tag {
+      line-height: 100px;
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Float</h1>
+  <div class="demo">
+    <div></div>
+    <div class="tag">DEMO</div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>

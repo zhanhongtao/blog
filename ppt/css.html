@@ -200,6 +200,24 @@
   </section>
   <section class="slide">
     <div class="hd">
+      <h1>Display</h1>
+    </div>
+    <div class="bd">
+      <ul>
+        <li>initial
+        <li>none
+        <li><a href="#inline-box" target="_self">inline</a>
+        <li><a href="http://zhanhongtao.github.io/blog/fe/property/inline-block.html">inline-block</a>
+        <li>block
+        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(<a href="http://zhanhongtao.github.io/blog/fe/box.html">box</a>)
+        <li>inline-flex
+        <li>table/table-cell
+        <li>...
+      </ul>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
       <h1>盒子模型</h1>
     </div>
     <div class="bd">
@@ -210,10 +228,10 @@
           <a href="http://zhanhongtao.github.io/blog/fe/border-radius.html">border-radius</a>
         <li>padding - 内边距
         <li>content - width/height/min(max)-width(height)
-        <li>box-sizing
+        <li>box-sizing - content-box/border-box
       </ul>
       <h2>其他相关</h2>
-      <p>outline/box-shadow
+      <p>outline/box-shadow/resize - <a href="http://zhanhongtao.github.io/blog/fe/box-style.html">DEMO</a>
     </div>
   </section>
   <section class="slide">
@@ -223,10 +241,27 @@
     <div class="bd">
       <ul>
         <li>static
-        <li>fixed(相对于窗口定位)
-        <li>relative(相对于元素自身在 static 状态下位置)
-        <li>absolute(相对于祖先元素中存在 position: relative/aboslute/fixed; 的元素; 不存在时, 相对于 body 元素)
-        <li>float
+        <li>fixed(相对于窗口定位) -
+          <a href="./demo/css/fixed.html">0</a> /
+          <a href="./demo/css/fixed-1.html">1</a> /
+          <a href="./demo/css/fixed-2.html">2</a> /
+          <a href="./demo/css/fixed-3.html">3</a> /
+          <a href="./demo/css/fixed-4.html">4</a>
+        <li>relative(相对于元素自身在 static 状态下位置) -
+          <a href="./demo/css/relative.html">0</a> /
+          <a href="./demo/css/relative-1.html">1</a> /
+          <a href="./demo/css/relative-2.html">2</a> /
+          <a href="./demo/css/relative-3.html">3</a>
+        <li>absolute
+          <a href="./demo/css/absolute.html">0</a> /
+          <a href="./demo/css/absolute-1.html">1</a> /
+          <a href="./demo/css/absolute-2.html">2</a> /
+          <a href="./demo/css/absolute-3.html">3</a> /
+          <a href="./demo/css/absolute-4.html">4</a>
+          <p>相对于祖先中存在 position: relative/aboslute/fixed; 的元素; 不存在时, 相对于 body 元素</p>
+        <li>float -
+          <a href="./demo/css/float.html">float</a> /
+          <a href="./demo/css/clear.html">clear</a>
         <li class="toggle"><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
       </ul>
     </div>
@@ -237,7 +272,7 @@
     </div>
     <div class="bd">
       <ul>
-        <li>top/right/bottom/left(0, 1, 2, 3, 4)
+        <li>top/right/bottom/left
         <li>z-index(require: relative/absolute/fixed)
         <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left) (require: absolute)
         <li><a href="#clearfix" target="_self">clear</a> - left/right/both
@@ -329,24 +364,6 @@
       </ul>
     </div>
   </section>
-  <section class="slide">
-    <div class="hd">
-      <h1>Display</h1>
-    </div>
-    <div class="bd">
-      <ul>
-        <li>initial
-        <li>none
-        <li><a href="#inline-box" target="_self">inline</a>
-        <li><a href="http://zhanhongtao.github.io/blog/fe/property/inline-block.html">inline-block</a>
-        <li>block
-        <li><a href="http://zhanhongtao.github.io/blog/fe/flex/">flex</a>(<a href="http://zhanhongtao.github.io/blog/fe/box.html">box</a>)
-        <li>inline-flex
-        <li>table/table-cell
-        <li>...
-      </ul>
-    </div>
-  </section>
   <section class="slide" id="bfc">
     <div class="hd">
       <h1>Block Formatting Contexts</h1>
@@ -370,25 +387,25 @@
     </div>
     <div class="bd">
 <pre class="code" data-type="css">
-.clearfix:before,
-.clearfix:after {
-  content: '';
-  /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
-  display: table;
-  /* 其他方法:
-    display: block;
-    height: 0;
-    overflow: hidden;
-  */
-}
-/* 清除浮动 */
-.clearfix:after {
-  clear: both;
-}
-/* IE 6/7 */
-.clearfix {
-  *zoom: 1;
-}
+  .clearfix:before,
+  .clearfix:after {
+    content: '';
+    /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
+    display: table;
+    /* 其他方法:
+      display: block;
+      height: 0;
+      overflow: hidden;
+    */
+  }
+  /* 清除浮动 */
+  .clearfix:after {
+    clear: both;
+  }
+  /* IE 6/7 */
+  .clearfix {
+    *zoom: 1;
+  }
 </pre>
     </div>
   </section>
@@ -448,7 +465,7 @@
         <li>右侧要求占满余下空间
         <li>右侧内容可能超出容器 - ex: New! 小图标
       </ul>
-      <p><a href="./demo/css.html">demo</a>
+      <p><a href="./demo/css.html">DEMO</a>
     </div>
   </section>
   <section class="slide">

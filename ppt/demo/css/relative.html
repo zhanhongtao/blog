@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Relative</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    h1 {
+      font-size: 16px;
+      font-weight: 400;
+      margin: 20px;
+    }
+    .static, .demo {
+      float: left;
+      width: 50%;
+    }
+    .static div,
+    .demo div {
+      width: 180px;
+      height: 100px;
+      background-color: #faa;
+      margin: 20px;
+    }
+    .static .tag,
+    .demo .tag {
+      background: #aaf;
+      width: 100px;
+    }
+    .tag {
+      line-height: 100px;
+      text-align: center;
+      color: #fff;
+    }
+    .demo .tag {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="static">
+    <h1>Static</h1>
+    <div></div>
+    <div class="tag">DEMO</div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="demo">
+    <h1>Relative</h1>
+    <div></div>
+    <div class="tag">DEMO</div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>
