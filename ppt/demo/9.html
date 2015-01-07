@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>9</title>
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+.box {
+  padding: 5px 0 0 5px;
+  background-color: blue;
+  overflow: hidden;
+  width: 165px;
+  height: 165px;
+  margin: 0 auto;
+}
+ul {
+  width: 200px;
+}
+.box li {
+  float: left;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  list-style: none;
+  background-color: #fff;
+  position: relative;
+}
+a {
+  text-decoration: none;
+}
+
+.text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.helper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  margin-top: -5px;
+  margin-left: -5px;
+}
+a:hover .helper {
+  background: red;
+  z-index: 1;
+}
+  </style>
+</head>
+<body>
+<div class="box">
+  <ul>
+    <li><a href=""><span class="helper"></span><span class="text">1</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">2</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">3</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">4</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">5</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">6</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">7</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">8</span></a></li>
+    <li><a href=""><span class="helper"></span><span class="text">9</span></a></li>
+  </ul>
+</div>
+</body>
+</html>
