@@ -1,32 +1,134 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>date</title>
-  <style>
-    .clearfix { zoom: 1; }
-    .clearfix:after { content: ''; display: table; clear: both; }
-    .calendar { border-collapse: collapse; width: 100%; }
-    .calendar caption { font-weight: 700; line-height: 2; }
-    .calendar-next,
-    .calendar-prev { cursor: pointer; font-size: .8em; }
-    .calendar-prev { float: left;}
-    .calendar-next { float: right;}
-    .calendar th { border-bottom: 1px dotted #eee; }
-    .calendar td { text-align: center; cursor: pointer; }
-    .calendar .item { border: 1px solid transparent; }
-    .calendar .item:hover, .calendar .selected{ border: 1px solid #faa; }
-    .calendar .today { background-color: #faa; color: #fff;}
-    .calendar .sameday { background-color: #ffa; color: #fff;}
-    .calendar .weekend { color: #999 }
-    .calendar .not-current-month { color: #BDB7B7;}
-    .calendar .disabled { color: #eee; }
-  </style>
+  <meta name="viewport" content="width=device-width">
+  <title>station</title>
+  <link rel="stylesheet" href="./css/calendar.css">
 </head>
 <body>
-  <div id="box"></div>
+  <div id="calendar" data-stop="1">
+    <div class="calendar-view">
+      <div id="calendar-prev-day" data-action="prev-day"></div>
+      <div id="calendar-value" data-action="show-calendar"></div>
+      <div id="calendar-next-day" data-action="next-day"></div>
+    </div>
+    <div id="calendar-detail"></div>
+  </div>
   <script src="http://zhanhongtao.github.io/blog/ppt/js/jquery-1.11.0.min.js"></script>
-  <script src="date.js"></script>
-  <script src="app.js"></script>
+  <script src="./calendar.js"></script>
+
+  <script>
+
+    function walkdom(target, handle) {
+      while(target && target.nodeType == 1) {
+        var ret = handle(target);
+        if (ret) return target;
+        target = target.parentNode;
+      }
+      return false;
+    }
+
+    var context = $('#calendar');
+    var detail = context.find('#calendar-detail');
+    var selectedValue = $('#calendar-value');
+    var c = calendar({
+      box: detail[0],
+      min: new Date
+    });
+
+    function render(value) {
+      selectedValue.text(value);
+    }
+
+    function handleGrid(e) {
+      var value = $(this).data('date');
+      var date = calendar.util.toDate(value);
+      var dom = $(this).find('.item');
+      var disabled = $(dom).hasClass('disabled');
+      if (disabled) return;
+      detail.find( '.selected' ).removeClass( 'selected' );
+      $(dom).addClass( 'selected' );
+      c.goto(value);
+      render(value);
+      calendarToggleView(false);
+    }
+
+    function calendarToggleView(flag) {
+      c.view = flag == null ?
+        (c.view == null ? false : c.view) : !flag;
+      c.view = !c.view;
+      c[ c.view ? 'show' : 'hide' ]();
+    }
+
+    function handleAction(target) {
+      var dataset = target.dataset;
+      if (!dataset) return;
+      switch(dataset.action) {
+        case 'next-month':
+          if (c.isnextmonth) {
+            c.nextMonth();
+            c.render();
+          }
+          break;
+        case 'prev-month':
+          if(c.isprevmonth) {
+            c.prevMonth();
+            c.render();
+          }
+          break;
+        case 'prev-day':
+          if (c.isprevday) {
+            var value = c.get()[0];
+            var prevday = calendar.util.prevDay(value);
+            c.goto(prevday);
+            render( calendar.util.toString(prevday) );
+            calendarToggleView(false);
+          }
+          break;
+        case 'next-day':
+          if (c.isnextday) {
+            var value = c.get()[0];
+            var nextday = calendar.util.nextDay(value);
+            c.goto(nextday);
+            render( calendar.util.toString(nextday) );
+            calendarToggleView(false);
+          }
+          break;
+        case 'show-calendar':
+          calendarToggleView();
+          break;
+        default:
+          break;
+      }
+    }
+
+    render(
+      calendar.util.toString(c.config.today)
+    );
+
+    // @todo: 手机上的 touch 事件
+    $(detail).on('click', 'td', handleGrid);
+
+    // @todo: 提取到 app 层.
+    $(document).on('click', function(e) {
+      var stop = false;
+      walkdom(e.target, function(target) {
+        setTimeout((function(target) {
+          return function() {
+            handleAction(target);
+          };
+        })(target), 10);
+        if (!stop) {
+          if (target.getAttribute('data-stop') == 1) {
+            stop = true;
+          }
+        }
+      });
+      if (!stop) {
+        calendarToggleView(stop);
+      }
+    });
+  </script>
 </body>
 </html>

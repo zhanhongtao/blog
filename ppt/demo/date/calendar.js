@@ -26,7 +26,7 @@ function mixin(des, src, map) {
   }
 
   map = map || function (d, s, i, des, src) {
-    //这里要加一个des[i]，是因为要照顾一些不可枚举的属性
+    // 这里要加一个des[i]，是因为要照顾一些不可枚举的属性
     if(!(des[i] || (i in des))){
       return s;
     }
@@ -41,7 +41,7 @@ function mixin(des, src, map) {
 
   for (var i in src) {
     des[i] = map(des[i], src[i], i, des, src);
-    //如果返回undefined，尝试删掉这个属性
+    // 如果返回undefined，尝试删掉这个属性
     if (des[i] === undefined) delete des[i];
   }
   return des;
@@ -52,7 +52,9 @@ function each(array, handler) {
   for (var i = 0, l = array.length; i < l; ++i) {
     try {
       handler(array[i], i, array);
-    } catch(e) {}
+    } catch(e) {
+      throw(e);
+    }
   }
 }
 
@@ -61,7 +63,7 @@ function grid(data) {
   var config = this.config;
   var list = [config.item];
   var classes = config.classes;
-  for ( var key in classes ) {
+  for (var key in classes) {
     if ( classes.hasOwnProperty(key) ) {
       var value = classes[key].call(this, data);
       if (typeof value == 'string') {
@@ -76,7 +78,7 @@ function grid(data) {
 // start: 认为周几算第一天(0 表示周日)
 // weekTextList: 星期对应文案
 function fixedWeekList(start, weekTextList) {
-  while( start-- > 0 ) {
+  while(start-- > 0) {
     weekTextList.push( weekTextList.shift() );
   }
 }
@@ -109,7 +111,7 @@ function isLeapYear(year) {
 function getDaysInMonth(year, month) {
   var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   // 对 2 月份特殊处理
-  return month === 1 && isLeapYear(year) ? 29 : days[month];;
+  return month === 1 && isLeapYear(year) ? 29 : days[month];
   // 或者
   // return new Date( year, month, 0 ).getDate();
 }
@@ -142,7 +144,7 @@ function toDate(year, month, day) {
     year = [year, month + 1, day].join('-');
   }
   if (typeof year == 'string') {
-    return new Date(format(year));
+    return new Date( format(year) );
   }
   // 保证和时间无关
   return new Date(toString(new Date));
@@ -150,54 +152,53 @@ function toDate(year, month, day) {
 
 // date 是否在给定的range([min, max])区间内
 function inRange(date, range, from) {
-  var min = range[0], max = range[1];
-  if ( !min && !max ) return true;
+  var min = range[0];
+  var max = range[1];
+  if (!min && !max) {
+    return true;
+  }
   date = toDate(date);
   var bottom = min.getTime();
   var test = date.getTime();
-  if (!max) return test >= bottom;
+  if (!max) {
+    return test >= bottom;
+  }
   var top = max.getTime();
   return test >= bottom && test <= top;
 }
 
 // 是否支持 prev/next
-function updateState() {
+function updateState(date) {
 
   if (!this.min) {
-    this.btnPrev = true;
+    this.isprevday = true;
+    this.isprevmonth = true;
   }
 
   if (!this.max) {
-    this.btnNext = true;
+    this.isnextday = true;
+    this.isnextmonth = true;
   }
 
-  var date = this.date;
-  var year = date.getFullYear(),
-      month = date.getMonth(),
-      day = date.getDate();
-
-  var prev = calc({
-    year: year,
-    month: month - 1,
-    day: day
+  date = date || this.date;
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var day = date.getDate();
+  var self = this;
+  each(['next', 'prev'], function(type) {
+    var fix = type == 'next' ? 1 : -1;
+    each(['day', 'month'], function(item) {
+      var value = calc({
+        year: year,
+        month: item == 'month' ? month + fix : month,
+        day: item == 'day' ? day + fix : day
+      });
+      self['is' + type + item] = inRange(
+        toDate(value.year, value.month, value.day),
+        [this.min, this.max]
+      );
+    });
   });
-
-  var next = calc({
-    year: year,
-    month: month + 1,
-    day: day
-  });
-
-  this.btnPrev = inRange(
-    toDate(prev.year, prev.month, prev.day),
-    [this.min, this.max],
-    'state'
-  );
-
-  this.btnNext = inRange(
-    toDate(next.year, next.month, next.day),
-    [this.min, this.max]
-  );
 }
 
 // @NOTE: 只修正一个值.
@@ -230,8 +231,8 @@ root.calendar = calendar;
 calendar.defaultConfig = {
   // 单个 grid 的 className
   item: 'item',
-  // 是否渲染 week 投信息
-  noweek: false,
+  // 是否渲染头信息
+  nohead: false,
   // 星期规则
   // 认为从星期几开始显示
   // 其中, 0 表示周日
@@ -326,7 +327,7 @@ function calendar(config) {
 
   // 合并 config
   var _config = mixin({}, calendar.defaultConfig);
-  config = mixin(_config, config);
+  config = mixin(_config, config, true);
   this.config = config;
 
   this.min = config.min ? toDate(config.min) : false;
@@ -355,46 +356,29 @@ function calendar(config) {
   this.box = config.box;
 }
 
-// @todo: 是否保留事件处理.
-calendar.prototype.init = function() {
-  var onclick = this.config.click;
-  var self = this;
-  // @todo: 手机上的 touch 事件
-  $(this.box).on('click', 'td', function(e) {
-    // @todo: 使用 shift/ctrl 做区间选择
-    var value = $(this).data('date');
-    var date = toDate(value);
-    var ret = onclick.call(self, e.target, date);
-    if (ret !== false) {
-      self.selected = [value];
-    }
-  });
-  return this;
-};
-
 // 更新配置信息
 calendar.prototype.setConfig = function(config) {
-  this.config = mixin(this.config, config);
+  this.config = mixin(this.config, config, true);
   updateState.call(this);
   return this;
 };
 
 // @todo: 支持重新定义 render
 calendar.prototype.render = function() {
-  var config = this.config,
-      self = this,
-      html = '';
+  var config = this.config;
+  var self = this;
+  var html = '';
   updateState.call(this);
+  html += '<table class="calendar">';
 
-  if (!config.noweek) {
+  if (!config.nohead) {
     // 拼头部导航
-    html += '<table class="calendar">';
     var year = this.date.getFullYear(),
     month = this.date.getMonth();
-    html += '<caption class="clearfix">';
-    html += '<a class="action calendar-prev" data-id="prev-month">&lt;&lt;</a>';
+    html += '<caption>';
+    html += '<a class="calendar-prev-month" data-action="prev-month">' + (config.showbutton ? '&lt;&lt;' : '') + '</a>';
     html += year + '年' + (month + 1) + '月';
-    html += '<a class="action calendar-next" data-id="next-month">&gt;&gt;</a>';
+    html += '<a class="calendar-next-month" data-action="next-month">' + (config.showbutton ? '&gt;&gt;' : '') + '</a>';
     html += '</caption>';
   }
 
@@ -425,14 +409,17 @@ calendar.prototype.render = function() {
   // 结束.
   html += '</table>';
 
-  $( this.box ).html( html );
+  this.box.innerHTML = html;
   return this;
 };
 
 // 处理单个 grid 显示
 calendar.prototype.grid = function(func) {
   var date = this.date;
-  var theWeekOfFirstDay = firstDayOfDate( date.getDate(), date.getDay() );
+  var theWeekOfFirstDay = firstDayOfDate(
+    date.getDate(),
+    date.getDay()
+  );
   var index = 0;
   var paddingDays = (7 - this.start + theWeekOfFirstDay) % 7;
   // paddingDays = paddingDays == 0 ? 7 : paddingDays;
@@ -446,12 +433,12 @@ calendar.prototype.grid = function(func) {
   // 需要补充格子 - 上个月日期
   if (paddingDays) {
     var _date = calc({
-        year: date.getFullYear(),
-        month: date.getMonth() - 1,
-        day: date.getDate()
-      }),
-      days = getDaysInMonth(_date.year, _date.month) - paddingDays,
-      week = this.start;
+      year: date.getFullYear(),
+      month: date.getMonth() - 1,
+      day: date.getDate()
+    });
+    var days = getDaysInMonth(_date.year, _date.month) - paddingDays;
+    var week = this.start;
     while(paddingDays > 0) {
       func({
         year: _date.year,
@@ -466,12 +453,12 @@ calendar.prototype.grid = function(func) {
   }
 
   // 当月格子.
-  var year = date.getFullYear(),
-      month = date.getMonth(),
-      days = getDaysInMonth(year, month),
-      week = theWeekOfFirstDay,
-      i = 1;
-  while ( i <= days ) {
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var days = getDaysInMonth(year, month);
+  var week = theWeekOfFirstDay;
+  var i = 1;
+  while (i <= days) {
     func({
       year: year,
       month: month,
@@ -485,13 +472,13 @@ calendar.prototype.grid = function(func) {
   // 补充格子 - 下个月.
   // 28, 29, 30, 31 => +6 => 7 * 6
   var alldays = 5 * 7;
-  if ( index <= alldays ) {
+  if (index <= alldays) {
     var _date = calc({
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         day: 1
-      }),
-      i = 1;
+      });
+    var i = 1;
     while (index < alldays) {
       func({
         year: _date.year,
@@ -511,9 +498,13 @@ calendar.prototype.grid = function(func) {
   只更新数据, 不负责渲染
 */
 each(['next', 'prev'], function(prefix) {
-  each(['year', 'month'], function(type) {
+  each(['year', 'month', 'day'], function(type) {
     var _type = type.charAt(0).toUpperCase() + type.slice(1);
-    calendar.prototype[prefix + _type] = calendar.util[prefix + _type] = function(date) {
+    var method = prefix + _type;
+    calendar.prototype[method] = calendar.util[method] = function(date) {
+      if (date) {
+        date = toDate(date);
+      }
       date = date || this.date;
       var obj = {
         year: date.getFullYear(),
@@ -521,12 +512,13 @@ each(['next', 'prev'], function(prefix) {
         day: date.getDate()
       };
       obj[type] = obj[type] + (prefix == 'next' ? 1 : -1);
-      var ret = calc(obj, type);
+      var ret = calc(obj);
+      var value = toDate(ret.year, ret.month, ret.day);
       if (this instanceof calendar) {
-        this.date = toDate(ret.year, ret.month, ret.day);
+        this.date = value
         return this;
       }
-      return ret;
+      return value;
     };
   });
 });
@@ -534,12 +526,22 @@ each(['next', 'prev'], function(prefix) {
 calendar.prototype.goto = function(date) {
   date = toDate(date);
   this.date = date;
-  this.selected = [date];
+  this.selected = [ toString(date) ];
   return this;
 };
 
 calendar.prototype.get = function() {
   return this.selected;
+};
+
+calendar.prototype.show = function() {
+  this.box.style.display = 'block';
+  return this.render();
+};
+
+calendar.prototype.hide = function() {
+  this.box.style.display = 'none';
+  return this;
 };
 
 })( this );
