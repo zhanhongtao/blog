@@ -220,7 +220,12 @@ function calc(obj) {
   var days = getDaysInMonth(year, month);
   obj.year = year;
   obj.month = month;
-  obj.day = day < days && day > 0 ? day : day >= days ? 1 : days;
+  if (day <= 0) {
+    day = newdays;
+  } else if (day > days) {
+    day = 1;
+  }
+  obj.day = day;
   return obj;
 }
 
