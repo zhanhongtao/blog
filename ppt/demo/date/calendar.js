@@ -151,7 +151,7 @@ function toDate(year, month, day) {
 }
 
 // date 是否在给定的range([min, max])区间内
-function inRange(date, range, from) {
+function inRange(date, range) {
   var min = range[0];
   var max = range[1];
   if (!min && !max) {
@@ -160,6 +160,7 @@ function inRange(date, range, from) {
   date = toDate(date);
   var bottom = min.getTime();
   var test = date.getTime();
+  console.log( test, bottom );
   if (!max) {
     return test >= bottom;
   }
@@ -195,7 +196,7 @@ function updateState(date) {
       });
       self['is' + type + item] = inRange(
         toDate(value.year, value.month, value.day),
-        [this.min, this.max]
+        [self.min, self.max]
       );
     });
   });
@@ -217,7 +218,7 @@ function calc(obj) {
     --year;
     month = 11;
   }
-  var days = getDaysInMonth(year, month);
+  var newdays = getDaysInMonth(year, month);
   obj.year = year;
   obj.month = month;
   if (day <= 0) {
@@ -532,6 +533,7 @@ calendar.prototype.goto = function(date) {
   date = toDate(date);
   this.date = date;
   this.selected = [ toString(date) ];
+  updateState.call(this);
   return this;
 };
 
