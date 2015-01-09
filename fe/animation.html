@@ -57,27 +57,27 @@
   </dl>
   <dl>
     <dt>animation-timing-function</dt>
-    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]</dd>
+    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]/linear/ease-in/ease-out/ease-in-out</dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
-    <dd>设置延时, 即从元素加载完成之后到动画序列开始执行的这段时间. [0]</dd>
+    <dd>设置延时, 即从元素加载完成之后到动画序列开始执行的这段时间; 支持负值, 表示从已运动 Math.abs(value) 时间时, 元素应该所处位置开始; 同时, 支持 s, ms 时间单位[0]</dd>
   </dl>
   <dl>
     <dt>animation-iteration-count</dt>
-    <dd>设置动画重复次数. [ n | infinite ]</dd>
+    <dd>设置动画重复次数. [n | infinite]</dd>
   </dl>
   <dl>
     <dt>animation-direction</dt>
-    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.[ normal | alternate ]</dd>
+    <dd>设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.[normal | reverse | alternate | alternate-reverse]</dd>
   </dl>
   <dl>
     <dt>animation-fill-mode</dt>
-    <dd>动画结束时, 元素应用的样式.[node|forwards-动画结束时状态|backwards-动画开始时状态|both]</dd>
+    <dd>动画结束时, 元素应用的样式.[normal | forwards-动画结束时状态 | backwards-动画开始时状态 | both]</dd>
   </dl>
   <dl>
     <dt>animation-play-state</dt>
-    <dd>允许停止和恢复动画. [running|paused]</dd>
+    <dd>停止和恢复动画. [running | paused]</dd>
   </dl>
   <p><pre>
 <code>animation: name duration function delay count direction fill-mode play-state;</code>
