@@ -143,7 +143,7 @@
         <li>E:active
         <li>E:focus
       </ul>
-      <p>注意在书写 CSS 时, 要保证按上面顺序. (L)o(v)e, (H)a(t)e
+      <p>注意在书写 CSS 时, 要保证按上面顺序. (L)o(v)e, (H)(a)te
     </div>
   </section>
   <section class="slide">
@@ -271,7 +271,7 @@
       <ul>
         <li>top/right/bottom/left
         <li>z-index(require: relative/absolute/fixed)
-        <li>clip( top, right, bottom, left ) // ie6,7: clip(top right bottom left) (require: absolute)
+        <li>clip: rect( top, right, bottom, left ) // ie6,7: clip: rect(top right bottom left) (require: absolute)
         <li><a href="#clearfix" target="_self">clear</a> - left/right/both
         <li>overflow - visible/hidden/auto/scroll
       </ul>
@@ -384,25 +384,25 @@
     </div>
     <div class="bd">
 <pre class="code" data-type="css">
-  .clearfix:before,
-  .clearfix:after {
-    content: '';
-    /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
-    display: table;
-    /* 其他方法:
-      display: block;
-      height: 0;
-      overflow: hidden;
-    */
-  }
-  /* 清除浮动 */
-  .clearfix:after {
-    clear: both;
-  }
-  /* IE 6/7 */
-  .clearfix {
-    *zoom: 1;
-  }
+.clearfix:before,
+.clearfix:after {
+  content: '';
+  /* 创建 BFC 元素, 隔离 top/bottom 元素, 不让 margin 重叠 */
+  display: table;
+  /* 其他方法:
+    display: block;
+    height: 0;
+    overflow: hidden;
+  */
+}
+/* 清除浮动 */
+.clearfix:after {
+  clear: both;
+}
+/* IE 6/7 */
+.clearfix {
+  *zoom: 1;
+}
 </pre>
     </div>
   </section>
