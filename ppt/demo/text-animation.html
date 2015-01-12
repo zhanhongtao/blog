@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>文本移动效果</title>
+  <style>
+    #box {
+      height: 32px;
+      line-height: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    .city {
+      position: absolute;
+      left: 0;
+    }
+    #next {
+      margin-top: 32px;
+    }
+    #help {
+      height: 0;
+      line-height: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="box">
+    <div id="current" class="city"></div>
+    <div id="next" class="city"></div>
+    <div id="text">地区的网友</div>
+  </div>
+  <select id="change">
+    <option value="北京 海淀区" selected>北京 海淀区</option>
+    <option value="乌鲁木齐 齐齐哈尔">乌鲁木齐 齐齐哈尔</option>
+    <option value="河北 保定">河北 保定</option>
+    <option value="上海">上海</option>
+  </select>    
+  <div id="help" class="city"></div>
+  <script src="fx.js"></script>
+  <script>
+    var help = document.getElementById('help');
+    var text = document.getElementById('text');
+    var next = document.getElementById('next');
+    var current = document.getElementById('current');
+    var padding = 4;
+    var last = 0;
+
+    function calc(text) {
+      help.innerText = text;
+      return help.offsetWidth || help.scrollWidth;
+    }
+        
+    function render(w, cb) {
+      var fixed = w - last;
+      var fixedLast = last;
+      last = w;
+      var is = true;
+      FX(300, function(x) {
+        var l = fixed * x;
+        // text.style.transform = 'translate(' + (l + fixedLast) + 'px)';
+        text.style.marginLeft = l + fixedLast + 'px';
+        if (x >= 1 && is) {
+          is = false;
+          if (typeof cb == 'function') {
+            cb();
+          }
+        }
+      });
+    }
+    
+    function slider(cb) {
+      FX(260, function(x) {
+        var l = -32 * x;
+        // next.style.transform = 'translate(0, ' + l + 'px)';
+        // current.style.transform = 'translate(0, ' + l + 'px)';
+        next.style.top = current.style.top = l + 'px';
+        if (x == 1) {
+          current.innerText = next.innerText;
+          next.style.top = current.style.top = 0;
+          // current.style.transform = 'translate(0, 0)';
+          // next.style.transform = 'translate(0, 0)';
+          if (typeof cb == 'function') {
+            cb();
+          }
+        }
+      });
+    }
+    
+    function init(text) {
+      var w = calc(text);
+      next.innerText = text;
+      if (w > last) {
+        render(w + padding, function() {
+          slider();
+        });
+      } else {
+        slider(function() {
+          render(w + padding);
+        })
+      }      
+    }
+    
+    var change = document.getElementById('change');
+    change.onchange = function() {
+      init(this.value);
+    };
+    init( change.value );
+  </script>
+</body>
+</html>
