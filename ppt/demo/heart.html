@@ -5,11 +5,14 @@
   <title>canvas</title>
 </head>
 <body>
-  <canvas id="box" width="800" height="800"></canvas>
+  <img id="image" src="http://zhanhongtao.github.io/blog/simpleslide/images/5.jpg" hidden>
+  <img src="5.jpg" style="position: absolute; -webkit-filter: blur(5px)">
+  <div style="position: absolute;height: 434px;width: 310px;background-color: rgba(0, 0, 0, .3)"></div>
+  <canvas id="box" style="position: absolute;z-index: 2;"></canvas>
   <script>
   var box = document.getElementById( 'box' );
-  box.width = 600;
-  box.height = 600;
+  // box.width = 600;
+  // box.height = 600;
   var ctx = box.getContext( '2d' );
 
   function test() {
@@ -22,7 +25,15 @@
     ctx.stroke();
   }
 
-  function heart() {
+  function heart(image) {
+  
+    box.width = image.width;
+    box.height = image.height;
+  
+    // context.drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh );
+    // ctx.drawImage( image, 0, 0, image.width, image.height, 0, 0, box.width, box.height );
+  
+    // ctx.globalCompositeOperation = 'destination-in';
     // [-17, 16]
     function gx(t) {
       return 16 * Math.pow(Math.sin(t), 3);
@@ -34,17 +45,26 @@
     var xs, ys; xs = ys = [];
     for ( var i = 0; i <= 360; ++i ) {
       var t = i * Math.PI * 2 / 360;
-      var x = 100 + gx(t) * 1.5;
-      var y = 100 - gy(t) * 1.5;
+      var x = 150 + gx(t) * 6.5;
+      var y = 120 - gy(t) * 6.5;
       xs.push( gx(t) );
       ys.push( gy(t) );
       ctx.lineTo( x, y );
     }
-    ctx.fillStyle = '#f00';
+    
+    // var image = document.getElementById( 'image' );
+    var repeat = 'no-repeat';
+    var pattern = ctx.createPattern(image, repeat);
+    // ctx.fillStyle = '#f00';
+    ctx.fillStyle = pattern;
     ctx.fill();
+   
   }
 
-  heart();
+  var image = document.getElementById( 'image' );
+  image.onload = function() {
+    heart(this);
+  };
 
 
   </script>
