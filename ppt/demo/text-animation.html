@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
   <title>文本移动效果</title>
   <style>
     #box {
@@ -36,7 +37,7 @@
     <option value="新疆 乌鲁木齐">新疆 乌鲁木齐</option>
     <option value="河北 保定">河北 保定</option>
     <option value="上海">上海</option>
-  </select>    
+  </select>
   <div id="help" class="city"></div>
   <script src="fx.js"></script>
   <script>
@@ -51,7 +52,7 @@
       help.innerText = text;
       return help.offsetWidth || help.scrollWidth;
     }
-        
+
     function render(w, cb) {
       var fixed = w - last;
       var fixedLast = last;
@@ -69,7 +70,7 @@
         }
       });
     }
-    
+
     function slider(cb) {
       FX(260, function(x) {
         var l = -32 * x;
@@ -87,7 +88,7 @@
         }
       });
     }
-    
+
     function init(text) {
       var w = calc(text);
       next.innerText = text;
@@ -99,9 +100,9 @@
         slider(function() {
           render(w + padding);
         })
-      }      
+      }
     }
-    
+
     var change = document.getElementById('change');
     change.onchange = function() {
       init(this.value);
