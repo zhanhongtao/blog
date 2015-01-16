@@ -1,31 +1,65 @@
 @charset "utf-8";
 
-h1, h2, h3, h4, h5, h6, dl { 
+html {
+  font-size: 62.5%;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, dl {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font: 14px/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
-  color: #333;
+  // @todo: 确定字体顺序.
+  font: 2rem/1.5 "Microsoft Yahei", "Consolas", "lucida Grande", Verdana;
   overflow-x: hidden;
-  &.ppt {
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-  }
+  color: #333;
 }
 
-h1, .h1 { font-size: 28px; }
-h2, .h2 { font-size: 20px; }
-h3, .h3 { font-size: 16px; }
-h4, .h4 { font-size: 12px; }
+h1, .h1 { font-size: 2.8rem; }
+h2, .h2 { font-size: 2.0rem; }
+h3, .h3 { font-size: 1.6rem; }
+h4, .h4 { font-size: 1.2rem; }
 
-ol { padding-left: 40px; }
-ul { padding-left: 25px; }
-li { margin: 15px auto; }
-.no-style { list-style: none; padding-left: 0; }
+// ol { padding-left: 40px; }
+// ul { padding-left: 25px; }
+ul, ol {
+  list-style: none;
+  padding-left: 1em;
+}
 
+%list-style {
+  position: absolute;
+  margin-left: -1em;
+  color: #ccc;
+}
+
+ul li:before {
+  @extend %list-style;
+  content: '*';
+}
+
+ol {
+  counter-reset: list;
+}
+ol li:before {
+  @extend %list-style;
+  counter-increment: list;
+  content: counter(list) ". ";
+}
+
+li { margin: 1.5rem auto; }
+
+.no-style {
+  list-style: none;
+  padding-left: 0;
+}
 
 .hd { margin: 10px auto; }
 .bd { margin: 15px auto; }
@@ -62,15 +96,12 @@ dd { text-indent: 2em; }
 .c7 { background-color: rgba(105, 94, 197, 0.05); }
 
 code {
-  display: inline-block;
   padding: 0 5px;
   border-radius: 2px;
   background-color: #f0f0f0;
   color: #333;
-  text-indent: 0;
   outline: none;
-  line-height: 1.5;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .code code {
@@ -79,7 +110,7 @@ code {
 
 mark, .mark {
   padding: 0 6px;
-  font-size: .9em;
+  font-size: .9rem;
   color: #200707;
 }
 
@@ -97,17 +128,17 @@ pre, pre.code {
 .runcase {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 1rem;
   cursor: pointer;
-  padding: 2px 20px;
+  padding: 4px 20px;
+  font-weight: 700;
+  font-size: 1.2rem;
   color: #1A69AB;
   background-color: #BDBDB4;
-  font-weight: 700;
-  font-size: 12px;
 }
 
 sub, sup {
-  font-size: 0.5em;
+  font-size: 0.5rem;
 }
 
 a, a:active {

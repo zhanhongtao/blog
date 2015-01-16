@@ -10,6 +10,11 @@
   overflow: hidden;
 }
 
+.ppt {
+  margin: 0;
+  padding: 0;
+}
+
 .ppt .slide {
   display: none;
   position: absolute;
@@ -85,18 +90,27 @@
 .nav-prev {
   position: fixed;
   z-index: 2;
-  bottom: 0;
-  width: 64px;
-  height: 64px;
+  bottom: 10px;
+  width: 48px;
+  height: 48px;
   background-repeat: no-repeat;
   background-position: 0 0;
-  background-size: 64px 64px;
+  background-size: 100%;
   display: none;
 }
 
 .display-navigator .nav-next,
 .display-navigator .nav-prev {
   display: block;
+}
+
+// @todo:
+// 支持 touch 事件来切换页面
+@media (max-width: 480px) {
+  .nav-next,
+  .nav-prev {
+    display: block;
+  }
 }
 
 .nav-next {
@@ -106,7 +120,7 @@
 
 .nav-prev {
   right: 20px;
-  margin-right: 64px;
+  margin-right: 48px;
   background-image: url(../images/prev.png);
 }
 
