@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>talk</title>
+  <style>
+    dt, dd { display: inline; }
+    dt:after { content: ' '; }
+    dd { margin: 0; }
+    dt:before { 
+      /*
+        http://zhanhongtao.github.io/blog/ppt/xss.html#css
+        CSS 支持 16 进制的字符表示
+      */
+      content: '\A';
+      
+      /*
+        normal	      默认。空白会被浏览器忽略。
+        pre	          空白会被浏览器保留。其行为方式类似 HTML 中的 <pre> 标签。
+        nowrap	      文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。
+        pre-wrap	    保留空白符序列，但是正常地进行换行。
+        pre-line	    合并空白符序列，但是保留换行符。
+        inherit	      规定应该从父元素继承 white-space 属性的值。
+      */
+      white-space: pre;
+    }
+    dt:first-child:before { content: ''; }
+  </style>
+</head>
+<body>
+  <dl>
+    <dt>Redky:</dt>
+    <dd>你吃饭了么?</dd>
+    <dt>JJ:</dt>
+    <dd>没有!</dd>
+  </dl>
+</body>
+</html>

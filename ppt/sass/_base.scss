@@ -46,12 +46,19 @@ ul li:before {
 }
 
 ol {
-  counter-reset: list;
+  // 可以设置计数从几开始
+  counter-reset: list -1;
 }
 ol li:before {
   @extend %list-style;
-  counter-increment: list;
+  // 可以设置增量; 可以负值
+  counter-increment: list 1;
   content: counter(list) ". ";
+  // 第二个参数, 可以指定 list-style-type
+  // counter(name, style);
+  
+  // 累积计数
+  // counters(name, style);
 }
 
 li { margin: 1.5rem auto; }
