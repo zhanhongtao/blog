@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Overflow</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    .box {
+      width: 120px;
+      margin: 0 auto;
+      background-color: #818181;
+      /* 
+        overflow: hidden; 会创建 BFC, 因此里面的子元素 margin 不会超出 .box 容器 */
+      overflow: hidden;
+    }
+    .box div {
+      width: 100px;
+      height: 100px;
+      background-color: #313131;
+      margin: 10px;
+    }
+    .tag {
+      color: #f1f1f1;
+      text-align: center;
+      line-height: 100px;
+    }
+    
+    .box .tag {
+      /* 
+        尽管容器设置 overflow: hidden; 
+        如果子元素有 position: absolute 时, 一样可以超出容器.
+      */
+      margin-left: 50px;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div></div>
+    <div class="tag">DEMO</div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>
