@@ -45,8 +45,8 @@
     var xs, ys; xs = ys = [];
     for ( var i = 0; i <= 360; ++i ) {
       var t = i * Math.PI * 2 / 360;
-      var x = 150 + gx(t) * 6.5;
-      var y = 120 - gy(t) * 6.5;
+      var x = box.width/2 + gx(t) * 5;
+      var y = box.height/2 - gy(t) * 5;
       xs.push( gx(t) );
       ys.push( gy(t) );
       ctx.lineTo( x, y );
