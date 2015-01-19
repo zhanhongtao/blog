@@ -43,6 +43,7 @@ ul, ol {
 ul li:before {
   @extend %list-style;
   content: '*';
+  margin-top: 4px;
 }
 
 ol {
@@ -103,16 +104,19 @@ dd { text-indent: 2em; }
 .c7 { background-color: rgba(105, 94, 197, 0.05); }
 
 code {
-  padding: 0 5px;
+  padding: 5px;
   border-radius: 2px;
   background-color: #f0f0f0;
   color: #333;
   outline: none;
   font-size: 1.4rem;
+  margin: 0 5px;
+  vertical-align: middle;
 }
 
 .code code {
   padding: 10px;
+  margin: 0;
 }
 
 mark, .mark {
