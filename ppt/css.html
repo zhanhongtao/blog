@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <base target="_blank" />
   <title>CSS</title>
   <link rel="stylesheet" href="./css/all.css">
@@ -236,29 +236,30 @@
       <h1>文档流</h1>
     </div>
     <div class="bd">
+      <p>文档流分为：正常流(static/relative), 绝对定位流(absolute/fixed), 浮动流(float)
       <ul>
         <li>static
-        <li>fixed
-          <a href="./demo/css/fixed.html">0</a> /
-          <a href="./demo/css/fixed-1.html">1</a> /
-          <a href="./demo/css/fixed-2.html">2</a> /
-          <a href="./demo/css/fixed-3.html">3</a> /
-          <a href="./demo/css/fixed-4.html">4</a>
-          <br /><span>相对于窗口定位</span>
-        <li>relative
+        <li>relative 
           <a href="./demo/css/relative.html">0</a> /
           <a href="./demo/css/relative-1.html">1</a> /
           <a href="./demo/css/relative-2.html">2</a> /
           <a href="./demo/css/relative-3.html">3</a>
           <br /><span>相对于自身在 static 状态下所处位置</span>
-        <li>absolute
+        <li>absolute 
           <a href="./demo/css/absolute.html">0</a> /
           <a href="./demo/css/absolute-1.html">1</a> /
           <a href="./demo/css/absolute-2.html">2</a> /
           <a href="./demo/css/absolute-3.html">3</a> /
           <a href="./demo/css/absolute-4.html">4</a>
           <br /><span>相对于祖先中存在 position: relative/aboslute/fixed; 的元素; 不存在时, 相对于 body 元素</span>
-        <li>float -
+        <li>fixed 
+          <a href="./demo/css/fixed.html">0</a> /
+          <a href="./demo/css/fixed-1.html">1</a> /
+          <a href="./demo/css/fixed-2.html">2</a> /
+          <a href="./demo/css/fixed-3.html">3</a> /
+          <a href="./demo/css/fixed-4.html">4</a>
+          <br /><span>相对于窗口定位</span>
+        <li>float
           <a href="./demo/css/float.html">float</a> /
           <a href="./demo/css/clear.html">clear</a>
         <li class="toggle"><a href="http://jsfiddle.net/redky/6yYJm/">sticky</a>(only try)
@@ -332,9 +333,8 @@
       <h2>合并条件</h2>
       <ul>
         <li>在同一个 Block Formatting Context 中, 并且是处于静态文档流中的块级(block/table/list-item)元素.
-        <li>盒子没有 padding 和 border.
+        <li>容器和first/last子元素之间, 容器没有 padding/border/clear.
         <li>发生在相邻的两个元素的垂直方向上.
-        <li>设置 clear 属性的元素不和任何元素发生margin合并
       </ul>
       <h2>现象</h2>
       <ul>
