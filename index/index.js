@@ -37,6 +37,8 @@ var blog = {
     {title: 'Ajax', address: './fe/ajax.txt', description: '文档' },
     {title: 'rt.js', address: 'https://github.com/zhanhongtao/rt.js', description: '基于 JavaScript 语法' },
     {title: 'jQuery.slide.js', address: 'http://github.com/zhanhongtao/jQuery.slide.js', description: '可定制化插件' },
+    {title: 'FX.js', address: 'http://github.com/zhanhongtao/fx.js', description: '前端动画骨架' },
+    {title: 'light.js', address: 'http://github.com/zhanhongtao/light.js', description: '轻量级消息通知系统' },
     {title: 'PPT', address: './ppt' }
   ],
   demos: [
