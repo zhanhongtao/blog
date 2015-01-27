@@ -1,0 +1,82 @@
+目标: 
+熟悉 HTML 标签以及其属性和语义
+
+* 工作流
+* 整个访问过程(简单)
+* 各种浏览器
+* 编辑器和开发者工具
+
+html[manifest], head, body
+title,  base[href][target=_blank|_self|_top|_parent]
+meta[charset="utf-8"] http://segmentfault.com/blog/ciaocc/1190000002407912
+link, style 
+script[type=text/javascript|text/template][defer][async][charset], noscript
+
+
+div, address
+h1, h2, h3, h4, h5, h6
+p, hr
+dl, ol[start][reversed][type=1|a|A|i|I], ul, li, dt, dd
+span, strong, b, i, u, em, a[href][target], br, s, del, ins, small, mark, time[date][time], sub, sup
+blockquote[cite=URI], q[city], cite
+abbr[简写], acronym[首字母]
+pre, code, dfn, samp, kbd
+form[action][target][method][accept-charset][enctype], fieldset, legend, label[for], input[type][list], select, optgroup, option, datalist, output, button[type=submit|reset|button], textarea, progress[min][max], meter[min][max][low][high][optimum][value], keygen
+type: hidden, password, text, checkbox, radio, submit, reset, image, file[multiple], datetime, date, month, time, week, number, range, email, url, search, tel, color, search
+table, caption, colgroup, col, tbody, thead, tfoot, tr, th, td
+img[alt][width][height], canvas[width][height], iframe[sandbox], map, area, embed, object, source, track, video, audio
+
+HTML 字符
+&amp; &lt; &gt; &copy; &quote; &#x27; &#187;
+
+HTML5 新增 TAG
+section, nav, article, aside, hgroup, header, footer
+figure, figcaption
+details, summary, command, menu
+
+公共属性
+id, class, style, hidden
+title, lang, dir, spellcheck
+tabindex, accesskey, contenteditable
+draggable, dropzone
+on-{Event-Name}
+
+自定义属性
+data-{Name}={Value}
+
+表单相关属性
+autocompelete, autofocus, placeholder, required
+checked, selected, novalidate, disabled, readonly
+
+不同浏览器支持的属性
+
+标签嵌套关系
+
+协议
+http/https/javascript:/mailto:/data:
+相对/绝对路径
+URL 不同位置的名称 - protocol/host/hostname/port/pathname/search/hash
+可参考: http://medialize.github.io/URI.js/about-uris.html
+
+iframe
+http://dev.w3.org/html5/markup/iframe.html
+
+HTML 注释
+<!--
+  // 这里是注释内容
+-->
+IE 浏览器支持的条件注释
+
+HTML 模块化
+
+了解信息无障碍 － 盲人阅读
+http://webaim.org/
+http://wave.webaim.org/
+
+熟悉使用开发者工具来学习 HTML(不单单HTML).
+
+其它参考
+http://w3c.github.io/html-reference/elements-by-function.html
+http://hikejun.com/work/qq/spec/html_reference.html
+https://whatwg.org/
+http://www.w3.org/TR/html5/

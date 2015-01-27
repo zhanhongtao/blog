@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+  html 中的 manifest 属性对应的属性值(URL地址) 不受 base 标签影响
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no">
+  <title>Learn HTML</title>
+
+  <!--
+    指定当前页面中链接的相对路径和打开方式
+  -->
+  <base href="./frames/" target="_blank">
+
+  <link rel="stylesheet" href="./base.css">
+  <style>
+    /* css code here */
+    /* http://yisibl.github.io/css-vocabulary/ */
+    a {
+      display: block;
+      margin: 8px 0;
+    }
+    iframe {
+      width: 100%;
+      height: 120px;
+      border: 1px solid #faa;
+    }
+  </style>
+
+  <!--
+    文件类型:
+    text/plain
+    text/html
+    text/css
+    text/javascript
+    application/javascript
+    application/x-javascript
+    application/json
+    image/png
+    image/gif
+    image/jpg
+    image/jpeg
+    image/svg+xml
+    video/mp4
+    application/x-shockwave-flash
+    application/octet-stream
+  -->
+  <style type="text/css">
+    body {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+  <script>
+    // javascript code here
+  </script>
+
+  <!-- 同上, type 属性可忽略 -->
+  <script type="text/javascript">
+    console.log( 'hi, JavaScript!' );
+  </script>
+
+  <!--
+    当存在 type 属性, 并且属性值不为 text/javascript 时,
+    标签内的代码不会当做 javascript 执行
+  -->
+  <script type="text/template">
+    console.log('No execute script');
+  </script>
+  
+  <!-- 不支持 javascript 时, 显示标签里面内容 -->
+  <noscript>
+    不支持 JavaScript
+  </noscript>
+</head>
+<body>
+  <a href="other.html">other.html(base/default)</a>
+  <img src="1987.jpg" alt="头像" width="80px">
+  <a href="http://www.baidu.com/">baidu(default)</a>
+  <a href="http://www.baidu.com/" target="_self">baidu(_self)</a>
+  <a href="http://www.baidu.com/" target="_blank">baidu(_blank)</a>
+  <a href="http://www.baidu.com/" target="frame">baidu(frame)</a>
+  <iframe src="./other.html" name="frame" frameborder="0"></iframe>
+
+  <form action="http://www.baidu.com/">
+    <input type="submit" value="提交(default)">
+  </form>
+
+  <form action="http://www.baidu.com/" target="_self">
+    <input type="submit" value="提交(_self)">
+  </form>
+
+  <form action="http://www.baidu.com/" target="frame">
+    <input type="submit" value="提交(frame)">
+  </form>
+
+  <form action="http://www.baidu.com/">
+    <input type="submit" formtarget="_self" value="提交(formtarget)">
+  </form>
+
+</body>
+</html>
