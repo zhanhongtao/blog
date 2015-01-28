@@ -19,6 +19,9 @@ h2 { margin: 0.2em 0; font-size: 1.2em; font-weight: normal; }
 #blog, #about, #github {
   margin-bottom: 30px;
 }
+#about ul {
+  overflow: hidden;
+}
 li a + a {
   margin-left: 10px;
 }
