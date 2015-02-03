@@ -5,6 +5,15 @@
 * 整个访问过程(简单)
 * 各种浏览器
 * 编辑器和开发者工具
+* html 标签和属性使用小写字符, 并且属性值使用双引号包裹
+* inline/inline-block/block
+* 选择器
+
+* 熟练使用编辑器(工具)
+* 练习键盘 - 做到盲打
+* 理解 html 指的是语义, 不是界面表现
+* 理解 block/inline/inline-block, 以及嵌套关系
+* 掌握常用选择器 - tag/class/id... http://zhanhongtao.github.io/blog/ppt/css.html#selector
 
 html[manifest], head, body
 title,  base[href][target=_blank|_self|_top|_parent]
@@ -12,18 +21,28 @@ meta[charset="utf-8"] http://segmentfault.com/blog/ciaocc/1190000002407912
 link, style 
 script[type=text/javascript|text/template][defer][async][charset], noscript
 
-
-div, address
-h1, h2, h3, h4, h5, h6
-p, hr
-dl, ol[start][reversed][type=1|a|A|i|I], ul, li, dt, dd
-span, strong, b, i, u, em, a[href][target], br, s, del, ins, small, mark, time[date][time], sub, sup
-blockquote[cite=URI], q[city], cite
+h1, h2, h3, h4, h5, h6, address
+ol[start][reversed][type=1|a|A|i|I], ul, li[value], dl, dt, dd
+div, p, hr, br, pre
+blockquote[cite=""], q[cite], cite
+a[href][target], span, 
+strong, em
+time[date][time]
+sub, sup
+b, i, u, s, small, mark
 abbr[简写], acronym[首字母]
-pre, code, dfn, samp, kbd
+code, dfn, samp, kbd, var
+del, ins
+ruby, rt, rp, bdi, bdo
+
 form[action][target][method][accept-charset][enctype], fieldset, legend, label[for], input[type][list], select, optgroup, option, datalist, output, button[type=submit|reset|button], textarea, progress[min][max], meter[min][max][low][high][optimum][value], keygen
+
 type: hidden, password, text, checkbox, radio, submit, reset, image, file[multiple], datetime, date, month, time, week, number, range, email, url, search, tel, color, search
+
+formaction/formtarget/formmethod
+
 table, caption, colgroup, col, tbody, thead, tfoot, tr, th, td
+
 img[alt][width][height], canvas[width][height], iframe[sandbox], map, area, embed, object, source, track, video, audio
 
 HTML 字符
@@ -75,8 +94,17 @@ http://wave.webaim.org/
 
 熟悉使用开发者工具来学习 HTML(不单单HTML).
 
+Content-Type:
+text/html
+text/css
+text/javascript
+image/gif
+image/png
+image/jpg
+image/jpeg
+...
+
 其它参考
 http://w3c.github.io/html-reference/elements-by-function.html
-http://hikejun.com/work/qq/spec/html_reference.html
 https://whatwg.org/
 http://www.w3.org/TR/html5/
