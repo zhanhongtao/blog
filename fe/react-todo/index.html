@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Todo</title>
+  <style>
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#box {
+  width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+#box .form {
+  zoom: 1;
+  position: relative;
+}
+#box .form:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#box .form:before {
+  content: '可输入'attr(data-length)'个字符';
+  display: block;
+  font-size: 14px;
+  color: #a1a1a1;
+  text-align: right;
+}
+#box .unvalidate:before {
+  color: #ff3333;
+}
+#box textarea {
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+}
+#box .addTodo {
+  float: right;
+  margin: 5px 0;
+  padding: 2px 15px;
+}
+#box .todoitem {
+  margin: 10px 0;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+#box .todoitem:nth-child(2n) {
+  background-color: #f3f3f3;
+}
+#box .content {
+  flex: 1;
+  margin-right: 5px;
+}
+#box .update,
+#box .delete {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+#box .update:hover,
+#box .delete:hover {
+  color: #333;
+}
+
+#box .did {
+  text-decoration: line-through;
+}
+
+#box .undo {
+  text-decoration: none;
+}
+
+/* animation */
+.example-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+}
+
+.example-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+}
+  </style>
+</head>
+<body>
+<div id="box"></div>
+<!--[if lte IE 8]>
+<script src="./js/base/html5shiv.min.js"></script>
+<script src="./js/base/es5-shim.min.js"></script>
+<script src="./js/base/es5-sham.min.js"></script>
+<![endif]-->
+<script src="./js/base/react.min.js"></script>
+<script src="./js/base/react-with-addons.min.js"></script>
+<script src="./js/base/JSXTransformer.js"></script>
+<script src="./js/light.js"></script>
+<script src="./js/storage.js"></script>
+<script src="./js/todo.jsx" type="text/jsx"></script>
+</body>
+</html>
