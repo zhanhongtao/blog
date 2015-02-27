@@ -255,15 +255,14 @@ context.restore();
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>填充规则</h1>
+      <h1>填充规则 - 非零环绕规则</h1>
     </div>
     <div class="bd">
     <ul>
-      <li>Initialize a winding number to 0.
-      <li>Draw a line from point P to the outside of the path (without passing through any vertexes).
-      <li>Add 1 to the winding number for every path segment the line passes through where the path is going clockwise.
-      <li>Subtract 1 from the winding number for every path segment the line passes through where the path is going counterclockwise.
-      <li>If the winding number is nonzero, the point is filled. If the winding number is 0, the point is not filled.
+      <li>任取路径中一点, 向外画射线;
+      <li>初始化 V 值为 0;
+      <li>当路径和射线相交时, 如果绘制路径的方向为顺时针, V 值就加 1; 否则减 1;
+      <li>判断所有相交点后, V 值不为 0, 则填充; 否则不填充;
     </ul>
     </div>
   </section>
