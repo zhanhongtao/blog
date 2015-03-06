@@ -76,7 +76,8 @@ var TodoForm = React.createClass({
     return {
       value: '', 
       length: 140,
-      loading: false
+      loading: false,
+      warning: false
     };
   },
   componentDidMount: function() {
@@ -90,6 +91,11 @@ var TodoForm = React.createClass({
       });
     }
   },
+  input: function() {
+    this.setState({
+      warning: false
+    });
+  },
   handle: function(e) {
     // 可根据 this.state.loading 状态做些事情
     var dom = this.refs.todo.getDOMNode();
@@ -98,6 +104,11 @@ var TodoForm = React.createClass({
       this.props.save(value);
       this.setState({
         loading: true
+      });
+    } else {
+      dom.focus();
+      this.setState({
+        warning: true
       });
     }
   },
@@ -118,10 +129,12 @@ var TodoForm = React.createClass({
       <div className={classSet} data-length={this.state.length - this.state.value.length}>
         <textarea
           disabled={this.state.loading}
+          onInput={this.input}
           onDoubleClick={this.openEditer}
           valueLink={this.linkState('value')}
           placeholder="Todo != 高效率"
           ref="todo"
+          className={this.state.warning ? 'warning' : ''}
         />
         <input className="addTodo" type="submit" onClick={this.handle} />
       </div>
