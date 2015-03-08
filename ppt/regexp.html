@@ -214,7 +214,7 @@ alert( ret );
       <p>把 URL 地址中的 search/hash 部分, 转化成 JSON 格式.
 <pre class="code" data-type="js" data-run="1">
 var string = 'http://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=redky&rsv_enter=1&rsv_sug3=5&rsv_sug4=128&rsv_sug1=4&rsv_sug2=0&inputT=1541';
-var regexp = /(?:[?&#])(.+?)=([^&#]*)/g;
+var regexp = /[?&#](.+?)=([^&#]*)/g;
 // console.log( string.match(regexp) );
 var map = {};
 string.replace( regexp, function( match, key, value ) {
@@ -236,7 +236,7 @@ console.log( map );
       <ul>
         <li>\d 数字, 相当于 [0-9]
         <li>\D 非数字, 相当于 [^0-9]
-        <li>\w 字符, 相当于 [a-zA-Z_]
+        <li>\w 字符, 相当于 [a-zA-Z0-9_]
         <li>\W 非字符, 相当于 [^a-zA-z_]
         <li>\s 空白字符
         <li>\S 非空白字符
@@ -564,10 +564,11 @@ alert( string );
     </div>
     <div class="bd">
       <ul>
-        <li><a href="http://regex101.com/">http://regex101.com/</a>
-        <li><a href="http://jex.im/regulex/">http://jex.im/regulex/</a>
-        <li><a href="https://github.com/zhanhongtao/blog/issues/126">https://github.com/zhanhongtao/blog/issues/126</a>
-        <li><a href="https://github.com/zhanhongtao/blog/issues/123">https://github.com/zhanhongtao/blog/issues/123</a>
+        <li><a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a>
+        <li><a href="http://regex101.com/">Online Regexp Tester</a>
+        <li><a href="http://jex.im/regulex/">可视化正则表达式/</a>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/126">JavaScript 中的正则表达式</a>
+        <li><a href="https://github.com/zhanhongtao/blog/issues/123">String.split</a>
       </ul>
     </div>
   </section>
