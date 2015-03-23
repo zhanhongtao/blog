@@ -36,13 +36,13 @@
     </div>
     <div class="bd">
       <dl>
-        <dt>声明式 - 函数会"挂起"</dt>
-        <dd><code>function getUserName( user ) { return user.name; }</code></dd>
         <dt>基于构造函数</dt>
         <dd><code>var getUserName = new Function( 'user', 'return user.name;' );</code></dd>
+        <dt>声明式 - 函数会"挂起"</dt>
+        <dd><code>function getUserName( user ) { return user.name; }</code></dd>
         <dt>函数表达式 - 直接量/对象方法</dt>
         <dd><code>var getUserName = function( user ) { return user.name;};</code></dd>
-        <dd><code>var obj = { getUserName: function( user ) { return this.name; } };</code></dd>
+        <dd class="toggle"><code>var obj = { getUserName: function( user ) { return this.name; } };</code></dd>
       </dl>
     </div>
     <div class="bd">
@@ -54,6 +54,7 @@ function assert( test, description ) {
   if ( test ) console.log( description );
   else console.error( description );
 }
+
 // 覆盖已定义的函数 - 不会因为参数个数不同而重载
 function assert( test, description ) {
   if ( !test ) alert( description );
@@ -70,12 +71,12 @@ function assert( test, description ) {
         <li>getUserName.name; // 只读属性
         <li>getUserName.length; // 返回函数定义时, 参数个数
         <li>getUserName.prototype; // 函数原型 - 用于构造函数
-        <li>getUserName.bind( context ); // 提前指定 this(运行时)
+        <li>getUserName.bind( context ); // 提前指定 this - ES5
         <li>getUserName.call( context, arg1, arg2, ..., argN );
         <li>getUserName.apply( context, args );
       </ul>
       <h2>其它</h2>
-      <p>函数也是对象, 所以可以添加属性/方法: <code>getUserName.userKey = '_value'</code>;
+      <p>函数作为对象, 可添加自定义属性/方法: <code>getUserName.userKey = '_value'</code>;
     </div>
   </section>
   <section class="slide">
@@ -85,7 +86,7 @@ function assert( test, description ) {
     <div class="bd">
       <h2>参数</h2>
       <ul>
-        <li>形参[形式参数]定义时, 形式参数可省略; 通过 <code>getUserName.length;</code> 取定义时长度
+        <li>形参[形式参数]定义时, 形式参数可省略; 通过 <code>getUserName.length;</code> 取函数定义时参数个数
         <li>实参[实际调用时参数]; 实参为任意数据类型(包括函数)
       </ul>
       <h2>返回值</h2>
@@ -122,7 +123,7 @@ function assert( test, description ) {
         <li><a href="https://github.com/zhanhongtao/blog/issues/57">arguments</a>
           <ul>
             <li>实参列表(array), 是伪数组, 即没有 Array.prototype 上的方法.
-            <li>使用 <code>Array.prototype.slice.call( arguments, 0 );</code> 把 arguments 转换为真正数组.
+            <li>使用 <code>Array.prototype.slice.call( arguments );</code> 把 arguments 转换为真正数组.
             <li>arguments.callee 指向当前函数名(递归)
           </ul>
       </ul>
@@ -152,7 +153,7 @@ function assert( test, description ) {
         <li>function func(){return function() {};} // 做函数返回值</li>
         <li>element.addEventListener('click', function() {}, false );</li>
         <li>promise().done(function() {}).fail(function() {}); // jQuery</li>
-        <li>requestAnimationFrame(function() {}, 100); // setInterval/setTimeout</li>
+        <li>requestAnimationFrame(function() {}); // setInterval/setTimeout</li>
       </ul>
     </div>
   </section>
@@ -165,7 +166,6 @@ function assert( test, description ) {
         <li>var 和 function 挂起
         <li><a href="https://github.com/zhanhongtao/blog/issues/18">with</a>/<a href="https://github.com/zhanhongtao/blog/issues/56">eval</a> 中的变量
         <li>JavaScript 中变量作用域是通过函数来划分的
-        <li>函数创建作用域; 作用域包裹变量
       </ul>
     </div>
     <div class="bd">
@@ -466,14 +466,11 @@ Function.prototype.isPrototypeOf( Object );   // true
       <ul>
         <li><code>assert( boolean, description );</code>
         <li>按键盘 Hello 字符, 出现惊喜
-        <li>执行一次的函数 - 可以调用多次, 但只执行一次
         <li>无侵入的统计代码 - 面向切面
         <li>Hover 延迟切换标签/Windows7/8 Aero 效果
         <li>动画: 元素a, 从[0,0] 先[0, 100], 再到[100, 100]
         <li>频繁点击按钮, 提交表单/频繁按 ctrl + s 快捷键/mousemove,scroll,resize 频繁触发
-        <li>网页中搜索建议, 发送的请求如何处理/blur 和 submit 重复提交操作
         <li>同时请求模板和数据, 成功后渲染页面
-        <li>JSONP 函数包装
       </ul>
     </div>
   </section>
