@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>% + padding + background-size</title>
+  <style>
+    h1 {
+      font-size: 1.2em;
+    }
+    section {
+      display: block;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .box { 
+      width: 100%;
+      background: #eee;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .image {
+      padding-top: 66.7%; /* 正好是图片的宽高比, 保证图片按比例缩放 */
+      background: url(./1.jpg) no-repeat 0 0;
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <h1>使用 padding 占 width 的百分比修正背景图容器尺寸</h1>
+  <div class="box">
+    <div class="image"></div>
+  </div>
+</section>
+<section>
+  <h1>使用 img 标签, 占 100% 宽度</h1>
+  <div class="box">
+    <img src="./1.jpg" alt="" width="100%">
+  </div>
+</section>
+</body>
+</html>

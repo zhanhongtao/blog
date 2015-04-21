@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Round</title>
+  <style>
+    .round {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    #box {
+      width: 100%;
+      height: 100%;
+      border: 20px solid #aaa;
+      box-sizing: border-box;
+      border-radius: 100%;
+    }
+    .left, .right {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      border: 20px solid #000;
+      box-sizing: border-box;
+    }
+    .left {
+      left: 0;
+      border-right: 0;
+      border-radius: 200px 0 0 200px;
+      transform-origin: 100% 50%;
+    }
+    .right {
+      right: 0;
+      border-radius: 0 200px 200px 0;
+      border-left: 0;
+      transform-origin: 0 50%;
+    }
+  </style>
+</head>
+<body>
+<div class="round">
+  <div id="box">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</div>
+  <script src="fx.js"></script>
+  <script src="generateBezier.js"></script>
+  <script>
+    function rotate(max) {
+      var deg = 0;
+      var round = document.querySelector('.round');
+      var left = round.querySelector('.left'), 
+          right = round.querySelector('.right');
+      var timer;
+      max = Math.abs(max);
+      var bezier = generateBezier(0.25, 0.1, 0.25, 1.0);
+      return FX(1000, function(p) {
+        var deg = max * bezier(p);
+        if (deg < 180) {
+          right.style.cssText = 'z-index: 1; border-color: #000; transform: rotate(' + deg + 'deg)';
+        } else {
+          right.style.cssText = 'z-index: 2; border-color: #aaa; transform: rotate(0deg); ';
+          left.style.cssText = 'transform: rotate(' + (deg - 180) + 'deg);';
+        }
+      });   
+    }
+    rotate(280);
+  </script>
+</body>
+</html>

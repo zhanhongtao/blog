@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>% + padding + height + background-size</title>
+  <style>
+    h1 {
+      font-size: 1.2em;
+    }
+    section {
+      display: block;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .box { 
+      width: 100%;
+      background: #eee;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .image {
+      padding-top: 50%;
+      height: 200px;
+      background: url(./1.jpg) no-repeat 50% 50%;
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <h1>使用 padding 占 width 的百分比以及 height 截取图片</h1>
+  <div class="box">
+    <div class="image"></div>
+  </div>
+</section>
+
+<section>
+  <h1>使用 img 标签, 占 100% 宽度</h1>
+  <div class="box">
+    <img src="./1.jpg" alt="" width="100%" height="auto">
+  </div>
+</section>
+</body>
+</html>
