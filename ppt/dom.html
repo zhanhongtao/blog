@@ -308,8 +308,8 @@
     </div>
     <div class="bd">
       <ul>
-        <li>window.innerHeight/window.innerWidth
-        <li>document.documentElement.clientHeight/document.documentElement.clientWidth
+        <li>document.documentElement.clientHeight/document.documentElement.clientWidth(*)
+        <li>window.innerHeight/window.innerWidth(包含滚动条)
       </ul>
     </div>
   </section>
@@ -342,9 +342,8 @@
     </div>
     <div class="bd">
       <ul>
+        <li>(document.documentElement || document.body).offsetHeight(*)
         <li>(document.documentElement || document.body).scrollHeight
-        <li>(document.documentElement || document.body).offsetHeight
-        <li>document.documentElement.clientHeight
       </ul>
 			<p>求以上最大值
     </div>
@@ -368,7 +367,7 @@
     </div>
     <div class="bd">
       <ul>
-        <li>window.pageYOffset/window.pageXOffset
+        <li>window.pageYOffset/window.pageXOffset(*)
         <li>document.documentElement.scrollTop/document.documentElement.scrollLeft
         <li>document.body.scrollTop/document.body.scrollLeft
       </ul>
