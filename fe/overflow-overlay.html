@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>scroll</title>
+  <style>
+    .wrap { 
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+      overflow-y: overlay;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img src="http://zhanhongtao.github.io/blog/simpleslide/images/5.jpg" alt="">
+    <div id="helper"></div>
+  </div>
+  <script src="http://zhanhongtao.github.com/blog/ppt/demo/fx.js"></script>
+  <script>
+    +function resize(d) {
+      var helper = document.getElementById('helper');
+      var delta = 1500;
+      FX(1000, function(p) {
+        helper.style.height = delta * (d === 1 ? 0 + p : 1 - p) + 'px';
+        if (p == 1) {
+          setTimeout(function() {
+            resize(d === 1 ? -1 : 1);
+          }, 1500);
+        }
+      });
+    }(1)
+  </script>
+</body>
+</html>

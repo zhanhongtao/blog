@@ -64,7 +64,8 @@ var blog = {
     {title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' },
     {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     {title: 'Ajax', address: './fe/ajax.txt', description: '文档' },
-    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'}
+    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'},
+    {title: 'overlay', address: './fe/overflow-overlay.html', description: '不占空间的滚动条(fixed)'}
   ]
 };
 
