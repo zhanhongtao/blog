@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>image</title>
+	<style>
+		body {
+			margin: 0;
+      background: url(http://img3.douban.com/view/ypy_photo/raw/public/17111.jpg) no-repeat 0 0;
+      background-size: cover;
+		}
+		.wrap {
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+		.wrap img {
+			position: absolute;
+			left: -1000px;
+			right: -1000px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+		<img2 id="hd" src="http://img3.douban.com/view/ypy_photo/raw/public/17111.jpg" data-origin-width="2000" data-origin-height="1333" alt="">
+	</div>
+	<script>
+		var hd = document.getElementById('hd');
+		var wrap = document.getElementById('wrap');
+		
+		var ow = hd.dataset.originWidth;
+		var oh = hd.dataset.originHeight;
+		// 2000/1333
+		function resize() {
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+			hd.style.width = w + 'px';
+			hd.style.height = oh/ow * w + 'px';
+			wrap.style.height = h + 'px';			
+		}
+		window.onresize = function() {
+			resize();
+		};
+		resize();
+	</script>
+</body>
+</html>

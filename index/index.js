@@ -45,6 +45,7 @@ var blog = {
     {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'}
   ],
   demos: [
+    {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自 ypy.douban.com 首页 - 2015/06/08' },
     {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
     {title: 'Selctor', address: './fe/selector/' },
     {title: '最小高度', address: './fe/sticky-link-bottom.html', description: 'vh + calc 版本'}, 
