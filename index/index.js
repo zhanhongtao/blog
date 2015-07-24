@@ -38,6 +38,7 @@ var blog = {
     {title: 'Sliders', address: './ppt' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: 'css 之 desktop', address: './desktop/'},
+    {title: 'compare version', address: 'https://github.com/zhanhongtao/compareversion', description: '比较版本号'},
     {title: 'rt.js', address: 'https://github.com/zhanhongtao/rt.js', description: '基于 JavaScript 语法' },
     {title: 'jQuery.slide.js', address: 'http://github.com/zhanhongtao/jQuery.slide.js', description: '可定制化插件' },
     {title: 'FX.js', address: 'http://github.com/zhanhongtao/fx.js', description: '前端动画骨架' },
