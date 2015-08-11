@@ -47,8 +47,8 @@
     </div>
     <div class="bd">
       <ul>
-        <li>// comment
-        <li>/* comment */,  /*! 压缩/合并代码工具会保留注释 - version/copyright */
+        <li><code>// comment</code>
+        <li><code>/* comment */</code>,  <code>/*! 压缩/合并代码工具会保留注释 - version/copyright */</code>
         <li class="toggle">&lt!-- 基本不用</li>
       </ul>
     </div>
@@ -108,8 +108,8 @@ user = {
     <div class="bd">
       <ul>
         <li>全局变量<code>window.browserVersion = '5.3';</code>全局环境下<code>var browserVersion = '5.3';</code>
-        <li>局部变量<code>function test() { var bar = 'local'; }</code> - JavaScript 的变量范围是按函数划分的.<mark class="toggle">ES6 会支持块作用域 - let</mark>
-        <li>[常量]<code>var BROWSER_VERSION = 5;</code> "潜规则"把全局变量名字大写. <mark class="toggle">ES6 - const</mark>
+        <li>局部变量<code>function test() { var bar = 'local'; }</code> - JavaScript 的变量范围是按函数划分的.<mark>ES6 会支持块作用域 - let</mark>
+        <li>[常量]<code>var BROWSER_VERSION = 5;</code> "潜规则"把全局变量名字大写. <mark>ES6 - const</mark>
       </ul>
     </div>
   </section>
@@ -208,7 +208,7 @@ test();
         <li><a href="./javascript-function.html">Function</a>
         <li>Object/Null/Array/Date/<a href="./javascript-regexp.html">RegExp</a>
           <p>在使用 typeof 判断数据类型时, 会返回 'object'; 比如: <code>typeof []; // 'object'</code>
-        <li class="toggle">Map/WeakMap/Set/WeakSet
+        <li>Map/WeakMap/Set/WeakSet
       </ul>
     </div>
   </section>
@@ -244,7 +244,7 @@ test();
       </ul>
     </div>
   </section>
-  <section class="slide toggle">
+  <section class="slide">
     <div class="hd">
       <h1>数值转换 - Number/+</h1>
     </div>
@@ -267,7 +267,7 @@ test();
       </ol>
     </div>
   </section>
-  <section class="slide toggle">
+  <section class="slide">
     <div class="hd">
       <h1>数值转换 - parseInt</h1>
     </div>
@@ -388,7 +388,7 @@ alert( code );
     <div class="bd">
       <ul>
         <li>trim()/trimLeft()/trimRight()
-        <li>startsWith()/endsWith()/repeat()/contains()<mark class="toggle">includes()</mark>
+        <li>startsWith()/endsWith()/repeat()/contains()/includes()
         <li>.codePointAt()
         <li>String.fromCodePoint() - 静态方法
       </ul>
@@ -457,7 +457,7 @@ for ( var i = 0, l = chr.length; i &lt; l; ++i ) {
       <ul>
         <li>var array = new Array(2);创建长度为 2 的数组; 小于1/浮点数/NaN 时, 抛出异常
         <li>var array = new Array( 1, 2 );创建数组, 有两个元素, 分别为 1, 2
-        <li>var array = new Array('a');创建数组, 元素为 'a'
+        <li>var array = new Array('a');创建数组, 元素为 'a' <mark>可使用 Array.of() 修正以上差异</mark>
         <li>var array = [];
         <li>var array = [ 1, 2, ];
         <li>var array = 'a b c'.split( ' ' );
@@ -535,16 +535,16 @@ alert( 'End!' );
 </pre>
     </div>
   </section>
-  <section class="slide toggle" id="array-es6">
+  <section class="slide" id="array-es6">
     <div class="hd">
       <h1>Array - ES6</h1>
     </div>
     <div class="bd">
       <ul>
-        <li>Array.from( arraylist, map ); // 支持转化 Set.
+        <li>Array.from( arraylist, map ); // 所伪数组转化为真正数组. 支持转化 Set.
         <li>Array.of( a, b, c, d ); // [ a, b, c, d ]
         <li>Array.prototype.find( handle[, context] );
-        <li>Array.prototype.findIndex( handle[, context] );
+        <li>Array.prototype.findIndex( handle[, context] ); // 以上两个方法, 可修正 indexOf 方法中查找 NaN 元素问题
         <li>Array.prototype.keys(); // 迭代器
         <li>Array.prototype.values();// 迭代器
         <li>Array.prototype.entries();// 迭代器
@@ -661,7 +661,7 @@ for ( var item of [ 'a', 'b' ].entries() ) {
       <ul>
         <li><code>var object = new Object();</code>构造函数
         <li><code>var object = {};</code>直接量
-        <li class="toggle"><code>var object = Object.create({});</code>
+        <li><code>var object = Object.create({});</code>
       </ul>
     </div>
   </section>
@@ -762,8 +762,8 @@ alert( result );
         <li>decodeURI();
         <li>encodeURIComponent(); // 对 ? 后部分(search)字符编码
         <li>decodeURIComponent();
-        <li class="toggle">URL.createObjectURL( blob );
-        <li class="toggle">URL.revokeObjectURL();
+        <li>URL.createObjectURL( blob );
+        <li>URL.revokeObjectURL();
       </ul>
       <p>编码规则: 转成 UTF-8 编码, 然后再转成 16 进制表示.
       <p>参考: <a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a>
@@ -884,7 +884,7 @@ console.log( result );
       </ul>      
     </div>
   </section>
-  <section class="slide toggle" id="map">
+  <section class="slide" id="map">
     <div class="hd">
       <h1>Map</h1>
     </div>
@@ -903,7 +903,7 @@ console.log( result );
       <p>当 KEY 为 NaN 时, 所有的 NaN 是相同的.
     </div>
   </section>
-  <section class="slide toggle" id="weakmap">
+  <section class="slide" id="weakmap">
     <div class="hd">
       <h1>WeakMap</h1>
     </div>
@@ -919,7 +919,7 @@ console.log( result );
       </ul>
     </div>
   </section>
-  <section class="slide toggle" id="set">
+  <section class="slide" id="set">
     <div class="hd">
       <h1>Set</h1>
     </div>
@@ -937,7 +937,7 @@ console.log( result );
       <p>Null/Null, NaN/NaN 是相同的值.
     </div>
   </section>
-  <section class="slide toggle" id="weakset">
+  <section class="slide" id="weakset">
     <div class="hd">
       <h1>WeakSet</h1>
     </div>
@@ -1666,6 +1666,7 @@ with( user ) {
         <li><a href="https://www.chromestatus.com/features">chrome 浏览器各版本特性</a>
         <li><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/">JavaScript 秘密花园</a>
         <li><a href="http://kangax.github.io/compat-table/es6/">JavaScript-ES6 Compat-Table</a>
+        <li><a href="http://google.github.io/traceur-compiler/demo/repl.html">ES6 to ES5 Online</a>
       </ul>
     </div>
   </section>

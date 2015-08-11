@@ -35,7 +35,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
-    {title: 'Sliders', address: './ppt' },
+    {title: 'Sliders', address: './slider' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: 'css 之 desktop', address: './desktop/'},
     {title: 'compare version', address: 'https://github.com/zhanhongtao/compareversion', description: '比较版本号'},
