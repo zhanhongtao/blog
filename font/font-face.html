@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>font-face</title>
+  <style>
+/*
+  IE6 仅支持 Embedded OpenType(.eot) 格式。
+  IE7 仅支持 Embedded OpenType(.eot) 格式。
+  IE8 仅支持 Embedded OpenType(.eot) 格式。
+  Firefox 3.5 支持 TrueType、OpenType(.ttf, .otf) 格式。
+  Firefox 3.6 支持 TrueType、OpenType(.ttf, .otf) 及 WOFF 格式。
+  Chrome  支持 TrueType、OpenType(.ttf, .otf) 及 SVG Font(.svg) 格式。
+  Safari  支持 TrueType、OpenType(.ttf, .otf) 及 SVG Font(.svg) 格式。
+  Opera 支持 TrueType、OpenType(.ttf, .otf) 及 SVG Font(.svg) 格式。
+  http://w3help.org/zh-cn/causes/RF1001
+*/
+
+@font-face {
+  font-family: 'tt';
+  /*
+    IE 4 开始支持 @font-face.
+    但仅支持 .eot 格式字体 - ms 提供压缩工具将 .ttf 转成 .eot.
+    同时 IE 不支持 format 写法.
+  */
+  src: url('./font/tt.eot');
+  src:
+    url('./font/tt.eot?#font-spider') format('embedded-opentype'),
+    /*
+      woff
+      内建了压缩功能，因而体积更小、方便下载和传播
+      支持元信息数据
+    */
+    url('./font/tt.woff') format('woff'),
+    url('./font/tt.ttf') format('truetype'),
+    url('./font/tt.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ff';
+  src: url('./font/ff.eot');
+  src:
+    url('./font/ff.eot?#font-spider') format('embedded-opentype'),
+    url('./font/ff.woff') format('woff'),
+    url('./font/ff.ttf') format('truetype'),
+    url('./font/ff.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body, pre {
+  font-family: 'tt';
+  font-size: 24px;
+}
+h1 {
+  font-family: "ff";
+  color: blue;
+  font-size: 32px;
+  font-weight: normal;
+}
+  </style>
+</head>
+<body>
+<h1>活动页标题 - 智能高速</h1>
+<pre>
+@font-face {
+  font-family: 'tt';
+  /*
+    IE 4 开始支持 @font-face.
+    但仅支持 .eot 格式字体 - ms 提供压缩工具将 .ttf 转成 .eot.
+    同时 IE 不支持 format 写法.
+  */
+  src: url('./font/tt.eot');
+  src:
+    url('./font/tt.eot?#font-spider') format('embedded-opentype'),
+    /*
+      woff
+      内建了压缩功能，因而体积更小、方便下载和传播
+      支持元信息数据
+    */
+    url('./font/tt.woff') format('woff'),
+    url('./font/tt.ttf') format('truetype'),
+    url('./font/tt.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+    ## font-spider 限制：
+    * 不支持行内样式
+    * CSS content 属性插入的字符需要定义 font-family，不支持继承
+    * 不支持 javascript 动态插入的样式与元素节点
+    * 不支持 .otf 格式的字体
+*/
+
+</pre>
+</body>
+</html>

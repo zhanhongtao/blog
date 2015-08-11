@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>阅读状态</title>
+  <style>
+    p.on { color: #E133C1; }
+    p.off { color: #888; }
+  </style>
+</head>
+<body>
+<button id="clear">清空状态</button>
+<button id="update">更新状态为已读</button>
+<p class="off">根据状态调整当前文本颜色. </p>
+<script>
+var tt = (function() {
+
+var prefix = '_tt_';
+var time = 12;
+
+// 取日期和小时
+function getDate() {
+  var date = new Date();
+  var today = '' + date.getFullYear() + date.getMonth() + date.getDate();
+  return {
+    today: today,
+    hour: date.getHours()
+  }
+}
+
+// 判断是否已处理过
+function is() {
+  var date = getDate();
+  var ret = localStorage[prefix + date.today];
+  if (ret) {
+    if (date.hour >= time) {
+      ret = localStorage[prefix + 'has'];
+    }
+  } else {
+    for (var key in localStorage) {
+      if (key.indexOf(prefix) === 0) {
+        delete localStorage[key];
+      }
+    }
+  }
+  return !!ret;
+}
+
+// 更新状态
+function update() {
+  var date = getDate();
+  localStorage[prefix + date.today] = 1;
+  if (date.hour >= time) {
+    localStorage[prefix + 'has'] = 1;
+  }
+}
+
+return {
+  is: is,
+  update: update
+};
+
+})();
+
+
+var p = document.querySelector('p');
+var btnClear = document.querySelector('#clear');
+var btnUpdate = document.querySelector('#update');
+
+function updateUI() {
+  var is = tt.is();
+  p.className = is ? 'off' : 'on';
+}
+btnUpdate.onclick = function() {
+  tt.update();
+  updateUI();
+};
+btnClear.onclick = function() {
+  localStorage.clear();
+  updateUI();
+};
+updateUI();
+
+</script>
+</body>
+</html>

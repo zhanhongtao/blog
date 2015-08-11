@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>阅读状态</title>
+  <style>
+    p.on { color: #E133C1; }
+    p.off { color: #888; }
+  </style>
+</head>
+<body>
+<button id="clear">清空状态</button>
+<button id="update">更新状态为已读</button>
+<p class="off">根据状态调整当前文本颜色. </p>
+<script>
+var id = '_tt_';
+function has() {
+  var t = new Date;
+  var date = '' + t.getFullYear() + t.getMonth() + t.getDate();
+  var time = t.getHours();
+  var save = localStorage[id] || '';
+  // 1 标示未提醒状态
+  if (save.indexOf(date) !== 0) {
+    localStorage[id] = date + 1;
+  }
+  if (time < 10) {
+    // 10 点之前, 状态已不等于 1
+    // 表示已提醒过
+    return localStorage[id] === date + 2;
+  } else {
+    // 10 点之后, 状态不为 3
+    // 表示还未提醒过
+    return localStorage[id] === date + 3;
+  }  
+}
+
+function update() {
+  var t = new Date;
+  var date = '' + t.getFullYear() + t.getMonth() + t.getDate();
+  var time = t.getHours();
+  var value = date + (time < 10 ? 2 : 3);
+  localStorage[id] = value;  
+}
+
+var p = document.querySelector('p');
+var btnClear = document.querySelector('#clear');
+var btnUpdate = document.querySelector('#update');
+
+function updateUI() {
+  var is = has();
+  p.className = is ? 'off' : 'on';
+}
+btnUpdate.onclick = function() {
+  update();
+  updateUI();
+};
+btnClear.onclick = function() {
+  localStorage.clear();
+  updateUI();
+};
+updateUI();
+</script>
+</body>
+</html>

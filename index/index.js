@@ -35,6 +35,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
+    {title: 'font-spider', address: './font', description: '中文字体(专题页)'},
     {title: 'Sliders', address: './slider' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: 'css 之 desktop', address: './desktop/'},
@@ -46,6 +47,8 @@ var blog = {
     {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'}
   ],
   demos: [
+    {title: '条件排序', address: './sort/special.html', description: '特殊条件下排序 - 双指针问题'},
+    {title: '10 点提醒', address: './fe/reader/', description: '10点后必须提醒, 且提醒一次'},
     {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自 ypy.douban.com 首页 - 2015/06/08' },
     {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
     {title: 'Selctor', address: './fe/selector/' },
