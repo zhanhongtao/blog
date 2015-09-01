@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width" />  
+  <meta name="viewport" content="width=device-width" />
   <title>desktop</title>
   <style>
     body {
@@ -24,11 +24,13 @@
 </head>
 <body>
   <select name="background-style" id="background">
-    <option value="center">居中</option>
-    <option value="repeat">平铺</option>
-    <option value="stretch">拉伸</option>
-    <option value="cover">填充</option>
-    <option value="auto">适应</option>
+    <option value="center">居中(auto)</option>
+    <option value="center-x">居中(x)</option>
+    <option value="center-y">居中(y)</option>
+    <option value="repeat">平铺(repeat)</option>
+    <option value="stretch">拉伸(100% 100%)</option>
+    <option value="cover">填充(cover)</option>
+    <option value="auto">适应(contain-fixed-x-y)</option>
   </select>
   <div class="helper"></div>
   <script>
@@ -37,12 +39,12 @@
       2. 图片文件格式.
       3. 图片文件大小 - 防止浏览器解析 base64 时崩溃.
       4. 解析进度提示.
-      5. 存储 base64 - 刷新时继续可用. 
+      5. 存储 base64 - 刷新时继续可用.
       6. 存储 localStorage 空间限制 - 异常处理.
       7. 文件读取.
       8. 拖拽和粘贴效果 - DOM 元素.
     */
-    
+
    {
       var box = document.querySelector( 'body' );
       var select = document.querySelector( '#background' );
@@ -57,6 +59,16 @@
           box.style.backgroundPosition = '50% 50%';
           box.style.backgroundRepeat = 'no-repeat';
           box.style.backgroundSize = 'auto';
+          break;
+        case 'center-x':
+          box.style.backgroundPosition = '50% 50%';
+          box.style.backgroundRepeat = 'no-repeat';
+          box.style.backgroundSize = '100% auto';
+          break;
+        case 'center-y':
+          box.style.backgroundPosition = '50% 50%';
+          box.style.backgroundRepeat = 'no-repeat';
+          box.style.backgroundSize = 'auto 100%';
           break;
         case 'repeat':
           box.style.backgroundRepeat = 'repeat';
@@ -196,7 +208,7 @@
         });
       }
     }, false );
-  
+
   </script>
 </body>
 </html>
