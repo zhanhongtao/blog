@@ -10,12 +10,11 @@
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -147,7 +146,7 @@ var timer;
 if ( timeout ) {
   timer = setTimeout(function() {
     request.abort();
-  }, timeout * 1000 );  
+  }, timeout * 1000 );
 }
 </pre>
     </div>
@@ -675,7 +674,7 @@ var newPromise = promise.then(function() {
 }, function() {
   return 2;
 });
-// 当 promise 对象回调函数执行完后, 
+// 当 promise 对象回调函数执行完后,
 // 才执行 newPromise 的回调函数.
 newPromise.then(function( value ) {
   console.log( 'new promise value - done: ', value );
@@ -748,7 +747,7 @@ promise.then(function( values ) {
   console.log( 'fail: ', values );
 });
 
-// .race 
+// .race
 // 当有一个 promise 状态为 resolved 时, 就执行 done 回调函数.
 // 全部 rejected 时, 执行 fail 回调函数.
 </pre>
@@ -779,7 +778,7 @@ var id = 0, max = 1000000;
 var uuid = function() {
   ++id;
   id = id > max ? 0 : max;
-  return prefix + id;  
+  return prefix + id;
 };
 
 // @NOTE: data 只接受 object 类型.
@@ -830,7 +829,7 @@ root.ping = pingback;
         <li><a href="http://medikoo.com/asynchronous-javascript-interfaces/callback-hell-aid/">Callback-Hell</a>
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide slide-cover">
     <h1>?</h1>
   </section>

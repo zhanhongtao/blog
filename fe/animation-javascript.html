@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>animation</title>
   <style>
-    .demo { 
-      width: 80px; 
+    .demo {
+      width: 80px;
       height: 80px;
       background-color: #faa;
       margin: 10px;
@@ -15,12 +15,11 @@
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </head>
 <body>
   <div class="demo"></div>
@@ -37,11 +36,11 @@ var _hmt = _hmt || [];
     var $ = function( selector ) {
       return document.querySelector( selector );
     };
-    
+
     var demo = $( '.demo' );
     var player;
     var timer;
-    
+
     // http://www.chromestatus.com/metrics/css/animated
     // http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
     // position -> translate.
@@ -65,7 +64,7 @@ var _hmt = _hmt || [];
         iterations: 2,
         delay: 1000 * 1,
         direction: "alternate"
-      }); 
+      });
     }
     function log() {
       timer = setInterval(function() {
@@ -78,37 +77,37 @@ var _hmt = _hmt || [];
           console.log( 'timelag: ',     player.timeLag );
           $( '#progress' ).value = Math.ceil( ( (player.currentTime-1000) / 2000 ) * 100 )
         }
-      }, 100);    
+      }, 100);
     }
 
     init();
     log();
-    
-    function onpause()  { 
-      player.pause();   
+
+    function onpause()  {
+      player.pause();
     }
-    function onresume() { 
-      player.play();    
+    function onresume() {
+      player.play();
       log();
     }
-    function onfinish() { 
-      player.finish();  
+    function onfinish() {
+      player.finish();
       player.onfinish();
     }
-    function oncancel() { 
-      player.cancel();  
+    function oncancel() {
+      player.cancel();
     }
-    function onreverse(){ 
-      player.reverse(); 
+    function onreverse(){
+      player.reverse();
       log();
     }
-    
+
     $( 'button#pause' ) .onclick = onpause;
     $( 'button#resume' ).onclick = onresume;
     $( 'button#finish' ).onclick = onfinish;
     $( '#cancel' )      .onclick = oncancel;
     $( '#reverse' )     .onclick = onreverse;
-    
+
     player.onfinish = function(e) {
       // timeStamp
       // currentTime

@@ -7,7 +7,7 @@
   <style>
   body { font-size: 10px; }
   h1   { font-size: 1.4rem; }
-  pre  { 
+  pre  {
     font-size: 1rem;
     margin: 0;
   }
@@ -31,16 +31,15 @@
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </head>
 <body>
 <h1>Auto Transition</h1>
-<div id="demo" class="box"></div>  
+<div id="demo" class="box"></div>
 <pre>
 <code>
 HTML:
@@ -61,21 +60,21 @@ JavaScript:
 var demo = document.getElementById( 'demo' );
 <mark>demo.offsetWidth;</mark>
 <mark>// demo.getBoundingClientRect();</mark>
-demo.classList.add( 'enable' ); 
+demo.classList.add( 'enable' );
 </code>
 </pre>
 <script>
   var demo = document.getElementById( 'demo' );
   demo.offsetWidth;
   demo.classList.add( 'enable' );
-  
+
   /*
   transition( demo, {
     translate: '200px',
     transition: 'all 0.8s linear'
   });
   */
-  
+
   // 简单封装 transition.
   var pfx = (function () {
     var style = document.createElement('dummy').style,
@@ -133,10 +132,10 @@ demo.classList.add( 'enable' );
         }
       }
       style.transform = transform;
-      css( dom, style );    
+      css( dom, style );
     }, 0);
   }
-    
+
 </script>
 </body>
 </html>

@@ -10,12 +10,11 @@
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -55,7 +54,7 @@ alert( getid() );
 alert( getid() );
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>定义局部变量 - 闭包</h1>
@@ -128,7 +127,7 @@ window.onload = initApp;
         <li>...
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>toArray</h1>
@@ -293,7 +292,7 @@ array.sort( random );
 alert( array );
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Sort</h1>
@@ -347,7 +346,7 @@ _alert(1);
 _alert(1);
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Defer</h1>
@@ -372,7 +371,7 @@ defer(function() {
 console.log( 'end' );
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Throttle</h1>
@@ -445,7 +444,7 @@ function debounce(func, wait, immediate) {
   var timer, later = function() {
     timer = null;
     if ( !immediate ) {
-      func.apply( context, argus );    
+      func.apply( context, argus );
     }
   }, context, argus;
   return function() {
@@ -493,7 +492,7 @@ while ( i++ < 200 ) {
         <li>blur/click - sumit
         <li>resize/scroll/mousewheel/mousemove 时, 降低频率提高性能
         <li>ctrl + s 尽可能的保存数据.
-        <li>count + time 
+        <li>count + time
       </ul>
     </div>
   </section>
@@ -531,7 +530,7 @@ _alert = wrap( _alert, function( next ) {
 _alert();
 </pre>
     </div>
-  </section>    
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Queue</h1>
@@ -565,7 +564,7 @@ function queue( list, fn, callback, index, ret ) {
 }
 </pre>
     </div>
-  </section>   
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Sync</h1>
@@ -583,7 +582,7 @@ function sync( list, fn, callback, tag ) {
       callback.apply( null, ret );
     }
   };
-  
+
   var checkDoneList = function ( list, results ) {
     var ret = [];
     var i = 0;
@@ -599,14 +598,14 @@ function sync( list, fn, callback, tag ) {
     }
     return ret;
   };
-  
+
   var createDone = function( func ) {
     var donelist = [];
     return function( index ) {
       return func.call( null, index, donelist );
     };
   };
-  
+
   var done = createDone(function( index, donelist ) {
     return function( result ) {
       times++;
@@ -622,7 +621,7 @@ function sync( list, fn, callback, tag ) {
       }
     };
   });
-  
+
   if ( n === 0 ) {
     wrapper();
     return;
@@ -717,7 +716,7 @@ var is = (function() {
 alert( is.isArray([]) );
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Object - data structure</h1>

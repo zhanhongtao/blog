@@ -10,12 +10,11 @@
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -390,7 +389,7 @@ alert( code );
         <li>String.fromCharCode() - 静态方法, 参数可是多个编码
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>String 属性和方法 - 扩展</h1>
@@ -519,7 +518,7 @@ alert( array );
     <div class="hd">
       <h1>Array - ES5 实例</h1>
     </div>
-    <div class="bd">  
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 var array = new Array(10);
 array.forEach(function( item ) {
@@ -565,7 +564,7 @@ alert( 'End!' );
     <div class="hd">
       <h1>Array - ES6 实例(1)</h1>
     </div>
-    <div class="bd">    
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 var sections = document.querySelecterAll( 'section' );
 Array.from( sections ).forEach(function( dom ) {
@@ -587,7 +586,7 @@ console.log( 'Array.of: ', Array.of( 'a', 'b', 'c' ) );
     <div class="hd">
       <h1>Array - ES6 实例(2)</h1>
     </div>
-    <div class="bd">  
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 // 可修正元素是 NaN 的情况.
 var list = [ 1, 2, 3, 4, 5 ];
@@ -625,7 +624,7 @@ for ( var item of [ 'a', 'b' ].entries() ) {
         <li>移除数组中重复的值 - 数组元素全数数字
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Homework</h1>
@@ -642,7 +641,7 @@ for ( var item of [ 'a', 'b' ].entries() ) {
         <li>归并排序/插入排序/快速排序
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>Homework</h1>
@@ -749,7 +748,7 @@ alert( result );
         <li>sin()/cos()/atan2()
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="homework-math">
     <div class="hd">
       <h1>Homewrk</h1>
@@ -823,7 +822,7 @@ result = JSON.stringify( object, null, 4 ); // 第三个参数 - 数字
 console.log( result );
 </pre>
     </div>
-  </section>  
+  </section>
   <section class="slide" id="stringfiy">
     <div class="hd">
       <h1>JSON.stringify</h1>
@@ -891,7 +890,7 @@ console.log( result );
         <li>倒计时 - 整点报时
         <li>给出日期, 计算出是周几?
         <li>日历控件
-      </ul>      
+      </ul>
     </div>
   </section>
   <section class="slide" id="map">
@@ -1090,7 +1089,7 @@ alert( '[] +{}: ' +([] + {}) );
     <div class="hd">
       <h1>Homework</h1>
     </div>
-    <div class="bd">    
+    <div class="bd">
       <ul>
       <li>状态表示 - 15 可表示4种状态
       <li>如何使用两个骰子表示月份中的每一天
@@ -1226,7 +1225,7 @@ var a = 1;
 var b = 2, c = 3;
 var d, e;
 d = e = 4;
-</pre>    
+</pre>
       <h2>自执行</h2>
 <pre class="code" data-type="js" data-run="1">
 var f = (function() {
@@ -1257,7 +1256,7 @@ var t2 = test( '1', 1, true );
 alert( 't1: ' + t1 + '; t2: ' + t2 );
 </pre>
     </div>
-  </section>   
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>逗号表达式</h1>
@@ -1288,7 +1287,7 @@ for ( ; i < j; ++i, --j ) {
   swap( array, i, j );
 }
 alert( array );
-</pre>   
+</pre>
     </div>
   </section>
   <section class="slide" id="typeof">
@@ -1306,7 +1305,7 @@ alert( array );
     <div class="hd">
       <h1>delete</h1>
     </div>
-    <div class="bd">  
+    <div class="bd">
       <p>delete - 删除对象上的属性.
 <pre class="code" data-type="js" data-run="1">
 var a = 1;
@@ -1332,7 +1331,7 @@ function test( a ) {
   }
 }
 test();
-// 虽然 void 
+// 虽然 void
 void alert( Math.pow(2, 10) );
 </pre>
     </div>
@@ -1376,7 +1375,7 @@ for ( var i = 0, l = array.length; i < l; ++i ) {
   }
 }
 alert( isFind ? 'Find!' : 'Not Find' );
-</pre>        
+</pre>
         <li>for ( var key in object ) {}
 <pre class="code" data-type="js" data-run="1">
 var obj = {
@@ -1388,7 +1387,7 @@ for ( var key in obj ) {
     alert( key + ': ' + obj[key] );
   }
 }
-</pre>        
+</pre>
       </ul>
     </div>
   </section>
@@ -1410,7 +1409,7 @@ while ( i < l ) {
   ++i;
 }
 alert( isFind ? 'Find!' : 'Not Find' );
-</pre>        
+</pre>
         <li>do { dosomething.. } while( condition )
 <pre class="code" data-type="js" data-run="1">
 do {
@@ -1518,7 +1517,7 @@ labelName: {
     <div class="hd">
       <h1>try/catch/finally</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <p><a href="http://www.zhihu.com/question/27874629">finally</a> 永远会执行
 <pre class="code" data-type="js" data-run="1">
 function test() {
@@ -1537,7 +1536,7 @@ alert( test() );
     <div class="hd">
       <h1>throw</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 function test( num ) {
   if ( typeof num !== 'number' ) {
@@ -1555,7 +1554,7 @@ test('1');
     <div class="hd">
       <h1>with</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 var user = {
   id: 806,
@@ -1573,7 +1572,7 @@ with( user ) {
     <div class="hd">
       <h1>for..of</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
         for .. of
     </div>
   </section>
@@ -1584,7 +1583,7 @@ with( user ) {
     <div class="hd">
       <h1>,</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>变量声明 (ex: <code>var a = 1, b = 2;</code>)
         <li>逗号表达式(ex: <code>var a = ( 5, 4, 3 );</code>)
@@ -1592,47 +1591,47 @@ with( user ) {
         <li>分隔符 (ex: <code>var array = [ 1, 2 ];</code>)
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>[]</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>数组
         <li>属性访问 (ex: <code>window[ variable ];</code>)
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>+</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>拼接字符串
         <li>数学的加法运算
         <li>Number 类型转换
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>/</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>数学运算 - 除法
         <li>正则表达式
         <li>注释 //, /* ... */
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>:</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>三元运算符
         <li>对象中属性和值分隔符
@@ -1640,12 +1639,12 @@ with( user ) {
         <li>label
       </ul>
     </div>
-  </section>  
+  </section>
   <section class="slide">
     <div class="hd">
       <h1>{}</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>label 代码块 - 符合语句
         <li>语句块符
@@ -1656,7 +1655,7 @@ with( user ) {
     <div class="hd">
       <h1>()</h1>
     </div>
-    <div class="bd"> 
+    <div class="bd">
       <ul>
         <li>函数定义/调用时的参数列表
         <li>包裹表达式 - 提升优先级
