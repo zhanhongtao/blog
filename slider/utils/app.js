@@ -31,3 +31,6 @@ $( document ).on( 'keydown', function(e) {
     change();
   }
 });
+
+$('#reverse').on('click', change);
+

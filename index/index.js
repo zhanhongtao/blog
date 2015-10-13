@@ -35,6 +35,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   shares: [
+    {title: 'xss-tools', address: './slider/utils/'},
     {title: 'font-spider', address: './font/font-face.html', description: '使网页中应用中文字体成为可能'},
     {title: 'Sliders', address: './slider' },
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
