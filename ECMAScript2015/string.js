@@ -4,26 +4,43 @@
   // 解决单字符占用双字节空间问题.
   String.fromCodePoint()
   String.prototype.codePointAt()
-  String.prototype.at()
+  String.prototype.at() - ES7
 
-  String.prototype.normalize()
-    NFC(default)
-    NFD
-    NFKC
-    NFKD
+  十六进制表示法所表示范围:
+  \u0000 - \uffff
+  当表示双字节字符时, 需要两个 \uxxxx; 来表示.
+  Es6 添加 \u{xxxx} 表示法. ex: \u{20bb7}
+  或者将码点放进 {} 当中即可.
+
+  但在 JavaScript 中, 两种写法在比较时, 不相等.
+  为了解决这个问题, 添加 .normalize 方法.
   为了表示语调和重音符号, Unicode 有两种方法.
     1. 直接提供. \u01D1.
     2. 两个字符拼接. \u004f\u030c.
-  但在 JavaScript 中, 两种写法在比较时, 不相等.
-  为了解决这个问题, 添加 .normalize 方法.
+  String.prototype.normalize()
+    NFC(default) - 压缩长度
+    NFD - 多个短字节
+    NFKC - 兼容性压缩
+    NFKD - 兼容性短字节
+  同时为了让正则表达式可直接匹配双字节字符.
+  Es6 添加 u 模式.
+  支持 unicode 字符表示法.
+  /\u{61}/u.test('a'); // 注: 这里需要加 u 模式. 否则表示特殊字符.
 
+  正则表达式 y 模式
+  y 把 lastIndex 当作开始位置, 并且匹配 ^.
+  yg 两个模式同时使用时, y 优先考虑.
+  /abc/y.stricky; // true
+
+  添加修饰符
+  /abc/iyg.flags; // iyg;
   // Es7
-  Regexp.escape()
+  Regexp.escape();
   把正则表达式字符串转化为正则模式
 */
 
 // 字符串模板
-// 支持插值 - 支持换行, 变量, 甚至表达式.
+// 支持插值 - 支持变量, 甚至表达式
 var email =  `hi ${name}:
   hi....
   ${name.toUpperCase()}
@@ -119,6 +136,7 @@ var es5 = '[\'"+-\\\\]';
 var reges5 = new RegExp(es5);
 console.log(reges6, reges5);
 
+alert`123`; // 这里 alert 函数为 tag.
 // 长字节字符表示方法
 // 十六进制表示法所表示范围: \u0000 - \uffff
 var string = '\u{20bb7}';
@@ -131,6 +149,10 @@ string.length; // 4(es5)
 // 原型链上方法
 var str = 'xyz';
 var string = str.repeat(2); // 'xyzxyz'
+// 内部会把参数转换为整数.
+// null -> 0
+// 0.1 -> 0
+// 1.5 -> 1
 
 // 扩展 String.prototype.codeAt(index)
 // .codePointAt(index)
@@ -146,17 +168,13 @@ var chr = String.fromCodePoint(code); // 'x'
 
 // 支持从 index 开始或结束
 var string = 'abc';
-string.startsWith('a'); // true
+string.startsWith('ab'); // true
 string.startsWith('a', 1); // false
-string.endsWith('a'); // false
+string.endsWith('ab'); // false
 string.endsWith('a', 1); // true
-string.includes('a'); // true
-string.includes('a', 1); // false
+string.includes('ab'); // true
+string.includes('a', 1); // false (原firefox 使用 contains 方法)
 
-/*
-  正则表达式 y 模式
-  y 把 lastIndex 当作开始位置, 并且匹配 ^.
-*/
 
 /*!
   参考:
