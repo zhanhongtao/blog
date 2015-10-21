@@ -65,7 +65,7 @@ Math.max(...[14, 3, 77]);
 // let a = x => x ? f() : g();
 // f/g 位置都算尾位置.
 
-// ||, && 
+// ||, &&
 // let a = () => f() || g();
 // let a = () => f() && g();
 // f 不算尾位置; 而 g 算.
@@ -75,6 +75,6 @@ Math.max(...[14, 3, 77]);
 // let a = () => (f() , g());
 // f 不算尾位置, 而 g 算.
 
-// 参考: 
+// 参考:
 // http://www.2ality.com/2015/06/tail-call-optimization.html
 

@@ -4,12 +4,12 @@
   // 侦听
   Array.observe()
   Array.unobserve()
-  
+
   // 迭代器
   Array.prototype.keys
   Array.prototype.values
   Array.prototype.entries
-  
+
   // Es7
   // 表示某个数组是否包含给定的值
   Array.prototype.includes(value[, startIndex]);

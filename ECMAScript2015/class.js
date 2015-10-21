@@ -15,7 +15,7 @@ class Point {
     this.x = x;
     this.y = y;
   }
- 
+
   // 自定义原型方法
   toString() {
     return '(' + this.x + ',' + this.y + ')';
@@ -28,7 +28,7 @@ class Point {
   set x(x) {
     this.x = x;
   }
-  
+
   static dox() {
     return 'do';
   }
@@ -43,22 +43,22 @@ class ColorPoint extends Point {
     super(x, y);
     this.color = color;
   }
-  
+
   toString() {
     return super.toString() + ' in' + this.color;
   }
-  
+
   // 定义 prototype 上的 dox.
   // 并且可使用 super 上的 static 方法 dox.
   dox() {
     return super.dox();
   }
-  
+
 }
 
 // Test.
 class RoundPoint extends Point() {
-  
+
 }
 
 let cp = new ColorPoint(25, 8, 'green');
@@ -82,7 +82,7 @@ cp.toString();
 // ex:
 class Foo {
   ['my' + 'method']() {
-    
+
   }
 }
 
@@ -93,7 +93,7 @@ class Foo {
 
 // 静态方法也会被继承.
 
-// 参考: 
+// 参考:
 // http://www.2ality.com/2015/02/es6-classes-final.html
 // https://github.com/GoogleChrome/samples/blob/gh-pages/classes-es6/index.html
 

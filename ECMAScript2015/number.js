@@ -46,6 +46,6 @@ Math.sign(NaN); // NaN;
 
 
 /*!
-  参考: 
+  参考:
   * http://www.2ality.com/2015/04/numbers-math-es6.html
 */

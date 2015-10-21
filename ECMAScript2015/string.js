@@ -5,16 +5,7 @@
   String.fromCodePoint()
   String.prototype.codePointAt()
   String.prototype.at()
-  
-  十六进制表示法所表示范围:
-  \u0000 - \uffff
-  当表示双字节字符时, 需要两个 \uxxxx; 来表示.
-  Es6 添加 \u{xxxx} 表示法. ex: \u{20bb7}
-  或者将码点放进 {} 当中即可.
 
-  同时为了让正则表达式可直接匹配双字节字符.
-  Es6 添加 u 模式.
-  
   String.prototype.normalize()
     NFC(default)
     NFD
@@ -25,27 +16,14 @@
     2. 两个字符拼接. \u004f\u030c.
   但在 JavaScript 中, 两种写法在比较时, 不相等.
   为了解决这个问题, 添加 .normalize 方法.
-  
-  字符串是否包含:
-  String.prototype.startsWith
-  String.prototype.endsWith
-  String.prototype.includes
-  
-  重复.
-  String.prototype.repeat
-  
-  正则表达式 y 模式
-  y 把 lastIndex 当作开始位置, 并且匹配 ^.
-  
+
   // Es7
   Regexp.escape()
   把正则表达式字符串转化为正则模式
-  
-  String.raw()
 */
 
 // 字符串模板
-// 支持插值 - 支持变量, 甚至表达式
+// 支持插值 - 支持换行, 变量, 甚至表达式.
 var email =  `hi ${name}:
   hi....
   ${name.toUpperCase()}
@@ -62,7 +40,7 @@ var email =  `hi ${name}:
   let template = (list) => `<ul>${list.reduce((ret, item) => ret += itemTemplate(item), '')}</ul>`;
   let list = [1, 2, 3, 4, 5, 6];
   let ret = template(list);
-  console.log(ret);  
+  console.log(ret);
 })();
 
 // 功能同上.
@@ -75,9 +53,9 @@ var email =  `hi ${name}:
       return tpl += `<li>${item}</li>`;
     }, '')}
   </ul>`;
-  
+
   let ret = template([1, 2, 3, 4, 5, 6]);
-  console.log(ret);  
+  console.log(ret);
 })();
 
 /*
@@ -86,10 +64,10 @@ var email =  `hi ${name}:
   * 当输出 ` $ { } 系列字符时, 需要转义
   * 插值不存在时, 语法错误
   * 当插值不是字符串时, 强制转成字符串
-  
+
   其它/Todo:
-  * 当作模块引擎使用时, 需要处理 xss; 
-  * 国际化处理  
+  * 当作模块引擎使用时, 需要处理 xss;
+  * 国际化处理
 */
 
 var obj = {
@@ -118,13 +96,11 @@ obj.render();
     }, string[list.length]);
   }
   let name = 'redky';
-  let message = '<script>alert(1)</script>';  
+  let message = '<script>alert(1)</script>';
   // Tag - function!
   let t = tag `@${name}. Hi, ${message}.`;
-  console.log(t);  
+  console.log(t);
 })();
-
-// @todo: 动态 string.
 
 // 内置的 template 把模板和变量都抽取好
 // 可使用 JavaScript 任意扩展
@@ -143,8 +119,8 @@ var es5 = '[\'"+-\\\\]';
 var reges5 = new RegExp(es5);
 console.log(reges6, reges5);
 
-
 // 长字节字符表示方法
+// 十六进制表示法所表示范围: \u0000 - \uffff
 var string = '\u{20bb7}';
 var string = 'x\uD83D\uDE80y'; // \uD83D\uDE80 表示一个字符(长字节);
 string.length; // 4(es5)
@@ -152,11 +128,21 @@ string.length; // 4(es5)
 // reverse
 [...string].reverse().join('');
 
-
 // 原型链上方法
 var str = 'xyz';
-var string = str.repeat(10);
+var string = str.repeat(2); // 'xyzxyz'
 
+// 扩展 String.prototype.codeAt(index)
+// .codePointAt(index)
+var code = str.codePointAt(0); // 120
+
+// 扩展 String.fromCodeAt(code)
+var chr = String.fromCodePoint(code); // 'x'
+
+// 扩展正则表达式 - 修正多字节匹配 - 添加 u 模式
+"𠮷".length === 2;
+"𠮷".match(/./u); // ["𠮷"]
+"\u{20BB7}" == "𠮷" == "\uD842\uDFB7";
 
 // 支持从 index 开始或结束
 var string = 'abc';
@@ -166,6 +152,11 @@ string.endsWith('a'); // false
 string.endsWith('a', 1); // true
 string.includes('a'); // true
 string.includes('a', 1); // false
+
+/*
+  正则表达式 y 模式
+  y 把 lastIndex 当作开始位置, 并且匹配 ^.
+*/
 
 /*!
   参考:

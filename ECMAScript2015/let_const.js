@@ -4,6 +4,7 @@
 // let/const
 // let 只在代码块中生效
 // 新增块状作用域 - 注意函数挂起问题 - 严格模式(推荐)
+// class 同样也不会挂起
 for (let i = 0; i < 10; ++i) {
   console.log(i);
 }
@@ -18,7 +19,7 @@ if (1){
 }
 
 ;(function() {
-  // 只在严格模式下支持 let/const
+  // 注意: 当前 Chrome 下. 只在严格模式下支持 let/const
   'use strict';
   var g = 'g';
   if (1) {
@@ -60,7 +61,7 @@ if (1) {
       console.log(func()); // outer
     })();
   }
-  bar();  
+  bar();
 }
 
 // 常量
@@ -72,7 +73,6 @@ const domain = 'sogou.com';
 
 // 最后,
 // let/const 声明的变量不属于全局对象的属性.
-
 
 /*!
   参考:
