@@ -3,16 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Gradient</title>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
 </head>
 <body>
 <style type="text/css">
@@ -29,14 +19,46 @@ var _hmt = _hmt || [];
     clear: both; 
   }
 </style>
+  <h1>描述</h1>
+  <p>deg: 相对于 x 轴偏移度数(定义: y=kx + b);<br />梯度线: 经过容器中心点, 并且垂直于y=kx+b的线</p>
   <div id="wrap"></div>
   <script>
-    function render(type) {
+    function render() {
+      var fragment = document.createDocumentFragment();
+      var head = document.createElement('h1');
+      head.appendChild(
+        document.createTextNode(
+          'KeyWords'
+        )
+      );
+      fragment.appendChild(head);
+      var direction = [
+        'to top', 
+        'to right top', 
+        'to right',
+        'to right bottom',
+        'to bottom',
+        'to left bottom',
+        'to left',
+        'to left top',
+        'to top'
+      ];
+      for (var i = 0, l = direction.length; i < l; ++i) {
+        var element = document.createElement('div');
+        fragment.appendChild(element);
+        element.style.background = 'linear-gradient(' + direction[i] + ', red, yellow)';      
+        element.appendChild(
+          document.createTextNode(
+            direction[i].replace('to', '')
+          )
+        );
+      }
+    
       var i = 0, j = 0, delta = 45;
       var templates = [
-        '-webkit-gradient(linear, {DEG}, from(#f00), to(#EAD602))',
+        'linear-gradient({DEG}deg, #f00, #EAD602)',
         '-webkit-linear-gradient({DEG}deg, #f00, #EAD602)',
-        'linear-gradient({DEG}deg, #f00, #EAD602)'
+        '-webkit-gradient(linear, {DEG}, from(#f00), to(#EAD602))'
       ];
       var old = [
         '0% 100%, 0% 0%',       // => 0deg
@@ -44,7 +66,7 @@ var _hmt = _hmt || [];
         '0% 0%, 100% 0%',       // => 90deg
         '0% 0%, 100% 100%',     // => 135deg
         '0% 0%, 0% 100%',       // => 180deg
-        '100% 10%, 100% 0%',    // => 225deg
+        '100% 100%, 100% 0%',    // => 225deg
         '100% 0, 0% 0%',        // => 270deg
         '100% 100%, 0% 0%',     // => 315deg
         '0% 100%, 0% 0%',       // => 360deg
@@ -62,7 +84,6 @@ var _hmt = _hmt || [];
       ];
       while ( j < 3 ) {
         i = 0;
-        var fragment = document.createDocumentFragment();
         var template = templates[j];
         var head = document.createElement( 'h1' );
         head.appendChild( 
@@ -75,8 +96,8 @@ var _hmt = _hmt || [];
           var element = document.createElement( 'div' );
           fragment.appendChild( element );
           element.style.background = template.replace( /{DEG}/g, 
-            j == 0 ? old[i/delta] : 
             j == 1 ? comp[i/delta]:
+            j == 2 ? old[i/delta] : 
             i 
           );
           element.className = 'deg_' + i;
@@ -87,11 +108,21 @@ var _hmt = _hmt || [];
           );
           i = i + delta;
         }
-        document.getElementById('wrap').appendChild( fragment );
         ++j;
-      }   
+      }
+
+      document.getElementById('wrap').appendChild( fragment );
     }
     render();
   </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>
