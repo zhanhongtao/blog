@@ -9,21 +9,21 @@ var about = {
       label: 'Name',
       value: 'Redky'
     },
-    { 
+    {
       label: 'E-mail',
       value: 'redky@qq.com',
       link: 'mailto:redky@qq.com'
     },
-    { 
+    {
       label: 'Github',
       value: '@redky',
       link: 'http://github.com/zhanhongtao/'
     },
-    { 
+    {
       label: '公司',
       type: 'text',
       link: 'http://sogou.com/',
-      value: 'sogou.com' 
+      value: 'sogou.com'
     }
   ],
   label: [ '程序员', '前端工程师' ]
@@ -53,7 +53,7 @@ var blog = {
     {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自 ypy.douban.com 首页 - 2015/06/08' },
     {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
     {title: 'Selctor', address: './fe/selector/' },
-    {title: '最小高度', address: './fe/sticky-link-bottom.html', description: 'vh + calc 版本'}, 
+    {title: '最小高度', address: './fe/sticky-link-bottom.html', description: 'vh + calc 版本'},
     {title: '兼容最小高度', address: './fe/sticky-like-bottom-compatible.html', description: 'html 100% 版本'},
     {title: 'Scroll Loading..', address: './fe/scroll/' },
     {title: 'Sticky', address: './fe/scroll/sticky.html'},
@@ -63,7 +63,9 @@ var blog = {
     {title: 'Border-radius', address: './fe/border-radius.html'},
     {title: 'Box', address: './fe/box.html', description: '老版本 Flex 语法'},
     {title: 'Flex', address: './fe/flex/'},
-    {title: 'CSS - Gradient', address: './fe/gradient.html', description: '不同版本渐变'},
+    {title: 'CSS - linear-gradient', address: './fe/gradient.html', description: '线性渐变'},
+    {title: 'CSS - radial-gradient', address: './fe/radial-gradient.html', description: '径向渐变'},
+    {title: '内圆角', address: './fe/inner-radius.html'},
     {title: 'CSS layout', address: './layout/', description: 'Alt + Number 切换 css 文件)' },
     {title: 'CSS - Animation', address: './fe/animation.html' },
     {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' },

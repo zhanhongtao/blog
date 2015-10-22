@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>内圆角</title>
+  <style>
+    .demo {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      background-color: #E3F9DC;
+      position: relative;
+    }
+    .demo:after {
+      content: '';
+      display: block;
+    }
+    code {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>内圆角</h1>
+  <p>出现圆形, 目前只能有 border-radius<code>border-radius: 50%;</code></p>
+  <style>
+  .d1:after {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #F4D7C6;
+  }
+  </style>
+  <div class="demo d1"></div>
+
+  <p>添加边框<code>border: 50px solid #F27427;</code></p>
+  <style>
+  .d2 {
+    margin: 10px 10px 110px;
+  }
+  .d2:after {
+    border: 50px solid #F27427;
+  }
+  </style>
+  <div class="demo d1 d2"></div>
+
+  <p>去掉背景色</p>
+  <style>
+  .d3:after {
+    background-color: transparent;
+  }
+  </style>
+  <div class="demo d1 d2 d3"></div>
+
+  <p>让元素相对于父元素居中</p>
+  <style>
+  .d4 {
+    margin: 60px;
+  }
+  .d4:after {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4"></div>
+
+  <p>隐藏超出父元素部分</p>
+  <style>
+  .d5 {
+    overflow: hidden;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5"></div>
+
+  <p>扩大中间留白为 200%</p>
+  <style>
+  .d6 {
+    margin: 10px;
+  }
+  .d6:after {
+    width: 200%;
+    height: 200%;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6"></div>
+
+  <p>观察超出容器部分 - <code>overflow: visible;</code></p>
+  <style>
+  .d7 {
+    margin: 110px;
+    overflow: visible;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7"></div>
+
+  <p>调整位置 - <code>left: 0; top: 0;</code></p>
+  <style>
+  .d8 {
+    margin: 160px 160px 60px;
+  }
+  .d8:after {
+    top: 0;
+    left: 0;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8"></div>
+
+  <p>隐藏超出容器部分 <code>overflow: hidden;</code></p>
+  <style>
+  .d9 {
+    margin: 10px;
+    overflow: hidden;
+  }
+  .d9:after {
+    top: 0;
+    left: 0;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8 d9"></div>
+
+  <p>因此得到向内的圆角.</p>
+
+  <p>左上<code>left: 100%; top: 100%;</code></p>
+  <style>
+  .da:after {
+    top: 100%;
+    left: 100%;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8 d9 da"></div>
+
+  <p>右上<code>left: 0; top: 100%;</code></p>
+  <style>
+  .db:after {
+    top: 100%;
+    left: 0;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8 d9 db"></div>
+
+  <p>左下<code>left: 100%; top: 0;</code></p>
+  <style>
+  .dc:after {
+    top: 0;
+    left: 100%;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8 d9 dc"></div>
+
+  <p>右下<code>left: 0; top: 0</code></p>
+  <style>
+  .dd:after {
+    top: 0;
+    left: 0;
+  }
+  </style>
+  <div class="demo d1 d2 d3 d4 d5 d6 d7 d8 d9 dd"></div>
+</body>
+</html>
