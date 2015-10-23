@@ -16,34 +16,41 @@ var [x, y] = [0b11, 0o11];
 0X11;
 
 // 新增加静态方法.
-// 用来检查 Infinite 和 NaN 特殊值.
-// Number.isFinite()
+// 用来检查 finite 和 NaN 特殊值.
+// 不进行类型转换 - 这点于 window.isNaN 和 window.isFinite 不同.
 // Number.isNaN()
-var is = Number.isNaN('a');
-var is = Number.isNaN(NaN);
+Number.isNaN('a'); // false
+Number.isNaN(1); // false
+Number.isNaN(isFinity); // false
+Number.isNaN(NaN); // true
+// Number.isFinite()
+Number.isFinite(1); // true
+Number.isFinite('a'); // false
+Number.isFinite(NaN); // false
+Number.isFinite(Infinity); // false
 
-// 把 parseInt 和 parseFloat 移植到 Number 对象上.
-// 目的是减少全局变量, 逐步模块化.
-
+// 同时, ES6 逐渐把 js 模块化 - 把对应方法绑定到相应对象上, 以减少全局变量.
+Number.parseInt('12'); // 12
+Number.parseInt('12', 3); // 5;
 
 // 新增加静态方法.
-// 用来判断是否为整数 3 === 3.0;
+// 用来判断是否为整数.
 // Number.isInterger()
+Number.isInterger(0); // true;
+Number.isInterger(-0); // true;
+Number.isInterger(-1.1); // false;
+Number.isInterger(1.1); // false;
+Number.isInterger(1); // true
+Number.isInterger(1.0); // true;
+// 注: 3 === 3.0; 和整数和浮点数的存储方法有关.
 
 // JavaScript能够准确表示的整数范围在-2ˆ53 and 2ˆ53之间。
-// ES6引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。
+// ES6引入了 Number.MAX_SAFE_INTEGER 和 Number.MIN_SAFE_INTEGER 这两个常量，用来表示这个范围的上下限。
+Number.MIN_SAFE_INTEGER
+Number.MAX_SAFE_INTEGER
 // Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。
 
-
-// 扩展 Math 对象.
-Math.trunc(1.5) // 1. 表示移除小数部分
-
-// 用来判断正负数
-Math.sign(8);   // +1;
-Math.sign(-8);  // -1;
-Math.sign(0);   // 0;
-Math.sign(NaN); // NaN;
-
+Number.EPSILON; // 极小值 - 作为误差最小接受范围(b - a <Number.EPSILON)
 
 /*!
   参考:
