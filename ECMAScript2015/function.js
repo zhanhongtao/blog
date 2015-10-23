@@ -14,6 +14,20 @@
 // 箭头函数.
 // https://github.com/zhanhongtao/blog/issues/164
 
+// 注意下面区别：
+let test = {
+  'do': () => this // undefined(严格模式)
+};
+test.do();
+
+let test = {
+  do() {
+    console.log(this); // {}
+  }  
+};
+test.do();
+
+
 // 匿名函数
 ;(()=>{
   'use strict';
