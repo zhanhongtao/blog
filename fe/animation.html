@@ -26,7 +26,7 @@
   h1 { font-size: 2rem; }
   h2 { font-size: 1.8rem; }
   #demo {
-    margin-top: 10px;
+    margin: 10px 0;
     width: 100px;
     height: 100px;
     background-color: #faa;
@@ -37,22 +37,36 @@
     -webkit-animation: slide .5s linear 3 alternate forwards;
     animation: slide .5s linear 3 alternate forwards;
   }
+  #keyframe-start,
+  #keyframe-end  {
+    width: 100px;
+    height: 100px;
+    margin: 10px 0;
+    background-color: #fcc;
+  }
+  .enable-keyframe-start {
+    animation: step 3s steps(3, start) forwards;
+  }
+  .enable-keyframe-end {
+    animation: step 3s steps(3, end) forwards;
+  }
+  @keyframes step{
+    0% {
+      transform: translate(0px);
+    }
+    100% {
+      transform: translate(100px, 0)
+    }
+  }
   </style>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </head>
 <body>
   <h1>Animation</h1>
   <button id="add">Add</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
+  <div id="keyframe-start"></div>
+  <div id="keyframe-end"></div>
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程, 即: 相互不阻塞.</a></p>
   <p>查看开发者工具中 animation 相关事件.</p>
   <h2>CSS</h2>
@@ -70,7 +84,7 @@ var _hmt = _hmt || [];
   </dl>
   <dl>
     <dt>step</dt>
-    <dd>step-start/step-end/steps(n)</dd>
+    <dd>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
@@ -118,12 +132,28 @@ var _hmt = _hmt || [];
         demo.style.WebkitAnimationPlayState = 'running';
       }, 500);
     }, false );
+    
+    var startNode = document.getElementById('keyframe-start');
+    var endNode = document.getElementById('keyframe-end');
     document.getElementById( 'add' ).addEventListener( 'click', function(e) {
       demo.classList.add( 'enable' );
+      startNode.classList.add('enable-keyframe-start');
+      endNode.classList.add('enable-keyframe-end');
     }, false );
     document.getElementById( 'remove' ).addEventListener( 'click', function(e) {
       demo.classList.remove( 'enable' );
+      startNode.classList.remove('enable-keyframe-start');
+      endNode.classList.remove('enable-keyframe-end');
     }, false );
   </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>
