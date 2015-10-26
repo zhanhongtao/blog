@@ -9,10 +9,10 @@
   <section id="head">
     <h1>编码</h1>
     <div class="encode">
-      <button id="encode216">encode16</button>
-      <button id="encode210">encode210</button>
-      <button id="encode28">encode28</button>
-      <button id="encodeX">encodex216</button><br />
+      <button id="encode216">encodeTo16</button>
+      <button id="encode210">encodeTo10</button>
+      <button id="encode28">encodeTo8</button>
+      <button id="encodeX">encodexTo16</button><br />
       <button id="decode" data-base="16" data-left="&#x" data-right=";">decode216</button>
       <button id="decode" data-base="10" data-left="&#" data-right=";">decode210</button>
       <button id="decode" data-base="8" data-left="\\" data-right="">decode28</button>
@@ -44,6 +44,8 @@
     <div class="url">
       <button id="encodeurl">Encode-URL(encodeURLComponent)</button>
       <button id="decodeurl">Decode-URL(decodeURLComponent)</button>
+      <button id="encodeToGBK">encodeToGBK</button>
+      <iframe src="./gbk.html" style="display: none;" id="gbk-iframe" frameborder="0"></iframe>
     </div>
   </section>
   <section id="body">

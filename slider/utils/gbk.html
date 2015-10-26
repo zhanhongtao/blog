@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="gbk">
+</head>
+<body>
+<script>
+
+window.encoding = function(str){
+  var a = document.createElement("a");
+  a.href = "/?q=" + str;
+  var url = a.href;
+  a.href = "/?q=";
+  return url.replace(a.href, "");
+};
+
+</script>
+</body>
+</html>
