@@ -77,11 +77,17 @@ Object.preventExtensions(tmp);
 tmp.other_agin = 'Again';
 console.log('extension:', tmp);
 
+// 判断对象是否可扩展 - 返回 boolean
+// Object.isExtensible(object)
+
 var other = {'a': 'A'};
 console.log('start:', other);
 // 保护已有属性
 Object.seal(other);
 other.a = 'a';
+
+// 判断对象是否仅可修改已有属性
+Object.isSealed(object)
 
 // 防止对象扩展
 // 并保护已存在属性(不能被删除)
@@ -100,11 +106,8 @@ other.c = 'c';
 other.a = 'A';
 console.log('end:', other);
 
-/*
-  Object.isExtensible(object);
-  Object.isSealed(object);
-  Object.isFrozen(object);
-*/
+
+Object.isFrozen(object);
 
 var obj = {
   a: 'a',
