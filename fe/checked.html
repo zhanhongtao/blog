@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>checked</title>
+  <style>
+    #dx :checked + label,
+    #dy [checked] + label {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+<h1>:checked</h1>
+<div id="dx">
+  <input type="checkbox" id="x0"><label for="x0">checkbox</label>
+  <input type="checkbox" id="x1" checked><label for="x1">checkbox</label>
+</div>
+<h1>[checked]</h1>
+<div id="dy">
+  <input type="checkbox" id="y0"><label for="y0">checkbox</label>
+  <input type="checkbox" id="y1" checked><label for="y1">checkbox</label>
+</div>
+</body>
+</html>
