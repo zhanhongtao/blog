@@ -61,7 +61,11 @@
 
   // WeakSet
   // .has/.add/.delete
-  // 当不再使用时, 会释放内存占用.
+  // WeakSet没有size属性，没有办法遍历它的成员
+
+  // 当不再使用时, 会释放内存占用 - 垃圾回收机制不考虑 WeakSet 中的引用
+  // 成员不可以是基本类型数据 - 包括 Symbol
+
 
   // Map
   // 初始化
@@ -74,6 +78,8 @@
   // 第一个值做 key, 第二个值做 value.
 
   /*
+    Map 数据结构完善 Object 中只能使用字符串当作 Key 情况.
+    Map 认为 NaN 与 NaN 相等.
     .size
     .hash
     .set
