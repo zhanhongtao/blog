@@ -3,7 +3,7 @@
 var list = [1, 2, 3, 4, 5];
 
 // 支持 break/continue/return - 修正 forEach
-// 仅仅遍历数组元素 - 修正 for/in 遍历属性
+// 遍历数组元素 - 修正 for/in 遍历属性
 for (let [index, value] of list) {
   console.log(index, value);
 }
@@ -16,6 +16,23 @@ for (let [index, value] of list) {
 
 // Array.prototype[Symbol.iterator]
 
+// for..of 是使用 Iterator 实现.
+// iter 方法:
+// .next() -> 类似 yield
+// 自己在实现 Iterator 时, next 函数必须包含
+// 返回 {value: , done: boolean}
+// .return()
+// .throw()
+
+// 调用迭代器场合:
+// for...of
+// Array.from()
+// Map()
+// Set()
+// WeakMap()
+// WeakSet()
+// Promise.all()
+// Promise.race()
 
 /*!
   参考:
