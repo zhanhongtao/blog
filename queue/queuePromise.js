@@ -3,7 +3,6 @@ function queuePromise( list, handler, callback ) {
   list.forEach(function( value, index ) {
     promise = promise.then(function( ret ) {
       return new Promise(function( resolve, reject ) {
-        var argus = [ value, index, ret ];
         var next = function( returnValue, stop, onlyReturnValue ) {
           ret.push( returnValue );
           if ( stop ) {
@@ -11,6 +10,7 @@ function queuePromise( list, handler, callback ) {
           }
           resolve( ret );
         };
+        var argus = [ value, index, ret ];
         if ( length < 4 ) argus = argus.slice( 0, length -1 );
         argus.push( next );
         handler.apply( null, argus );
