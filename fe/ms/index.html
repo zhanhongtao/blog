@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>装饰器</title>
+  <style>
+  #demo {
+    width: 100%;
+    height: 150px;
+    background-color: #f6f6f6;
+  }
+  #demo.active {
+    background-color: #d8d8d8;
+  }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h1>效果</h1>
+  <ul>
+    <li>鼠标 mouseenter 到容器内, 显示提示信息</li>
+    <li>鼠标 mouseleave 容器时, 提示消息消失(消息消失需要 delay 一段时间, 比如 5s)</li>
+    <li>当鼠标短时间内(比如: 250ms)完成 enter/leave 或者 leave/enter 时, 认为操作无效</li>
+  </ul>
+  <h2>实例</h2>
+  <ul>
+    <li>enter 时, 高亮背景</li>
+    <li>leave 时, 延时 4s 时间后, 恢复到原状态</li>
+    <li>250ms 内完成 enter/leave 或 leave/enter 时, 操作无效</li>
+  </ul>
+  <div id="demo"></div>
+</div>
+<script src="all.js"></script>
+</body>
+</html>

@@ -48,6 +48,7 @@ var blog = {
     {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'}
   ],
   demos: [
+    {title: '装饰器实例', address: './fe/ms/'},
     {title: '条件排序', address: './sort/special.html', description: '特殊条件下排序 - 双指针问题'},
     {title: '10 点提醒', address: './fe/reader/', description: '10点后必须提醒, 且提醒一次'},
     {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自 ypy.douban.com 首页 - 2015/06/08' },
