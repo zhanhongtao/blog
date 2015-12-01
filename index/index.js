@@ -49,9 +49,9 @@ var blog = {
   ],
   demos: [
     {title: '装饰器实例', address: './fe/ms/'},
-    {title: '条件排序', address: './sort/special.html', description: '特殊条件下排序 - 双指针问题'},
-    {title: '10 点提醒', address: './fe/reader/', description: '10点后必须提醒, 且提醒一次'},
-    {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自 ypy.douban.com 首页 - 2015/06/08' },
+    {title: '条件排序', address: './sort/special.html', description: '双指针问题'},
+    {title: '10 点提醒', address: './fe/reader/', description: '提醒, 且一次'},
+    {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自ypy.douban.com' },
     {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
     {title: 'Selctor', address: './fe/selector/' },
     {title: '最小高度', address: './fe/sticky-link-bottom.html', description: 'vh + calc 版本'},
@@ -67,13 +67,13 @@ var blog = {
     {title: 'CSS - linear-gradient', address: './fe/gradient.html', description: '线性渐变'},
     {title: 'CSS - radial-gradient', address: './fe/radial-gradient.html', description: '径向渐变'},
     {title: '内圆角', address: './fe/inner-radius.html'},
-    {title: 'CSS layout', address: './layout/', description: 'Alt + Number 切换 css 文件)' },
+    {title: 'CSS layout', address: './layout/', description: 'Alt + Number 切换 css 文件' },
     {title: 'CSS - Animation', address: './fe/animation.html' },
-    {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需要浏览器支持' },
+    {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需浏览器支持' },
     {title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' },
     {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     {title: 'Ajax', address: './fe/ajax.txt', description: '文档' },
-    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'JavaScript 中 Object 方法/属性文档'},
+    {title: 'Object - JavaScript', address: './fe/object.txt', description: 'Object 方法/属性文档'},
     {title: 'overlay', address: './fe/overflow-overlay.html', description: '不占空间的滚动条(fixed)'}
   ]
 };

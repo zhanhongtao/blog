@@ -13,7 +13,7 @@ h2 { margin: 0.2em 0; font-size: 1.2em; font-weight: normal; }
   overflow: hidden;
 }
 #blog dd { 
-  float: left;
+  display: inline-block;
 }
 
 #blog, #about, #github {
