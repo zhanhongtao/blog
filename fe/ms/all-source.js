@@ -7,6 +7,7 @@ function wrap() {
 
   return function (fn) {
     return middlewares.reduceRight(function (fn, middleware) {
+      return middleware(fn);
     }, fn);
   };
 }
