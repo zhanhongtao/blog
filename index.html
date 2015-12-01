@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <title>note</title>
   <link rel="stylesheet" href="index/index.css">
-  <meta name="viewport" content="width=device-width" />  
+  <meta name="viewport" content="width=device-width" />
+  <link href="./index/default.png" rel="shortcut icon" type="image/x-icon">
+  <link href="./index/default.png" rel="apple-touch-icon">
   <base target="_blank" />
 <script>
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
-  var s = document.getElementsByTagName("script")[0]; 
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
@@ -25,7 +27,7 @@ var _hmt = _hmt || [];
     <ul>
     <% for ( var i = 0, l = it.list.length; i < l; ++i ) { %>
       <% var item = it.list[i]; %>
-      <li><%= item.label %>: 
+      <li><%= item.label %>:
         <% if ( item.link ) { %>
           <a href="<%= item.link%>">
         <% } %>
@@ -36,10 +38,10 @@ var _hmt = _hmt || [];
       </li>
     <% } %>
       <li>Tags: <%= it.label.join( "," ) %></li>
-    </ul>  
+    </ul>
   </div>
 </script>
-  
+
   <script type="text" id="tmpl-blog">
   <div id="blog">
     <h1><%= it.title %></h1>
@@ -71,11 +73,11 @@ var _hmt = _hmt || [];
         <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
           <% var item = demos[i]; %>
           <li>
-            <% 
+            <%
               var tmp;
               if ( Object.prototype.toString.call(item) == "[object Object]" ) {
                 tmp = [item];
-              } else tmp = item; 
+              } else tmp = item;
             for ( var j = 0, n = tmp.length; j < n; ++j ) {
               var _item = tmp[j];
             %>
@@ -83,7 +85,7 @@ var _hmt = _hmt || [];
             <% } %>
           </li>
         <% } %>
-      </ul>    
+      </ul>
     <% } %>
   </div>
 </script>
