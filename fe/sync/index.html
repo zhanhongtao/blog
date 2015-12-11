@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>sync</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    .item {
+      margin: 10px;
+      width: 60px;
+      height: 60px;
+      transition: all 0.5s linear;
+      display: inline-block;
+    }
+    .wait {
+      background-color: #efefef;
+    }
+    .waitdone {
+      background-color: #E4C84A;
+    }
+    .done {
+      background-color: #50D63E;
+    }
+    p {
+      vertical-align: middle;
+    }
+    p span {
+      margin: 0 5px;
+      padding: 15px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <h1>同时执行异步任务, 按顺序执行任务结果</h1>
+  <p>默认状态<span class="wait"></span>, 异步完成等待执行状态<span class="waitdone"></span>, 任务执行完状态<span class="done"></span></p>
+  <button id="run">看效果</button>
+  <div id="box"></div>
+  <script src="./sync.js"></script>
+  <script>
+    var box = document.getElementById('box');
+    var fragment = document.createDocumentFragment();
+    var divs = [];
+    for (var i = 0; i < 10; ++i) {
+      var div = document.createElement('div');
+      div.className = 'item wait';
+      div.id = 'i-' + i;
+      fragment.appendChild(div)
+      divs.push(div);
+    }
+    box.appendChild(fragment);
+
+    document.getElementById('run').onclick = function() {
+      reset(divs);
+      run(divs);
+    };
+
+    function reset(divs) {
+      for (var i = 0, l = divs.length; i < l; ++i) {
+        divs[i].className = 'item wait';
+      }
+    }
+
+    function run(divs) {
+      sync(divs, function(div, index, done) {
+        setTimeout(function() {
+          div.className = 'item waitdone';
+          done(div)
+        }, 10 * 1000 * Math.random());
+      }, function() {
+        for (var i = 0, l = arguments.length; i < l; ++i) {
+          arguments[i].className = 'item done';
+        }
+      }, 1);
+    }
+
+  </script>
+</body>
+</html>
