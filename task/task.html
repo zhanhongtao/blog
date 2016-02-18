@@ -17,17 +17,12 @@
   </div>
   <div class="body">
     <ul>
-      <li class="task" v-for="task in tasks" track-by="id">
-        <!--
-          @todo: 保证顺序
-        -->
+      <li class="task" v-for="task in tasks" track-by="id" v-on:dblclick="changeTaskState(task)" v-on:click="toggleSelectTask(task)">
+        <div class="progress" style="width: {{task.progress}}%;"></div>
         <label class="checkbox"><input type="checkbox" id="_{{task.id}}" value="{{task.id}}" v-model="selected"></label>
-        <div class="progress-box">
-          <label class="progress-text" for="_{{task.id}}">
-            <div class="task-title">{{task.title}}</div>
-            <div class="task-progress">{{task.progress}}%({{states[task.state]}})</div>
-          </label>
-          <div class="progress" style="width: {{task.progress}}%;"></div>
+        <div class="task-main" for="_{{task.id}}">
+          <div class="task-title">{{task.title}}</div>
+          <div class="task-progress">{{task.progress}}%({{states[task.state]}})</div>
         </div>
       </li>
     </ul>

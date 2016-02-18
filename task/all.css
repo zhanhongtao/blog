@@ -15,7 +15,7 @@ body {
 
 .head {
   border: 1px dashed rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
+  padding: 10px;
   display: flex;
   align-items: center;
 }
@@ -24,6 +24,7 @@ body {
   font: inherit;
   font-size: x-small;
   padding: 2px 6px;
+  margin-left: 5px;
   margin-left: var(--head-margin);
 }
 
@@ -32,6 +33,7 @@ body {
 }
 
 .head label {
+  margin-left: 5px;
   margin-left: var(--head-margin);
 }
 
@@ -39,13 +41,41 @@ body {
   vertical-align: middle;
 }
 
-
 .task {
   margin: 10px auto;
+  padding: 0 10px;
+  position: relative;
 }
 
-.progress-box {
+.task:nth-child(even) {
+  background-color: #E8E8E8;
+}
+
+.task,
+.task-main {
   position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1
+}
+
+.task .checkbox {
+  position: relative;
+}
+
+.task-main {
+  padding: 4px 0;
+  cursor: default;
+}
+
+.task-title {
+  flex: 1;
+  -webkit-user-select: none;
+}
+
+.task-progress {
+  color: #87909E;
+  font-size: 14px;
 }
 
 .progress {
@@ -55,26 +85,5 @@ body {
   left: 0;
   height: 100%;
   transition: all 0.2s linear;
-  z-index: -1;
   border-radius: 2px;
-}
-
-.task,
-.progress-text {
-  display: flex;
-  align-items: center;
-}
-
-.progress-box,
-.task-title {
-  flex: 1;
-}
-
-.progress-text {
-  padding: 4px;
-}
-
-.task-progress {
-  color: #87909E;
-  font-size: 14px;
 }

@@ -17,7 +17,7 @@ var app = new Vue({
   el: '#box',
   data: {
     states: [
-      'Pending', // start
+      'Init', // start
       'Loading', // pause
       'Pause', // resume
       'Done',
@@ -29,6 +29,7 @@ var app = new Vue({
       ['pause', '暂停'],
       ['resume', '继续']
     ],
+    // @todo: 保证优先级顺序
     selected: [],
     auto: tt.auto,
     tasks: tt.get()
@@ -43,7 +44,7 @@ var app = new Vue({
     haveTasksRun: function() {
       return this.selected.some(function(id) {
         var task = tt.get(id);
-        return task.state === 1;
+        return task.state === 1 || task.state === 5;
       });
     },
     haveTasksPause: function() {
@@ -70,6 +71,30 @@ var app = new Vue({
     toggleTaskAutoStart: function() {
       tt.auto = !tt.auto;
       this.auto = !this.auto;
+    },
+    changeTaskState: function(task) {
+      var state = task.state;
+      switch (state) {
+        case 0:
+          tt.start(task);
+          break;
+        case 1:
+          tt.pause(task);
+          break;
+        case 2:
+          tt.resume(task);
+          break;
+        case 3:
+        case 4:
+          break;
+        case 5:
+          tt.pause(task);
+          break;
+      }
+    },
+    toggleSelectTask: function(task) {
+      console.log(this.selected);
+      // this.selected.$remove(task);
     }
   }
 });
