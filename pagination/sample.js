@@ -30,7 +30,7 @@ createPagination();
 document.onclick = function(e) {
   var node = e.target;
   if (node.nodeName === 'A') {
-    var page = node.href.replace(/\D/g, '');
+    var page = node.search.replace(/\D/g, '');
     nodes.index.value = page;
     createPagination();
     return false;
