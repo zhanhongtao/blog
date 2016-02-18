@@ -48,6 +48,7 @@ var blog = {
     {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'}
   ],
   demos: [
+    {title: '分页', address: './pagination/'},  
     {title: 'async & order', address: './fe/sync/'},
     {title: '装饰器实例', address: './fe/ms/'},
     {title: '条件排序', address: './sort/special.html', description: '双指针问题'},

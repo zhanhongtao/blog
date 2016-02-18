@@ -1,0 +1,80 @@
+:root {
+  --head-margin: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "lucida Grande",Verdana,"Microsoft YaHei";
+}
+
+body {
+  margin: 10px;
+}
+
+.head {
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.head button {
+  font: inherit;
+  font-size: x-small;
+  padding: 2px 6px;
+  margin-left: var(--head-margin);
+}
+
+.head button:first-child {
+  margin-left: 0;
+}
+
+.head label {
+  margin-left: var(--head-margin);
+}
+
+.head input[type="checkbox"] {
+  vertical-align: middle;
+}
+
+
+.task {
+  margin: 10px auto;
+}
+
+.progress-box {
+  position: relative;
+}
+
+.progress {
+  background-color: #AFCCBB;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: all 0.2s linear;
+  z-index: -1;
+  border-radius: 2px;
+}
+
+.task,
+.progress-text {
+  display: flex;
+  align-items: center;
+}
+
+.progress-box,
+.task-title {
+  flex: 1;
+}
+
+.progress-text {
+  padding: 4px;
+}
+
+.task-progress {
+  color: #87909E;
+  font-size: 14px;
+}

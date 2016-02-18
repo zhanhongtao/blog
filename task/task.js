@@ -17,6 +17,7 @@ function Task(task) {
   // 2: pause
   // 3: done
   // 4: error
+  // 5: wait
   this.state = 0;
 
   var l = new Light;
@@ -51,18 +52,23 @@ Task.fn.init = function() {
   this.task.on('fail', fail.bind(this));
 };
 
-Task.fn.start = function() {
-  if (this.state < 3) {
+Task.fn.start = function(wait) {
+  if (wait) {
+    this.state = 5;
+  } else if (this.state == 0 || this.state == 5) {
     this.state = 1;
-    this.startTime = Date.now();
     this.task.start();
     this.notify('start');
+    this.startTime = Date.now();
+  } else if (this.state === 2) {
+    this.resume();
   }
   return this;
 };
 
 Task.fn.pause = function() {
-  if (this.state < 3) {
+  var state = this.state;
+  if (state === 1 || state === 5) {
     this.state = 2;
     this.usedTime = Date.now() - this.startTime;
     this.task.pause();
@@ -72,7 +78,7 @@ Task.fn.pause = function() {
 };
 
 Task.fn.resume = function() {
-  if (this.state < 3) {
+  if (this.state === 2) {
     this.state = 1;
     this.startTime = Date.now();
     this.task.resume();

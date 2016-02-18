@@ -2,125 +2,42 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>task</title>
-  <style>
-    .progress-box {
-      position: relative;
-      margin: 5px 0;
-    }
-    .progress {
-      background-color: green;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      transition: all 0.2s linear;
-      z-index: 0;
-      border-radius: 2px;
-    }
-    .progress-text {
-      position: relative;
-      z-index: 1;
-      padding: 5px;
-    }
-  </style>
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="./all.css">
 </head>
 <body>
-
 <div id="box">
-  <div class="actions">
-    <button v-on:click="doAction('pauseAll')">pause</button>
-    <button v-on:click="doAction('resumeAll')">resume</button>
-    <button v-on:click="doAction('removeAll')">remove</button>
+  <div class="head">
+    <button v-on:click="addTask">新建</button>
+    <button v-on:click="doAction('start')" v-show="haveTasksInit">开始</button>
+    <button v-on:click="doAction('pause')" v-show="haveTasksRun">暂停</button>
+    <button v-on:click="doAction('resume')" v-show="haveTasksPause">继续</button>
+    <button v-on:click="doAction('remove')" v-show="haveTasks">删除</button>
+    <label><input type="checkbox" v-bind:checked="auto" v-on:change="toggleTaskAutoStart"><span>自动执行</span></label>
   </div>
-  <ul v-for="task in tasks">
-    <li data-id="{{task.id}}">
-      <div class="task-item">{{task.title}}</div>
-      <div class="progress-box">
-        <div class="progress" style="width: {{Math.floor(task.task.current/task.task.count * 10000)/100}}%;"></div>
-        <div class="progress-text">{{states[task.state]}} - {{task.task.current}}/{{task.task.count}}</div>
-      </div>
-      <div class="actions">
-        <button v-on:click="remove(task.id)">remove</button>
-        <button v-show="task.state < 3" v-on:click="doAction(actions[task.state], task.id)">{{actions[task.state]}}</button>
-      </div>
-    </li>
-  </ul>
+  <div class="body">
+    <ul>
+      <li class="task" v-for="task in tasks" track-by="id">
+        <!--
+          @todo: 保证顺序
+        -->
+        <label class="checkbox"><input type="checkbox" id="_{{task.id}}" value="{{task.id}}" v-model="selected"></label>
+        <div class="progress-box">
+          <label class="progress-text" for="_{{task.id}}">
+            <div class="task-title">{{task.title}}</div>
+            <div class="task-progress">{{task.progress}}%({{states[task.state]}})</div>
+          </label>
+          <div class="progress" style="width: {{task.progress}}%;"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
-
 <script src="vue.min.js"></script>
 <script src="light.js"></script>
 <script src="task.js"></script>
 <script src="tasks.js"></script>
 <script src="sample.js"></script>
-
-<script>
-  function random(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  var tt = new Tasks();
-
-  tt.listen('task-progress', function(item) {
-    var task = item.task;
-    item.progress = Math.floor(task.current/task.count * 10000)/100 + '%';
-    item.action = 'pause';
-  });
-
-  tt.listen('tasks-done', function() {
-    console.log('tasks-done');
-  });
-
-  var list = [];
-  for (var i = 0; i < 5; ++i) {
-    var time = random(500, 2000);
-    var count = random(10, 50);
-    var item = new Task(task(count, time));
-    item.title = "Task-" + i;
-    tt.add(list[i] = item);
-  }
-
-  tt.listen('task-remove', function(task) {
-    var id = task.id;
-    for (var i = 0, l = app.tasks.length; i < l; ++i) {
-      var item = app.tasks[i];
-      if (item.id === id) {
-        app.tasks.splice(i, 1);
-        break;
-      }
-    }
-  });
-
-  var app = new Vue({
-    el: '#box',
-    data: {
-      states: [
-        '准备完成', // start
-        '正在加载', // pause
-        '暂停',    // resume
-        '加载完成',
-        '异常'
-      ],
-      actions: [
-        'start',
-        'pause',
-        'resume',
-        '',
-        ''
-      ],
-      tasks: list
-    },
-    methods: {
-      remove: function(id) {
-        tt.remove(id);
-      },
-      doAction: function(action, id) {
-        tt[action](id);
-      }
-    }
-  });
-
-
-</script>
+<script src="app.js"></script>
 </body>
 </html>
