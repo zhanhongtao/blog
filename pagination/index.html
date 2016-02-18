@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagination</title>
+  <link rel="stylesheet" href="./all.css">
+</head>
+<body>
+  <h1>Pagination</h1>
+<div class="actions">
+  <label for="index">当前页数: <input type="number" id="index" value="3"></label>
+  <label for="count">总页数: <input type="number" id="count" value="43"></label>
+  <label for="display">显示个数:
+    <select id="display">
+      <option value="5" selected>5</option>
+      <option value="7">7</option>
+    </select>
+  </label>
+</div>
+<div id="demos">
+  <ul id="se"></ul>
+  <ul id="bt"></ul>
+</div>
+<script src="pagination.js"></script>
+<script src="sample.js"></script>
+</body>
+</html>

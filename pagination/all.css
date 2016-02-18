@@ -1,0 +1,26 @@
+body {
+  text-align: center;
+}
+#demos {
+  margin-top: 20px;
+}
+#demos ul {
+  padding: 0;
+  margin: 0;
+}
+#demos li {
+  display: inline-block;
+  padding: 4px 6px;
+}
+label {
+  display: inline-block;
+}
+input {
+  width: 32px;
+}
+
+a {
+  text-decoration: none;
+  color: #4781EF;
+  font-size: 14px;
+}
