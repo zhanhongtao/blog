@@ -1,3 +1,51 @@
+/*
+  n: 10
+  m: 5
+  p: 1(修正)
+
+  // m < n
+  1 2 3 4 5 6 7 8 9 10
+  *
+  1 2 3 4 5 6 7 8 9 10 (low < 1)
+  *
+  1 2 3 4 5 6 7 8 9 10
+  * # # # #
+
+  1 2 3 4 5 6 7 8 9 10
+    *
+  1 2 3 4 5 6 7 8 9 10 (low < 1)
+  # *
+  1 2 3 4 5 6 7 8 9 10 (k == 0)
+  # * # # # #
+
+  1 2 3 4 5 6 7 8 9 10
+        *
+  1 2 3 4 5 6 7 8 9 10 (c == 2)
+    # # *
+  1 2 3 4 5 6 7 8 9 10
+    # # * # #
+
+  1 2 3 4 5 6 7 8 9 10
+                  *
+  1 2 3 4 5 6 7 8 9 10 (c == 2)
+              # # *
+  1 2 3 4 5 6 7 8 9 10 (high == n)
+              # # * #
+  1 2 3 4 5 6 7 8 9 10 (k == 0)
+            # # # * #
+
+  // m > n
+  // 可直接显示
+  1 2 3 4 5
+  *
+  1 2 3 4 5 (low < 1)
+  *
+  1 2 3 4 5 (high == n)
+  * # # # #
+  1 2 3 4 5 (low < 1)
+  * # # # #
+*/
+
 /*!
   n: 总页数
   m: 显示个数
@@ -6,9 +54,10 @@
 */
 function calc(n, m, p, is) {
   p = p < 1 ? 1 : p > n ? n : p;
-  var low = p, high = p;
-  var k = m - 1, count = Math.floor(m/2);
-  var c = count;
+  var low = p,
+    high = p;
+  var k = m - 1,
+    c = Math.floor(m / 2);
   while (low > 1 && c > 0 && k > 0) {
     --c;
     --low;
@@ -35,7 +84,8 @@ function uibt(index, count, display) {
   if (count > 1) {
     index = index < 1 ? 1 : index > count ? count : index;
     var range = calc(count, display, index, true);
-    var min = range[0], max = range[1];
+    var min = range[0],
+      max = range[1];
     // 0.
     if (index > 1) {
       html += '<li><a href="?page=' + (index - 1) + '">上一页</li>';
@@ -49,7 +99,7 @@ function uibt(index, count, display) {
       html += '<li><span>...</span></li>';
     }
     // 2.
-    while(min <= max) {
+    while (min <= max) {
       if (min !== index) {
         html += '<li><a href="?page=' + min + '">' + min + '</a></li>';
       } else {
@@ -75,10 +125,11 @@ function uibt(index, count, display) {
 
 function uise(index, count, display) {
   var html = '';
-  if( count > 1) {
+  if (count > 1) {
     index = index < 1 ? 1 : index > count ? count : index;
     var range = calc(count, display, index);
-    var low = range[0], high = range[1];
+    var low = range[0],
+      high = range[1];
     if (index > 1) {
       html += '<li><a href="?page=' + (index - 1) + '">上一页</a></li>';
     }
