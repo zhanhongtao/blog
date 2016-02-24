@@ -42,51 +42,50 @@ var _hmt = _hmt || [];
   </div>
 </script>
 
-  <script type="text" id="tmpl-blog">
+<script type="text" id="tmpl-blog">
   <div id="blog">
+  <!--
     <h1><%= it.title %></h1>
     <p><%= it.description %></p>
+  -->
     <dl>
-      <dt>标签:</dt>
+      <dt>LABLES:</dt>
       <% for ( var i = 0, l = it.labels.length; i < l; ++i ) { %>
         <dd><a href="<%= it.address + '&labels=' + encodeURIComponent(it.labels[i])
         %>"><%= it.labels[i] %></a></dd>
       <% } %>
     </dl>
-    <h2>分享</h2>
-    <ul>
-      <% var shares =it.shares; %>
-      <% for ( var i = 0, l = shares.length; i < l; ++i ) { %>
-        <% var item = shares[i]; %>
-        <li><a href="<%= item.address %>"><%= item.title %></a>
-          <% if ( item.code ) { %>
-            (<a href="<%= item.code %>">code</a>)
-          <% } %>
-          <% if(item.description) {%> (<%= item.description %>)<%} %>
-        </li>
-      <% } %>
-    </ul>
-    <% if ( it.demos && it.demos.length > 0 ) { %>
-      <h2>实例</h2>
+    <%
+      var keys = ['css', 'js', 'tools', 'other'];
+      var texts = ['CSS', 'JavaScript', 'Tools', 'Other'];
+      for (var k = 0, n = keys.length; k < n; ++k) {
+        var title = keys[k];
+        var demos = it[title];
+    %>
+      <h2><%= texts[k] %></h2>
       <ul>
-        <% var demos = it.demos; %>
-        <% for ( var i = 0, l = demos.length; i < l; ++i ) { %>
-          <% var item = demos[i]; %>
-          <li>
-            <%
-              var tmp;
-              if ( Object.prototype.toString.call(item) == "[object Object]" ) {
-                tmp = [item];
-              } else tmp = item;
-            for ( var j = 0, n = tmp.length; j < n; ++j ) {
+        <% for ( var i = 0, l = demos.length; i < l; ++i ) {
+            var item = demos[i]; 
+        %>
+        <li>
+          <%
+            var tmp;
+            if ( Object.prototype.toString.call(item) == "[object Object]" ) {
+              tmp = [item];
+            } else tmp = item;
+            for ( var j = 0, m = tmp.length; j < m; ++j ) {
               var _item = tmp[j];
-            %>
-              <a href="<%= _item.address %>"><%= _item.title %></a><% if(_item.description) {%> (<%= _item.description %>)<%} %>
-            <% } %>
-          </li>
+          %>
+            <a href="<%= _item.address %>">
+              <%= _item.title %></a>
+            <% if(_item.description) {%> (<%= _item.description %>)<%} %>
+          <% } %>
+        </li>
         <% } %>
       </ul>
-    <% } %>
+    <%
+      }
+    %>
   </div>
 </script>
 <script src="rt/rt.js"></script>
