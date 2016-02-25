@@ -20,7 +20,12 @@
   }
 </style>
   <h1>描述</h1>
-  <p>deg: 相对于 x 轴偏移度数(定义: y=kx + b);<br />梯度线: 经过容器中心点, 并且垂直于y=kx+b的线</p>
+  <p>deg: 相对于 x 轴偏移度数(定义: y=kx + b);<br />梯度线: 经过容器中心点, 并且垂直于y=kx+b的线. <br />建议掌握标准写法, 再使用 <a href="https://autoprefixer.github.io/" target="_blank">autoprefixer</a> 来修正旧版本浏览器语法</p>
+<pre>
+linear-gradient([&lt;angle&gt; | to &lt;side-or-corner&gt;, ] ? &lt;color-stop&gt;[, &lt;color-stop&gt;]+);
+	&lt;side-or-corner&gt; = [left | right] || [top | bottom]
+	&lt;color-stop&gt; = &lt;color&gt; [&lt;percentage&gt; | &lt;length&gt;]?
+</pre>
   <div id="wrap"></div>
   <script>
     function render() {

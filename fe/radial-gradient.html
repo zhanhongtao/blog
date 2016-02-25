@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width" />
@@ -34,91 +34,122 @@
   <h1>径向渐变</h1>
   <p>语法. <code>background: radial-gradient(white, black);</code></p>
   <p>完整语法为: <code>background: radial-gradient(circle, white, black);</code> 其中 circle 可以忽略, circle 为默认 Shape。</p>
-  <style>
-  .m0 {
-    background: radial-gradient(white, black);
-  }
-  </style>
-  <div class="demo m0"></div>
-
-  <p>指定圆的半径 rx, ry; 当 rx !== ry 时, 就是椭圆。</p>
-  <p>圆: <code>background: radial-gradient(40px 40px, white, black);</code></p>
-  <style>
-  .m0-y {
-    background: radial-gradient(40px 40px, white, black);
-  }
-  </style>
-  <div class="demo m0-y"></div>
-  <p>椭圆: <code>background: radial-gradient(80px 40px, white, black);</code></p>
-  <style>
-  .m0-x {
-    background: radial-gradient(80px 40px, white, black);
-  }
-  </style>
-  <div class="demo m0-x"></div>
-
-  <p>调整中心(圆心)位置. <code>background: radial-gradient(circle at 25px 25px, white, black);</code></p>
-  <style>
-  .m1-x {
-    background: radial-gradient(circle at 25px 25px, white, black);
-  }
-  </style>
-  <div class="demo m1-x"></div>
-
-  <p><mark>兼容版本</mark>写法. <code>background: -webkit-radial-gradient(25px 25px, white, black);</code></p>
-  <style>
-  .m1 {
-    background: -webkit-radial-gradient(25px 25px, white, black);
-  }
-  </style>
-  <div class="demo m1"></div>
-
-  <p>位置除了支持数值外, 还支持百分比. background: radial-gradient(circle at 25% 25%, white, black);</p>
-  <style>
-  .m1-y {
-    background: radial-gradient(circle at 25% 25%, white, black);
-  }
-  </style>
-  <div class="demo m1-y"></div>
-
-  <p>可直接在 <code>background: radial-gradient(white, black);</code> 基础上, 指定位置:</p>
-  <p>A: <code>background: radial-gradient(at 100px 100px, transparent 100px, #FFB000 100px);</code></p>
-  <p>B: <code>background: radial-gradient(at 0 100px, transparent 100px, #FFB000 100px)</code></p>
-  <p>C: <code>background: radial-gradient(at 100px 0, transparent 100px, #FFB000 100px)</code></p>
-  <p>D: <code>background: radial-gradient(at 0 0, transparent 100px, #FFB000 100px)</code></p>
-  <style>
-  .ma, .mb, .mc, .md {
-    float: left;
-    line-height: 100px;
-    text-align: center;
-  }
-  .ma { background: radial-gradient(at 100px 100px, transparent 100px, #FFB000 100px)}
-  .mb { background: radial-gradient(at 0 100px, transparent 100px, #FFB000 100px) }
-  .mc { background: radial-gradient(at 100px 0, transparent 100px, #FFB000 100px) }
-  .md { background: radial-gradient(at 0 0, transparent 100px, #FFB000 100px) }
-  </style>
-  <div class="clear">
-    <div class="demo ma">A</div>
-    <div class="demo mb">B</div>
-    <div class="demo mc">C</div>
-    <div class="demo md">D</div>
+<pre>
+[radial-gradient | repeating-radial-gradient] (
+  [
+    [circle || &lt;length&gt;] [at &lt;position&gt;]?, |
+    [ellipse || [&lt;length&gt; | &lt;percentage&gt;]{2}] [at &lt;position&gt;]?, |
+    [[circle | ellipse] || &lt;extend-keyword&gt;] [at &lt;position&gt;]?, |
+    at &lt;position&gt;,
+  ]?
+  &lt;color-stop&gt; [, &lt;color-stop&gt;]+
+)
+&lt;extent-keyword&gt; = closest-corner | closest-side | farthest-corner | farthest-side
+&lt;color-stop&gt; = &lt;color&gt; [&lt;percentage&gt; | &lt;length&gt;]?
+</pre>
+  <h2>语法实例讲解</h2>
+  <div class="syntax-demos">
+    <style>
+      .syntax-demo {
+        margin: 15px auto;
+        padding: 10px;
+        border: 1px dashed hsl(330, 5%, 90%);
+      }
+    </style>
+    <div class="syntax-demo">
+      <style>
+      .m0 {
+        background: radial-gradient(white, black);
+      }
+      </style>
+      <div class="demo m0"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>指定圆的半径 rx, ry; 当 rx !== ry 时, 就是椭圆。</p>
+      <dl>
+        <dt>圆:</dt>
+        <dd><code>background: radial-gradient(40px 40px, white, black);</code></dd>
+        <dd><code>background: radial-gradient(40px, white, black);</code></dd>
+      </dl>
+      <style>
+      .m0-y {
+        background: radial-gradient(40px 40px, white, black);
+        background: radial-gradient(40px, white, black);
+      }
+      </style>
+      <div class="demo m0-y"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>椭圆: <code>background: radial-gradient(80px 40px, white, black);</code></p>
+      <style>
+      .m0-x {
+        background: radial-gradient(80px 40px, white, black);
+      }
+      </style>
+      <div class="demo m0-x"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>调整中心(圆心)位置. <code>background: radial-gradient(circle at 25px 25px, white, black);</code></p>
+      <style>
+      .m1-x {
+        background: radial-gradient(circle at 25px 25px, white, black);
+      }
+      </style>
+      <div class="demo m1-x"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>位置除了支持数值外, 还支持百分比. background: radial-gradient(circle at 25% 25%, white, black);</p>
+      <style>
+      .m1-y {
+        background: radial-gradient(circle at 25% 25%, white, black);
+      }
+      </style>
+      <div class="demo m1-y"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>渐变可以指定多个色值(step) <code>background: radial-gradient(#f00, #ff0, #080);</code></p>
+      <style>
+        .m2 {
+          background: radial-gradient(#f00, #ff0, #080);
+        }
+      </style>
+      <div class="demo m2"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>还可以指定颜色对应位置. <code>background: radial-gradient(#f00, #ff0 20%, #080);</code> <br />#f00 颜色到 20% 位置结束, 切换到 #ff0 颜色。</p>
+      <style>
+        .m3 {
+          background: radial-gradient(#f00, #ff0 20%, #080);
+        }
+      </style>
+      <div class="demo m3"></div>
+    </div>
+    <div class="syntax-demo">
+      <p>可直接在 <code>background: radial-gradient(white, black);</code> 基础上, 指定位置:</p>
+      <p>A: <code>background: radial-gradient(at 100px 100px, transparent 100px, #FFB000 100px);</code></p>
+      <p>B: <code>background: radial-gradient(at 0 100px, transparent 100px, #FFB000 100px)</code></p>
+      <p>C: <code>background: radial-gradient(at 100px 0, transparent 100px, #FFB000 100px)</code></p>
+      <p>D: <code>background: radial-gradient(at 0 0, transparent 100px, #FFB000 100px)</code></p>
+      <p>在第一个值/最后一个值不声明时, 默认指定为 0%/100%. 色值为离位置点最后的色值.</p>
+      <style>
+      .ma, .mb, .mc, .md {
+        float: left;
+        line-height: 100px;
+        text-align: center;
+      }
+      .ma { background: radial-gradient(at 100px 100px, transparent 100px, #FFB000 100px)}
+      .mb { background: radial-gradient(at 0 100px, transparent 100px, #FFB000 100px) }
+      .mc { background: radial-gradient(at 100px 0, transparent 100px, #FFB000 100px) }
+      .md { background: radial-gradient(at 0 0, transparent 100px, #FFB000 100px) }
+      </style>
+      <div class="clear">
+        <div class="demo ma">A</div>
+        <div class="demo mb">B</div>
+        <div class="demo mc">C</div>
+        <div class="demo md">D</div>
+      </div>
+    </div>
   </div>
-
-  <p>渐变可以指定多个色值(step) <code>background: radial-gradient(#f00, #ff0, #080);</code></p>
-  <style>
-    .m2 {
-      background: radial-gradient(#f00, #ff0, #080);
-    }
-  </style>
-  <div class="demo m2"></div>
-
-  <p>还可以指定颜色对应位置. <code>background: radial-gradient(#f00, #ff0 20%, #080);</code> <br />#f00 颜色到 20% 位置结束, 切换到 #ff0 颜色。</p>
-  <style>
-    .m3 {
-      background: radial-gradient(#f00, #ff0 20%, #080);
-    }
-  </style>
-  <div class="demo m3"></div>
 
   <h2>实例</h2>
   <p>注意: <mark>百分比参照谁!</mark></p>
