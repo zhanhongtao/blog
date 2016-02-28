@@ -57,7 +57,7 @@ ol li:before {
   content: counter(list) ". ";
   // 第二个参数, 可以指定 list-style-type
   // counter(name, style);
-  
+
   // 累积计数
   // counters(name, style);
 }
@@ -121,7 +121,6 @@ code {
 
 mark, .mark {
   padding: 0 6px;
-  font-size: .9rem;
   color: #200707;
 }
 

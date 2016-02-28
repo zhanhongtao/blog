@@ -6,15 +6,6 @@
   <base target="_blank" />
   <title>RegExp</title>
   <link rel="stylesheet" href="./css/all.css">
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </head>
 <body spellcheck="false" class="ppt">
   <section class="slide slide-cover">
@@ -45,8 +36,8 @@ var _hmt = _hmt || [];
         <li>i: ignorecase 不区分大小写
         <li>g: global 匹配到字符串结束
         <li>m: multiline 多行
-        <li class="toggle">u: \uXXXX 模式 -> 处理字符编码大于 \uFFFF 的字符(JavaScript 会使用两个 \uXXXX 来表示)
-        <li class="toggle">y: stricy 模式 -> 默认在当前匹配位置开始, 相当于添加 ^ 字符.
+        <li>u: \uXXXX 模式 -> 处理字符编码大于 \uFFFF 的字符(JavaScript 会使用两个 \uXXXX 来表示)
+        <li>y: stricy 模式 -> 默认在当前匹配位置开始, 相当于添加 ^ 字符.
       </ul>
 <pre class="code" data-type="js">
 var reg = /abc/i; // 匹配 'abc', 'Abc', 'aBc', 'abC', 'ABc', 'AbC', 'aBC', 'ABC'
@@ -69,11 +60,19 @@ var reg = new RegExp( '\\w', 'i' ); // 匹配不区分大小写字母, 数字和
           </ul>
       </ul>
 <pre class="code" data-type="js" data-run="1">
-var reg = /abc/i;
+var reg = /ABC/i;
 var string = 'abcdefabc';
 console.log( 'reg.test: ', reg.test(string) );
 console.log( 'reg.exec: ', reg.exec(string) );
 console.log( 'string.match: ', string.match(reg) );
+</pre>
+
+<pre class="code" data-type="js" data-run="1">
+var reg = /ABC/ig;
+var string = 'abcdefabc';
+console.log( 'reg.test: ', reg.test(string) );
+console.log( 'reg.exec: ', reg.exec(string) ); // lastIndex
+console.log( 'string.match: ', string.match(reg) ); // g
 </pre>
     </div>
   </section>
@@ -107,9 +106,9 @@ console.log( 'string.match: ', string.match(reg) );
       <ul>
           <li>| - 关系或
             <ul>
-              <li>两边作用范围: 遇到 ( 和 ) 结束; 没遇到时, 一直作用到正则表达式开头和结尾
+              <li>符号两边作用到的范围: 遇到 ( 和 ) 结束; 没遇到时, 一直到正则表达式开头和结尾
             </ul>
-          <li>() - 范围和分组
+          <li>() - 分组
       </ul>
 <pre class="code" data-type="js" data-run="1">
 var reg = /qq|baidu/;
@@ -249,7 +248,7 @@ console.log( map );
         <li>\W 非字符, 相当于 [^a-zA-z0-9_]
         <li>\s 空白字符
         <li>\S 非空白字符
-        <li>\s\S 全部字符
+        <li>\d\D, \w\W, \s\S 全部字符
       </ul>
     </div>
   </section>
@@ -291,7 +290,7 @@ console.log( map );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>RegExp 语法 - 边界</h1>
+      <h1>RegExp 语法 - 位置</h1>
     </div>
     <div class="bd">
       <ul>
@@ -308,7 +307,7 @@ console.log( map );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>RegExp 语法 - 边界</h1>
+      <h1>RegExp 语法 - 位置</h1>
     </div>
     <div class="bd">
       <ul>
@@ -325,12 +324,14 @@ console.log( map );
   </section>
   <section class="slide">
     <div class="hd">
-      <h1>RegExp 语法 - 边界</h1>
+      <h1>RegExp 语法 - 位置(环视)</h1>
     </div>
     <div class="bd">
       <ul>
         <li>(?= ) 后面满足
         <li>(?! ) 后面不满足
+        <li>(?&lt;=) 前面满足
+        <li>(?&lt;!) 前面不满足
       </ul>
 <pre class="code" data-type="js" data-run="1">
 // 千分位格式化数字
@@ -361,7 +362,7 @@ alert( insertSpace('1abc234de') );
   </section>
   <section class="slide" id="new-regexp">
     <div class="hd">
-      <h1>RegExp - 构造函数</h1>
+      <h1>RegExp - 构造函数(一)</h1>
     </div>
     <div class="bd">
     <p><code>new RegExp( string, pattern );</code> 需要注意 string 中一些字符, 当它们是正则表达式特殊字符时, 需要转义.
@@ -389,7 +390,13 @@ var reg = new RegExp( '\\\\', 'ig' );
 // 字符串中两个字符 \\ 表示单个 \, 那么到正则表达式里面就是 /\\/. 相当于 var reg = /\\/ig;
 alert( reg );
 </pre>
-
+    </div>
+  </section>
+  <section class="slide">
+    <div class="hd">
+      <h1>RegExp - 构造函数(二)</h1>
+    </div>
+    <div class="bd">
 <pre class="code" data-type="js" data-run="1">
 // 其它:
 // 当用户在 input/textarea 等出入框输入 c:\ 字符串, 程序读到的结果是: c:\\.
@@ -416,14 +423,25 @@ alert( reg );
       <h1>RegExp</h1>
     </div>
     <div class="bd">
+      <h2>static</h2>
+      <ul>
+        <li>RegExp.input
+        <li>RegExp.lastMatch
+        <li>RegExp.lastParen
+        <li>RegExp.leftContext
+        <li>RegExp.rightContext
+        <li>RegExp.$1, ... , RegExp.$9
+      </ul>
       <h2>prototype</h2>
       <ul>
-        <li>regexp.ignoreCase
+        <li>regexp.flags
         <li>regexp.global
+        <li>regexp.ignoreCase
         <li>regexp.multiline
-        <li>regexp.lastIndex - 只在 g 模式有效.
         <li>regexp.source
-        <li class="toggle">regexp.stricy - y
+        <li>regexp.lastIndex - 只在 g 模式有效.
+        <li>regexp.unicode
+        <li>regexp.stricy - y
       </ul>
       <h2>method</h2>
       <ul>
@@ -530,8 +548,8 @@ console.log( '/(ab)/g', 'abcabdab'.match(/(ab)/g) );//['ab','ab', 'ab']
             <li>$& 匹配的字符串
             <li>$` 匹配到的字符之前的全部字符.
             <li>$' 匹配到的字符之后的全部字符.
-            <li>$1, $2
-            <li>$$
+            <li>$1, $2, $3, ..., $8, $9
+            <li>$_ 输入字符
           </ul>
         <li>string.replace( regexp, function ); function 参数列表如下
           <ul>
