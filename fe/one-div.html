@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>One-Div</title>
+</head>
+<body>
+<div class="box">我是漂亮的大娟.</div>
+<style>
+  .box {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+    width: 400px;
+    background-color: #fff;
+    color: hsl(333, 50%, 50%);
+  }
+  .box:before,
+  .box:after {
+    content: '';
+    flex: 1;
+    height: 10px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%, 100% 1px;
+  }
+  .box:before {
+    margin-right: 10px;
+    background-image: 
+      radial-gradient(6px at right 3px center, #000, #000 3px, transparent 3px),
+      linear-gradient(to left, transparent 3px, #000 3px);
+  }
+  .box:after {
+    margin-left: 10px;
+    background-image: 
+      radial-gradient(6px at left 3px center, #000, #000 3px, transparent 3px),
+      linear-gradient(to right, transparent 3px, #000 3px);
+  }
+</style>
+</body>
+</html>
