@@ -26,6 +26,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   css: [
+    {title: '单行文字两端对齐', address: './fe/align.html'},
     {title: 'css 之 desktop', address: './desktop/'},
     {title: 'Selctor', address: './fe/selector/' },
     {title: '最小高度', address: './fe/sticky-link-bottom.html', description: 'vh + calc 版本'},
