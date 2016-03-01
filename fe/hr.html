@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <title>hr</title>
+  <style>
+  body {
+    text-align: center;
+    color: #666;
+  }
+  .hr, .box {
+    width: 80%;
+  }
+
+  /* use border */
+  span.hr {
+    display: inline-flex;
+    align-items: center;
+  }
+  span.hr:before,
+  span.hr:after {
+    content: '';
+    flex: 1;
+    border-top: 1px dashed darkblue;
+  }
+  span.hr:before {
+    margin-right: 10px;
+  }
+  span.hr:after{
+    margin-left: 10px;
+  }
+
+  .box {
+    margin: 20px auto;
+  }
+
+  /* use gradient */
+  .box {
+    display: flex;
+    align-items: center;
+  }
+  .box:before,
+  .box:after {
+    content: '';
+    flex: 1;
+    height: 6px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%, 100% 1px;
+  }
+  .box:before {
+    margin-right: 10px;
+    background-image:
+      radial-gradient(6px at right 3px center, darkblue, darkblue 3px, transparent 3px),
+      linear-gradient(to left, transparent 3px, darkblue 3px);
+  }
+  .box:after {
+    margin-left: 10px;
+    background-image:
+      radial-gradient(6px at left 3px center, darkblue, darkblue 3px, transparent 3px),
+      linear-gradient(to right, transparent 3px, darkblue 3px);
+  }
+  </style>
+</head>
+<body>
+  <span class="hr">华丽分割线</span>
+  <span class="box">华丽分割线</span>
+</body>
+</html>
