@@ -26,6 +26,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   css: [
+    {title: '分隔线样式', address: './fe/hr.html'},
     {title: '单行文字两端对齐', address: './fe/align.html'},
     {title: 'css 之 desktop', address: './desktop/'},
     {title: 'Selctor', address: './fe/selector/' },
@@ -39,7 +40,7 @@ var blog = {
     {title: 'Flex', address: './fe/flex/'},
     {title: 'CSS - linear-gradient', address: './fe/gradient.html', description: '线性渐变'},
     {title: 'CSS - radial-gradient', address: './fe/radial-gradient.html', description: '径向渐变'},
-    {title: '内圆角', address: './fe/inner-radius.html'},
+    {title: 'inner-radius', address: './fe/inner-radius.html'},
     {title: 'CSS layout', address: './layout/', description: 'Alt + Number 切换 css 文件' },
     {title: 'CSS - Animation', address: './fe/animation.html' },
     {title: 'overlay', address: './fe/overflow-overlay.html', description: '不占空间的滚动条(fixed)'},
