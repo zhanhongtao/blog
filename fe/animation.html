@@ -37,25 +37,24 @@
     -webkit-animation: slide .5s linear 3 alternate forwards;
     animation: slide .5s linear 3 alternate forwards;
   }
-  #keyframe-start,
-  #keyframe-end  {
-    width: 100px;
-    height: 100px;
-    margin: 10px 0;
-    background-color: #fcc;
+  .step-demo {
+    display: inline-block;
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+    background: url(./images/step-demo.png) no-repeat 0 0;
+    background-position: 0 0;
+    animation: step-demo 1.5s steps(3, end) infinite;
   }
-  .enable-keyframe-start {
-    animation: step 3s steps(3, start) forwards;
-  }
-  .enable-keyframe-end {
-    animation: step 3s steps(3, end) forwards;
-  }
-  @keyframes step{
-    0% {
-      transform: translate(0px);
-    }
-    100% {
-      transform: translate(100px, 0)
+  @keyframes step-demo {
+    to {
+      /*
+        0 0; -> 1;
+        -48px 0; -> 2;
+        -96px 0; -> 3
+        -144px 0;
+       */
+      background-position: -144px 0;
     }
   }
   </style>
@@ -65,8 +64,6 @@
   <button id="add">Add</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
-  <div id="keyframe-start"></div>
-  <div id="keyframe-end"></div>
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程, 即: 相互不阻塞.</a></p>
   <p>查看开发者工具中 animation 相关事件.</p>
   <h2>CSS</h2>
@@ -84,7 +81,7 @@
   </dl>
   <dl>
     <dt>step</dt>
-    <dd>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
+    <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
@@ -106,9 +103,7 @@
     <dt>animation-play-state</dt>
     <dd>停止和恢复动画. [running | paused]</dd>
   </dl>
-  <p><pre>
-<code>animation: name duration function delay count direction fill-mode play-state;</code>
-  </pre></p>
+  <p><pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre></p>
   <h2>JavaScript - Animation Event</h2>
   <ul>
     <li>animationStart - webkitAnimationStart</li>
@@ -133,27 +128,12 @@
       }, 500);
     }, false );
     
-    var startNode = document.getElementById('keyframe-start');
-    var endNode = document.getElementById('keyframe-end');
     document.getElementById( 'add' ).addEventListener( 'click', function(e) {
       demo.classList.add( 'enable' );
-      startNode.classList.add('enable-keyframe-start');
-      endNode.classList.add('enable-keyframe-end');
     }, false );
     document.getElementById( 'remove' ).addEventListener( 'click', function(e) {
       demo.classList.remove( 'enable' );
-      startNode.classList.remove('enable-keyframe-start');
-      endNode.classList.remove('enable-keyframe-end');
     }, false );
   </script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?51af31ebd7b05fdb3e478e13b16e757b";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </body>
 </html>
