@@ -110,6 +110,36 @@
   <dl>
     <dt>animation-play-state</dt>
     <dd>停止和恢复动画. [running | paused]</dd>
+    <dd>
+      <style>
+      #animation-play-state-demo {
+        width: 50px;
+        height: 72px;
+        background: url(./images/sprite-steps.png) no-repeat 0 0;
+        -webkit-animation: steps 1s steps(10, end) infinite;
+        animation: steps 1s steps(10, end) infinite;
+      }
+      .paused #animation-play-state-demo {
+        animation-play-state: paused;
+      }
+      @-webkit-keyframes steps {
+        100% {
+          background-position: -500px 0;
+        }
+      }
+      @keyframes steps {
+        100% {
+          background-position: -500px 0;
+        }
+      }
+      </style>
+      <div id="animation-play-state-demo"></div>
+      <script>
+        document.getElementById('animation-play-state-demo').addEventListener('click', function(e) {
+          document.body.classList.toggle('paused');
+        }, false);
+      </script>
+    </dd>
   </dl>
   <h3>简写形式</h3>
   <p><pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre></p>
@@ -140,7 +170,6 @@
     }, false);
     demo.addEventListener( 'webkitAnimationIteration', function(e) {
       console.log( 'animation-iteration:', e );
-      // demo.style.WebkitAnimationPlayState = 'paused';
       setTimeout(function() {
         demo.style.WebkitAnimationPlayState = 'running';
       }, 500);
