@@ -33,8 +33,8 @@
   h2 { font-size: 1.8rem; }
   #demo {
     margin: 10px 0;
-    width: 100px;
-    height: 100px;
+    width: 25px;
+    height: 25px;
     background-color: #faa;
   }
   .enable {
@@ -105,7 +105,11 @@
   </dl>
   <dl>
     <dt>animation-fill-mode</dt>
-    <dd>动画结束时, 元素应用的样式.[normal | forwards-动画结束时状态 | backwards-动画开始时状态(0时, 同 forwards) | both]</dd>
+    <dd>描述动画开始前/结束后, @keyframes 中定义的样式对元素本身样式的影响</dd>
+    <dd>noraml 默认情况下, 不影响元素原有样式</dd>
+    <dd>backwards 动画开始前, 应用动画开始时样式, 受 animation-direction 影响. direction 为 normal/alternate 时, 应用 from 样式; 为 reverse/alternate-reverse 时, 应用 to 样式;</dd>
+    <dd>forwards 动画结束后, 应用动画结束时样式. 当 animation-iteration-count 为 0 时, forwards 和 backwards 相同;</dd>
+    <dd>both 同时使用 backwards 和 forwards 规则</dd>
   </dl>
   <dl>
     <dt>animation-play-state</dt>
@@ -146,6 +150,59 @@
   <h3>Mutiple Animation</h3>
   <p>语法: <pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
   <p>单个动画不支持元素在同一时间内, 不同属性使用不同 animation-timing-function. Mutiple-Animation 可实现</p>
+  <div>
+    <style>
+      @-webkit-keyframes v {
+        to { top: 160px; }
+      }
+      @-webkit-keyframes h {
+        to { left: 160px; }
+      }
+      @-webkit-keyframes vh {
+        to {
+          -webkit-transform: translate(160px, 160px);
+          transform: translate(160px, 160px);
+        }
+      }
+      @keyframes v {
+        to { top: 160px; }
+      }
+      @keyframes h {
+        to { left: 160px; }
+      }
+      @keyframes vh {
+        to {
+          -webkit-transform: translate(160px, 160px);
+          transform: translate(160px, 160px);
+        }
+      }
+      .mul-d0, .mul-d1 {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background: hsl(340, 50%, 50%);
+        position: relative;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+      }
+      .mul-d0 {
+        -webkit-animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
+        animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
+      }
+      .mul-d1 {
+        -webkit-animation: vh 1.5s linear infinite both alternate;
+        animation: vh 1.5s linear infinite both alternate;
+      }
+      .paused .mul-d0,
+      .paused .mul-d1 {
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+      }
+    </style>
+    <div class="mul-d0"></div>
+    <div class="mul-d1"></div>
+  </div>
   <h2>JavaScript - Animation Event</h2>
   <ul>
     <li>animationStart - webkitAnimationStart</li>
