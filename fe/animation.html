@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title>Animation Event</title>
-  <style> /* 可以使用 from/to 关键字 */
+  <style>
+  /*
+    * from[0%]/to[100%]
+      from[0%] 可省略, 此时使用元素当前状态
+      to[100%] 也可省略, 使用其它百分比/duration/timing-function等计算得到
+    * 不是所有属性都支持动画
+  */
   @-ms-keyframes slide {
     0% { -ms-transform: translate(0, 0) }
     100% { -ms-transform: translate(200px, 0) }
@@ -44,7 +50,13 @@
     height: 48px;
     background: url(./images/step-demo.png) no-repeat 0 0;
     background-position: 0 0;
+    -webkit-animation: step-demo 1.5s steps(3, end) infinite;
     animation: step-demo 1.5s steps(3, end) infinite;
+  }
+  @-webkit-keyframes step-demo {
+    to {
+      background-position: -144px 0;
+    }
   }
   @keyframes step-demo {
     to {
@@ -64,24 +76,20 @@
   <button id="add">Add</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
-  <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程, 即: 相互不阻塞.</a></p>
-  <p>查看开发者工具中 animation 相关事件.</p>
   <h2>CSS</h2>
   <dl>
     <dt>animation-name</dt>
-    <dd>@keyframes 指定的关键帧名称</dd>
+    <dd>@keyframes 指定的关键帧名称. none 表示无动画. (不建议使用关键字做 name)</dd>
   </dl>
   <dl>
     <dt>animation-duration</dt>
     <dd>设置动画一周期的时长. [0]</dd>
   </dl>
   <dl>
-    <dt><a href="http://cubic-bezier.com/" target="_blank">animation-timing-function</a></dt>
-    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]/linear/ease-in/ease-out/ease-in-out</dd>
-  </dl>
-  <dl>
-    <dt>step</dt>
+    <dt>animation-timing-function</dt>
+    <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]/linear/ease-in/ease-out/ease-in-out/<a href="http://cubic-bezier.com" target="_blank">cubic-bezier</a>(x1, y1, x2, y2)</dd>
     <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
+    <dd>可在 @keyframes 中不同时间段定义不同的 animation-timing-function - 自定义(<mark>手写</mark>)</dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
@@ -97,13 +105,17 @@
   </dl>
   <dl>
     <dt>animation-fill-mode</dt>
-    <dd>动画结束时, 元素应用的样式.[normal | forwards-动画结束时状态 | backwards-动画开始时状态 | both]</dd>
+    <dd>动画结束时, 元素应用的样式.[normal | forwards-动画结束时状态 | backwards-动画开始时状态(0时, 同 forwards) | both]</dd>
   </dl>
   <dl>
     <dt>animation-play-state</dt>
     <dd>停止和恢复动画. [running | paused]</dd>
   </dl>
+  <h3>简写形式</h3>
   <p><pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre></p>
+  <h3>Mutiple Animation</h3>
+  <p>语法: <pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
+  <p>单个动画不支持元素在同一时间内, 不同属性使用不同 animation-timing-function. Mutiple-Animation 可实现</p>
   <h2>JavaScript - Animation Event</h2>
   <ul>
     <li>animationStart - webkitAnimationStart</li>
@@ -111,6 +123,12 @@
     <li>animationEnd - webkitAnimationEnd</li>
     <li>event.animationName - @keyframe 名称</li>
     <li>event.elapsedTime - 动画开始与现在的时间间隔</li>
+  </ul>
+  <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程, 即: 相互不阻塞.</a></p>
+  <p>查看开发者工具中 animation 相关事件.</p>
+  <h2>相关文档</h2>
+  <ul>
+    <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
   </ul>
   <script>
     var demo = document.getElementById( 'demo' );
@@ -127,7 +145,7 @@
         demo.style.WebkitAnimationPlayState = 'running';
       }, 500);
     }, false );
-    
+
     document.getElementById( 'add' ).addEventListener( 'click', function(e) {
       demo.classList.add( 'enable' );
     }, false );
