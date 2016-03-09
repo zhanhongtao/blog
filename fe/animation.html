@@ -68,7 +68,7 @@
       background-position: -144px 0;
     }
   }
-  
+
   /* 可指定图片大小 background-size */
   .step-twitter-love {
     width: 48px;
@@ -90,9 +90,62 @@
       background-position: right 0;
     }
   }
-  .paused .step-twitter-love {
+  .paused .step-twitter-love,
+  .paused .timing-function,
+  .paused .step-demo {
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
+  }
+  .timing-function {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    background-color: hsl(210, 80%, 50%);
+    -webkit-animation: try-timing-function 2s infinite alternate;
+    animation: try-timing-function 2s infinite alternate;
+  }
+  @-webkit-keyframes try-timing-function {
+    0% {
+      -webkit-transform: translate(0);
+      -webkit-animation-timing-function: linear;
+    }
+    25% {
+      -webkit-transform: translate(100px);
+      -webkit-animation-timing-function: ease;
+    }
+    50% {
+      -webkit-transform: translate(200px);
+      -webkit-animation-timing-function: ease-in;
+    }
+    75% {
+      -webkit-transform: translate(300px);
+      -webkit-animation-timing-function: ease-out;
+    }
+    100% {
+      -webkit-transform: translate(400px);
+    }
+  }
+  @keyframes try-timing-function {
+    0% {
+      transform: translate(0);
+      animation-timing-function: linear;
+    }
+    25% {
+      transform: translate(100px);
+      animation-timing-function: ease;
+    }
+    50% {
+      transform: translate(200px);
+      animation-timing-function: ease-in;
+    }
+    75% {
+      transform: translate(300px);
+      animation-timing-function: ease-out;
+    }
+    100% {
+      transform: translate(400px);
+    }
   }
   </style>
 </head>
@@ -115,6 +168,7 @@
     <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]/linear/ease-in/ease-out/ease-in-out/<a href="http://cubic-bezier.com" target="_blank">cubic-bezier</a>(x1, y1, x2, y2)</dd>
     <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
     <dd>可在 @keyframes 中不同时间段定义不同的 animation-timing-function - 自定义(<mark>手写</mark>)</dd>
+    <dd>DEMO: <div class="timing-function"></div></dd>
   </dl>
   <dl>
     <dt>animation-delay</dt>
