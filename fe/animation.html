@@ -49,9 +49,8 @@
     width: 48px;
     height: 48px;
     background: url(./images/step-demo.png) no-repeat 0 0;
-    background-position: 0 0;
     -webkit-animation: step-demo 1.5s steps(3, end) infinite;
-    animation: step-demo 1.5s steps(3, end) infinite;
+    animation: step-demo 1.5s steps(3, end) infinite both;
   }
   @-webkit-keyframes step-demo {
     to {
@@ -69,6 +68,32 @@
       background-position: -144px 0;
     }
   }
+  
+  /* 可指定图片大小 background-size */
+  .step-twitter-love {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(./images/web_heart_animation.png) no-repeat 0 0;
+    background-size: 2900%;
+    -webkit-animation: heart_love 1s steps(28, end) .5s infinite;
+    animation: heart_love 1s steps(28, end) .5s infinite;
+  }
+  @-webkit-keyframes heart_love {
+    to {
+      background-position: right 0;
+    }
+  }
+  @keyframes heart_love {
+    to {
+      background-position: right 0;
+    }
+  }
+  .paused .step-twitter-love {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
   </style>
 </head>
 <body>
@@ -76,7 +101,7 @@
   <button id="add">Add</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
-  <h2>CSS</h2>
+  <h2>CSS<div class="step-twitter-love"></div></h2>
   <dl>
     <dt>animation-name</dt>
     <dd>@keyframes 指定的关键帧名称. none 表示无动画. (不建议使用关键字做 name)</dd>
@@ -124,6 +149,7 @@
         animation: steps 1s steps(10, end) infinite;
       }
       .paused #animation-play-state-demo {
+        -webkit-animation-play-state: paused;
         animation-play-state: paused;
       }
       @-webkit-keyframes steps {
