@@ -7,8 +7,8 @@
   <style>
   /*
     * from[0%]/to[100%]
-      from[0%] 可省略, 此时使用元素当前状态
-      to[100%] 也可省略, 使用其它百分比/duration/timing-function等计算得到
+      from[0%] 可省略, 使用元素当前状态
+      to[100%] 也可省略, 使用元素动画前状态
     * 不是所有属性都支持动画
   */
   @-ms-keyframes slide {
@@ -229,7 +229,8 @@
   <p><pre><code>animation: name duration function delay count direction fill-mode play-state;</code></pre></p>
   <h3>Mutiple Animation</h3>
   <p>语法: <pre><code>animation: animation-defined[, animation-defined]*;</code></pre></p>
-  <p>单个动画不支持元素在同一时间内, 不同属性使用不同 animation-timing-function. Mutiple-Animation 可实现</p>
+  <p>单个动画不支持元素在同一时间内, 不同属性使用不同 animation-timing-function. Mutiple-Animation 可实现(<mark>transform 不能组合使用, 性能不佳</mark>)</p>
+  <p>为了使用 transform 来实现曲线过程动画, 可利用容器嵌套方法. 见第三个例子.</p>
   <div>
     <style>
       @-webkit-keyframes v {
@@ -244,11 +245,23 @@
           transform: translate(160px, 160px);
         }
       }
+      @-webkit-keyframes vt {
+        to { -webkit-transform: translate3D(0, 160px, 0); }
+      }
+      @-webkit-keyframes ht {
+        to { -webkit-transform: translate3D(160px, 0, 0); }
+      }
       @keyframes v {
         to { top: 160px; }
       }
       @keyframes h {
         to { left: 160px; }
+      }
+      @keyframes vt {
+        to { transform: translate3D(0, 160px, 0); }
+      }
+      @keyframes ht {
+        to { transform: translate3D(160px, 0, 0); }
       }
       @keyframes vh {
         to {
@@ -256,7 +269,7 @@
           transform: translate(160px, 160px);
         }
       }
-      .mul-d0, .mul-d1 {
+      .mul-d0, .mul-d1, .mul-other {
         width: 20px;
         height: 20px;
         display: inline-block;
@@ -267,21 +280,38 @@
         border-radius: 50%;
       }
       .mul-d0 {
-        -webkit-animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
-        animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
-      }
-      .mul-d1 {
         -webkit-animation: vh 1.5s linear infinite both alternate;
         animation: vh 1.5s linear infinite both alternate;
       }
+      .mul-d1 {
+        -webkit-animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
+        animation: v 1.5s ease infinite both alternate, h 1.5s linear infinite both alternate;
+      }
+      .mul-other {
+        background-color: transparent;
+        -webkit-animation: ht 1.5s linear infinite both alternate;
+        animation: ht 1.5s linear infinite both alternate;
+      }
+      .mul-other:after {
+        content: '';
+        display: block;
+        background: hsl(270, 50%, 50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        -webkit-animation: vt 1.5s ease infinite both alternate;
+        animation: vt 1.5s ease infinite both alternate;
+      }
       .paused .mul-d0,
-      .paused .mul-d1 {
+      .paused .mul-d1,
+      .paused .mul-other {
         -webkit-animation-play-state: paused;
         animation-play-state: paused;
       }
     </style>
     <div class="mul-d0"></div>
     <div class="mul-d1"></div>
+    <div class="mul-other"></div>
   </div>
   <h2>JavaScript - Animation Event</h2>
   <ul>
