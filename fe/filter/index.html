@@ -10,45 +10,64 @@
   <script>
   var box = document.getElementById( 'box' );
   var effects = [
-    'blur',
-    'opacity',
-    'grayscale',
-    'sepia',
-    'saturate',
-    'hue-rotate',
-    'invert',
-    'brightness',
-    'contrast',
-    'drop-shadow'
+    ['blur', '模糊'],
+    ['opacity', '透明度'],
+    ['grayscale', '灰度'],
+    ['sepia', '复古风'],
+    ['saturate', '饱和度'],
+    ['hue-rotate', '色相翻转'],
+    ['invert', '反色'],
+    ['brightness', '亮度'],
+    ['contrast', '对比度'],
+    ['drop-shadow', '阴影']
   ];
 
-  var titles = [
-    '模糊',
-    '透明度',
-    '灰度',
-    '复古风',
-    '饱和度',
-    '色相翻转',
-    '反色',
-    '亮度',
-    '对比度',
-    '阴影'
+  var modes = [
+    ['initial', 'the default setting of the property that does not set a blend mode.'],
+    ['inherit', 'an element will inherit the blend mode from its parent element.'],
+    ['unset', 'removes the current blend mode from an element.'],
+    ['normal', 'this attribute applies no blending whatsoever.'],
+    ['multiply', ' the element is multiplied by the background and replaces the background color. The resulting color is always as dark as the background.'],
+    ['screen', 'multiplies the background and the content then complements the result. This will result in content which is brighter than the background-color.'],
+    ['overlay', ' multiplies or screens the content depending on the background color. This is the inverse of the hard-light blend mode.'],
+    ['darken', 'the background is replaced with the content where the content is darker, otherwise it is left as it was.'],
+    ['lighten', 'the background is replaced with the content where the content is lighter.'],
+    ['color-dodge', ' this attribute brightens the background color to reflect the color of the content.'],
+    ['color-burn', 'this darkens the background to reflect the content’s natural color.'],
+    ['hard-light', 'depending on the color of the content this attribute will screen or multiply it.'],
+    ['soft-light', 'depending on the color of the content this will darken or lighten it.'],
+    ['difference', 'this subtracts the darker of the two colors from the lightest color.'],
+    ['exclusion', 'similar to difference but with lower contrast.'],
+    ['hue', 'creates a color with the hue of the content combined with the saturation and luminosity of the background.'],
+    ['saturation', 'creates a color with saturation of the content combined with the hue and luminosity of the background.'],
+    ['color', 'creates a color with the hue and saturation of the content and the luminosity of the background.'],
+    ['luminosity', 'creates a color with the luminosity of the content and the hue and saturation of the background. This is the inverse of the color attribute.']
   ];
 
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0, l = effects.length; i < l; ++i) {
-    var item = document.createElement('div');
-    item.id = effects[i];
-    item.className = 'item';
-    var image = document.createElement('img');
-    image.src = './helper.jpeg';
-    item.appendChild(image);
-    var title = document.createElement('h1');
-    title.innerText = titles[i];
-    title.dataset.id = item.id;
-    item.appendChild(title);
-    fragment.appendChild(item);
+  var list = [effects, modes];
+  var j = 0, n = list.length;
+  while(j < n) {
+    for (var i = 0, l = list[j].length; i < l; ++i) {
+      var config = list[j][i];
+      var item = document.createElement('div');
+      item.id = config[0];
+      item.className = 'item item-' + (j == 0 ? 'x' : 'z');
+      var _ = document.createElement('div');
+      _.className = 'demo';
+      var image = document.createElement('img');
+      image.src = './helper.jpeg';
+      _.appendChild(image);
+      var title = document.createElement('h1');
+      title.innerText = config[0];
+      j === 0 && (title.dataset.id = config[1]);
+      title.title = j === 0 ? '' : config[1];
+      item.appendChild(_);
+      item.appendChild(title);
+      fragment.appendChild(item);
+    }
+    ++j;
   }
 
   var i = 0;

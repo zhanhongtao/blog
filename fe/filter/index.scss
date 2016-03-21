@@ -15,8 +15,8 @@ $margin: 10px;
 .item {
   width: $width;
   margin: $margin;
-  display: inline-block;
   font-size: 16px;
+  vertical-align: top;
   img {
     width: 100%;
   }
@@ -25,9 +25,26 @@ $margin: 10px;
     font-size: 1.4em;
     font-weight: normal;
     text-transform: capitalize;
-    &:after {
-      content: '(' attr(data-id) ')';
-    }
+  }
+}
+
+.item-x {
+  h1:after {
+    content: '(' attr(data-id) ')';
+  }
+}
+
+.item-z .demo {
+  position: relative;
+  &:after {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: hsla(270, 50%, 50%, 0.75);
   }
 }
 
@@ -66,5 +83,31 @@ $margin: 10px;
 ) {
   ##{$key} img {
     @include prefix(filter, $key + unquote( "(#{$value})" ));
+  }
+}
+
+@each $key in (
+  normal,
+  multiply,
+  screen,
+  overlay,
+  darken,
+  lighten,
+  color-dodge,
+  color-burn,
+  hard-light,
+  soft-light,
+  difference,
+  exclusion,
+  hue,
+  saturation,
+  color,
+  luminosity,
+  initial,
+  inherit,
+  unset
+) {
+  ##{$key} .demo:after {
+    @include prefix(mix-blend-mode, $key);
   }
 }
