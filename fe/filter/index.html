@@ -49,6 +49,7 @@
   var list = [effects, modes];
   var j = 0, n = list.length;
   while(j < n) {
+    var cat = document.createElement('div');
     for (var i = 0, l = list[j].length; i < l; ++i) {
       var config = list[j][i];
       var item = document.createElement('div');
@@ -65,16 +66,16 @@
       title.title = j === 0 ? '' : config[1];
       item.appendChild(_);
       item.appendChild(title);
-      fragment.appendChild(item);
+      cat.appendChild(item);
     }
+    var i = 0;
+    while (i++ < 10) {
+      var item = document.createElement('div');
+      item.className = 'helper';
+      cat.appendChild(item);
+    }
+    fragment.appendChild(cat);
     ++j;
-  }
-
-  var i = 0;
-  while (i++ < 10) {
-    var item = document.createElement('div');
-    item.className = 'helper';
-    fragment.appendChild(item);
   }
 
   box.appendChild(fragment);
