@@ -4,44 +4,51 @@
   <meta charset="UTF-8">
   <title>CSS3 filter</title>
   <link rel="stylesheet" href="index.css">
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8175867d77e2de15a931846b667d024f";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-  
 </head>
 <body>
   <div id="box"></div>
   <script>
   var box = document.getElementById( 'box' );
   var effects = [
+    'blur',
+    'opacity',
     'grayscale',
     'sepia',
     'saturate',
     'hue-rotate',
     'invert',
-    'opacity',
     'brightness',
     'contrast',
-    'blur',
     'drop-shadow'
+  ];
+
+  var titles = [
+    '模糊',
+    '透明度',
+    '灰度',
+    '复古风',
+    '饱和度',
+    '色相翻转',
+    '反色',
+    '亮度',
+    '对比度',
+    '阴影'
   ];
 
   var fragment = document.createDocumentFragment();
 
   for (var i = 0, l = effects.length; i < l; ++i) {
     var item = document.createElement('div');
+    item.id = effects[i];
+    item.className = 'item';
     var image = document.createElement('img');
     image.src = './helper.jpeg';
     item.appendChild(image);
+    var title = document.createElement('h1');
+    title.innerText = titles[i];
+    title.dataset.id = item.id;
+    item.appendChild(title);
     fragment.appendChild(item);
-    item.id = effects[i];
-    item.className = 'item';
   }
 
   box.appendChild(fragment);

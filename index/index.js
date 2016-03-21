@@ -26,6 +26,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   css: [
+    {title: 'Filter', address: './fe/filter/'},
     {title: '分隔线样式', address: './fe/hr.html'},
     {title: '单行文字两端对齐', address: './fe/align.html'},
     {title: 'css 之 desktop', address: './desktop/'},
@@ -48,7 +49,7 @@ var blog = {
   ],
   js: [
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
-    {title: '分页', address: './pagination/'},  
+    {title: '分页', address: './pagination/'},
     {title: 'async & order', address: './fe/sync/'},
     {title: '装饰器实例', address: './fe/ms/'},
     {title: '条件排序', address: './sort/special.html', description: '双指针问题'},
