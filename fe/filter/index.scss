@@ -1,13 +1,22 @@
 @charset "utf-8";
 
+$width: 240px;
+$margin: 10px;
+
 #box {
   text-align: center;
+  font-size: 0;
+}
+
+.helper, .item {
+  display: inline-block;
 }
 
 .item {
-  width: 240px;
+  width: $width;
+  margin: $margin;
   display: inline-block;
-  margin: 10px;
+  font-size: 16px;
   img {
     width: 100%;
   }
@@ -20,6 +29,11 @@
       content: '(' attr(data-id) ')';
     }
   }
+}
+
+.helper {
+  width: $width;
+  margin: 0 $margin;
 }
 
 @mixin prefix($p, $v) {

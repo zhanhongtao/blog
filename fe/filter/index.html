@@ -51,6 +51,13 @@
     fragment.appendChild(item);
   }
 
+  var i = 0;
+  while (i++ < 10) {
+    var item = document.createElement('div');
+    item.className = 'helper';
+    fragment.appendChild(item);
+  }
+
   box.appendChild(fragment);
   </script>
 </body>
