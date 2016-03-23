@@ -54,9 +54,9 @@ Array.from(map); // [ ['a', 'A'] ]
 // 伪数组
 // object
 Array.from({a: 'a'}); // []
-Array.from({a: 'a', length: 1}); // []
+Array.from({a: 'a', length: 1}); // [undefined]
 Array.from({0: 'a'}); // []
-Array.from({0: 'a', 10: 'A', length: 11}); // ['a', ......., 'A']
+Array.from({0: 'a', 10: 'A', length: 11}); // ['a', ......., 'A']. 中间补 undefined.
 
 // 使用扩展运算符也可以转换一些数据结构
 // 扩展运算符依赖 Symbol.iterator
@@ -70,10 +70,10 @@ Array.from(document.querySelectorAll('a'), (node) => node.href);
 
 
 // 修正 new Array 不足
-Array.of(1);
-Array.of(-1);
-Array.of('xxxx');
-Array.of('a', 'b');
+Array.of(1);        // [1]
+Array.of(-1);       // [-1]
+Array.of('xxxx');   // ['xxxx']
+Array.of('a', 'b'); // ['a', 'b']
 
 
 // 补充 indexOf 函数
@@ -151,3 +151,4 @@ for (let elem of ['a', 'b'].values()) {
 for (let [index, elem] of ['a', 'b'].entries()) {
   console.log(index, elem); // 0, 'a';  1, 'b'
 }
+
