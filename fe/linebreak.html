@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>line-break</title>
+  <style>
+    dt, dd {
+      display: inline;
+      margin: 0;
+    }
+    dd + dt:before {
+      content: '\A';
+      white-space: pre;
+    }
+    dd + dd:before {
+      content: ', ';
+    }
+  </style>
+</head>
+<body>
+  <dl>
+    <dt>姓名:</dt>
+    <dd>redky</dd>
+    <dd>tt</dd>
+    <dt>邮件:</dt>
+    <dd>redky(@)qq.com</dd>
+    <dd>295143921(@)qq.com</dd>
+  </dl>
+</body>
+</html>

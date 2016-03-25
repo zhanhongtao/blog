@@ -26,6 +26,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
   css: [
+    {title: '换行小技巧', address: './fe/linebreak.html'},
     {title: 'Filter', address: './fe/filter/'},
     {title: '分隔线样式', address: './fe/hr.html'},
     {title: '单行文字两端对齐', address: './fe/align.html'},

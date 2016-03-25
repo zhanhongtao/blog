@@ -1,5 +1,6 @@
 *~
 *.swp
+.idea
 ppt/images/canvas/Thumbs.db
 *.scssc
 fe/action.js
