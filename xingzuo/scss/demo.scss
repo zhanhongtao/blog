@@ -1,0 +1,168 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+.background {
+  background: url(../images/bg-shuangyu.png) no-repeat 50% 100%;
+  background-size: cover;
+}
+
+%inline-block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.middle-helper {
+  text-align: center;
+}
+
+.middle-helper:after {
+  content: '';
+  @extend %inline-block;
+  vertical-align: middle;
+  height: 100%;
+  width: 0;
+}
+
+$size: 800px;
+$radius: $size/2;
+$item-size: 80px;
+$small-radius: $item-size/2;
+$fixed-radius: 2px;
+
+.navi {
+  @extend %basic;
+  .navi-base & {
+    width: $size;
+    height: $size;
+  }
+  .navi-demo & {
+    background-color: #DAAFEA;
+  }
+  .middle-helper & {
+    @extend %inline-block;
+    vertical-align: middle;
+  }
+  .navi-background & {
+    background: url(../images/round.png) no-repeat 50% 50%;
+  }
+  .navi-rotate & {
+    transition: all 2s;
+    transform: rotate(1.5turn);
+  }
+  .items-center & {
+    position: relative;
+  }
+}
+
+%basic {
+  transition: all .5s;
+}
+
+%items-base {
+  width: $item-size;
+  height: $item-size;
+  line-height: $item-size;
+}
+
+%items-center {
+  position: absolute;
+  top: $radius;
+  left: $radius;
+  margin-left: -$small-radius;
+  margin-top: -$small-radius;
+}
+
+@function randomcolor() {
+  $red: random(256) - 1;
+  $green: random(256) - 1;
+  $blue: random(256) - 1;
+  @return rgb($red, $green, $blue);
+}
+
+@function fixedBgIndex($index) {
+  $_index: $index - 2;
+  $index: if($_index < 0, $_index + 12, $_index);
+  @return $index;
+}
+
+$list: (
+  (name: shuiping),
+  (name: shuangyu),
+  (name: baiyang),
+  (name: jinniu),
+  (name: shuangzi),
+  (name: juxie),
+  (name: shizi),
+  (name: chunv),
+  (name: tiancheng),
+  (name: tianxie),
+  (name: sheshou),
+  (name: mojie)
+);
+
+$length: length($list);
+$per: 30deg;
+$fixed: 15deg;
+@import 'math';
+@for $i from 1 through $length {
+  $item: nth($list, $i);
+  $name: map-get($item, 'name');
+  .#{$name} {
+    @extend %basic;
+    .items-base & {
+      @extend %items-base;
+    }
+    .items-demo & {
+      background: randomcolor();
+    }
+    .items-center & {
+      @extend %items-center;
+    }
+    .items-calc & {
+      $rotate: $i * $per + $fixed;
+      top: $radius * sin($rotate) + $radius;
+      left: $radius * cos($rotate) + $radius;
+    }
+    .items-final & {
+      $rotate: $i * $per + $fixed;
+      $final-radius: $radius - $small-radius - $fixed-radius;
+      top: $final-radius * sin($rotate) + $radius;
+      left: $final-radius * cos($rotate) + $radius;
+    }
+    .items-rotate & {
+      $rotate: $i * $per + $fixed + 90deg;
+      transform: rotate($rotate);
+    }
+    .items-background & {
+      $index: $i - 1;
+      background: url(../images/xingzuo.png) no-repeat (-$index * $item-size);
+      &:hover {
+        background-position: (-$index * $item-size) (-3 * $item-size);
+      }
+    }
+    .items-background-index & {
+      $index: $i - 1;
+      $index: fixedBgIndex($index);
+      background: url(../images/xingzuo.png) no-repeat (-$index * $item-size) 0;
+      &:hover {
+        background-position: (-$index * $item-size) (-3 * $item-size);
+      }
+    }
+    .items-text & {
+      text-indent: -100em;
+      overflow: hidden;
+    }
+  }
+}
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>星座专版</title>
+  <link rel="stylesheet" href="./css/demo.css">
+</head>
+<body class="
+">
+  <ul class="navi">
+    <li class="shuiping"><a href="#shuiping">水瓶座</a></li>
+    <li class="shuangyu"><a href="#shuangyu">双鱼座</a></li>
+    <li class="baiyang"><a href="#baiyang">白羊座</a></li>
+    <li class="jinniu"><a href="#jinniu">金牛座</a></li>
+    <li class="shuangzi"><a href="#shuangzi">双子座</a></li>
+    <li class="juxie"><a href="#juxie">巨蟹座</a></li>
+    <li class="shizi"><a href="#shizi">狮子座</a></li>
+    <li class="chunv"><a href="#chunv">处女座</a></li>
+    <li class="tiancheng"><a href="#tiancheng">天秤座</a></li>
+    <li class="tianxie"><a href="#tianxie">天蝎座</a></li>
+    <li class="sheshou"><a href="#sheshou">射手座</a></li>
+    <li class="mojie"><a href="#mojie">摩羯座</a></li>
+  </ul>
+  <script>
+    var list = [
+      'background',
+      'navi-demo',
+      'navi-base',
+      'middle-helper',
+      'navi-background',
+      'items-demo',
+      'items-base',
+      'items-center',
+      'items-calc',
+      'items-final',
+      'items-rotate',
+      'items-background',
+      'items-background-index',
+      'items-text',
+      'navi-rotate'
+    ];
+    var l = list.length, index = l;
+    document.body.className = list.join(' ');
+    document.addEventListener('keydown', function(e) {
+      var code = e.which, classname;
+      switch(code) {
+        case 37:
+        case 38:
+          --index;
+          if (index < 0) index = l;
+          classname = list.slice(0, index);
+          break;
+        case 39:
+        case 40:
+          ++index;
+          if (index > l) index = 0;
+          classname = list.slice(0, index);
+          break;
+      }
+      if (classname) {
+        document.body.className = classname.join(' ');
+      }
+    }, false);
+  </script>
+</body>
+</html>
