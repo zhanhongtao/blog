@@ -13,10 +13,6 @@ var about = {
       label: 'E-mail',
       value: 'redky@qq.com',
       link: 'mailto:redky@qq.com'
-    },
-    {
-      label: 'Company',
-      value: 'sogou.com'
     }
   ],
   label: [ '程序员', '前端工程师' ]
@@ -24,7 +20,7 @@ var about = {
 
 var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
-  labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other' ],
+  labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other', 'Todo' ],
   css: [
     {title: '换行小技巧', address: './fe/linebreak.html'},
     {title: 'Filter', address: './fe/filter/'},
