@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>q</title>
+</head>
+<body>
+<div id="box"></div>
+<style>
+  select {
+    margin: 10px;
+  }
+</style>
+<script>
+
+  var string = "{\"code\":0,\"msg\":\"\",\"data\":{\"list\":[{\"code\":\"A\",\"value\":\"线上渠道\",\"parentCode\":\"0\",\"leaf\":0,\"status\":0},{\"code\":\"A01\",\"value\":\"网盟\",\"parentCode\":\"A\",\"leaf\":0,\"status\":0},{\"code\":\"A02\",\"value\":\"应用商店\",\"parentCode\":\"A\",\"leaf\":0,\"status\":0},{\"code\":\"A0201\",\"value\":\"运营商商店\",\"parentCode\":\"A02\",\"leaf\":1,\"status\":0},{\"code\":\"A0202\",\"value\":\"厂商商店\",\"parentCode\":\"A02\",\"leaf\":1,\"status\":0},{\"code\":\"A0203\",\"value\":\"第三方商店\",\"parentCode\":\"A02\",\"leaf\":1,\"status\":0},{\"code\":\"A0250\",\"value\":\"其他\",\"parentCode\":\"A02\",\"leaf\":1,\"status\":0},{\"code\":\"A03\",\"value\":\"软件内推\",\"parentCode\":\"A\",\"leaf\":0,\"status\":0},{\"code\":\"A0301\",\"value\":\"软件墙\",\"parentCode\":\"A03\",\"leaf\":1,\"status\":0},{\"code\":\"A0302\",\"value\":\"捆绑\",\"parentCode\":\"A03\",\"leaf\":1,\"status\":0},{\"code\":\"A0303\",\"value\":\"通知栏Push\",\"parentCode\":\"A03\",\"leaf\":1,\"status\":0},{\"code\":\"A0350\",\"value\":\"其他\",\"parentCode\":\"A03\",\"leaf\":1,\"status\":0},{\"code\":\"A04\",\"value\":\"广告平台\",\"parentCode\":\"A\",\"leaf\":0,\"status\":0},{\"code\":\"A0401\",\"value\":\"积分墙\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0402\",\"value\":\"WIFI\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0403\",\"value\":\"弹屏广告\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0404\",\"value\":\"插屏广告\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0405\",\"value\":\"Banner推荐\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0406\",\"value\":\"信息流广告\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0407\",\"value\":\"Push推送\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0408\",\"value\":\"广告墙\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0409\",\"value\":\"开屏广告\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A0450\",\"value\":\"其他\",\"parentCode\":\"A04\",\"leaf\":1,\"status\":0},{\"code\":\"A05\",\"value\":\"WAP下载站\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A06\",\"value\":\"静默安装\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A07\",\"value\":\"搜索引擎优化\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A08\",\"value\":\"买量换量\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A09\",\"value\":\"短信通道\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A10\",\"value\":\"信息引导（营销）\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A11\",\"value\":\"卖场\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"A50\",\"value\":\"其他\",\"parentCode\":\"A\",\"leaf\":1,\"status\":0},{\"code\":\"B\",\"value\":\"线下渠道\",\"parentCode\":\"0\",\"leaf\":0,\"status\":0},{\"code\":\"B01\",\"value\":\"内置\",\"parentCode\":\"B\",\"leaf\":0,\"status\":0},{\"code\":\"B0101\",\"value\":\"厂商\",\"parentCode\":\"B01\",\"leaf\":1,\"status\":0},{\"code\":\"B0102\",\"value\":\"方案商\",\"parentCode\":\"B01\",\"leaf\":1,\"status\":0},{\"code\":\"B0150\",\"value\":\"其他\",\"parentCode\":\"B01\",\"leaf\":1,\"status\":0},{\"code\":\"B02\",\"value\":\"运营商\",\"parentCode\":\"B\",\"leaf\":1,\"status\":0},{\"code\":\"B03\",\"value\":\"芯片商\",\"parentCode\":\"B\",\"leaf\":1,\"status\":0},{\"code\":\"B04\",\"value\":\"刷机商\",\"parentCode\":\"B\",\"leaf\":1,\"status\":0},{\"code\":\"B50\",\"value\":\"其他\",\"parentCode\":\"B\",\"leaf\":1,\"status\":0}],\"count\":40}}";
+</script>
+<script>
+var tree = {};
+
+// 准备 Tree
+var _data = JSON.parse(string);
+_data.data.list.forEach(function(item) {
+  // 仅考虑存在 parentCode 条目
+  if (item.parentCode != null) {
+    var p = item.parentCode;
+    if (!tree[p]) {
+      tree[p] = [];
+    }
+    tree[p].push(item);
+  }
+});
+
+// user 表示用户选择项, 或者叫默认分类
+var user = [
+  {code: 'A', parentCode: 0},
+  {code: 'A03', parentCode: 'A'}
+];
+// DOM 节点上下文
+var context  = document.querySelector('#box');
+
+//  是否使用第一项为默认值
+var usefirst = false;
+
+function updateUserValue(list, level, user, pcode) {
+  if (user[level] && user[level].parentCode == pcode) {
+    user[level].list = list;
+  } else {
+    user[level] = usefirst ? list[0] : {};
+    user[level].list = list;
+  }
+}
+
+function repeat(tree, level, user, render) {
+  var list = [];
+  var pcode = level == 0 ? '0' : user[level - 1].code;
+  var items = tree[pcode] || [];
+  if (items.length) {
+    items.forEach(function(item) {
+      // 不存在 parentCode 情况, 直接放弃
+      if (item.parentCode == null) return;
+      if (item.parentCode === pcode) {
+        list.push(item);
+      }
+    });
+    updateUserValue(list, level, user, pcode);
+    repeat(tree, ++level, user, render);
+  } else {
+    user.splice(level);
+    render(user);
+  }
+}
+
+function render(list) {
+  var html = '';
+  list.forEach(function(cur, level) {
+    var list = cur.list;
+    html += '<select name="_' + level + '" data-level="' + level + '">';
+    html += '<option value="">请选择</option>';
+    list.forEach(function(item) {
+      var selected = item.code === cur.code;
+      html += '<option value="' + item.code + '"'+(selected ? ' selected' : '') + '>' + item.value + '</option>';
+    });
+    html += '</select>';
+  });
+  context.innerHTML = html;
+}
+
+context.addEventListener('change', function(e) {
+  var target = e.target;
+  var level = target.dataset.level;
+  user[level].code = target.value;
+  var text = target.selectedOptions[0].innerText;
+  user[level].value = text;
+  repeat(tree, ++level, user, render);
+}, false);
+
+// 认为 parentCode 等于 0 的条目是最高分类
+repeat(tree, 0, user, render);
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ function encode( code, base, left, right, length, hijack ) {
   hijack = typeof hijack === 'function' ? hijack : function() { return; };
   var ret = '', padding = 0;
   for ( var i = 0, l = code.length, char; i < l; i++ ) {
-  char = hijack( code.charAt(i) );
+    char = hijack( code.charAt(i) );
     if ( typeof char !== 'string' ) {
       char = ( code.charCodeAt(i) ).toString( base );
       padding = length - String(char).length + 1;
