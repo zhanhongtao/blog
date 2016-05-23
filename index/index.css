@@ -1,4 +1,5 @@
 dd { margin: 5px 10px 0 0 }
+body { margin: 0; background-color: #eee; font-family: "Times New Roman", Simsun,serif;}
 ul { padding-left: 20px; margin: 0;}
 li { line-height: 1.4; }
 p { margin: 8px 0; }
