@@ -20,6 +20,9 @@ var config = {
     key: 'id',
     name: '唯一 ID'
   }],
+  grid: function(value) {
+    return '<input value="' + value + '" />';
+  }
 };
 
 var db = [{
@@ -30,6 +33,11 @@ var db = [{
   id: 'hehe'
 }];
 
-var html = render(config, db);
+try {
+  db = JSON.parse(localStorage.table);
+} catch(e) {}
+
 var node = document.querySelector('#table');
-node.innerHTML = html;
+var table = new X(config, db, node);
+table.render();
+
