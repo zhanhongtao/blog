@@ -59,7 +59,7 @@ X.fn.render = function() {
     }
     // 生成必要内容
     for (var k = 0; k < other.length; ++k) {
-      html += '<td data-row="' + i + '" data-col="' + (j + k) + '">';
+      html += '<td data-row="' + i + '" data-col="' + (j + k) + '" data-key="' + this.getKeyByCol(j+k) + '">';
       html += this.getValue(i, j + k)
       html += '</td>';
     }
@@ -145,15 +145,24 @@ X.fn.getValue = function(row, col) {
   return this.grid(ret);
 };
 
+function _validate(value, key) {
+  if (key == 'price') {
+    return /^\+?\d+(?:\.\d+)?$/.test(value);
+  } else if(key == 'id') {
+    return true;
+  }
+}
+
 X.fn.bind = function() {
   var self = this;
   $(document).on('change', '#' + this._auto_id + ' input', function(e) {
     var data = $(this).closest('td').data();
     var cnd = self._calcCondition(data.row);
-    var key = self.getKeyByCol(data.col);
+    var key = data.key;
     var item = self._filter(cnd);
     var value = $.trim(this.value);
-    if (value) {
+    var is = _validate(value, key);
+    if (is) {
       if (item) {
         item[key] = value;
       } else {
@@ -164,6 +173,7 @@ X.fn.bind = function() {
         localStorage.table = JSON.stringify(self.db);
       } catch(e) {}
     }
+    $(this).toggleClass('table-warning', !is);
   });
 };
 

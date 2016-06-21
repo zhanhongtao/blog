@@ -15,7 +15,7 @@ var config = {
   }],
   other: [{
     key: 'price',
-    name: '价格',
+    name: '价格(元)',
   }, {
     key: 'id',
     name: '唯一 ID'
