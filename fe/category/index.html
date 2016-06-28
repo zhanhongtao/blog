@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0; padding: 0;
+    }
+    
+    #category {
+      margin: 10px;
+      font-size: 0;
+      overflow: hidden;
+      min-height: 240px;
+      border: 1px solid #ddd;
+    }
+    .cx {
+      font-size: 14px;
+      text-align: left;
+      display: inline-block;
+      vertical-align: top;
+      width: 33.33333%;
+      padding-bottom: 1000em;
+      margin-bottom: -1000em;
+      box-sizing: border-box;
+      border-right: 1px solid #ddd;
+    }
+    .cx:last-child {
+      border-right: 0 none;
+    }
+    h1 {
+      font-size: 14px;
+      height: 46px;
+      line-height: 46px;
+      text-align: center;
+      background: #eee;
+      padding: 0 10px;
+    }
+    form {
+      margin: 4px 10px;
+    }
+    .name {
+      width: 100%;
+      padding: 4px 10px;
+      box-sizing: border-box;
+    }
+    .loading:after {
+      display: block;
+      padding: 0 10px;
+      content: 'Loading...';
+    }
+    li {
+      position: relative;
+      overflow: hidden;
+      height: 34px;
+      line-height: 34px;
+      text-align: left;
+      padding: 0 20px;
+      white-space: nowrap;
+    }
+    li:hover {
+      background-color: #f8f8f8;
+    }
+    li.selected:hover,
+    li.selected {
+      color: #fff;
+      background-color: #000;
+    }
+    li .del-category-item {
+      position: absolute;
+      right: 10px;
+      padding: 0 4px;
+      color: #999;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="category">
+  <div class="cx" id="c0" data-level="0">
+    <div class="hd">
+      <h1>一级分类</h1>
+      <form action="" method="post">
+        <input type="text" class="name" disabled placeholder="回车, 添加分类">
+      </form>
+    </div>
+    <div class="bd"></div>
+  </div>
+  <div class="cx" id="c1" data-level="1">
+    <div class="hd">
+      <h1>二级分类</h1>
+      <form action="" method="post">
+        <input type="text" class="name" disabled>
+      </form>
+    </div>
+    <div class="bd"></div>
+  </div>
+  <div class="cx" id="c2" data-level="2">
+    <div class="hd">
+      <h1>三级分类</h1>
+      <form action="" method="post">
+        <input type="text" class="name" disabled>
+      </form>
+    </div>
+    <div class="bd"></div>
+  </div>
+</div>
+
+<script type="text/script" id="tpl-category-list">
+  <ul>
+  <%
+    if (it && it.length) {
+      for (var i = 0; i < it.length; ++i) {
+        var item = it[i];
+    %>
+      <%> tpl-category-item %>
+    <%
+      }
+    }
+  %>
+  </ul>
+</script>
+
+<script type="text/script" id="tpl-category-item">
+  <%
+    if (it.use_sub_tpl) {
+      item = it;
+    }
+  %>
+  <li id="category-<%= item.id %>" data-id="<%= item.id %>">
+    <%= item.name %>
+    <a data-id="<%= item.id %>" class="del-category-item">&times;</a>
+  </li>
+</script>
+
+<script src="./jquery.min.js"></script>
+<script src="./rt.js"></script>
+<script src="./cat.js"></script>
+</body>
+</html>
