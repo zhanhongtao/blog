@@ -279,4 +279,8 @@ context.on('click', '.del-category-item', function(e) {
 context.on('click', '#c0 li, #c1 li', function(e) {
   var id = $(this).data('id');
   highlight(id);
+  var box = queryBoxById(id);
+  var level = box.data('level');
+  var control = queryControlByLevel(level);
+  control.focus();
 });
