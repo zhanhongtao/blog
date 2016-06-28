@@ -125,7 +125,7 @@ var levels = context.find('>' + selectorLevelItem);
 
 var cache = [];
 var maxLevel = 3;
-var autoHighlight = false;
+var autoHighlight = true;
 
 function render(tplid, data, node) {
   var tpl = $(tplid).html();
@@ -224,7 +224,7 @@ function changeControlStatusByLevel(level, disabled, parentId) {
     var control = $(levels[level]).find(selectorControl);
     control[0].disabled = false;
     control.data(keyParentId, parentId);
-    control.focus();
+    // control.focus();
   }
 }
 
