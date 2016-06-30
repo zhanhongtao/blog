@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>tag</title>
+  <style>
+    table {
+      font-size: 14px;
+      width: 100%;
+      border-collapse: collapse;
+      line-height: 1.5;
+      table-layout: fixed;
+    }
+    td, th {
+      border: 1px solid #eee;
+      padding: 4px 10px;
+    }
+    .tag-action,
+    .tag-category,
+    .tag-name {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script type="text/script" id="tpl-tag-table">
+    <table>
+      <thead>
+        <tr>
+          <th width="15%">分类</th>
+          <th width="15%">类别名</th>
+          <th width="60%">类别值</th>
+          <th width="10%">操作</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <%
+          for (var i = 0, l = db.length; i < l; ++i) {
+            var line = db[i];
+            var tags = line.tags || [];
+            if (tags.length == 0) {
+              tags[0] = {
+                name: '--',
+                values: ['--']
+              };
+            }
+        %>
+          <tr>
+            <td class="tag-category" rowspan="<%= tags.length %>"><%= line.categoryName %></td>
+          <%
+            for (var j = 0, n = tags.length; j < n; ++j) {
+          %>
+            <%
+              if (j > 0) {
+            %>
+          <tr>
+            <% } %>
+              <td class="tag-name"><%= tags[j].name %></td>
+              <td class="tag-values">
+                <%
+                  for (var k = 0, m = tags[j].values.length; k < m; ++k) {
+                %>
+                  <span class="tag-value"><%= tags[j].values[k] %><%= k + 1 !== m ? "," : "" %></span>
+                <%
+                  }
+                %>
+              </td>
+              <td class="tag-action"><a data-action="tag-edit" data-id="<%= line.categoryId %>">编辑</a></td>
+          </tr>
+          <% } %>
+        <% } %>
+      </tbody>
+    </table>
+  </script>
+  <script src="rt.js"></script>
+  <script>
+    var db = [
+      {
+        categoryId: 1,
+        categoryName: '搜索引擎列表',
+        tags: [
+          {
+            id: 1,
+            name:'国内搜索引擎列表',
+            values: ['sogou', 'baidu', 'so']
+          },
+          {
+            id: 2,
+            name:'内外搜索引擎列表的列表',
+            values: ['google', 'bing', 'yahoo', 'google', 'bing', 'yahoo', 'google', 'bing', 'yahoo', 'google', 'bing', 'yahoo', 'google', 'bing', 'yahoo', 'google', 'bing', 'yahoo', 'google', 'bing', 'yahoo']
+          }
+        ]
+      },
+      {
+        categoryId: 2,
+        categoryName: 'words',
+        tags: []
+      }
+    ];
+    var tpl = document.getElementById('tpl-tag-table').innerHTML;
+    var html = rt.template(tpl, db);
+    document.getElementById('box').innerHTML = html;
+  </script>
+</body>
+</html>
