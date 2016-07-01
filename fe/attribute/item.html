@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Attribute</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    li {list-style: none;}
+    .attribute-item {
+      padding: 5px;
+      border: 1px solid #eee;
+      margin: 10px 20px;
+    }
+    input {
+      padding: 2px 4px;
+    }
+    li {
+      overflow: hidden;
+      line-height: 1.5;
+      margin: 10px 0;
+    }
+    label {
+      float: left;
+      margin-right: 10px;
+    }
+    .value-block {
+      overflow: hidden;
+    }
+    .tags {
+      overflow: hidden;
+    }
+    .attribute-form .tags {
+      margin-top: 10px;
+    }
+    .tag-item {
+      float: left;
+      margin-right: 10px;
+      color: #333;
+      background-color: #ddd;
+      padding: 2px 10px;
+      border-radius: 2px;
+    }
+    .del-tag {
+      cursor: pointer;
+    }
+    .control-attr-value {
+      width: 120px;
+    }
+    .tag-tips {
+      color: #999;
+      font-size: 12px;
+    }
+    .add-new-attr-item {
+      padding: 4px 20px;
+      margin: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+<div id="attribute"></div>
+<button class="add-new-attr-item">Add</button>
+
+<script type="text/script" id="tpl-attribute-item-form">
+<form action="">
+  <ul class="attribute-form">
+    <li>
+      <label for="attribute-name-<%= it.id %>">属性类别:</label>
+      <div class="value-block">
+        <input type="text" id="attribute-name-<%= it.id %>" class="control-attr-name" value="<%= it.name %>">
+      </div>
+    </li>
+    <li>
+      <label for="attribute-value-<%= it.id %>">属性名称:</label>
+      <div class="value-block">
+        <input type="text" id="attribute-value-<%= it.id %>" class="control-attr-value">
+        <span class="tag-tips">回车添加标签</span>
+        <div class="tags">
+          <%
+            for (var i = 0, l = it.values.length; i < l; ++i) {
+              var tag = it.values[i];
+          %>
+              <span class="tag-item" data-tag="<%= tag %>"><%= tag %><span class="del-tag">&times;</span></span>
+          <%
+            }
+          %>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="actions">
+    <a href="#" class="save">save</a>
+    <a href="#" class="cancel">cancel</a>
+  </div>
+</form>
+</script>
+
+<script type="text/script" id="tpl-attribute-item-new">
+  <div class="attribute-item">
+    <%> tpl-attribute-item-form %>
+  </div>
+</script>
+
+<script type="text/script" id="tpl-attribute-item-view">
+  <div class="attribute-item" id="attribute-item<%= it.id %>" data-id="<%= it.id %>">
+    <ul>
+      <li>属性类别: <%= it.name %></li>
+      <li><label>属性名称:</label>
+        <div class="tags">
+          <% for (var i = 0, l = it.values.length; i < l; ++i) { %>
+            <span class="tag-item"><%= it.values[i] %></span>
+          <% } %>
+        </div>
+      </li>
+    </ul>
+    <div class="actions">
+      <a href="#" class="edit-attr-item" data-id="<%= it.id %>">edit</a>
+      <a href="#" class="del-attr-item" data-id="<%= it.id %>">del</a>
+    </div>
+  </div>
+</script>
+
+<script type="text/script" id="tpl-attribute">
+  <%
+    for (var i = 0, l = it.length; i < l; ++i) {
+      ;(function(it) {
+      %>
+        <%> tpl-attribute-item-view %>
+      <%
+      })(it[i]);
+  %>
+  <% } %>
+</script>
+
+<script src="jquery-3.0.0.min.js"></script>
+<script src="rt.js"></script>
+<script>
+  var db = {
+    categoryId: '',
+    categoryName: '',
+    tags: [
+      {
+        id: 1,
+        name: '搜索引擎',
+        values: ['sogou.com', 'baidu.com', 'google.com', 'bing.com']
+      },
+      {
+        id: 2,
+        name: '搜索引擎-ex',
+        values: ['sogou.com', 'baidu.com', 'google.com', 'bing.com']
+      }
+    ]
+  };
+  var context = $('#attribute');
+  var prefix = 'attribute-item';
+
+  var gid = 0;
+  $.each(db.tags, function(i, item) {
+    if (item.id >= gid) {
+      gid = item.id + 1;
+    }
+  });
+
+  function addAttr() {
+    console.log('save');
+    var defer = $.Deferred();
+    setTimeout(function() {
+      defer.resolve(gid);
+    }, 280);
+    return defer;
+  }
+
+  function updateAttr() {
+    var defer = $.Deferred();
+    setTimeout(function() {
+      defer.resolve();
+    }, 280);
+    return defer;
+  }
+
+  function delAttr() {
+    console.log('del');
+    var defer = $.Deferred();
+    setTimeout(function() {
+      defer.resolve();
+    }, 250);
+    return defer;
+  }
+
+  function renderList() {
+    var tpl = $('#tpl-attribute').html();
+    var html = rt.template(tpl, db.tags);
+    context.html(html);
+  }
+
+  context.on('click', '.edit-attr-item', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    changeViewToEdit(id);
+  });
+
+  context.on('click', '.del-attr-item', function(e) {
+    var box = $(this).closest('.' + prefix);
+    var id = box.data('id');
+    box.remove();
+    delAttr(id);
+  });
+
+  function changeViewToEdit(id) {
+    console.log('change-view-to-edit:', id);
+    var tag = findTagById(id);
+    if (tag) {
+      var tpl = $('#tpl-attribute-item-form').html();
+      var html = rt.template(tpl, tag);
+      $('#' + prefix + id).html(html).find('.control-attr-value').focus();
+    }
+  }
+
+  function findTagById(id) {
+    var tags = db.tags, tag;
+    for (var i = 0; i < tags.length; ++i) {
+      if (tags[i].id === id) {
+        tag = tags[i];
+        break;
+      }
+    }
+    return tag;
+  }
+
+  function updateDataById(id, data) {
+    for (var i = 0, l = db.tags.length; i < l; ++i) {
+      if (db.tags[i].id === id) {
+        db.tags[i] = data;
+        break;
+      }
+    }
+  }
+
+  context.on('click', '.save', function(e) {
+    e.preventDefault();
+    var box = $(this).closest('.' + prefix);
+    var data = collectData(box);
+    if (!data.name) {
+      return false;
+    }
+    if (data.id) {
+      updateAttr(data).done(function() {
+        updateDataById(data.id, data);
+        changeViewToDefault(data.id);
+      });
+    } else {
+      addAttr(data).done(function(id) {
+        data.id = id;
+        db.tags.push(data);
+        box.attr('id', prefix + id);
+        changeViewToDefault(id);
+      });
+    }
+  });
+
+  context.on('click', '.cancel', function(e) {
+    e.preventDefault();
+    var box = $(this).closest('.' + prefix);
+    var id = box.data('id');
+    if (!id) {
+      box.remove();
+    } else {
+      changeViewToDefault(id);
+    }
+  });
+
+  context.on('keydown', '.control-attr-value', function(e) {
+    if (e.which == 13) {
+      e.preventDefault();
+      var box = $(this).closest('.' + prefix);
+      var tag = $.trim(this.value);
+      if (tag) {
+        addTag(this.value, box);
+        this.value = '';
+        this.focus();
+      }
+    }
+  });
+
+  function addTag(tag, box) {
+    var tpl = '<span class="tag-item" data-tag="___TAG___">___TAG___<span class="del-tag">&times;</span></span>';
+    var html = tpl.replace(/___TAG___/g, tag);
+    box.find('.tags').append(html);
+  }
+
+  context.on('click', '.del-tag', function(e) {
+    e.preventDefault();
+    $(this).closest('.tag-item').remove();
+  });
+
+  function changeViewToDefault(id) {
+    var tag = findTagById(id);
+    if (tag) {
+      var tpl = $('#tpl-attribute-item-view').html();
+      var html = rt.template(tpl, tag);
+      $('#' + prefix + id).replaceWith(html);
+    }
+  }
+
+  function collectData(box) {
+    var nameControl = box.find('.control-attr-name');
+    var name = $.trim(nameControl.val());
+    var tags = box.find('.tag-item');
+    var values = [];
+    $.each(tags, function(i, tag) {
+      var value = $(tag).data('tag');
+      if (value) {
+        values.push(value);
+      }
+    });
+    var id = box.data('id');
+    var ret = {};
+    if (id) {
+      ret.id = id;
+    }
+    ret.name = name;
+    ret.values = values;
+    return ret;
+  }
+
+  function addAttrItem() {
+    var data = {
+      id: (new Date).getTime(),
+      name: '',
+      values: []
+    };
+    var tpl = $('#tpl-attribute-item-new').html();
+    var html = rt.template(tpl, data);
+    context.append(html).find('.control-attr-name').focus();
+  }
+
+  $(document).on('click', '.add-new-attr-item', function(e) {
+    e.preventDefault();
+    addAttrItem();
+  });
+
+  renderList();
+  /**
+    * 渲染列表
+    * 支持编辑/删除操作
+    * 删除时, 直接删除 DOM 结构
+    * 编辑时, 切换到编辑状态
+    * 编辑状态时, 支持 save, 切换到默认状态
+  */
+</script>
+</body>
+</html>
