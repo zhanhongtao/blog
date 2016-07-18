@@ -1,15 +1,34 @@
 // 对 vector 进行修正和排序(策略)
 function fixedVector(vector) {
-  var list = [];
-  for (var i = 0, l = vector.length; i < l; ++i) {
-    var item = vector[i];
-    if (item.key && item.value.length > 0) {
-      list.push(item);
+  // 过滤 value 为空的情况
+  function swap(list, i, j) {
+    if (i != j) {
+      var tmp = list[i];
+      list[i] = list[j];
+      list[j] = tmp;
     }
   }
-  return list.sort(function(a, b) {
-    return a.value.length > b.value.length;
-  });
+  for (var i = 0, l = vector.length; i < l; ++i) {
+    var item = vector[i];
+    if (item.value.length == 0) {
+      swap(vector, i--, --l);
+    } else {
+      var k = i;
+      while(k > 0) {
+        var a = vector[k - 1], c = vector[k];
+        if (
+          (c.most && !a.most) ||
+          (!c.most && c.value.length < a.value.length)
+        ) {
+          swap(vector, k, k - 1);
+        } else {
+          break;
+        }
+        --k;
+      }
+    }
+  }
+  return vector.slice(0, l);
 }
 
 function X(cfg, db, root) {

@@ -46,6 +46,7 @@ var blog = {
     {title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' }
   ],
   js: [
+    {title: '按特定表头顺序生成表格', address: './fe/table/'},
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: '分页', address: './pagination/'},
     {title: 'async & order', address: './fe/sync/'},

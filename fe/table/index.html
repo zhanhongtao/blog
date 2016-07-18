@@ -25,6 +25,36 @@
   </style>
 </head>
 <body>
+  <h1>按特定表头顺序生成表格</h1>
+  <div> 
+<pre>需求说明: 
+1. 有一数组, 所有元素都是对象, 有 name/value/most 属性
+2. most 属性值为 boolean 值或者为(null)
+3. value 属性值为 array, 长度大于 0
+4. 表头顺序为: 
+  * 存在 most 属性并且属性值为 true 的排列在最前
+  * 不存在 most 属性或者值为 null 时, 按 value 数组的长度从少到多排序.
+  * 原地排序. 即: 当多个对象同时存在 most: true 或者当 value 数组长度相同时, 按原数组顺序排序
+5. 生成排列表格 - 看下面效果
+<code>[
+  {
+    name: 'top1',
+    value: ['t1', 't2', 't3'],
+    most: true
+  }, {
+    name: 'top2',
+    value: ['tx', 'ty'],
+    most: true,
+  }, {
+    name: 'size',
+    value: [60, 65, 70, 80]
+  }, {
+    name: 'color',
+    value: ['red', 'transparent']
+  }
+] 
+</code></pre>
+  </div>
   <div id="table"></div>
   <script src="jquery-1.12.3.min.js"></script>
   <script src="table-class.js"></script>
