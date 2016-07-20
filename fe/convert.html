@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <style>
+    body {text-align: center;} 
+    input{ text-align: center; min-width: 160px;  padding: 5px 10px; } 
+    #result { margin: 10px auto; }
+  </style>
+</head>
+<body>
+  <h1>数字转换为中文, 最大支持五位数</h1>
+  <input type="range" min="0" max="99999" step="1" value="5005" autofocus>
+  <div id="result"></div>
+<script>
+  var ret = document.querySelector('#result');
+  var input = document.querySelector('input');
+  input.addEventListener('input', function(e) {
+    var v = this.value.trim();
+    var r = Y(v);
+    ret.innerText = Y(v);
+  });
+  ret.innerText = Y(input.value.trim());
+  function Y(n) {
+    var low = '零一二三四五六七八九';
+    var ut = '零十百千万';
+    var ret = [], last = 0, i = 0;
+    while (n != 0) {
+      var c = n % 10;
+      if (last != c || c != 0) {
+        if (c != 0 && i > 0) {
+          ret.push(ut[i]);
+        }
+        ret.push(low[c]);  
+      }
+      last = c;
+      ++i;
+      n = parseInt(n / 10);
+    }
+    return ret.reverse().join('');
+  }
+</script>
+</body>
+</html>
