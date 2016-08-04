@@ -43,6 +43,31 @@
     -webkit-animation: slide .5s linear 3 alternate forwards;
     animation: slide .5s linear 3 alternate forwards;
   }
+  
+  .logo-sogou-wrap {
+    padding: 30px;
+    background-color: #9d93ec;
+    display: inline-block;
+  }
+  .logo-sogou {
+    width: 577px;
+    height: 64px;
+    background: url(./images/logo-sogou-min.png) no-repeat center 0;
+    background-size: 100% 2400%;
+    -webkit-animation: logo 4s steps(23, end) .5s infinite;
+    animation: logo 4s steps(23, end) .5s infinite;
+  }  
+  @-webkit-keyframes logo {
+    to {
+      background-position: center bottom;
+    }
+  }
+  @keyframes logo {
+    to {
+      background-position: center bottom;
+    }
+  }
+  
   .step-demo {
     display: inline-block;
     vertical-align: middle;
@@ -154,6 +179,12 @@
   <button id="add">Add</button>
   <button id="remove">Remove</button>
   <div id="demo"></div>
+  <div id="logo-sogou-demo" style="display: none;">
+    <h2>Demo</h2>
+    <div class="logo-sogou-wrap">
+      <div class="logo-sogou"></div>
+    </div>    
+  </div>
   <h2>CSS<div class="step-twitter-love"></div></h2>
   <dl>
     <dt>animation-name</dt>
@@ -351,6 +382,12 @@
     document.getElementById( 'remove' ).addEventListener( 'click', function(e) {
       demo.classList.remove( 'enable' );
     }, false );
+    
+    
+    var logo = document.getElementById('logo-sogou-demo');
+    if (location.search.indexOf('hi=yn') > -1) {
+      logo.style.display = '';
+    }
   </script>
 </body>
 </html>
