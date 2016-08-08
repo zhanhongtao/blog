@@ -1,30 +1,19 @@
-dd { margin: 5px 10px 0 0 }
 body { margin: 0; background-color: #eee; font-family: "Times New Roman", Simsun,serif;}
 ul { padding-left: 20px; margin: 0;}
-li { line-height: 1.4; }
+li { line-height: 1.5; }
 p { margin: 8px 0; }
 h1 { margin: 0.5em 0; font-size: 1.4em; }
 h2 { margin: 0.5em 0; font-size: 1.2em; font-weight: normal; }
 
 #box {
-  padding: 10px 20px;
-}
-#blog dl {
-  overflow: hidden;
-}
-#blog dd { 
-  display: inline-block;
+  margin: 10px 20px;
 }
 
-#blog, #about, #github {
-  margin-bottom: 30px;
+#blog dd { 
+  display: inline-block;
+  margin: 5px 10px 0 0
 }
-#about ul {
-  overflow: hidden;
-}
-li a + a {
-  margin-left: 10px;
-}
-.git-item {
+
+#blog, #about {
   margin-bottom: 15px;
 }

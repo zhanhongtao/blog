@@ -1,8 +1,8 @@
 var about = {
   title: 'About',
   avatars: {
-    src: './index/avatars.jpg',
-    width: '120px'
+    src: './index/qrcode.png',
+    width: '160px'
   },
   list: [
     {
