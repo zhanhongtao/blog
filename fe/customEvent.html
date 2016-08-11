@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>event</title>
+  <style>
+    .box {
+      height: 240px;
+      background: #aa88aa;
+      color: #ffeeee;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">Hello World</div>
+  <pre><code>
+  function listen(name, handle) {
+    if (typeof handle == 'function') {
+      document.addEventListener(String(name), function(e) {
+        handle(e.detail);
+      });
+    }
+  }
+
+  function dispatch(name, data, node) {
+    var e = new CustomEvent(name, {
+      detail: data
+    });
+    (node || document).dispatchEvent(e);
+  }
+</code></pre>
+  <script>
+    function listen(name, handle) {
+      if (typeof handle == 'function') {
+        document.addEventListener(String(name), function(e) {
+          handle(e.detail);
+        });
+      }
+    }
+
+    function dispatch(name, data, node) {
+      var e = new CustomEvent(name, {
+        detail: data
+      });
+      (node || document).dispatchEvent(e);
+    }
+
+    var name = 'Hello World!';
+
+    document.querySelector('.box').addEventListener('click', function() {
+      dispatch(name, name);
+    });
+
+    listen(name, function(detail) {
+      alert(detail);
+    });
+  </script>
+</body>
+
+</html>

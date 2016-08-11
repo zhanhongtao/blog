@@ -184,11 +184,17 @@
       var type = data.types;
       if ( type.indexOf('Files') > -1 ) {
         var file = data.files[0];
-        console.log( file.type );
         if ( file && /image/i.test(file.type) ) {
           handlerFile( file );
           e.preventDefault();
         }
+      } else {
+        var text = data.getData('text');
+        var urls = data.getData('url');
+        console.log('text:', text);
+        console.log('urls:', urls);
+        console.log(data);
+        e.preventDefault();
       }
     }, false );
 

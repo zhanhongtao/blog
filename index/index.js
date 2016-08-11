@@ -58,7 +58,8 @@ var blog = {
     // {title: '遍历 DOM-Tree', address: './walkdomtree/'},
     // {title: '10 点提醒', address: './fe/reader/', description: '提醒, 且一次'},
     {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
-    {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'}
+    {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'},
+    {title: 'customEvent', address: './fe/customEvent.html', description: '自定义事件'}
   ],
   tools: [
     {title: 'xss-tools', address: './slider/utils/'},
