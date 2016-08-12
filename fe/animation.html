@@ -43,7 +43,7 @@
     -webkit-animation: slide .5s linear 3 alternate forwards;
     animation: slide .5s linear 3 alternate forwards;
   }
-  
+
   .logo-sogou-wrap {
     padding: 30px;
     background-color: #9d93ec;
@@ -56,7 +56,7 @@
     background-size: 100% 2400%;
     -webkit-animation: logo 4s steps(23, end) .5s infinite;
     animation: logo 4s steps(23, end) .5s infinite;
-  }  
+  }
   @-webkit-keyframes logo {
     to {
       background-position: center bottom;
@@ -67,7 +67,7 @@
       background-position: center bottom;
     }
   }
-  
+
   .step-demo {
     display: inline-block;
     vertical-align: middle;
@@ -183,7 +183,7 @@
     <h2>Demo</h2>
     <div class="logo-sogou-wrap">
       <div class="logo-sogou"></div>
-    </div>    
+    </div>
   </div>
   <h2>CSS<div class="step-twitter-love"></div></h2>
   <dl>
@@ -357,9 +357,60 @@
   </ul>
   <p><a href="http://jsbin.com/silabe/2" target="_blank">JavaScript/UI 和 CSS 动画不在一个进程, 即: 相互不阻塞.</a></p>
   <p>查看开发者工具中 animation 相关事件.</p>
+  <h2>Motion</h2>
+  <ul>
+    <li>定义 motion-path:  path({svg-path});</li>
+    <li>定义 motion-rotation: auto[跟随 path]/reverse[相当于 auto 180deg]/auto Xdeg[先固定位置, 再 auto]/reverse Xdeg/Xdeg[固定位置]</li>
+    <li>定义 animation - 见上面</li>
+    <li>定义@keyframes.<pre><code>@keyframes {
+  from {
+    motion-offset: 0%;
+  }
+  to {
+    motion-offset: 100%;
+  }
+}
+</code></pre></li>
+  </ul>
+  <style>
+    .motion-box {
+      width: 502px;
+      height: 202px;
+      background-color: #eee;
+    }
+    .motion-item {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: red;
+      motion-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
+      animation: move 4s ease infinite;
+    }
+    @keyframes move {
+      from {
+        motion-rotation: reverse;
+        motion-offset: 0%;
+      }
+      100% {
+        motion-rotation: reverse;
+        motion-offset: 100%;
+      }
+    }
+  </style>
+  <div class="motion-box">
+    <div class="motion-item"></div>
+    <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
+    </svg>
+  </div>
   <h2>相关文档</h2>
   <ul>
     <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
+    <li><a href="https://www.w3.org/TR/motion-1/" target="_blank">https://www.w3.org/TR/motion-1/</a></li>
   </ul>
   <script>
     var demo = document.getElementById( 'demo' );
@@ -382,8 +433,7 @@
     document.getElementById( 'remove' ).addEventListener( 'click', function(e) {
       demo.classList.remove( 'enable' );
     }, false );
-    
-    
+
     var logo = document.getElementById('logo-sogou-demo');
     if (location.search.indexOf('hi=yn') > -1) {
       logo.style.display = '';
