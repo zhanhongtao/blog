@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
   <title>checked</title>
   <style>
     #dx :checked + label,
@@ -21,5 +22,36 @@
   <input type="checkbox" id="y0"><label for="y0">checkbox</label>
   <input type="checkbox" id="y1" checked><label for="y1">checkbox</label>
 </div>
+<h1>DEMO</h1>
+<style>
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"] + label {
+    display: flex;
+  }
+  input[type="radio"]:checked + label {
+    color: hsl(270, 50%, 70%);
+  }
+  input[type="radio"]:checked + label:after {
+    content: '√';
+    margin-left: auto;
+    /**
+    text-align: right;
+    flex: 1;
+    */
+  }
+  form div {
+    height: 28px;
+    line-height: 28px;
+    border-bottom: 1px solid hsl(280, 60%, 90%);
+  }
+</style>
+<form action="">
+  <div><input type="radio" name="test" id="t1"><label for="t1">大宝是个有趣的人</label></div>
+  <div><input type="radio" checked name="test" id="t2"><label for="t2">大宝不是个无趣的人</label></div>
+  <div><input type="radio" name="test" id="t3"><label for="t3">大宝可能是个有趣的人</label></div>
+  <div><input type="radio" name="test" id="t4"><label for="t4">大宝不可能是个无趣的人</label></div>
+</form>
 </body>
 </html>
