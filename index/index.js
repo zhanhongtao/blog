@@ -22,6 +22,7 @@ var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
   labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other', 'Todo' ],
   css: [
+    {title: '[type="radio"]:checked', address: './fe/checked.html'},
     {title: 'Fixed 元素, 内容自适应且水平居中', address: './fe/message.html'},
     {title: '换行小技巧', address: './fe/linebreak.html'},
     {title: 'Filter', address: './fe/filter/'},
