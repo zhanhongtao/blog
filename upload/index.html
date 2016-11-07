@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+	    .upload-wrap {
+		   position: relative; 
+		   width: 120px;
+		   height: 120px;
+		   background: url(./images/upload.jpg) no-repeat 50% 50%/cover;
+		}
+		.upload-wrap input {
+		    width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+		}
+		.upload_progress {
+			position: absolute;
+			bottom: 0;
+			height: 2px;
+			transition: all .5s linear;
+		}
+		.upload--progress .upload_progress {
+			background-color: green;
+		}
+		.upload--fail .upload_progress {
+		    background-color: red;
+		}
+		.upload--done .upload_progress {
+			background-color: green;
+			width: 100%;
+		}
+		.upload--loaded .upload_progress {
+			background-color: green;
+			width: 100%;
+		    opacity: 0;
+		}
+		.upload_reset {
+		    position: absolute;
+			width: 30px;
+			height: 30px;
+			top: -12px;
+			right: -12px;
+			background: url(./images/reset.png) no-repeat 50% 50%;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity .2s linear;
+			cursor: pointer;
+		}
+		.upload--have-image:hover .upload_reset {
+		    pointer-events: auto;
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<form action="./upload.php">
+	    <div class="uploads">
+			<div class="upload-wrap">
+				<input type="file" name="pic" class="upload_control">
+				<div class="upload_reset"></div>
+				<div class="upload_progress"></div>
+			</div>
+		</div>
+	</form>
+	<script src="./js/jquery-1.12.3.min.js"></script>
+	<script src="./js/$.upload.js"></script>
+	<script>
+	    function setImage(node, file) {
+		    var url = URL.createObjectURL(file);
+			var box = node.parentNode;
+			box.style.backgroundImage = 'url(' + url + ')';
+			box.__url = url;
+		}
+
+		function toggleClass(node, names, name) {
+		    names.forEach(function(item) {
+			    node.classList.toggle(item, item === name);
+			});
+		}
+
+		function updateStatus(node, detail) {
+		    var box = node.parentNode;
+			var classnames = [
+			    'upload--progress',
+				'upload--fail',
+				'upload--done',
+				'upload--loaded'
+			];
+			var progressNode = box.querySelector('.upload_progress');
+			switch(detail.type) {
+			    case 'loadstart':
+				    toggleClass(box, classnames, 'upload--progress');
+					progressNode.style.width = '1%';
+					break;
+				case 'progress':
+				    toggleClass(box, classnames, 'upload--progress');
+					progressNode.style.width = detail.percent + '%';
+					break;
+				case 'load':
+				    toggleClass(box, classnames, 'upload--done');
+					progressNode.style.width = '100%';
+					break;
+				case 'loadend':
+				    toggleClass(box, classnames, 'upload--loaded');
+				    break;
+				default:
+				    break;
+			}
+		}
+
+		function changeImage(node, file) {
+		    setImage(node, file);
+			var box = node.parentNode;
+			box.classList.add('upload--have-image');
+		}
+
+		$(document).on('click', '.upload_reset', function() {
+		    var box = this.parentNode;
+			box.classList.remove('upload--have-image');
+			box.style.backgroundImage = '';
+			if (box.__url) {
+				URL.revokeObjectURL(box.__url);
+			}
+		});
+
+		function upload(file, node) {
+		    changeImage(node, file);
+			var promise = $.upload('./upload.php', 'pic', file);
+			promise.done(function(res) {
+			    console.log('done:', res);
+			}).fail(function(res) {
+			    console.log('fail:', res);
+			}).progress(function(res) {
+			    updateStatus(node, res);
+			});
+		}
+
+	    $(document).on('change', '.upload_control', function() {
+			upload(this.files[0], this);
+		});
+
+		function random() {
+		    return ('' + Math.random()).slice(2, 8);
+		}
+
+		function handleFile(file) {
+
+			var template = `
+<div class="upload-wrap" id="__id__">
+	<input type="file" name="pic" class="upload_control">
+	<div class="upload_reset"></div>
+	<div class="upload_progress"></div>
+</div>
+		`;
+		    var id = 'js_upload_random_' + (new Date).getTime() + '_' + random();
+			var html = template.replace('__id__', id);
+			$('.uploads').append(html);
+			var box = document.querySelector('#' + id);
+			var node = box.querySelector('input');
+			upload(file, node);
+		}
+
+		$(document).on('dragstart', false);
+		$(document).on('dragover', false);
+		$(document).on('drop', function(e) {
+			var oe = e.originalEvent;
+		    var data = oe.dataTransfer;
+			var type = data.types;
+			if (type.indexOf('Files') > -1) {
+			    for (var i = 0; i < data.files.length; ++i) {
+				    var file = data.files[i];
+					if (file && /image/i.test(file.type)) {
+					    handleFile(file);
+						e.preventDefault();
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
