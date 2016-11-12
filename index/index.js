@@ -48,6 +48,8 @@ var blog = {
     {title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' }
   ],
   js: [
+    {title: '星座页面开发过程', address: './xingzuo/'},
+    {title: '下载任务(DEMO)', address: './task/task.html'},
     {title: '按特定表头顺序生成表格', address: './fe/table/'},
     {title: 'Lottery', address: './lottery/', description: '抽奖小程序' },
     {title: '分页', address: './pagination/'},

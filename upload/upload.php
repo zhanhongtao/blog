@@ -20,8 +20,8 @@ function response($code, $msg) {
 */
 
 $key = 'pic';
-define(ROOT, dirname(dirname(__FILE__)));
-define(UPLOAD_DIR, '/php/images/');
+define('ROOT', dirname(__FILE__));
+define('UPLOAD_DIR', '/images/');
 
 // 是否存在上传文件
 if (count($_FILES) == 0) {
@@ -54,9 +54,9 @@ $supportTypes = [
 ];
 
 // length 为 0 表示不过滤
-if (count($supportType) > 0) {
+if (count($supportTypes) > 0) {
     // 区分大小写
-    if (!in_array($type, $supportType, true)) {
+    if (!in_array($type, $supportTypes, true)) {
 	    return response(4);
 	}
 }
