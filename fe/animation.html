@@ -372,6 +372,30 @@
 }
 </code></pre></li>
   </ul>
+  <div class="motion-box">
+    <div class="motion-item"></div>
+    <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <path d="M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244" id="Path" stroke="#979797" stroke-width="1" fill="none"></path>
+    </svg>
+  </div>
+  <h2>新语法(offset)</h2>
+  <ul>
+    <li>定义 offset-path:  path({svg-path});</li>
+    <li>定义 offset-rotation: auto[跟随 path]/reverse[相当于 auto 180deg]/auto Xdeg[先固定位置, 再 auto]/reverse Xdeg/Xdeg[固定位置]</li>
+    <li>定义 animation - 见上面</li>
+    <li>定义@keyframes.<pre><code>@keyframes {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+</code></pre></li>
+  </ul>
   <style>
     .motion-box {
       width: 502px;
@@ -390,6 +414,26 @@
       motion-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
       animation: move 4s ease infinite;
     }
+    .offset-item {
+      position: absolute;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: red;
+      offset-path: path('M1,1 C1,1 185.123623,304.688377 263.645528,163.624677 C342.167432,22.5609775 428.948967,25.6679009 501,132.967244');
+      animation: offset-move 4s ease infinite;
+    }
+    @keyframes offset-move {
+      from {
+        offset-rotation: reverse;
+        offset-distance: 0%;
+      }
+      100% {
+        offset-rotation: reverse;
+        offset-distance: 100%;
+      }
+    }
     @keyframes move {
       from {
         motion-rotation: reverse;
@@ -402,7 +446,7 @@
     }
   </style>
   <div class="motion-box">
-    <div class="motion-item"></div>
+    <div class="offset-item"></div>
     <svg width="502px" height="202px" viewBox="0 0 502 202" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
         <desc>Created with Sketch.</desc>
@@ -414,6 +458,7 @@
   <ul>
     <li><a href="https://www.w3.org/TR/css3-animations/" target="_blank">https://www.w3.org/TR/css3-animations/</a></li>
     <li><a href="https://www.w3.org/TR/motion-1/" target="_blank">https://www.w3.org/TR/motion-1/</a></li>
+    <li><a href="https://drafts.fxtf.org/motion-1/#offset-path-contain" target="_blank">https://drafts.fxtf.org/motion-1/#offset-path-contain</a></li>
   </ul>
   <script>
     var demo = document.getElementById( 'demo' );
