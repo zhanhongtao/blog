@@ -9,14 +9,14 @@ function reset() {
 function action( fn, css3 ) {
   if ( fn ) {
     reset();
-    fn.call( null, elements.toArray(), function( element, next ) {
+    fn.call( null, elements.toArray(), function( element, i, next ) {
       if ( css3 ) {
         animate( element, 'animate', next );
       }
       else {
         $( element ).animate({left: '80%'}, 500, next);
       }
-    });  
+    });
   }
 }
 
@@ -31,9 +31,12 @@ function go(id) {
     case 'css3':
       action( queue, 'css3' );
       break;
+    case 'await':
+      action( es );
+      break;
     default:
       alert( 'Don\'t support!' ); break;
-  }  
+  }
 }
 
 $( document ).on( 'click', 'button', function(e) {
