@@ -57,7 +57,7 @@ var blog = {
     {title: '装饰器实例', address: './fe/ms/'},
     {title: '条件排序', address: './sort/special.html', description: '双指针问题'},
     {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自ypy.douban.com' },
-    {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3' },
+    {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3, async/await' },
     {title: 'Scroll Loading..', address: './fe/scroll/' },
     // {title: '遍历 DOM-Tree', address: './walkdomtree/'},
     // {title: '10 点提醒', address: './fe/reader/', description: '提醒, 且一次'},

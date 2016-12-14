@@ -21,7 +21,7 @@ function walkDOMTreeByDeep( root, conf ) {
     var element = root[i];
     if ( type(conf.handle) == 'function' ) {
       conf.handle( element );
-    }    
+    }
     var children = element.children;
     if ( children && children.length ) {
       ++conf.layer;
@@ -58,7 +58,7 @@ function walkDOMTreeByBreadth( root, conf ) {
       if ( children.length ) {
         stack.push( tag );
         push.apply( stack, children );
-      }    
+      }
     }
   }
   if ( type(conf.complete) == 'function' ) {
