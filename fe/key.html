@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key/Which</title>
+  <style>
+    body {
+      line-height: 24px;
+      text-align: center;
+    }
+    h1 {
+      font-size: .8em;
+      font-weight: normal;
+    }
+    #box .key,
+    #box .which,
+    #box .keycode {
+      color: blueviolet;
+    }
+    #box span {
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>[查看 e.which/e.keyCode/e.key]</h1>
+  <div id="box"></div>
+  <script>
+    var box = document.getElementById('box');
+    function log(e) {
+      var tpl = '<h2>Key: <span class="key">${e.key}</span></h2>which: <span class="which">${e.which}</span> keyCode: <span class="keycode">${e.keyCode}</span>';
+      var content = tpl.replace(/\$\{e\.([^}]+)\}/g, function(m, key) {
+        return e[key];
+      });
+      box.innerHTML = content;
+    }
+    document.addEventListener('keydown', function(e) {
+      e.preventDefault();
+      log({
+        key: e.key,
+        which: e.which,
+        keyCode: e.keyCode
+      });
+    });
+    log({
+      key: 'A',
+      which: 65,
+      keyCode: 65
+    });
+  </script>
+</body>
+</html>
