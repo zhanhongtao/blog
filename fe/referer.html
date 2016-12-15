@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>Referer</title>
+</head>
+<body>
+  <h1>设置 meta[name=referrer]</h1>
+  <p>打开浏览器开发者工具, 查看设置各个 meta[name=referrer] 的 content, 对请求的影响.</p>
+  <h2>支持 content 值</h2>
+  <ul>
+    <li>default: 默认值. 设置为其他浏览器不认识的值或者空时, 浏览器会转换为 default</li>
+    <li>never: 请求不带 referrer</li>
+    <li>always: 请求总是带着 referrer - 不受 https/http 影响(ex: 默认情况下, https 页面发送 http 请求时, 会把 referrer 置为空)</li>
+    <li>origin: 请求时， referrer 的值为 origin</li>
+  </ul>
+  <h2>其它</h2>
+  <p>rel=noreferer 会覆盖 meta 设置.</p>
+  <p>referer -> referer!</p>
+  <h2>实例</h2>
+  <label for="referer">选择不同的 referer 值, 打开开发者工具, 查看效果: </label>
+  <select id="referer">
+    <option value="default">default</option>
+    <option value="never">never</option>
+    <option value="always">always</option>
+    <option value="origin">origin</option>
+  </select>
+  <button id="load-some-resource">加载资源测试</button>
+  <script src="../queue/queue.js"></script>
+  <script src="../index/loader.js"></script>
+  <script>
+    function changeMeta(val) {
+      var id = '__user_defined_meta__'
+      var meta = document.getElementById(id)
+      if (meta) {
+        meta.setAttribute('content', val);
+      } else {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'referrer');
+        meta.setAttribute('content', val);
+        meta.id = id;
+        var hd = document.getElementsByTagName('head')[0];
+        if (hd.firstChild) {
+          hd.insertBefore(meta, hd.firstChild);
+        } else {
+          hd.appendChild(meta);
+        }
+      }
+    }
+    var re = document.getElementById('referer');
+    re.addEventListener('change', function(e) {
+      changeMeta(this.value);
+    });
+    changeMeta(re.value);
+
+    var loadNode = document.getElementById('load-some-resource');
+    var list = [
+      'https://avatars1.githubusercontent.com/u/874819?v=3&s=40',
+      'http://ie.sogou.com/app/images/app/user.png'
+    ];
+    loadNode.addEventListener('click', function(e) {
+      queue(list, function(src, next) {
+        loader(src + '?t=' + (new Date).getTime(), next);
+      });
+    });
+  </script>
+</body>
+</html>

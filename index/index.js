@@ -75,6 +75,7 @@ var blog = {
     {title: 'light.js', address: 'http://github.com/zhanhongtao/light.js', description: '轻量级消息通知系统' },
   ],
   other: [
+    {title: '有关 Referer[referrer]', address: './fe/referer.html' },
     {title: 'Sliders', address: './slider' },
     {title: 'JavaScript - Animation', address: './fe/animation-javascript.html', description: '需浏览器支持' },
     {title: 'Ajax', address: './fe/ajax.txt', description: '文档' },
