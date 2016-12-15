@@ -1,5 +1,5 @@
 async function es(list, handle) {
-  async function _handle(handle, args) {
+  function _handle(handle, args) {
     return new Promise(resolve => {
       args[args.length] = resolve;
       handle.apply(null, args);
