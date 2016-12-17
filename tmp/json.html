@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>view</title>
+  <style>
+.hljs{display:block;overflow-x:auto;padding:0.5em;background:#F0F0F0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888888}.hljs-keyword,.hljs-attribute,.hljs-selector-tag,.hljs-meta-keyword,.hljs-doctag,.hljs-name{font-weight:bold}.hljs-type,.hljs-string,.hljs-number,.hljs-selector-id,.hljs-selector-class,.hljs-quote,.hljs-template-tag,.hljs-deletion{color:#880000}.hljs-title,.hljs-section{color:#880000;font-weight:bold}.hljs-regexp,.hljs-symbol,.hljs-variable,.hljs-template-variable,.hljs-link,.hljs-selector-attr,.hljs-selector-pseudo{color:#BC6060}.hljs-literal{color:#78A960}.hljs-built_in,.hljs-bullet,.hljs-code,.hljs-addition{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}
+pre, code, kbd, samp { color: #000; font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 0.98em; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+h1 { font-size: 1.2em; }
+#box { line-height: 1.5;}
+#tpl {display: none;}
+  </style>
+</head>
+<body>
+  <h1>配置实例</h1>
+  <div id="box"></div>
+  <script src="./highlight.min.js"></script>
+  <script src="./remarkable.min.js"></script>
+  <script>
+    var json = (window.template || {
+      'template': '测试实例'
+    });
+    var jsonstring = JSON.stringify(json, null, 2);
+    var md = new Remarkable({
+      highlight: function(str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(lang, str).value;
+          } catch (__) {}
+        }
+        try {
+          return hljs.highlightAuto(str).value;
+        } catch (__) {}
+        return '';
+      }
+    });
+    var box = document.getElementById('box');
+    box.innerHTML = md.render('```js\n' + jsonstring + '\n```');
+  </script>
+</body>
+</html>
