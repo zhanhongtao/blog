@@ -21,13 +21,20 @@ g=0,t=a.length-1;t>=0;t--)if(c=a[t],"link_close"!==c.type){if("htmltag"===c.type
   <h1>配置实例</h1>
   <div id="box"></div>
   <script>
+    // 用 JSON 数据把 window.template 替换替换即可.
+    // ex: 
+    // 替换后为
+    // var json = ({a: 1} || {
     var json = (window.template || {
       'template': '测试实例'
     });
-    var jsonstring = JSON.stringify(json, null, 2);
-    var md = new Remarkable('full');
-    var box = document.getElementById('box');
-    box.innerHTML = md.render('```js\n' + jsonstring + '\n```');
+    toView(json);
+    function toView(json) {
+      var jsonstring = JSON.stringify(json, null, 2);
+      var md = new Remarkable('full');
+      var box = document.getElementById('box');
+      box.innerHTML = md.render('```js\n' + jsonstring + '\n```');
+    }
   </script>
 </body>
 </html>

@@ -18,25 +18,32 @@ h1 { font-size: 1.2em; }
   <script src="./highlight.min.js"></script>
   <script src="./remarkable.min.js"></script>
   <script>
+    // 用 JSON 数据把 window.template 替换替换即可.
+    // ex: 
+    // 替换后为
+    // var json = ({a: 1} || {
     var json = (window.template || {
       'template': '测试实例'
     });
-    var jsonstring = JSON.stringify(json, null, 2);
-    var md = new Remarkable({
-      highlight: function(str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
+    toView(json);
+    function toView(json) {
+      var jsonstring = JSON.stringify(json, null, 2);
+      var md = new Remarkable({
+        highlight: function(str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return hljs.highlight(lang, str).value;
+            } catch (__) {}
+          }
           try {
-            return hljs.highlight(lang, str).value;
+            return hljs.highlightAuto(str).value;
           } catch (__) {}
+          return '';
         }
-        try {
-          return hljs.highlightAuto(str).value;
-        } catch (__) {}
-        return '';
-      }
-    });
-    var box = document.getElementById('box');
-    box.innerHTML = md.render('```js\n' + jsonstring + '\n```');
+      });
+      var box = document.getElementById('box');
+      box.innerHTML = md.render('```js\n' + jsonstring + '\n```');
+    }
   </script>
 </body>
 </html>
