@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>propagation</title>
+</head>
+<body>
+<h2>事件捕获/冒泡</h2>
+<input type="text" id="capture">
+<script>
+  ['focus', 'blur', 'focusin', 'focusout'].forEach(function(name) {
+    document.addEventListener(name, function(e) {
+      console.log('event: %s(bubble)', name, e.target);
+    });
+    document.addEventListener(name, function(e) {
+      console.log('event: %s(capture)', name, e.target);
+    }, true);
+  });
+</script>
+</body>
+</html>

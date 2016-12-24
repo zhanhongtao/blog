@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>storage</title>
+</head>
+<body>
+  <h2>Storage 事件</h2>
+  <button id="btn--changestorage">变更 localStorage[DEMO_storage_changed]</button>
+  <script>
+    window.addEventListener('storage', function(e) {
+      console.log('storage changed:', e);
+    });
+    document.querySelector('#btn--changestorage').addEventListener('click', function() {
+      localStorage.setItem('DEMO_storage_changed', Math.random());
+    });
+  </script>
+</body>
+</html>

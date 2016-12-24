@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Load</title>
+</head>
+<body>
+<script>
+  console.log('document.readyState: %s', document.readyState);
+  document.addEventListener('DOMContentLoaded', function(e) {
+    console.log('event: DOMContentLoaded; document.readyState: %s', document.readyState);
+  });
+  window.addEventListener('load', function() {
+    console.log('event: load; document.readyState: %s', document.readyState);
+  });
+  document.addEventListener('readystatechange', function(e) {
+    console.log('event: readystatechange; document.readyState: %s', document.readyState);
+  });
+
+  // 辅助 storage 测试.
+  window.addEventListener('storage', function(e) {
+    console.log('storage changed:', e);
+    console.log('page: %s', location.href);
+    ['key', 'oldValue', 'newValue', 'url'].forEach(function(key) {
+      console.log('%s: %s', key, e[key]);
+    });
+  });
+</script>  
+</body>
+</html>

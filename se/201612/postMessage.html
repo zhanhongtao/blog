@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>postMessage</title>
+</head>
+<body>
+  <script>
+    var domain = 'blog.x181.cn';
+    if (domain === document.domain) {
+      var iframe = document.createElement('iframe');
+      iframe.src = 'http://other.x181.cn/se/201612/postMessage.html';
+      iframe.style.cssText = 'height: 0; width: 0; overflow: hidden;';
+      iframe.setAttribute('hidden', true);
+      document.body.appendChild(iframe);
+      iframe.addEventListener('load', function() {
+        iframe.contentWindow.postMessage({
+          cmd: 'ping'
+        }, 'http://other.x181.cn/');
+      });
+    }
+    window.addEventListener('message', function(e) {
+      var req = e.data;
+      if (e.origin === 'http://blog.x181.cn') {
+        switch(req.cmd) {
+          case 'ping':
+            e.source.postMessage({
+              cmd: 'ping',
+              payload: 'pong'
+            }, e.origin);
+            break;
+          default:
+            break;
+        }
+      } else if (e.origin === 'http://other.x181.cn') {
+        switch(req.cmd) {
+          case 'ping':
+            console.log('cmd: %s, reponse: %s', 'ping', req.payload);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

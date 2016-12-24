@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>visibility</title>
+</head>
+<body>
+  <script>
+    console.log(document.hidden);
+    var name = 'visibilitychange';
+    window.addEventListener(name, function(e) {
+      console.log('event: %s', name, document.hidden);
+    });
+  </script>
+</body>
+</html>

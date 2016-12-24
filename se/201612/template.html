@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>template</title>
+</head>
+<body>
+  <script>
+    var tpl = `
+      <ul>
+        <li><span>Hello World</span></li>
+        <li><span>Hello World</span></li>
+        <li><span>Hello World</span></li>
+        <li><span>Hello World</span></li>
+      </ul>
+    `;
+    var parser = new DOMParser;
+    var target = parser.parseFromString(tpl, 'text/html');
+    console.log('DOMParser:', target);
+
+    var template = document.createElement('template');
+    document.body.appendChild(template);
+    template.innerHTML = tpl;
+    console.log('template:', template.content);
+  </script>
+</body>
+</html>
