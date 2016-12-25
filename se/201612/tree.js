@@ -41,13 +41,22 @@ function d(node, handle) {
   d(children, handle);
 }
 
+// *
+function d(node, handle) {
+  if (!node) return;
+  var nodes = node.getElementsByTagName('*');
+  for (var i = 0; i < nodes.length; ++i) {
+    handle(nodes[i]);
+  }
+}
+
 d(document.body, function(node) {
   if (node.nodeType == 1) {
     console.log(node);
   }
 });
 
-
+// path
 function walk(node, handle, context) {
   context = context || document;
   while (node && node.nodeType == 1) {

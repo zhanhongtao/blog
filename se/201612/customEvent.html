@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CustomEvent</title>
+</head>
+<body>
+  <script>
+    document.addEventListener('custom', function(e) {
+      console.log('custom: ', e.detail);
+    });
+
+    function dispatch(name, payload) {
+      var event = new CustomEvent(name, {
+        detail: payload
+      });
+      document.dispatchEvent(event);
+    }
+
+    dispatch('custom', {
+      cmd: 'log',
+      payload: 'Hello World'
+    });
+  </script>
+</body>
+</html>
