@@ -24,22 +24,29 @@ function d(node, handle) {
 }
 
 // 广度
-function d(node, handle) {
-  if (!node || node.length == 0) return;
-  if (Object.prototype.toString.call(node) !== '[object Array]') {
-    node = [node];
-  }
-  var children = [];
-  for (var i = 0; i < node.length; ++i) {
-    handle(node[i]);
-    var child = node[i].firstChild;
-    while(child) {
-      children.push(child);
-      child = child.nextSibling;
+function d(node, handle, payload) {
+  var process = [
+    {node: node, payload: payload}
+  ];
+  for (var i = 0; i < process.length; ++i) {
+   var item = process[i]; 
+   handle(item, function sync(payload) {
+    for (var child = item.node.firstChild; child; child = child.nextSibling) {
+      process.push({node: child, payload: payload});
     }
+   });
   }
-  d(children, handle);
 }
+
+// up.
+d(document.body, function(item, sync) {
+  var node = item.node;
+  if (node && node.nodeType == 1) {
+    console.log(node);
+  }
+  sync();
+});
+
 
 // *
 function d(node, handle) {
