@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS 优先级</title>
+  <style>
+    div {
+      width: 80px;
+      height: 80px;
+      margin: 5px;
+      float: left;
+    }
+    div div {
+      margin: 5px;
+    }
+    .auto {
+      width: 100%;
+      height: auto;
+      float: none;
+      clear: both;
+      overflow: hidden;
+    }
+    /*
+      行内 !important 优先级.
+    */
+    body div.important {
+      background-color: aquamarine !important;
+    }
+
+    /*
+      测试 :not 选择器
+    */
+    #not-box div{
+      background-color: hsl(260, 50%, 70%);
+    }
+    #not-box div:not(.not-y) {
+      background-color: hsl(60, 50%, 80%);
+    }
+    /*
+      :not(selector) 中的 selector 不支持复杂选择器
+      那简单选择器:
+      * 元素类型选择器
+      * 通用选择器
+      * 属性选择器
+      * 类选择器
+      * ID选择器
+      * 伪类选择器
+    */
+    #not-box div:not(.not-y div) {
+      background-color: hsl(60, 50%, 80%);
+    }
+
+    /*
+      覆盖样式测试
+    */
+    .over-done div {
+      background-color: #999;
+    }
+    .over-filter {
+      background-color: aliceblue !important;
+    }
+    .over-filter div {
+      background-color: hsl(190, 50%, 80%);
+    }
+    :not(.over-filter) div {
+      background-color: hsl(20, 50%, 80%);
+    }
+  </style>
+</head>
+<body>
+  <div class="important" style="background-color: yellow !important"></div>
+
+  <div id="not-box" class="auto">
+    <div class="not-x"></div>
+    <div class="not-y auto">
+      <div class="not-y-a"></div>
+      <div class="not-y-b"></div>
+    </div>
+    <div class="not-z"></div>
+  </div>
+
+  <div class="over over-done auto">
+    <div class="x over-filter auto">
+      <div class="x-a"></div>
+      <div class="x-b"></div>
+      <div class="x-c"></div>
+    </div>
+    <div class="y"></div>
+    <div class="z"></div>
+  </div>
+  
+  <script>
+function type(s) {
+  return Object.prototype.toString.call(s).slice(8, -1).toLowerCase();
+}
+function walk(root, conf) {
+  conf = type(conf) == 'object' ? conf : {
+    handle: function() {},
+    layer: 0
+  };
+  if (type(root) !== 'array') root = [root];
+  var i = 0, l = root.length;
+  while (i < l) {
+    var element = root[i];
+    var deep = true;
+    if (type(conf.handle) == 'function') {
+      if (conf.handle(element) === false) {
+        deep = false;
+      }
+    }
+    if (deep) {
+      var children = element.childNodes;
+      if (children && children.length) {
+        ++conf.layer;
+        var _children = Array.prototype.slice.call(children);
+        walk(_children, conf);
+        --conf.layer;
+      }
+    }
+    ++i;
+  }
+  if (conf.layer === 0) {
+    if (type(conf.complete) == 'function') {
+      conf.complete();
+    }
+  }
+}
+
+walk(document.body, {
+  handle: function(node) {
+    if (node.nodeType == 1) {
+      console.log(node);
+    }
+  }
+});
+  </script>
+  
+</body>
+</html>

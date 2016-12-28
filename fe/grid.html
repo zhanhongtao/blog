@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid</title>
+  <style>
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #template {
+      /**
+        display: grid/inline-grid/subgrid;
+      */
+      display: grid;
+
+      /**
+        grid-template-columns
+        grid-template-rows
+          <track-size> <line-name>
+      */
+      grid-template-columns: 40px 50px auto 50px 40px;
+      grid-template-rows: 25% 100px auto;
+      /**
+        grid-template: auto / auto;
+        是 grid-template-columns 和 grid-template-rows 简写
+      */
+
+      /**
+        line-name.
+        支持多个别名
+      */
+      grid-template-columns: [first] 40px [second] 50px [third] auto [c4] 50px [c5] 40px [last];
+      grid-template-rows: [start] 25% [r2] 100px [r3] auto [end];
+      grid-template-rows: [start] 25% [r2] 100px [r3 rename3] auto [end];
+
+      /**
+        支持 repeat 简写
+      */
+      grid-template-columns: repeat(2, [first] 100px [second] 150px) auto;
+
+
+      /**
+        auto-fill 关键字
+        分配合适的 10px, 占满 container 空间
+      */
+      grid-template-columns: repeat(auto-fill, 10px);
+
+      /**
+        minmax 函数.
+        ex: 最小为 200px, 最大为 1fr;
+        minmax(200px, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      */
+
+      /**
+        支持使用 fr 单位 -> fractions
+      */
+      grid-template-rows: 1fr 1fr 100px 2fr;
+
+      /**
+        grid-area-name(grid-area) -> 给各个格式起 alias
+        . -> 代表空格子
+        none
+      */
+      grid-template-areas: 'header main . footer';
+
+      /**
+        设置各个 grid 在水平/垂直方向的间隔.
+      */
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+
+      /**
+        grid-column-gap/grid-row-gap 的简写形式
+      */
+      grid-gap: 10px 20px;
+
+      /**
+        grid 在 container 中, column axis 对齐方式.
+        start/center/end/stretch[default]
+        grid-item 可使用 justify-self 覆盖
+      */
+      justify-items: stretch;
+
+      /**
+        grid 在 container 中, row axis 对齐方式
+        start/end/center/stretch[default]
+        grid-item 可使用 align-self 覆盖
+      */
+      align-items: stretch;
+
+      /**
+        当总 grid 区域比 container 区域小时, 设置总 grid 在 container 中的对齐方式
+        column axis -> justify-content
+        row axis -> align-content
+        start/end/center/stretch/space-around/space-between/space-evenly
+      */
+      justify-content: space-around;
+      align-content: space-between;
+
+      /**
+        定义延伸 grid -> 认为不可见即可
+        一般会配合 grid-column/grid-row 使用.
+      */
+      grid-auto-columns: 60px 60px;
+      grid-auto-rows: 90px 90px;
+
+      /**
+        grid-auto-flow: row/column/dense[自动补充空格子位置]
+        grid 排列方式
+      */
+      grid-auto-flow: row;
+
+      /**
+        grid 简写形式
+        grid:
+          grid-template-rows,
+          grid-template-columns,
+          grid-template-areas,
+          grid-auto-rows,
+          grid-auto-columns,
+          grid-auto-flow;
+
+        values:
+          none;
+          <grid-template-rows>/<grid-template-columns>;
+          <grid-auto-flow>[<grid-auto-rows>[/<grid-auto-columns>]]
+      */
+    }
+
+    #template li {
+      /**
+        grid-row-start
+        grid-row-end
+        grid-column-start
+        grid-column-end
+          value:
+            <line> 或者 <line name>
+            span <number>
+            span <number>
+            auto;
+          如果 grid-row-end / grid-column-end 没有指定,
+          默认只有一个 grid.
+
+        grid-column/grid-row
+          是 grid-column-start + grid-column-end 和 grid-row-start + grid-row-end 的简写形式
+      */
+
+
+      /**
+        grid-area 定义 area.
+        可使用 <name> 或者 <row-start>/<column-start>/<row-end>/<column-end> 指定
+      */
+
+      /**
+        justify-self
+        align-self 覆盖 justify-items/aling-items
+      */
+
+      /**
+        支持使用 order 属性.
+        可直接使用 z-index 来实现 z 轴层叠顺序
+      */
+    }
+
+    ul {
+      display: grid;
+      grid-auto-rows: 100px;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-gap: 10px;
+    }
+    li {
+      background-color:bisque;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+    <li>11</li>
+    <li>12</li>
+    <li>13</li>
+    <li>14</li>
+    <li>15</li>
+    <li>16</li>
+    <li>17</li>
+    <li>18</li>
+    <li>19</li>
+    <li>20</li>
+    <li>21</li>
+    <li>22</li>
+    <li>23</li>
+    <li>24</li>
+    <li>25</li>
+    <li>26</li>
+    <li>27</li>
+    <li>28</li>
+    <li>29</li>
+    <li>30</li>
+  </ul>
+</body>
+</html>
