@@ -14,6 +14,11 @@
     h1 {
       font-size: 16px;
     }
+    .box-wrap {
+      margin-top: 20px;
+      padding: 10px;
+      outline: 1px solid hsl(270, 80%, 90%);
+    }
     .box {
       display: -webkit-box;
       -webkit-box-orient: vertical;
@@ -21,9 +26,6 @@
       -webkit-box-align: center;
       -webkit-line-clamp: 3;
       overflow: hidden;
-      outline: 1px solid hsl(270, 80%, 90%);
-      margin-top: 20px;
-      padding: 5px;
     }
     #input {
       width: 100%;
@@ -32,7 +34,9 @@
   </style>
   <h1>单行居中，多行时居作对齐，最多显示三行, 多余三行时显示...</h1>
   <textarea id="input" placeholder="输入内容，看下面效果."></textarea>
-  <div class="box">完成了第一步，接下来要实现的是超出两行显示省略符号</div>
+  <div class="box-wrap">
+    <div class="box">完成了第一步，接下来要实现的是超出两行显示省略符号</div>
+  </div>
   <script>
     var box = document.querySelector('.box');
     document.querySelector('#input').addEventListener('input', function(e) {
