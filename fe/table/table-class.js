@@ -1,198 +1,286 @@
+function Table (cfg, db, root) {
+  // 是否为重复表格 - ex: 多店情况..
+  this.multiple = !!cfg.multiple
+  this.vector = Table.fixedVector(cfg.vector)
+  // 计算 vector 中属性值需占行数 -> 生成表格时使用.
+  var cache = this.cache = []
+  for (var i = 0, l = this.vector.length; i < l; ++i) {
+    cache[i] = this.calcRowspan(i + 1)
+  }
+  // 对属性做额外补充
+  // @todo.
+  // 当编辑 other 字段时, 添加校验
+  // ex: 格式/和其它条目冲突
+  this.other = cfg.other || []
+  this.db = db || []
+  this.root = root || document.body
+  // 生成单元格函数 -> 方便自定义
+  this.grid = cfg.grid || function (v) {
+    return v
+  }
+}
+
+// 基本类型
+// key/value
+Table.isEqual = function (a, b) {
+  if (a === b) return true
+  if (typeof a === typeof b && typeof a === 'object') {
+    var equal = true
+    var key
+    for (key in a) {
+      if (b[key] !== a[key]) {
+        equal = false
+        break
+      }
+    }
+    if (equal) {
+      for (key in b) {
+        if (a[key] !== b[key]) {
+          equal = false
+          break
+        }
+      }
+    }
+    return equal
+  }
+  return false
+}
+
+Table.escapehtml = function (string) {
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2f;',
+    '\\': '&#x5c;',
+    '%': '&#x0025;'
+  }
+  return String(string).replace(/[&<>"'/\\%]/g, function (key) {
+    return entityMap[key]
+  })
+}
+
 // 对 vector 进行修正和排序(策略)
-function fixedVector(vector) {
+Table.fixedVector = function (vector) {
   // 过滤 value 为空的情况
-  function swap(list, i, j) {
-    if (i != j) {
-      var tmp = list[i];
-      list[i] = list[j];
-      list[j] = tmp;
+  function swap (list, i, j) {
+    if (i !== j) {
+      var tmp = list[i]
+      list[i] = list[j]
+      list[j] = tmp
     }
   }
   for (var i = 0, l = vector.length; i < l; ++i) {
-    var item = vector[i];
-    if (item.value.length == 0) {
-      swap(vector, i--, --l);
+    var item = vector[i]
+    // 过滤属性值为空情况
+    if (item.values.length === 0) {
+      swap(vector, i--, --l)
     } else {
-      var k = i;
-      while(k > 0) {
-        var a = vector[k - 1], c = vector[k];
+      var k = i
+      while (k > 0) {
+        var a = vector[k - 1]
+        var c = vector[k]
         if (
+          // c 优先排
           (c.most && !a.most) ||
-          (!c.most && c.value.length < a.value.length)
+          // a/c 都不优先排，比较长度
+          (!c.most && !a.most && c.values.length < a.values.length)
         ) {
-          swap(vector, k, k - 1);
+          swap(vector, k, k - 1)
         } else {
-          break;
+          break
         }
-        --k;
+        --k
       }
     }
   }
-  return vector.slice(0, l);
+  return vector.slice(0, l)
 }
 
-function X(cfg, db, root) {
-  this.db = db || [];
-  this.vector = fixedVector(cfg.vector);
-  this.other = cfg.other || [];
-  this._calcHelper();
-  this._auto_id = '_table_' + (new Date).getTime();
-  this.root = root || document.body;
-  this.grid = cfg.grid || function(v) { return v; };
-  if (cfg.editable) {
-    this.bind();
+Table.findSameRow = function (rows, row, multiple) {
+  var group = rows / multiple
+  var index = row % group
+  var list = []
+  for (var i = 0; i < multiple; ++i) {
+    list.push(index + i * group)
   }
+  return list
 }
 
-X.fn = X.prototype;
+Table.fn = Table.prototype
 
-X.fn.render = function() {
-  var html  = '<table id="' + this._auto_id + '">';
-  var vector = this.vector;
-  var other = this.other;
-  var keys = vector.concat(other);
+// 依赖后面列, 计算行数
+Table.fn.calcRowspan = function (i) {
+  var ret = 1
+  var vector = this.vector
+  for (; i < vector.length; ++i) {
+    ret *= vector[i].values.length
+  }
+  return ret
+}
+
+// 计算当前单元格内容
+Table.fn.getText = function (i, j, max) {
+  var index = Math.floor(i / max)
+  var texts = this.vector[j].texts
+  var values = this.vector[j].values
+  return Table.escapehtml(
+    (texts || values)[index % values.length]
+  )
+}
+
+// 根据行, 找到各个字段 -> vector
+// ignore -> 是否忽略 multiple
+// reverse -> 过滤时, 取反
+Table.fn.createQuery = function (row, ignore, reverse) {
+  var vector = this.vector
+  var query = {
+    reverse: !!reverse,
+    vector: {}
+  }
+  for (var i = this.multiple && ignore ? 1 : 0, l = vector.length; i < l; ++i) {
+    var item = vector[i]
+    var values = item.values
+    var index = Math.floor(row / this.cache[i]) % values.length
+    query.vector[item.name] = values[index]
+  }
+  return query
+}
+
+// 根据条件过滤 db.
+// 支持 reverse 反转过滤 -> 检测冲突
+Table.fn.query = function (condition) {
+  var ret = []
+  var db = this.db
+  var reverse = !!condition.reverse
+  for (var i = 0, l = db.length; i < l; ++i) {
+    var row = db[i]
+    var is = true
+    for (var p in condition) {
+      if (p !== 'reverse') {
+        if (!Table.isEqual(condition[p], row[p])) {
+          is = false
+          break
+        }
+      }
+    }
+    if (reverse !== is) {
+      ret.push(row)
+    }
+  }
+  return ret
+}
+
+Table.fn.render = function () {
+  var html = '<table>'
+  var vector = this.vector
+  var other = this.other
+  var keys = vector.concat(other)
 
   // head
-  html += '<thead><tr>';
+  html += '<thead><tr>'
   for (var i = 0, l = keys.length; i < l; ++i) {
-    html += '<th>' + keys[i].name + '</th>'
+    html += '<th>' + Table.escapehtml(keys[i].name) + '</th>'
   }
-  html += '<tr></thead>';
-  
+  html += '</tr></thead>'
+
   // body
-  html += '<tbody>';
+  html += '<tbody>'
 
   // 计算表格一共多少行
-  var rows = this._calcRowsInTd(0);
+  var rows = this.calcRowspan(0)
   // 生成行
-  for (var i = 0; i < rows; ++i) {
-    html += '<tr>';
+  for (i = 0; i < rows; ++i) {
+    html += '<tr>'
     // 生成列
     for (var j = 0; j < vector.length; ++j) {
-      var tmp = this.cache[j];
-      if (i % tmp == 0) {
-        html += '<td rowspan="' + tmp + '">';
-        html += this._getText(i, j, tmp);
+      var rowspan = this.cache[j]
+      if (i % rowspan === 0) {
+        html += '<td rowspan="' + rowspan + '">'
+        html += this.getText(i, j, rowspan)
         html += '</td>'
       }
     }
-    // 生成必要内容
+    // 生成补充字段内容
+    var query = this.createQuery(i)
+    var item = this.query(query)[0]
     for (var k = 0; k < other.length; ++k) {
-      html += '<td data-row="' + i + '" data-col="' + (j + k) + '" data-key="' + this.getKeyByCol(j+k) + '">';
-      html += this.getValue(i, j + k)
-      html += '</td>';
+      var key = other[k].key
+      html += '<td data-row="' + i + '" data-col="' + (j + k) + '" data-key="' + Table.escapehtml(key) + '">'
+      html += this.grid(item ? item[key] : '', item)
+      html += '</td>'
     }
-    html += '</tr>';
+    html += '</tr>'
   }
 
-  html += '</tbody>';
-  html += '</table>';
-  this.root.innerHTML = html;
-};
+  html += '</tbody>'
+  html += '</table>'
+  this.root.innerHTML = html
+}
 
-// 依赖后面列, 计算行数
-X.fn._calcRowsInTd = function(i) {
-  var ret = 1, vector = this.vector;
-  for (; i < vector.length; ++i) {
-    ret *= vector[i].value.length;
-  }
-  return ret;
-};
-
-// 计算各个单元格需占行数
-X.fn._calcHelper = function() {
-  var cache = this.cache = [];
-  var vector = this.vector;
-  for (var i = 0, l = vector.length; i < l; ++i) {
-    cache[i] = this._calcRowsInTd(i + 1);
-  }
-};
-
-// 计算当前单元格内容
-X.fn._getText = function(i, j, max) {
-  var index = Math.floor(i / max);
-  var values = this.vector[j].value;
-  return values[index % values.length];
-};
-
-// 根据条件过滤 db.
-X.fn._filter = function(condition) {
-  var ret, db = this.db;
-  for (var i = 0, l = db.length; i < l; ++i) {
-    var row = db[i], is = true;
-    for (var p in condition) {
-      if (condition.hasOwnProperty(p)) {
-        if (condition[p] !== row[p]) {
-          is = false;
-          break;
-        }
-      }
-    }
-    if (is) {
-      ret = row;
-      break;
+Table.fn.update = function (key, values) {
+  var i = 0
+  var l = this.calcRowspan(this.multiple ? 1 : 0)
+  if (typeof values !== 'object') {
+    var t = values
+    values = []
+    while (i < l) {
+      values[i++] = t
     }
   }
-  return ret;
-};
-
-// 根据行, 找到各个字段
-X.fn._calcCondition = function(row) {
-  var vector = this.vector, filter = {};
-  for (var i = 0, l = vector.length; i < l; ++i) {
-    var item = vector[i];
-    var values = item.value;
-    var index = Math.floor(row / this.cache[i]) % values.length;
-    filter[item.key] = values[index];
-  }
-  return filter;
-};
-
-X.fn.getKeyByCol = function(col) {
-  var vector = this.vector.concat(this.other);
-  return vector[col].key;
-};
-
-X.fn.getValue = function(row, col) {
-  var cnd = this._calcCondition(row);
-  var item = this._filter(cnd);
-  var key = this.getKeyByCol(col);
-  var ret = '';
-  if (item) {
-    ret = item[key] || '';
-  }
-  return this.grid(ret);
-};
-
-function _validate(value, key) {
-  if (key == 'price') {
-    return /^\+?\d+(?:\.\d+)?$/.test(value);
-  } else if(key == 'id') {
-    return true;
+  for (i = 0; i < l; ++i) {
+    this.sync(i, key, values[i])
   }
 }
 
-X.fn.bind = function() {
-  var self = this;
-  $(document).on('change', '#' + this._auto_id + ' input', function(e) {
-    var data = $(this).closest('td').data();
-    var cnd = self._calcCondition(data.row);
-    var key = data.key;
-    var item = self._filter(cnd);
-    var value = $.trim(this.value);
-    var is = _validate(value, key);
-    if (is) {
-      if (item) {
-        item[key] = value;
-      } else {
-        cnd[key] = value;
-        self.db.push(cnd);
-      }
-      try {
-        localStorage.table = JSON.stringify(self.db);
-      } catch(e) {}
+Table.fn.sync = function (row, key, value) {
+  var query = this.createQuery(row, true)
+  var list = this.query(query)
+  // 存在, 直接更新
+  if (list.length) {
+    for (var i = 0, l = list.length; i < l; ++i) {
+      list[i][key] = value
     }
-    $(this).toggleClass('table-warning', !is);
-  });
-};
+  } else {
+    // 不存在, 创建
+    var tmp
+    if (this.multiple) {
+      var b = this.vector[0]
+      for (var k = 0, n = b.values.length; k < n; ++k) {
+        tmp = {
+          vector: query.vector
+        }
+        tmp[key] = value
+        tmp[b.key] = b.values[k]
+        this.db.push(tmp)
+      }
+    } else {
+      tmp = {
+        vector: query.vector
+      }
+      tmp[key] = value
+      this.db.push(tmp)
+    }
+  }
+  var rows = this.calcRowspan(0)
+  var someRows = Table.findSameRow(rows, row, this.multiple ? this.vector[0].values.length : 1)
+  var rowNodes = this.root.getElementsByTagName('tr')
+  for (var j = 0; j < someRows.length; ++j) {
+    var rowNode = rowNodes[someRows[j] + 1]
+    var colNode = rowNode.querySelector('[data-key="' + key + '"]')
+    colNode.innerHTML = this.grid(value)
+  }
+}
 
+// 指定的 key 是否全部没数据
+Table.fn.isEmpty = function (key) {
+  for (var i = 0, l = this.db.length; i < l; ++i) {
+    var item = this.db[i]
+    if (item[key]) {
+      return false
+    }
+  }
+  return true
+}
