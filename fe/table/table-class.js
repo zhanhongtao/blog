@@ -347,17 +347,17 @@ Table.fn.write = function (item) {
 
 // read 接口 -> 根据 index 计算哪些 index 可使用
 // @todo: 确认第一个节点是什么
-Table.fn.read = function (vector) {
+Table.fn.read = function (vector, about) {
   var base = this.table.cols
-  var max = this.table.length + base - 1
+  var max = this.table.length + base
   // 收集各个点
-  var points = vector ? Table._keys(vector, this.map) : [max]
+  var points = vector ? Table._keys(vector, this.map) : [max - 1]
 
-  // 初始化为 1
+  // 初始化为 0
   var map = {}
   var i, l
-  for (i = 0; i <= max; ++i) {
-    map[i] = 1
+  for (i = 0; i < max; ++i) {
+    map[i] = 0
   }
 
   var j
@@ -365,21 +365,32 @@ Table.fn.read = function (vector) {
     var index = points[i]
     var line, col, point
 
-    j = index < base ? 0 : index - base
-    col = index
-    for (; j < this.table.length; ++j) {
-      line = this.table[j]
-      point = j + base
-      if (map[point] === 0 || line[col] === 0 || line[col] == null) {
-        map[point] = 0
-      }
-    }
-
-    if (index > base) {
+    // 优先找列
+    // ex: index = 5
+    if (index >= base) {
       line = this.table[index - base]
       for (col = 0; col < line.length; ++col) {
-        if (line[col] === 0 || map[col] === 0) {
-          map[col] = 0
+        if (map[col] !== -1) {
+          map[col] = line[col] === 1 ? 1 : -1
+        }
+      }
+      // 处理 down/up
+      up = 0, down = 0
+      while (1) {
+        if (up++ < line.up) map[index + up] = -1
+        if (down++ < line.down) map[index - down] = -1
+        if (up >= line.up && down >= line.down) break
+      }
+    }
+    // index = 5, max = 10
+    if (index < max - 1) {
+      var row = index < base ? 0 : index - base + 1
+      // row = 5 - 4 + 1 + (1) = 3
+      for (; row < this.table.length; ++row) {
+        line = this.table[row]
+        point = row + base
+        if (map[point] !== -1) {
+          map[point] = line[index] === 1 ? 1 : -1
         }
       }
     }
@@ -388,29 +399,31 @@ Table.fn.read = function (vector) {
   // 额外添加第一个 vector 组节点
   point = points[0]
   map[point] = 1
-  var x = point - base
-  if (x < 0) {
-    // 收集同类
-    for (j = 0; j < base; ++j) {
-      map[j] = 1
-    }
-  } else {
-    var down = this.table[x].down
-    var up = this.table[x].up
-    i = 0
-    while (1) {
-      if (i++ < down) {
-        map[x - i + base] = 1
+  if (about) {
+    var x = point - base
+    if (x < 0) {
+      // 收集同类
+      for (j = 0; j < base; ++j) {
+        map[j] = 1
       }
-      if (i++ < up) {
-        map[x + i + base] = 1
+    } else {
+      var down = this.table[x].down
+      var up = this.table[x].up
+      i = 0, j = 0
+      while (1) {
+        if (i++ < down) {
+          map[x - i + base] = 1
+        }
+        if (j++ < up) {
+          map[x + j + base] = 1
+        }
+        if (i >= down && j >= up) break
       }
-      if (i >= down && i >= up) break
     }
   }
   var ret = []
   for (var key in map) {
-    if (map[key]) {
+    if (map[key] === 1) {
       ret.push(key)
     }
   }
