@@ -11,12 +11,6 @@ var config = {
       most: true
     },
     {
-      key: 'hello',
-      name: 'Top1',
-      values: ['T1', 'T2', 'T3'],
-      most: true
-    },
-    {
       name: '颜色',
       values: ['红色', '蓝色', '黑色']
     }, {
@@ -42,36 +36,65 @@ var config = {
   }
 }
 
-/*
 config.vector = [
   {
     name: 'top1',
-    values: ['t1', 't2', 't3'],
+    values: [1, 2, 3, 4],
     most: true
   }, {
     name: 'top2',
-    values: ['tx', 'ty']
+    values: [5, 6, 7]
   }, {
     name: 'size',
-    values: [60, 65, 70, 80]
+    values: [8, 9]
   }, {
     name: 'color',
-    values: ['red', 'transparent']
+    values: [10]
   }
 ];
-*/
 
 var db = [
   {
     vector: {
-      '颜色': '红色',
-      '尺寸': 30,
-      '功能': 'a'
+      top1: 2,
+      top2: 6,
+      size: 8,
+      color: 10
+    },
+    price: 1000,
+    id: 'hehe'
+  },
+  {
+    vector: {
+      top1: 1,
+      top2: 5,
+      size: 8,
+      color: 10
+    },
+    price: 1000,
+    id: 'hehe'
+  },
+  {
+    vector: {
+      top1: 1,
+      top2: 5,
+      size: 9,
+      color: 10
+    },
+    price: 1000,
+    id: 'hehe'
+  },
+  {
+    vector: {
+      top1: 2,
+      top2: 5,
+      size: 8,
+      color: 10
     },
     price: 1000,
     id: 'hehe'
   }
-];
+]
 
 try {
   db = JSON.parse(localStorage.table);
@@ -81,7 +104,7 @@ var node = document.querySelector('#table');
 var table = new Table(config, db, node);
 table.render();
 
-table.update('price', '100')
+// table.update('price', '100')
 
 if (table.isEmpty('id')) {
   var list = []

@@ -2,10 +2,40 @@ function Table (cfg, db, root) {
   // 是否为重复表格 - ex: 多店情况..
   this.multiple = !!cfg.multiple
   this.vector = Table.fixedVector(cfg.vector)
+
+  // 缓存表 - 基于 vector
+  var table = this.table = []
+  var map = this.map = {}
+  var c = this.vector.slice().sort(function (a, b) {
+    return a.values.length < b.values.length
+  })
+
+  var index = 0
+  for (var i = 0, l = c.length; i < l; ++i) {
+    var vc = c[i]
+    for (var j = 0, n = vc.values.length; j < n; ++j) {
+      map[vc.values[j]] = index++
+    }
+  }
+
+  var cols = table.cols = c[0].values.length
+  for (var i = 1, l = c.length; i < l; ++i) {
+    var rows = c[i].values.length
+    for (var row = 0; row < rows; ++row) {
+      var line = table[table.length] = []
+      line.down = row
+      line.up = rows - row - 1
+      for (var col = 0; col < cols; ++col) {
+        line[col] = 0
+      }
+    }
+    cols += rows
+  }
+
   // 计算 vector 中属性值需占行数 -> 生成表格时使用.
   var cache = this.cache = []
-  for (var i = 0, l = this.vector.length; i < l; ++i) {
-    cache[i] = this.calcRowspan(i + 1)
+  for (var k = 0, n = this.vector.length; k < n; ++k) {
+    cache[k] = this.calcRowspan(k + 1)
   }
   // 对属性做额外补充
   // @todo.
@@ -17,6 +47,12 @@ function Table (cfg, db, root) {
   // 生成单元格函数 -> 方便自定义
   this.grid = cfg.grid || function (v) {
     return v
+  }
+
+  // 初始化 table.
+  for (var i = 0, l = this.db.length; i < l; ++i) {
+    var item = this.db[i]
+    this.write(item)
   }
 }
 
@@ -131,6 +167,7 @@ Table.fn.getText = function (i, j, max) {
   )
 }
 
+// @remove.
 // 根据行, 找到各个字段 -> vector
 // ignore -> 是否忽略 multiple
 // reverse -> 过滤时, 取反
@@ -149,6 +186,7 @@ Table.fn.createQuery = function (row, ignore, reverse) {
   return query
 }
 
+// @remove
 // 根据条件过滤 db.
 // 支持 reverse 反转过滤 -> 检测冲突
 Table.fn.query = function (condition) {
@@ -203,6 +241,7 @@ Table.fn.render = function () {
         html += '</td>'
       }
     }
+    // @todo: 利用 table 缓存
     // 生成补充字段内容
     var query = this.createQuery(i)
     var item = this.query(query)[0]
@@ -283,4 +322,97 @@ Table.fn.isEmpty = function (key) {
     }
   }
   return true
+}
+
+Table._keys = function (vector, map) {
+  var keys = []
+  for (var key in vector) {
+    keys.push(map[vector[key]])
+  }
+  return keys.sort()
+}
+
+Table.fn.write = function (item) {
+  var vector = item.vector
+  var keys = Table._keys(vector, this.map)
+  for (var l = keys.sort().length; --l > 0;) {
+    var i = keys[l] - this.table.cols
+    var line = this.table[i]
+    for (var j = l; --j >= 0;) {
+      line[keys[j]] = 1
+    }
+  }
+  this.table[keys.join('-')] = item
+}
+
+// read 接口 -> 根据 index 计算哪些 index 可使用
+// @todo: 确认第一个节点是什么
+Table.fn.read = function (vector) {
+  var base = this.table.cols
+  var max = this.table.length + base - 1
+  // 收集各个点
+  var points = vector ? Table._keys(vector, this.map) : [max]
+
+  // 初始化为 1
+  var map = {}
+  var i, l
+  for (i = 0; i <= max; ++i) {
+    map[i] = 1
+  }
+
+  var j
+  for (i = 0, l = points.length; i < l; ++i) {
+    var index = points[i]
+    var line, col, point
+
+    j = index < base ? 0 : index - base
+    col = index
+    for (; j < this.table.length; ++j) {
+      line = this.table[j]
+      point = j + base
+      if (map[point] === 0 || line[col] === 0 || line[col] == null) {
+        map[point] = 0
+      }
+    }
+
+    if (index > base) {
+      line = this.table[index - base]
+      for (col = 0; col < line.length; ++col) {
+        if (line[col] === 0 || map[col] === 0) {
+          map[col] = 0
+        }
+      }
+    }
+  }
+
+  // 额外添加第一个 vector 组节点
+  point = points[0]
+  map[point] = 1
+  var x = point - base
+  if (x < 0) {
+    // 收集同类
+    for (j = 0; j < base; ++j) {
+      map[j] = 1
+    }
+  } else {
+    var down = this.table[x].down
+    var up = this.table[x].up
+    i = 0
+    while (1) {
+      if (i++ < down) {
+        map[x - i + base] = 1
+      }
+      if (i++ < up) {
+        map[x + i + base] = 1
+      }
+      if (i >= down && i >= up) break
+    }
+  }
+  var ret = []
+  for (var key in map) {
+    if (map[key]) {
+      ret.push(key)
+    }
+  }
+  return ret
 }
