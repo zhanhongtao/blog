@@ -335,7 +335,7 @@ Table._keys = function (vector, map) {
 Table.fn.write = function (item) {
   var vector = item.vector
   var keys = Table._keys(vector, this.map)
-  for (var l = keys.sort().length; --l > 0;) {
+  for (var l = keys.length; --l > 0;) {
     var i = keys[l] - this.table.cols
     var line = this.table[i]
     for (var j = l; --j >= 0;) {
@@ -345,82 +345,79 @@ Table.fn.write = function (item) {
   this.table[keys.join('-')] = item
 }
 
-// read 接口 -> 根据 index 计算哪些 index 可使用
-// @todo: 确认第一个节点是什么
-Table.fn.read = function (vector, about) {
+Table.fn.read = function (vector, select) {
   var base = this.table.cols
   var max = this.table.length + base
   // 收集各个点
   var points = vector ? Table._keys(vector, this.map) : [max - 1]
-
   // 初始化为 0
   var map = {}
-  var i, l
-  for (i = 0; i < max; ++i) {
-    map[i] = 0
-  }
-
-  var j
-  for (i = 0, l = points.length; i < l; ++i) {
-    var index = points[i]
-    var line, col, point
-
-    // 优先找列
-    // ex: index = 5
-    if (index >= base) {
-      line = this.table[index - base]
-      for (col = 0; col < line.length; ++col) {
-        if (map[col] !== -1) {
-          map[col] = line[col] === 1 ? 1 : -1
-        }
-      }
-      // 处理 down/up
-      up = 0, down = 0
-      while (1) {
-        if (up++ < line.up) map[index + up] = -1
-        if (down++ < line.down) map[index - down] = -1
-        if (up >= line.up && down >= line.down) break
-      }
-    }
-    // index = 5, max = 10
-    if (index < max - 1) {
-      var row = index < base ? 0 : index - base + 1
-      // row = 5 - 4 + 1 + (1) = 3
-      for (; row < this.table.length; ++row) {
-        line = this.table[row]
-        point = row + base
-        if (map[point] !== -1) {
-          map[point] = line[index] === 1 ? 1 : -1
-        }
-      }
-    }
-  }
-
-  // 额外添加第一个 vector 组节点
-  point = points[0]
-  map[point] = 1
-  if (about) {
-    var x = point - base
-    if (x < 0) {
-      // 收集同类
-      for (j = 0; j < base; ++j) {
-        map[j] = 1
+  for (var i = 0; i < max; ++i) map[i] = 0
+  var l = points.length
+  for (i = 0; i < l; ++i) {
+    var point = points[i]
+    var col = point
+    // 向左
+    var array
+    var length
+    var from = 0
+    if (point < base) {
+      while (from < point) {
+        map[from++] = -1
       }
     } else {
-      var down = this.table[x].down
-      var up = this.table[x].up
-      i = 0, j = 0
+      array = this.table[point - base]
+      length = array.length
+      while (from < point) {
+        if (map[from] !== -1) {
+          map[from] = from < length
+            ? (array[from] === 1 ? 1 : -1) : -1
+        }
+        ++from
+      }
+    }
+    // 向下
+    from = point
+    while (from < max) {
+      if (from < base) {
+        if (map[from] !== -1) map[from] = -1
+      } else {
+        array = this.table[from - base]
+        length = array.length
+        if (map[from] !== -1) {
+          map[from] = col < length
+            ? (array[col] === 1 ? 1 : -1) : -1
+        }
+      }
+      ++from
+    }
+  }
+
+  i = 0
+  for (i = 0; i < l; ++i) map[points[i]] = 1
+
+  if (select != null) {
+    point = this.map[select]
+    if (point < base) {
+      for (i = 0; i < base; ++i) map[i] = 1
+    } else {
+      array = this.table[point - base]
+      var down = array.down
+      var up = array.up
+      var j = 0
+      var k = 0
       while (1) {
-        if (i++ < down) {
-          map[x - i + base] = 1
+        if (j >= down && k >= up) break
+        if (j++ < down) {
+          map[point - j] = 1
         }
-        if (j++ < up) {
-          map[x + j + base] = 1
+        if (k++ < up) {
+          map[point + k] = 1
         }
-        if (i >= down && j >= up) break
       }
     }
   }
+
   var ret = []
   for (var key in map) {
     if (map[key] === 1) {
