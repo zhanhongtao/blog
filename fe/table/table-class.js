@@ -6,10 +6,7 @@ function Table (cfg, db, root) {
   // 缓存表 - 基于 vector
   var table = this.table = []
   var map = this.map = {}
-  var c = this.vector.slice().sort(function (a, b) {
-    return a.values.length < b.values.length
-  })
-
+  var c = this.vector
   var index = 0
   for (var i = 0, l = c.length; i < l; ++i) {
     var vc = c[i]
@@ -56,48 +53,6 @@ function Table (cfg, db, root) {
   }
 }
 
-// 基本类型
-// key/value
-Table.isEqual = function (a, b) {
-  if (a === b) return true
-  if (typeof a === typeof b && typeof a === 'object') {
-    var equal = true
-    var key
-    for (key in a) {
-      if (b[key] !== a[key]) {
-        equal = false
-        break
-      }
-    }
-    if (equal) {
-      for (key in b) {
-        if (a[key] !== b[key]) {
-          equal = false
-          break
-        }
-      }
-    }
-    return equal
-  }
-  return false
-}
-
-Table.escapehtml = function (string) {
-  var entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;',
-    '/': '&#x2f;',
-    '\\': '&#x5c;',
-    '%': '&#x0025;'
-  }
-  return String(string).replace(/[&<>"'/\\%]/g, function (key) {
-    return entityMap[key]
-  })
-}
-
 // 对 vector 进行修正和排序(策略)
 Table.fixedVector = function (vector) {
   // 过滤 value 为空的情况
@@ -132,7 +87,69 @@ Table.fixedVector = function (vector) {
       }
     }
   }
-  return vector.slice(0, l)
+  vector.length = l
+  return vector
+}
+
+Table.escapehtml = function (string) {
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2f;',
+    '\\': '&#x5c;',
+    '%': '&#x0025;'
+  }
+  return String(string).replace(/[&<>"'/\\%]/g, function (key) {
+    return entityMap[key]
+  })
+}
+
+Table.createVector = function (row, vector, cache) {
+  var ret = {}
+  for (var i = 0, l = vector.length; i < l; ++i) {
+    var item = vector[i]
+    var values = item.values
+    var index = Math.floor(row / cache[i]) % values.length
+    ret[item.name] = values[index]
+  }
+  return ret
+}
+
+Table._keys = function (vector, map) {
+  var keys = []
+  for (var key in vector) {
+    keys.push(map[vector[key]])
+  }
+  return keys.sort()
+}
+
+// 基本类型
+// key/value
+Table.isEqual = function (a, b) {
+  if (a === b) return true
+  if (typeof a === typeof b && typeof a === 'object') {
+    var equal = true
+    var key
+    for (key in a) {
+      if (b[key] !== a[key]) {
+        equal = false
+        break
+      }
+    }
+    if (equal) {
+      for (key in b) {
+        if (a[key] !== b[key]) {
+          equal = false
+          break
+        }
+      }
+    }
+    return equal
+  }
+  return false
 }
 
 Table.findSameRow = function (rows, row, multiple) {
@@ -167,50 +184,6 @@ Table.fn.getText = function (i, j, max) {
   )
 }
 
-// @remove.
-// 根据行, 找到各个字段 -> vector
-// ignore -> 是否忽略 multiple
-// reverse -> 过滤时, 取反
-Table.fn.createQuery = function (row, ignore, reverse) {
-  var vector = this.vector
-  var query = {
-    reverse: !!reverse,
-    vector: {}
-  }
-  for (var i = this.multiple && ignore ? 1 : 0, l = vector.length; i < l; ++i) {
-    var item = vector[i]
-    var values = item.values
-    var index = Math.floor(row / this.cache[i]) % values.length
-    query.vector[item.name] = values[index]
-  }
-  return query
-}
-
-// @remove
-// 根据条件过滤 db.
-// 支持 reverse 反转过滤 -> 检测冲突
-Table.fn.query = function (condition) {
-  var ret = []
-  var db = this.db
-  var reverse = !!condition.reverse
-  for (var i = 0, l = db.length; i < l; ++i) {
-    var row = db[i]
-    var is = true
-    for (var p in condition) {
-      if (p !== 'reverse') {
-        if (!Table.isEqual(condition[p], row[p])) {
-          is = false
-          break
-        }
-      }
-    }
-    if (reverse !== is) {
-      ret.push(row)
-    }
-  }
-  return ret
-}
-
 Table.fn.render = function () {
   var html = '<table>'
   var vector = this.vector
@@ -241,10 +214,13 @@ Table.fn.render = function () {
         html += '</td>'
       }
     }
-    // @todo: 利用 table 缓存
-    // 生成补充字段内容
-    var query = this.createQuery(i)
-    var item = this.query(query)[0]
+
+    var item = this.table[
+      Table._keys(
+        Table.createVector(i, this.vector, this.cache), this.map
+      ).join('-')
+    ]
+
     for (var k = 0; k < other.length; ++k) {
       var key = other[k].key
       html += '<td data-row="' + i + '" data-col="' + (j + k) + '" data-key="' + Table.escapehtml(key) + '">'
@@ -259,60 +235,6 @@ Table.fn.render = function () {
   this.root.innerHTML = html
 }
 
-Table.fn.update = function (key, values) {
-  var i = 0
-  var l = this.calcRowspan(this.multiple ? 1 : 0)
-  if (typeof values !== 'object') {
-    var t = values
-    values = []
-    while (i < l) {
-      values[i++] = t
-    }
-  }
-  for (i = 0; i < l; ++i) {
-    this.sync(i, key, values[i])
-  }
-}
-
-Table.fn.sync = function (row, key, value) {
-  var query = this.createQuery(row, true)
-  var list = this.query(query)
-  // 存在, 直接更新
-  if (list.length) {
-    for (var i = 0, l = list.length; i < l; ++i) {
-      list[i][key] = value
-    }
-  } else {
-    // 不存在, 创建
-    var tmp
-    if (this.multiple) {
-      var b = this.vector[0]
-      for (var k = 0, n = b.values.length; k < n; ++k) {
-        tmp = {
-          vector: query.vector
-        }
-        tmp[key] = value
-        tmp[b.key] = b.values[k]
-        this.db.push(tmp)
-      }
-    } else {
-      tmp = {
-        vector: query.vector
-      }
-      tmp[key] = value
-      this.db.push(tmp)
-    }
-  }
-  var rows = this.calcRowspan(0)
-  var someRows = Table.findSameRow(rows, row, this.multiple ? this.vector[0].values.length : 1)
-  var rowNodes = this.root.getElementsByTagName('tr')
-  for (var j = 0; j < someRows.length; ++j) {
-    var rowNode = rowNodes[someRows[j] + 1]
-    var colNode = rowNode.querySelector('[data-key="' + key + '"]')
-    colNode.innerHTML = this.grid(value)
-  }
-}
-
 // 指定的 key 是否全部没数据
 Table.fn.isEmpty = function (key) {
   for (var i = 0, l = this.db.length; i < l; ++i) {
@@ -324,17 +246,8 @@ Table.fn.isEmpty = function (key) {
   return true
 }
 
-Table._keys = function (vector, map) {
-  var keys = []
-  for (var key in vector) {
-    keys.push(map[vector[key]])
-  }
-  return keys.sort()
-}
-
 Table.fn.write = function (item) {
-  var vector = item.vector
-  var keys = Table._keys(vector, this.map)
+  var keys = Table._keys(item.vector, this.map)
   for (var l = keys.length; --l > 0;) {
     var i = keys[l] - this.table.cols
     var line = this.table[i]
@@ -392,10 +305,8 @@ Table.fn.read = function (vector, select) {
       ++from
     }
   }
-
   i = 0
   for (i = 0; i < l; ++i) map[points[i]] = 1
-
   if (select != null) {
     point = this.map[select]
     if (point < base) {
@@ -417,7 +328,6 @@ Table.fn.read = function (vector, select) {
       }
     }
   }
-
   var ret = []
   for (var key in map) {
     if (map[key] === 1) {
@@ -425,4 +335,102 @@ Table.fn.read = function (vector, select) {
     }
   }
   return ret
+}
+
+// @remove.
+// 根据行, 找到各个字段 -> vector
+// ignore -> 是否忽略 multiple
+// reverse -> 过滤时, 取反
+Table.fn.createQuery = function (row, ignore, reverse) {
+  var vector = this.vector
+  var query = {
+    reverse: !!reverse,
+    vector: {}
+  }
+  for (var i = this.multiple && ignore ? 1 : 0, l = vector.length; i < l; ++i) {
+    var item = vector[i]
+    var values = item.values
+    var index = Math.floor(row / this.cache[i]) % values.length
+    query.vector[item.name] = values[index]
+  }
+  return query
+}
+
+// @remove
+// 根据条件过滤 db.
+// 支持 reverse 反转过滤 -> 检测冲突
+Table.fn.query = function (condition) {
+  var ret = []
+  var db = this.db
+  var reverse = !!condition.reverse
+  for (var i = 0, l = db.length; i < l; ++i) {
+    var row = db[i]
+    var is = true
+    for (var p in condition) {
+      if (p !== 'reverse') {
+        if (!Table.isEqual(condition[p], row[p])) {
+          is = false
+          break
+        }
+      }
+    }
+    if (reverse !== is) {
+      ret.push(row)
+    }
+  }
+  return ret
+}
+
+Table.fn.update = function (key, values) {
+  var i = 0
+  var l = this.calcRowspan(this.multiple ? 1 : 0)
+  if (typeof values !== 'object') {
+    var t = values
+    values = []
+    while (i < l) {
+      values[i++] = t
+    }
+  }
+  for (i = 0; i < l; ++i) {
+    this.sync(i, key, values[i])
+  }
+}
+
+Table.fn.sync = function (row, key, value) {
+  var query = this.createQuery(row, true)
+  var list = this.query(query)
+  // 存在, 直接更新
+  if (list.length) {
+    for (var i = 0, l = list.length; i < l; ++i) {
+      list[i][key] = value
+    }
+  } else {
+    // 不存在, 创建
+    var tmp
+    if (this.multiple) {
+      var b = this.vector[0]
+      for (var k = 0, n = b.values.length; k < n; ++k) {
+        tmp = {
+          vector: query.vector
+        }
+        tmp[key] = value
+        tmp[b.key] = b.values[k]
+        this.db.push(tmp)
+      }
+    } else {
+      tmp = {
+        vector: query.vector
+      }
+      tmp[key] = value
+      this.db.push(tmp)
+    }
+  }
+  var rows = this.calcRowspan(0)
+  var someRows = Table.findSameRow(rows, row, this.multiple ? this.vector[0].values.length : 1)
+  var rowNodes = this.root.getElementsByTagName('tr')
+  for (var j = 0; j < someRows.length; ++j) {
+    var rowNode = rowNodes[someRows[j] + 1]
+    var colNode = rowNode.querySelector('[data-key="' + key + '"]')
+    colNode.innerHTML = this.grid(value)
+  }
 }

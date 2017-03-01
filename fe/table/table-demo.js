@@ -39,57 +39,57 @@ var config = {
 config.vector = [
   {
     name: 'top1',
-    values: [1, 2, 3, 4],
+    values: ['topa', 'topb', 'topc', 'topc'],
     most: true
   }, {
     name: 'top2',
-    values: [5, 6, 7]
+    values: ['topx', 'topy', 'topz']
   }, {
     name: 'size',
-    values: [8, 9]
+    values: ['s1', 's2']
   }, {
     name: 'color',
-    values: [10]
+    values: ['c']
   }
 ];
 
 var db = [
   {
     vector: {
-      top1: 2,
-      top2: 6,
-      size: 8,
-      color: 10
+      top1: 'topb',
+      top2: 'topx',
+      size: 's1',
+      color: 'c'
     },
     price: 1000,
     id: 'hehe'
   },
   {
     vector: {
-      top1: 1,
-      top2: 5,
-      size: 8,
-      color: 10
+      top1: 'topa',
+      top2: 'topx',
+      size: 's1',
+      color: 'c'
     },
     price: 1000,
     id: 'hehe'
   },
   {
     vector: {
-      top1: 1,
-      top2: 5,
-      size: 9,
-      color: 10
+      top1: 'topa',
+      top2: 'topx',
+      size: 's2',
+      color: 'c'
     },
     price: 1000,
     id: 'hehe'
   },
   {
     vector: {
-      top1: 2,
-      top2: 5,
-      size: 8,
-      color: 10
+      top1: 'topb',
+      top2: 'topx',
+      size: 's1',
+      color: 'c'
     },
     price: 1000,
     id: 'hehe'
