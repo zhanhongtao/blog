@@ -8,6 +8,31 @@
 <body>
   <section id="head">
     <h1>编码</h1>
+    <div class="base64">
+      <h2>base 64 转换</h2>
+      <button id="base64Encode">base64Encode</button>
+      <button id="base64Decode">base64Decode</button>
+    </div>
+    <div class="html">
+      <h2>HTML 转义</h2>
+      <button id="htmlEncode">htmlEncode</button>
+      <button id="htmlDecode">htmlDecode</button>
+    </div>
+    <div class="unicode">
+      <h2>字符转 \uxxxx 表示</h2>
+      <button id="unicode">unicode</button>
+      <button id="decode" data-base="16" data-left="\\u" data-right="">decode</button>
+    </div>
+    <div class="unicode-2-utf8">
+      <h2>unicode 码点转 utf8 编码</h2>
+      <button id="unicode2utf8">unicode2utf8</button>
+      <button id="utf82unicode">utf82unicode</button>
+    </div>
+    <div class="charcode">
+      <h2>代码转 String.fromCharCode()</h2>
+      <button id="encodecharcode">Encode-CharCode</button>
+      <button id="decodecharcode">Decode-CharCode</button>
+    </div>
     <div class="encode">
       <button id="encode216">encodeTo16</button>
       <button id="encode210">encodeTo10</button>
@@ -16,36 +41,20 @@
       <button id="decode" data-base="16" data-left="&#x" data-right=";">decode216</button>
       <button id="decode" data-base="10" data-left="&#" data-right=";">decode210</button>
       <button id="decode" data-base="8" data-left="\\" data-right="">decode28</button>
-      <button id="decode" data-base="16" data-left="\\x" data-right="">decode2x16</button>
-    </div>
-    <div class="base64">
-      <button id="base64Encode">base64Encode</button>
-      <button id="base64Decode">base64Decode</button>
-    </div>
-    <div class="html">
-      <button id="htmlEncode">htmlEncode</button>
-      <button id="htmlDecode">htmlDecode</button>
-    </div>
-    <div class="system">
-      <button id="escape">escape</button>
-      <button id="unescape">unescape</button>
-    </div>
-    <div class="unicode">
-      <button id="unicode">unicode</button>
-      <button id="decode" data-base="16" data-left="\\u" data-right="">decode</button>
-    </div>
-    <div class="ip">
-      <button id="ipcode">ip28</button>
-    </div>
-    <div class="charcode">
-      <button id="encodecharcode">Encode-CharCode</button>
-      <button id="decodecharcode">Decode-CharCode</button>
+      <button id="decode" data-base="16" data-left="\\x" data-right="">decode2X16</button>
     </div>
     <div class="url">
       <button id="encodeurl">Encode-URL(encodeURLComponent)</button>
       <button id="decodeurl">Decode-URL(decodeURLComponent)</button>
       <button id="encodeToGBK">encodeToGBK</button>
       <iframe src="./gbk.html" style="display: none;" id="gbk-iframe" frameborder="0"></iframe>
+    </div>
+    <div class="system">
+      <button id="escape">escape</button>
+      <button id="unescape">unescape</button>
+    </div>
+    <div class="ip">
+      <button id="ipcode">ip28</button>
     </div>
   </section>
   <section id="body">
