@@ -1,22 +1,3 @@
-function base64Encode( code ) {
-  try {
-    return btoa( code );
-  }
-  catch(e) {
-    alert( '异常或浏览器不支持 btoa 函数' );
-  }
-};
-
-function base64Decode( code ) {
-  try {
-    return atob( code );
-  }
-  catch(e) {
-    alert( '异常或浏览器不支持 atob 函数' );
-  }
-}
-
-
 (function(root) {
 
 var table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
@@ -31,10 +12,10 @@ function padding (string, length, d) {
 
 /*
   # unicode 字符集编码转成 utf8 编码
-  单字节   0000-0000-0000-007F | 0xxx-xxx -> 求 &
-  二个字节 0000-0080-0000-07FF | 110x-xxxx-10xx-xxxx
-  三个字节 0000-0800-0000-FFFF | 1110-xxxx-10xx-xxxx-10xx-xxxx
-  四个字节 0001-0000-0010-FFFF | 1111-0xxx-10xx-xxxx-10xx-xxxx-10xx-xxxx
+  单字节   0000-0000--0000-007F | 0xxx-xxx -> 求 &
+  二个字节 0000-0080--0000-07FF | 110x-xxxx-10xx-xxxx
+  三个字节 0000-0800--0000-FFFF | 1110-xxxx-10xx-xxxx-10xx-xxxx
+  四个字节 0001-0000--0010-FFFF | 1111-0xxx-10xx-xxxx-10xx-xxxx-10xx-xxxx
   1. 得到字符的 unicode 编码
   2. 计算编码属于哪个范围内, 得到模板格式
   3. 得到编码的二进制串, 从右向左替换 x, 剩余 x 替换成 0
@@ -99,45 +80,53 @@ function utf82unicode (code) {
   return parseInt(base2, 2)
 }
 
+function getBytes(n) {
+  var c = 1
+  while(n = (n >> 8)) ++c 
+  return c
+}
+
 function base64 (string) {
-  var rest = ''
   var ret = []
   for (var chr of string) {
     var unicode = chr.codePointAt(0)
     var code = unicode2utf8(unicode)
-    // 转为二进制串, 不够字节数时, 前补 0
-    var c = code.toString(2)
-    var n
-    c = rest + padding(c, 8, '0')
-    while (c.length >= 6) {
-      // 取前 6 位(2), 转成 10 进制后, 查表得到字符
-      n = parseInt(c.slice(0, 6), 2)
-      // 更新结果
-      ret[ret.length] = table[n]
-      c = c.slice(6)
+    var bytes = getBytes(code)
+    for (var i = 0; i < bytes; ++i) {
+      var c = code >> (8 * (bytes - 1 - i))
+      ret.push(((1 << 8) - 1) & c)
     }
-    // 消耗二进制位
-    rest = c
   }
-  var flag = true
-  // 总字节数不是 3 的倍数时
-  while (rest !== '') {
-    // 每次补充 8 位
-    if (rest.length < 6) {
-      rest += padding('', 8, '0')
-    }
-    n = parseInt(rest.slice(0, 6), 2)
-    // 多余位使用 = 字符
-    if (flag) {
-      s = table[n]
-      flag = !flag
+  var result = []
+  var j = 0
+  for (var i = 0, l = ret.length; i < l; i += 3) {
+    // 第一个 6 位
+    var b = (ret[i] & 0xfc) >> 2
+    result[j++] = table[b]
+    // 第二个六位 - 有可能不存在
+    b = (ret[i] & 0x3) << 4
+    if (i + 1 < l) {
+      //  第二个 8 位
+      b |= (ret[i + 1] & 0xf0) >> 4
+      result[j++] = table[b]
+      b = (ret[i + 1] & 0xf) << 2
+      if (i + 2 < l) {
+        // 第三个 8 位
+        b |= (ret[i + 2] & 0xc0) >> 6
+        result[j++] = table[b]
+        b = ret[i + 2] & 0x3f
+        result[j++] = table[b]
+      } else {
+        result[j++] = table[b]
+        result[j++] = '='
+      }
     } else {
-      s = '='
+      // 比如: 单字节字符
+      result[j++] = table[b]
+      result[j++] = '=='
     }
-    ret[ret.length] = s
-    rest = rest.slice(6)
   }
-  return ret.join('')
+  return result.join('')
 }
 
 function base64decode(string) {
