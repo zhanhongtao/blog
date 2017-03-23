@@ -1,6 +1,4 @@
 ; (function (root) {
-  // @todo: 移到类中
-  // 目前是全局定义语言.
   var weekTextList = [
     '日',
     '一',
@@ -56,15 +54,16 @@
   }
 
   // 处理单个格子样式(class-name).
-  function grid (data) {
+  function grid (data, classlist) {
     var config = this.config
     var list = [config.item]
     var classes = config.classes
-    for (var key in classes) {
-      if (classes.hasOwnProperty(key)) {
-        var value = classes[key].call(this, data)
-        if (typeof value === 'string') {
-          list.push(value)
+    for (var i = 0, l = classlist.length; i < l; ++i) {
+      var method = classes[classlist[i]]
+      if (method) {
+        var classname = method.call(this, data)
+        if (typeof classname === 'string') {
+          list.push(classname)
         }
       }
     }
@@ -157,7 +156,6 @@
     date = toDate(date)
     var bottom = min.getTime()
     var test = date.getTime()
-    console.log(test, bottom)
     if (!max) {
       return test >= bottom
     }
@@ -170,11 +168,13 @@
     if (!this.min) {
       this.isprevday = true
       this.isprevmonth = true
+      this.isprevyear = true
     }
 
     if (!this.max) {
       this.isnextday = true
       this.isnextmonth = true
+      this.isnextyear = true
     }
 
     date = date || this.date
@@ -184,9 +184,9 @@
     var self = this
     each(['next', 'prev'], function (type) {
       var fix = type === 'next' ? 1 : -1
-      each(['day', 'month'], function (item) {
+      each(['day', 'month', 'year'], function (item) {
         var value = calc({
-          year: year,
+          year: item === 'year' ? year + fix : year,
           month: item === 'month' ? month + fix : month,
           day: item === 'day' ? day + fix : day
         })
@@ -200,7 +200,9 @@
 
   // @NOTE: 只修正一个值.
   function calc (obj) {
-    var year = obj.year, month = obj.month, day = obj.day
+    var year = obj.year
+    var month = obj.month
+    var day = obj.day
     var days = getDaysInMonth(year, month)
     if (day > days) {
       ++month
@@ -233,8 +235,6 @@
   calendar.defaultConfig = {
     // 单个 grid 的 className
     item: 'item',
-    // 是否渲染头信息
-    nohead: false,
     // 星期规则
     // 认为从星期几开始显示
     // 其中, 0 表示周日
@@ -242,7 +242,7 @@
     today: toDate(),
     onclick: noop,
     // 星期显示文本
-    weekTextList: weekTextList,
+    weekTextList: weekTextList.slice(0),
     // 样式规则.
     classes: {
       // 当天
@@ -282,7 +282,7 @@
         if (this.selected) {
           for (var i = 0, l = this.selected.length; i < l; ++i) {
             var tmp = this.selected[i]
-            if (tmp == toString(data.year, data.month, data.day)) {
+            if (tmp === toString(data.year, data.month, data.day)) {
               return 'selected'
             }
           }
@@ -304,6 +304,30 @@
           data.month == this.date.getMonth()
         ) {
           return 'sameday'
+        }
+      },
+      // 同月
+      samemonth: function (data) {
+        if (data.month === this.today.getMonth()) {
+          return 'samemonth'
+        }
+      },
+      // 同年
+      sameyear: function (data) {
+        if (data.year === this.today.getFullYear()) {
+          return 'sameyear'
+        }
+      },
+      // 高亮当前月
+      selectedmonth: function (data) {
+        if (data.month === this.date.getMonth()) {
+          return 'selected'
+        }
+      },
+      // 高亮当前年
+      selectedyear: function (data) {
+        if (data.year === this.date.getFullYear()) {
+          return 'selected'
         }
       }
     }
@@ -345,8 +369,7 @@
     // 记录当前日期
     // 一般和 today 同步
     // 默认: today
-    var date = this.today
-    this.date = toDate(config.date)
+    this.date = toDate(config.date || this.today)
 
     // 更新状态
     updateState.call(this)
@@ -365,24 +388,18 @@
     return this
   }
 
-  // @todo: 支持重新定义 render
-  calendar.prototype.render = function () {
-    var config = this.config
+  function renderday () {
     var self = this
     var html = ''
-    updateState.call(this)
-    html += '<table class="calendar">'
 
-    if (!config.nohead) {
-      // 拼头部导航
-      var year = this.date.getFullYear(),
-        month = this.date.getMonth()
-      html += '<caption>'
-      html += '<a class="calendar-prev-month" data-action="prev-month">' + (config.showbutton ? '&lt;&lt;' : '') + '</a>'
-      html += year + '年' + (month + 1) + '月'
-      html += '<a class="calendar-next-month" data-action="next-month">' + (config.showbutton ? '&gt;&gt;' : '') + '</a>'
-      html += '</caption>'
-    }
+    // 拼头部导航
+    var year = this.date.getFullYear()
+    var month = this.date.getMonth()
+    html += '<caption>'
+    html += '<a class="calendar-prev" data-action="prev-month"></a>'
+    html += '<span class="title" data-action="show-month">' + year + '年' + (month + 1) + '月' + '</span>'
+    html += '<a class="calendar-next" data-action="next-month"></a>'
+    html += '</caption>'
 
     // 拼星期
     html += '<tr>'
@@ -392,7 +409,6 @@
     html += '</tr>'
 
     // 拼格子
-    var config = this.config, self = this
     this.grid(function (data) {
       var index = data.index
       if (index % 7 === 0) {
@@ -400,17 +416,99 @@
       }
       var date = toString(data.year, data.month, data.day)
       html += '<td data-date="' + date + '" data-week="' + data.week + '">'
-      var list = grid.call(self, data)
+      var list = grid.call(self, data, ['today', 'notInMonth', 'weekend', 'disabled', 'selected', 'sameday'])
       html += '<div class="' + list.join(' ') + '">' + data.day + '</div>'
       html += '</td>'
       if (index % 7 === 6) {
         html += '</tr>'
       }
     })
+    return html
+  }
 
-    // 结束.
+  // 拼月份
+  function rendermonth () {
+    var html = ''
+    var year = this.date.getFullYear()
+    var day = this.date.getDate()
+    html += '<caption>'
+    html += '<a class="calendar-prev" data-action="prev-year"></a>'
+    html += '<span class="title" data-action="show-year">' + year + '年' + '</span>'
+    html += '<a class="calendar-next" data-action="next-year"></a>'
+    html += '</caption>'
+    html += '<tr>'
+    for (var i = 1, l = 12; i <= l; ++i) {
+      var date = toString(year, i - 1, day)
+      html += '<td data-date="' + date + '">'
+      var list = grid.call(this, {
+        year: year,
+        month: i - 1,
+        day: day
+      }, ['samemonth', 'selectedmonth', 'disabled'])
+      html += '<div class="' + list.join(' ') + '">' + i + '</div>'
+      html += '</td>'
+      if (i % 4 === 0) {
+        html += '</tr>'
+        if (l > i) {
+          html += '<tr>'
+        }
+      }
+    }
+    return html
+  }
+
+  // 年需要变范围
+  function renderyear () {
+    var html = ''
+    var year = this.viewyear || this.date.getFullYear()
+    var month = this.date.getMonth()
+    var day = this.date.getDate()
+    // 拼头部导航
+    html += '<caption>'
+    html += '<a class="calendar-prev" data-action="prev-view-year"></a>'
+    html += '<span class="title">' + (year - 5) + '年 - ' + (year + 6) + '年</span>'
+    html += '<a class="calendar-next" data-action="next-view-year"></a>'
+    html += '</caption>'
+    html += '<tr>'
+    for (var i = 1, l = 12; i <= l; ++i) {
+      var date = toString(year - 6 + i, month, day)
+      html += '<td data-date="' + date + '">'
+      var list = grid.call(this, {
+        year: year - 6 + i,
+        month: month,
+        day: day
+      }, ['sameyear', 'selectedyear', 'disabled'])
+      html += '<div class="' + list.join(' ') + '">' + (year - 6 + i) + '</div>'
+      html += '</td>'
+      if (i % 4 === 0) {
+        html += '</tr>'
+        if (l > i) {
+          html += '<tr>'
+        }
+      }
+    }
+    return html
+  }
+
+  calendar.prototype.render = function (type) {
+    updateState.call(this)
+    type = type || 'day'
+    if (type !== 'year') this.viewyear = null
+    var html = '<table class="calendar ' + type + '-view">'
+    switch (type) {
+      case 'year':
+        html += renderyear.call(this)
+        break
+      case 'month':
+        html += rendermonth.call(this)
+        break
+      case 'day':
+        html += renderday.call(this)
+        break
+      default:
+        break
+    }
     html += '</table>'
-
     this.box.innerHTML = html
     return this
   }
@@ -525,6 +623,12 @@
     })
   })
 
+  calendar.prototype.changeyearview = function (view) {
+    this.viewyear = this.viewyear || this.date.getFullYear()
+    this.viewyear += view * 12
+    this.render('year')
+  }
+
   calendar.prototype.goto = function (date) {
     date = toDate(date)
     this.date = date
@@ -538,6 +642,7 @@
   }
 
   calendar.prototype.show = function () {
+    this.date = toDate(this.selected[0] || this.config.date || this.today)
     this.box.style.display = 'block'
     return this.render()
   }

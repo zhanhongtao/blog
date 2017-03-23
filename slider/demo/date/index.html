@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title>日历控件</title>
   <link rel="stylesheet" href="./css/calendar.css">
 </head>
+
 <body>
   <div id="calendar" data-stop="1">
     <div class="calendar-view">
@@ -19,9 +21,8 @@
   <script src="./calendar.js"></script>
 
   <script>
-
     function walkdom(target, handle) {
-      while(target && target.nodeType == 1) {
+      while (target && target.nodeType == 1) {
         var ret = handle(target);
         if (ret) return target;
         target = target.parentNode;
@@ -42,13 +43,12 @@
     }
 
     function handleGrid(e) {
-      var value = $(this).data('date');
-      var date = calendar.util.toDate(value);
-      var dom = $(this).find('.item');
+      var value = $(e.currentTarget).data('date');
+      var dom = $(e.currentTarget).find('.item');
       var disabled = $(dom).hasClass('disabled');
       if (disabled) return;
-      detail.find( '.selected' ).removeClass( 'selected' );
-      $(dom).addClass( 'selected' );
+      detail.find('.selected').removeClass('selected');
+      $(dom).addClass('selected');
       c.goto(value);
       render(value);
       calendarToggleView(false);
@@ -58,13 +58,37 @@
       c.view = flag == null ?
         (c.view == null ? false : c.view) : !flag;
       c.view = !c.view;
-      c[ c.view ? 'show' : 'hide' ]();
+      c[c.view ? 'show' : 'hide']();
     }
 
     function handleAction(target) {
       var dataset = target.dataset;
       if (!dataset) return;
-      switch(dataset.action) {
+      switch (dataset.action) {
+        case 'next-view-year':
+          c.changeyearview(1)
+          break
+        case 'prev-view-year':
+          c.changeyearview(-1)
+          break
+        case 'show-month':
+          c.render('month')
+          break
+        case 'show-year':
+          c.render('year')
+          break
+        case 'next-year':
+          if (c.isnextyear) {
+            c.nextYear();
+            c.render('month');
+          }
+          break;
+        case 'prev-year':
+          if (c.isprevyear) {
+            c.prevYear();
+            c.render('month');
+          }
+          break;
         case 'next-month':
           if (c.isnextmonth) {
             c.nextMonth();
@@ -72,7 +96,7 @@
           }
           break;
         case 'prev-month':
-          if(c.isprevmonth) {
+          if (c.isprevmonth) {
             c.prevMonth();
             c.render();
           }
@@ -82,7 +106,7 @@
             var value = c.get()[0];
             var prevday = calendar.util.prevDay(value);
             c.goto(prevday);
-            render( calendar.util.toString(prevday) );
+            render(calendar.util.toString(prevday));
             calendarToggleView(false);
           }
           break;
@@ -91,7 +115,7 @@
             var value = c.get()[0];
             var nextday = calendar.util.nextDay(value);
             c.goto(nextday);
-            render( calendar.util.toString(nextday) );
+            render(calendar.util.toString(nextday));
             calendarToggleView(false);
           }
           break;
@@ -107,15 +131,13 @@
       calendar.util.toString(c.config.today)
     );
 
-    // @todo: 手机上的 touch 事件
     $(detail).on('click', 'td', handleGrid);
 
-    // @todo: 提取到 app 层.
-    $(document).on('click', function(e) {
+    $(document).on('click', function (e) {
       var stop = false;
-      walkdom(e.target, function(target) {
-        setTimeout((function(target) {
-          return function() {
+      walkdom(e.target, function (target) {
+        setTimeout((function (target) {
+          return function () {
             handleAction(target);
           };
         })(target), 10);
@@ -131,4 +153,5 @@
     });
   </script>
 </body>
+
 </html>
