@@ -106,10 +106,7 @@
   // 指定年月, 计算当前月有多少天
   function getDaysInMonth (year, month) {
     var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    // 对 2 月份特殊处理
     return month === 1 && isLeapYear(year) ? 29 : days[month]
-    // 或者
-    // return new Date( year, month, 0 ).getDate();
   }
 
   // 指定为 2015-01-01 格式
@@ -592,11 +589,6 @@
     }
   }
 
-  /*
-    nextYear/nextMonth
-    prevYear/prevMonth
-    只更新数据, 不负责渲染
-  */
   each(['next', 'prev'], function (prefix) {
     each(['year', 'month', 'day'], function (type) {
       var _type = type.charAt(0).toUpperCase() + type.slice(1)
