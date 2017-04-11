@@ -198,6 +198,44 @@ function action (calendar, action) {
   }
 }
 
+// 策略:
+// 暴力隐藏 - 但需要延迟, 加到 context 上
+// 判定 context, 清理即可
+var handler = (function () {
+  var contexts = []
+  var ctxs = []
+  document.addEventListener('click', function (e) {
+    for (var i = 0; i < ctxs.length; ++i) {
+      ;(function (i) {
+        contexts[i].viewtimer = setTimeout(function () {
+          calendarToggleView(ctxs[i], false)
+        }, 10)
+      })(i)
+    }
+    walkdom(e.target, function (target) {
+      setTimeout((function (target) {
+        return function () {
+          var dataset = target.dataset
+          if (dataset && dataset.action) {
+            for (var i = 0; i < ctxs.length; ++i) {
+              action(ctxs[i], dataset.action)
+            }
+          }
+        }
+      })(target), 0)
+      for (var i = 0; i < ctxs.length; ++i) {
+        if (target === contexts[i]) {
+          clearTimeout(contexts[i].viewtimer)
+        }
+      }
+    })
+  })
+  return function (context, ctx) {
+    contexts.push(context)
+    ctxs.push(ctx)
+  }
+})()
+
 // 容器节点
 // 绑定回调
 // 初始化 - 尽可能晚
@@ -211,6 +249,7 @@ function Init (context, config) {
   layer.classList.add(style.calendar)
   context.appendChild(layer)
 
+  // @todo. 延迟实例化
   // 实例
   var ctx = new Calendar(
     util.extend(true, { box: layer }, config)
@@ -269,29 +308,7 @@ function Init (context, config) {
     }
   })
 
-  // 策略:
-  // 暴力隐藏 - 但需要延迟, 加到 context 上
-  // 判定 context, 清理即可
-  document.addEventListener('click', function (e) {
-    context.viewtimer = setTimeout(function () {
-      if (ctx) {
-        calendarToggleView(ctx, false)
-      }
-    }, 10)
-    walkdom(e.target, function (target) {
-      setTimeout((function (target) {
-        return function () {
-          var dataset = target.dataset
-          if (ctx && dataset && dataset.action) {
-            action(ctx, dataset.action)
-          }
-        }
-      })(target), 0)
-      if (target === context) {
-        clearTimeout(context.viewtimer)
-      }
-    })
-  })
+  handler(context, ctx)
 
   return ctx
 }
