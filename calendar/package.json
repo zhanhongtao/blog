@@ -1,0 +1,57 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "build",
+  "system": {
+    "development": {
+      "input": "./src",
+      "output": "./development",
+      "public": ""
+    },
+    "production": {
+      "input": "./src",
+      "output": "./production",
+      "public": ""
+    }
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=development webpack --d=system",
+    "watch": "cross-env NODE_ENV=development webpack -w --d=system",
+    "production": "cross-env NODE_ENV=production webpack --d=system"
+  },
+  "author": "redky@qq.com",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.2.1",
+    "clean-webpack-plugin": "^0.1.15",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^3.2.3",
+    "css-loader": "^0.26.2",
+    "es6-string-template-loader": "^2.0.0",
+    "exports-loader": "^0.6.4",
+    "extract-loader": "^0.1.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
+    "image-webpack-loader": "^3.2.0",
+    "node-sass": "^4.5.0",
+    "postcss-loader": "^1.3.3",
+    "precss": "^1.4.0",
+    "raw-loader": "^0.5.1",
+    "resolve-url-loader": "^2.0.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-uglify-js-plugin": "^1.1.9",
+    "yargs": "^7.0.2"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.23.0"
+  }
+}

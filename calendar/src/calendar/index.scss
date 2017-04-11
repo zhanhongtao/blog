@@ -1,0 +1,156 @@
+:global {
+  .calendar-wrap {
+    position: relative;
+    display: inline-block;
+    .calendar {
+      min-width: 240px;
+    }
+  }
+  .calendar-wrap:after {
+    content: '';
+    background: url(./calendar.gif) no-repeat 0 50%;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+}
+
+.calendar {
+  position: absolute;
+  z-index: 10;
+  top: 32px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: 0;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.12);
+  display: none;
+  padding-bottom: 10px;
+}
+
+.calendar table {
+  width: 100%;
+  text-align: center;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.calendar caption {
+  position: relative;
+  border: 1px solid #2492d9;
+  background-color: #5094f6;
+  color: #fff;
+  line-height: 30px;
+  -webkit-user-select: none
+}
+
+.calendar {
+  td, th {
+    vertical-align: middle;
+    border: 0 none;
+    padding: 0;
+  }
+}
+
+// .calendar caption
+.title {
+  cursor: pointer;
+}
+
+.previous,
+.next {
+  position: absolute;
+  top: 8px;
+}
+
+.previous {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.previous:after,
+.next:after {
+  content: '';
+  display: block;
+  margin-top: 1px;
+  border: 6px solid transparent
+}
+
+.previous:after {
+  border-right-color: #fff
+}
+
+.next:after {
+  border-left-color: #fff
+}
+
+.calendar tr {
+  height: 24px
+}
+
+.calendar th {
+  color: #5094f6;
+  font-size: 12px
+}
+
+.grid {
+  text-align: center;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 auto;
+  cursor: pointer
+}
+
+.grid:hover {
+  outline: 1px dotted #0072fc;
+  outline-offset: -1px;
+}
+
+.selected:hover,
+.disabled:hover {
+  outline: none;
+}
+
+.month-view .item,
+.day-view .item {
+  width: 24px;
+  border-radius: 50%;
+}
+
+.weekend {
+  color: #E417AA
+}
+
+.disabled {
+  color: #bcbcbc
+}
+
+.sameday,
+.samemonth,
+.sameyear {
+  background-color: rgba(80, 148, 246, 0.4)
+}
+
+.not-current-month {
+  opacity: 0.5;
+}
+
+.selected {
+  opacity: 1;
+  color: #fff;
+  background-color: #5094f6;
+}
+
+.year-view tr,
+.month-view tr {
+  height: 48px;
+}

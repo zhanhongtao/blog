@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>calendar</title>
+  <style>
+    .calendar-wrap .notinrange {
+      opacity: 0;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>默认配置</h1>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar">
+    </div>
+  </section>
+  <section>
+    <h2>定义最小值 - 选择未来某天</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-min="today">
+    </div>
+  </section>
+  <section>
+    <h2>定义最大值 - 选择生日</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-max="today">
+    </div>
+  </section>
+  <section>
+    <h2>定义最小值/最大值 - 在区间选择(12306购票日期)</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-min="today" data-max="+20">
+    </div>
+  </section>
+  <section>
+    <h2>高亮指定日期 - svn 日志</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-max="today" data-range="1">
+    </div>
+  </section>
+  <section>
+    <h2>控件相关 - 区间最多 30 天</h2>
+    <div class="calendar-wrap" id="x">
+      <input type="text" class="calendar">
+    </div>
+    <div class="calendar-wrap" id="y">
+      <input type="text" class="calendar">
+    </div>
+  </section>
+</body>
+</html>
