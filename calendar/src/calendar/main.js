@@ -143,7 +143,7 @@ function gridhandler (target, context, calendar) {
   var selectedNode = context.querySelector('.' + selected)
   if (selectedNode) selectedNode.classList.remove(selected)
   dom.classList.add(selected)
-  var value = target.dataset.date
+  var value = target.getAttribute('data-date')
   calendar.goto(value)
   return value
 }
@@ -212,23 +212,29 @@ var handler = (function () {
         }, 10)
       })(i)
     }
+    // 只执行单个 action
+    var method
+    var ctx
     walkdom(e.target, function (target) {
-      setTimeout((function (target) {
-        return function () {
-          var dataset = target.dataset
-          if (dataset && dataset.action) {
-            for (var i = 0; i < ctxs.length; ++i) {
-              action(ctxs[i], dataset.action)
-            }
+      if (method === null || method === undefined) {
+        method = target.getAttribute('data-action')
+      }
+      if (ctx === null || ctx === undefined) {
+        for (var i = 0; i < ctxs.length; ++i) {
+          if (target === contexts[i]) {
+            ctx = ctxs[i]
           }
         }
-      })(target), 0)
-      for (var i = 0; i < ctxs.length; ++i) {
-        if (target === contexts[i]) {
-          clearTimeout(contexts[i].viewtimer)
+      }
+      for (var j = 0; j < ctxs.length; ++j) {
+        if (target === contexts[j]) {
+          clearTimeout(contexts[j].viewtimer)
         }
       }
     })
+    if (ctx && method) {
+      action(ctx, method)
+    }
   })
   return function (context, ctx) {
     contexts.push(context)
