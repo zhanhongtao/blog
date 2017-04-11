@@ -10,3 +10,4 @@ ppt/css/all.css.map
 *.map
 *.db
 issues
+*/node_modules/*
