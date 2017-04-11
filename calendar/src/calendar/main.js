@@ -1,6 +1,8 @@
 import { Calendar } from './calendar.js'
 import style from './index.scss'
 
+var util = Calendar.util
+
 var weekTextList = [
   '日',
   '一',
@@ -18,8 +20,8 @@ var defaultConfig = {
   // 认为从星期几开始显示
   // 其中, 0 表示周日
   start: 0,
-  today: Calendar.util.toDate(),
-  min: Calendar.util.toDate('1900-1-1'),
+  today: util.toDate(),
+  min: util.toDate('1900-1-1'),
   onclick: function () {},
   // 星期显示文本
   weekTextList: weekTextList.slice(0),
@@ -53,8 +55,8 @@ var defaultConfig = {
     },
     // 范围
     disabled: function (data) {
-      if (!Calendar.util.inRange(
-        Calendar.util.toDate(data.year, data.month, data.day),
+      if (!util.inRange(
+        util.toDate(data.year, data.month, data.day),
         [this.config.min, this.config.max]
       )) {
         return style.disabled
@@ -65,7 +67,7 @@ var defaultConfig = {
       if (type === 'day' && this.selected) {
         for (var i = 0, l = this.selected.length; i < l; ++i) {
           var tmp = this.selected[i]
-          if (tmp === Calendar.util.toString(data.year, data.month, data.day)) {
+          if (tmp === util.toString(data.year, data.month, data.day)) {
             return style.selected
           }
         }
@@ -77,8 +79,8 @@ var defaultConfig = {
     sameday: function (data, type) {
       if (type === 'day') {
         var day = this.today.getDate()
-        var string = Calendar.util.toString(this.today)
-        var tmp = Calendar.util.toString(data.year, data.month, data.day)
+        var string = util.toString(this.today)
+        var tmp = util.toString(data.year, data.month, data.day)
         if (
           // 非当天
           tmp !== string &&
@@ -177,15 +179,15 @@ function action (calendar, action) {
       calendar.render()
       break
     case 'prev-day':
-      var prevday = Calendar.util.prevDay(calendar.get()[0])
+      var prevday = util.prevDay(calendar.get()[0])
       calendar.goto(prevday)
-      calendar.render(Calendar.util.toString(prevday))
+      calendar.render(util.toString(prevday))
       calendarToggleView(calendar, false)
       break
     case 'next-day':
-      var nextday = Calendar.util.nextDay(calendar.get()[0])
+      var nextday = util.nextDay(calendar.get()[0])
       calendar.goto(nextday)
-      calendar.render(Calendar.util.toString(nextday))
+      calendar.render(util.toString(nextday))
       calendarToggleView(calendar, false)
       break
     case 'show-calendar':
@@ -202,7 +204,7 @@ function action (calendar, action) {
 // 点击其他位置时, 要隐藏浮层
 // 支持配置
 function Init (context, config) {
-  config = Calendar.util.extend(true, {}, defaultConfig, config || {})
+  config = util.extend(true, {}, defaultConfig, config || {})
 
   // 准备容器
   var layer = document.createElement('div')
@@ -211,7 +213,7 @@ function Init (context, config) {
 
   // 实例
   var ctx = new Calendar(
-    Calendar.util.extend(true, { box: layer }, config)
+    util.extend(true, { box: layer }, config)
   )
 
   ctx.handler = config.handler || function (value) {
@@ -226,7 +228,7 @@ function Init (context, config) {
   ctx.handler(
     (
       config.date ||
-      Calendar.util.toString(config.today || Calendar.util.toDate())
+      util.toString(config.today || util.toDate())
     )
   )
 
@@ -275,15 +277,13 @@ function Init (context, config) {
       if (ctx) {
         calendarToggleView(ctx, false)
       }
-    })
+    }, 10)
     walkdom(e.target, function (target) {
       setTimeout((function (target) {
         return function () {
           var dataset = target.dataset
-          if (dataset && dataset.action) {
-            if (ctx) {
-              action(ctx, dataset.action)
-            }
+          if (ctx && dataset && dataset.action) {
+            action(ctx, dataset.action)
           }
         }
       })(target), 0)
@@ -297,6 +297,6 @@ function Init (context, config) {
 }
 
 export {
-  Init as init,
-  Calendar as Instance
+  Init,
+  util
 }

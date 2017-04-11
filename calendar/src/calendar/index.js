@@ -1,6 +1,4 @@
-import * as calendar from './main.js'
-
-var util = calendar.Instance.util
+import { Init as Calendar, util } from './main.js'
 
 let contexts = document.querySelectorAll('.calendar-wrap')
 for (let context of contexts) {
@@ -38,8 +36,7 @@ for (let context of contexts) {
       config[name] = value
     }
   }
-  let instance = calendar.init(context, config)
-  context.calendar = instance
+  context.calendar = Calendar(context, config)
 }
 
 var x = document.querySelector('#x')

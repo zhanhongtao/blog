@@ -490,11 +490,13 @@ Calendar.prototype.get = function () {
 Calendar.prototype.show = function () {
   this.date = toDate(this.selected[0] || this.config.date || this.today)
   this.box.style.display = 'block'
+  this.visible = true
   return this.render()
 }
 
 Calendar.prototype.hide = function () {
   this.box.style.display = 'none'
+  this.visible = false
   return this
 }
 
