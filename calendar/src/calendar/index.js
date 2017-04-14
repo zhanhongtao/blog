@@ -70,3 +70,32 @@ function fixed (value) {
   }
 }
 
+let nextNodes = document.querySelectorAll('.next')
+for (let nextNode of nextNodes) {
+  nextNode.addEventListener('click', function (e) {
+    let node = document.querySelector('#' + this.dataset.id)
+    let context = node.calendar
+    context.nextDay()
+    context.set(context.date)
+  })
+}
+
+let previousNodes = document.querySelectorAll('.previous')
+for (let previousNode of previousNodes) {
+  previousNode.addEventListener('click', function (e) {
+    let node = document.querySelector('#' + this.dataset.id)
+    let context = node.calendar
+    context.prevDay()
+    context.set(context.date)
+  })
+}
+
+let todayNodes = document.querySelectorAll('.today')
+for (let todayNode of todayNodes) {
+  todayNode.addEventListener('click', function (e) {
+    let node = document.querySelector('#' + this.dataset.id)
+    let context = node.calendar
+    context.set(context.today)
+  })
+}
+
