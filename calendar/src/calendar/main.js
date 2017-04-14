@@ -1,7 +1,7 @@
 import { Calendar } from './calendar.js'
 import style from './index.scss'
 
-var util = Calendar.util
+export var util = Calendar.util
 
 var weekTextList = [
   '日',
@@ -56,7 +56,7 @@ var defaultConfig = {
     // 范围
     disabled: function (data) {
       if (!util.inRange(
-        util.toDate(data.year, data.month, data.day),
+        util.toDate(data.year, data.month + 1, data.day),
         [this.config.min, this.config.max]
       )) {
         return style.disabled
@@ -64,12 +64,10 @@ var defaultConfig = {
     },
     // 选中样式
     selected: function (data, type) {
-      if (type === 'day' && this.selected) {
-        for (var i = 0, l = this.selected.length; i < l; ++i) {
-          var tmp = this.selected[i]
-          if (tmp === util.toString(data.year, data.month, data.day)) {
-            return style.selected
-          }
+      if (type === 'day') {
+        var tmp = util.paddingDate(this.selected)
+        if (tmp === util.paddingDate(data.year, data.month + 1, data.day)) {
+          return style.selected
         }
       }
     },
@@ -79,8 +77,8 @@ var defaultConfig = {
     sameday: function (data, type) {
       if (type === 'day') {
         var day = this.today.getDate()
-        var string = util.toString(this.today)
-        var tmp = util.toString(data.year, data.month, data.day)
+        var string = util.paddingDate(this.today)
+        var tmp = util.paddingDate(data.year, data.month + 1, data.day)
         if (
           // 非当天
           tmp !== string &&
@@ -144,7 +142,7 @@ function gridhandler (target, context, calendar) {
   if (selectedNode) selectedNode.classList.remove(selected)
   dom.classList.add(selected)
   var value = target.getAttribute('data-date')
-  calendar.goto(value)
+  calendar.set(value)
   return value
 }
 
@@ -177,18 +175,6 @@ function action (calendar, action) {
     case 'prev-month':
       calendar.prevMonth()
       calendar.render()
-      break
-    case 'prev-day':
-      var prevday = util.prevDay(calendar.get()[0])
-      calendar.goto(prevday)
-      calendar.render(util.toString(prevday))
-      calendarToggleView(calendar, false)
-      break
-    case 'next-day':
-      var nextday = util.nextDay(calendar.get()[0])
-      calendar.goto(nextday)
-      calendar.render(util.toString(nextday))
-      calendarToggleView(calendar, false)
       break
     case 'show-calendar':
       calendarToggleView(calendar)
@@ -247,7 +233,7 @@ var handler = (function () {
 // 初始化 - 尽可能晚
 // 点击其他位置时, 要隐藏浮层
 // 支持配置
-function Init (context, config) {
+export function Init (context, config) {
   config = util.extend(true, {}, defaultConfig, config || {})
 
   // 准备容器
@@ -261,8 +247,9 @@ function Init (context, config) {
     util.extend(true, { box: layer }, config)
   )
 
-  ctx.handler = config.handler || function (value) {
+  ctx.handler = config.handler || function (date) {
     var c = context.querySelector('.calendar')
+    var value = util.paddingDate(date)
     c.value = value
     try {
       c.innerText = value
@@ -270,12 +257,7 @@ function Init (context, config) {
   }
 
   // 初始化
-  ctx.handler(
-    (
-      config.date ||
-      util.toString(config.today || util.toDate())
-    )
-  )
+  ctx.handler(config.date || config.today || util.toDate())
 
   context.addEventListener('click', function (e) {
     var node = walkdom(e.target, function (node) {
@@ -294,7 +276,6 @@ function Init (context, config) {
     if (node) {
       var value = gridhandler(node, context, ctx)
       if (value) {
-        ctx.handler(value)
         switch (ctx.viewtype) {
           case 'year':
             ctx.render('month')
@@ -317,9 +298,4 @@ function Init (context, config) {
   handler(context, ctx)
 
   return ctx
-}
-
-export {
-  Init,
-  util
 }

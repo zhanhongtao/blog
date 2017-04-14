@@ -1,4 +1,5 @@
 import extend from './extend.js'
+import { formatdatetime } from './format.js'
 
 // 遍历
 function each (array, handler) {
@@ -8,6 +9,158 @@ function each (array, handler) {
     } catch (e) {
       throw (e)
     }
+  }
+}
+
+// 修正星期显示
+// start: 认为周几算第一天(0 表示周日)
+// weekTextList: 星期对应文案
+// 反转/反转/反转
+function fixedWeekList (start, weekTextList) {
+  while (start-- > 0) {
+    weekTextList.push(weekTextList.shift())
+  }
+}
+
+// 修正星期索引
+function fixedWeek (week) {
+  return (7 + week % 7) % 7
+}
+
+// 是否为闰年
+function isLeapYear (year) {
+  return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0)
+}
+
+// 指定年月, 计算当前月有多少天
+// from: http://weibo.com/1401880315/EjwuPbnkz
+function daysOfMonth (year, month) {
+  return month === 2 ? (28 + isLeapYear(year)) : 31 - (month - 1) % 7 % 2
+}
+
+// year/month/day 是 year 年的第几天
+function dayOfYear (year, month, day) {
+  var c = 0
+  for (var i = 0; i < month; i++) {
+    c = c + daysOfMonth(year, i)
+  }
+  c = c + day
+  return c
+}
+
+function dayOfWeek (year, month, day) {
+  // 公历一年一月一日是星期一，所以起始值为星期日
+  var w = 1
+  // 公历星期值分部 400 年循环一次
+  var y = (year - 1) % 400 + 1
+  // 闰年次数
+  var ly = Math.floor((year - 1) / 4)
+  ly = ly - Math.floor((year - 1) / 100)
+  ly = ly + Math.floor((year - 1) / 400)
+  // 常年次数
+  var ry = y - 1 - ly
+  // 常年星期值增一
+  w = w + ry
+  // 闰年星期值增二
+  w = w + 2 * ly
+  w = w + dayOfYear(year, month, day)
+  w = (w - 1) % 7 + 1
+  return w
+}
+
+// 指定为 2015-01-01 格式
+function paddingDate (date, y, z) {
+  if (arguments.length === 0) date = formatdatetime('Y-M-D', new Date())
+  if (typeof date === 'object') date = formatdatetime('Y-M-D', date)
+  if (arguments.length === 3) date = date + '-' + y + '-' + z
+  return String(date).replace(/(?:-)(.)(?![0-9])/g, function (full, match) {
+    return '-0' + match
+  })
+}
+
+// 转换为统一日期格式.
+// @note: 对 month 需要做 + 1 处理.
+function toDate (year, month, day) {
+  if (year instanceof Date) {
+    return new Date(paddingDate(year))
+  }
+  if (arguments.length === 0) {
+    return new Date(paddingDate())
+  }
+  if (typeof year === 'string') {
+    return new Date(paddingDate(year))
+  }
+  if (arguments.length === 3) {
+    return new Date(paddingDate(year, month, day))
+  }
+  if (typeof year === 'number') {
+    return new Date(paddingDate(new Date(year)))
+  }
+}
+
+// date 是否在给定的range([min, max])区间内
+function inRange (date, range) {
+  var min = range[0]
+  var max = range[1]
+  if (!min && !max) {
+    return true
+  }
+  var bottom = min.getTime()
+  var test = date.getTime()
+  if (!max) {
+    return test >= bottom
+  }
+  var top = max.getTime()
+  return test >= bottom && test <= top
+}
+
+// 是否支持 prev/next
+function updateState (date) {
+  date = date || this.date
+  var year = date.getFullYear()
+  var month = date.getMonth()
+  var day = date.getDate()
+  var self = this
+  each(['next', 'prev'], function (action) {
+    var fix = action === 'next' ? 1 : -1
+    each(['day', 'month', 'year'], function (name) {
+      var value = calc(
+        name === 'year' ? year + fix : year,
+        name === 'month' ? month + fix : month,
+        name === 'day' ? day + fix : day
+      )
+      self['cando' + action + name] = inRange(
+        toDate(value.year, value.month + 1, value.day),
+        [self.config.min, self.config.max]
+      )
+    })
+  })
+}
+
+// 修正在 next/prev 时, 月/日超过边界情况
+function calc (year, month, day) {
+  var days = daysOfMonth(year, month - 1)
+  if (day > days) {
+    ++month
+  } else if (day < 1) {
+    --month
+  }
+  if (month > 11) {
+    ++year
+    month = 0
+  } else if (month < 0) {
+    --year
+    month = 11
+  }
+  if (day <= 0) {
+    day = daysOfMonth(year, month - 1)
+  } else if (day > days) {
+    day = 1
+  }
+  return {
+    year: year,
+    month: month,
+    day: day
   }
 }
 
@@ -26,165 +179,6 @@ function grid (data, type) {
   return list
 }
 
-// 修正星期显示
-// start: 认为周几算第一天(0 表示周日)
-// weekTextList: 星期对应文案
-function fixedWeekList (start, weekTextList) {
-  while (start-- > 0) {
-    weekTextList.push(weekTextList.shift())
-  }
-}
-
-// 修正星期索引
-function fixedWeek (week) {
-  return (7 + week % 7) % 7
-}
-
-// 第一天是星期几
-// day: 任意某一天
-// week: day 对应的星期
-function firstDayOfDate (day, week) {
-  day = day % 7
-  while (day > 1) {
-    --week
-    --day
-  }
-  return (7 + week % 7) % 7
-  // 或
-  // return new Date( year, month, 1 ).getDay();
-}
-
-// 是否为闰年
-function isLeapYear (year) {
-  return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0)
-}
-
-// 指定年月, 计算当前月有多少天
-// from: http://weibo.com/1401880315/EjwuPbnkz
-function getDaysInMonth (year, month) {
-  month = month + 1
-  return (month === 2) ? (28 + isLeapYear(year)) : 31 - (month - 1) % 7 % 2
-}
-
-// 指定为 2015-01-01 格式
-// 不支持 15-01-01 格式
-function format (date) {
-  return String(date).replace(/(?:-)(.)(?![0-9])/g, function (full, match) {
-    return '-0' + match
-  })
-}
-
-function toString (year, month, day) {
-  if (year instanceof Date) {
-    var date = year
-    year = date.getFullYear()
-    month = date.getMonth()
-    day = date.getDate()
-  }
-  return format([year, month + 1, day].join('-'))
-}
-
-// 转换为统一日期格式
-function toDate (year, month, day) {
-  if (year instanceof Date) {
-    return year
-  }
-  // 年月日参数
-  if (arguments.length === 3) {
-    year = [year, month + 1, day].join('-')
-  }
-  if (typeof year === 'string') {
-    return new Date(format(year))
-  }
-  if (typeof year === 'number') {
-    return new Date(toString(new Date(year)))
-  }
-  // 保证和时间无关
-  return new Date(toString(new Date()))
-}
-
-// date 是否在给定的range([min, max])区间内
-function inRange (date, range) {
-  var min = range[0]
-  var max = range[1]
-  if (!min && !max) {
-    return true
-  }
-  date = toDate(date)
-  var bottom = min.getTime()
-  var test = date.getTime()
-  if (!max) {
-    return test >= bottom
-  }
-  var top = max.getTime()
-  return test >= bottom && test <= top
-}
-
-// 是否支持 prev/next
-function updateState (date) {
-  if (!this.config.min) {
-    this.isprevday = true
-    this.isprevmonth = true
-    this.isprevyear = true
-  }
-
-  if (!this.config.max) {
-    this.isnextday = true
-    this.isnextmonth = true
-    this.isnextyear = true
-  }
-
-  date = date || this.date
-  var year = date.getFullYear()
-  var month = date.getMonth()
-  var day = date.getDate()
-  var self = this
-  each(['next', 'prev'], function (type) {
-    var fix = type === 'next' ? 1 : -1
-    each(['day', 'month', 'year'], function (item) {
-      var value = calc({
-        year: item === 'year' ? year + fix : year,
-        month: item === 'month' ? month + fix : month,
-        day: item === 'day' ? day + fix : day
-      })
-      self['is' + type + item] = inRange(
-        toDate(value.year, value.month, value.day),
-        [self.config.min, self.config.max]
-      )
-    })
-  })
-}
-
-// @NOTE: 只修正一个值.
-function calc (obj) {
-  var year = obj.year
-  var month = obj.month
-  var day = obj.day
-  var days = getDaysInMonth(year, month)
-  if (day > days) {
-    ++month
-  } else if (day < 1) {
-    --month
-  }
-  if (month > 11) {
-    ++year
-    month = 0
-  } else if (month < 0) {
-    --year
-    month = 11
-  }
-  var newdays = getDaysInMonth(year, month)
-  obj.year = year
-  obj.month = month
-  if (day <= 0) {
-    day = newdays
-  } else if (day > days) {
-    day = 1
-  }
-  obj.day = day
-  return obj
-}
-
 function Calendar (config) {
   var isInstance = this instanceof Calendar
   if (!isInstance) {
@@ -196,15 +190,13 @@ function Calendar (config) {
 // 方便重写 render 方法.
 Calendar.util = {
   extend: extend,
-  each: each,
-  firstDayOfDate: firstDayOfDate,
   isLeapYear: isLeapYear,
-  fixedWeek: fixedWeek,
-  getDaysInMonth: getDaysInMonth,
+  dayOfWeek: dayOfWeek,
+  daysOfMonth: daysOfMonth,
+  formatdatetime: formatdatetime,
   inRange: inRange,
-  calc: calc,
-  toDate: toDate,
-  toString: toString
+  paddingDate: paddingDate,
+  toDate: toDate
 }
 
 Calendar.prototype.refresh = function (config) {
@@ -219,16 +211,18 @@ Calendar.prototype.refresh = function (config) {
   // 记录今天的日期
   this.today = toDate(config.today)
 
-  // 记录当前日期
-  // 一般和 today 同步
-  // 默认: today
-  this.date = this.date || toDate(config.date || this.today)
-
-  // 高亮当前日期
-  this.selected = [toString(this.date)]
+  // 记录当前日期. 默认: today
+  this.date = this.date || (config.date && toDate(config.date)) || this.today
 
   // 记录容器
   this.box = config.box
+
+  var self = this
+  each(['next', 'prev'], function (action) {
+    each(['year', 'month', 'day'], function (name) {
+      self['cando' + action + name] = true
+    })
+  })
 
   // 更新状态
   updateState.call(this)
@@ -268,7 +262,7 @@ function renderday () {
     if (index % 7 === 0) {
       html += '<tr>'
     }
-    var date = toString(data.year, data.month, data.day)
+    var date = paddingDate(data.year, data.month + 1, data.day)
     html += '<td data-date="' + date + '" data-week="' + data.week + '">'
     var list = grid.call(self, data, 'day')
     html += '<div class="' + list.join(' ') + '">' + data.day + '</div>'
@@ -292,7 +286,7 @@ function rendermonth () {
   html += '</caption>'
   html += '<tr>'
   for (var i = 1, l = 12; i <= l; ++i) {
-    var date = toString(year, i - 1, day)
+    var date = paddingDate(year, i, day)
     html += '<td data-date="' + date + '">'
     var list = grid.call(this, {
       year: year,
@@ -325,7 +319,7 @@ function renderyear () {
   html += '</caption>'
   html += '<tr>'
   for (var i = 1, l = 12; i <= l; ++i) {
-    var date = toString(year - 6 + i, month, day)
+    var date = paddingDate(year - 6 + i, month + 1, day)
     html += '<td data-date="' + date + '">'
     var list = grid.call(this, {
       year: year - 6 + i,
@@ -370,32 +364,33 @@ Calendar.prototype.render = function (type) {
 
 // 处理单个 grid 显示
 Calendar.prototype.grid = function (func) {
-  var date = this.date
-  var theWeekOfFirstDay = firstDayOfDate(
-    date.getDate(),
-    date.getDay()
-  )
-  var index = 0
-  var paddingDays = (7 - this.start + theWeekOfFirstDay) % 7
-
   // 初始化
   // 记录当前屏, 显示的日期
   this.views = this.views || []
   this.views.length = 0
 
+  // 记录已处理格子数
+  var index = 0
+  var date = this.date
+  var year = date.getFullYear()
+  var month = date.getMonth()
+
+  var dateobj
+  var days
+  var week
+
+  var theWeekOfFirstDay = dayOfWeek(year, month + 1, 1)
+  var paddingDays = (7 - this.start + theWeekOfFirstDay) % 7
+
   // 需要补充格子 - 上个月日期
   if (paddingDays) {
-    var _date = calc({
-      year: date.getFullYear(),
-      month: date.getMonth() - 1,
-      day: 1
-    })
-    var days = getDaysInMonth(_date.year, _date.month) - paddingDays
-    var week = this.start
+    dateobj = calc(year, month - 1, 1)
+    days = daysOfMonth(dateobj.year, dateobj.month + 1) - paddingDays
+    week = this.start
     while (paddingDays > 0) {
       func({
-        year: _date.year,
-        month: _date.month,
+        year: dateobj.year,
+        month: dateobj.month,
         day: ++days,
         week: fixedWeek(week++),
         index: index++,
@@ -406,10 +401,8 @@ Calendar.prototype.grid = function (func) {
   }
 
   // 当月格子.
-  var year = date.getFullYear()
-  var month = date.getMonth()
-  var days = getDaysInMonth(year, month)
-  var week = theWeekOfFirstDay
+  days = daysOfMonth(year, month + 1)
+  week = theWeekOfFirstDay
   var i = 1
   while (i <= days) {
     func({
@@ -424,16 +417,12 @@ Calendar.prototype.grid = function (func) {
 
   // 补充格子 - 下个月.
   if (index % 7 !== 0) {
-    var _date = calc({
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: 1
-    })
-    var i = 1
+    dateobj = calc(year, month + 1, 1)
+    i = 1
     while (index % 7 !== 0) {
       func({
-        year: _date.year,
-        month: _date.month,
+        year: dateobj.year,
+        month: dateobj.month,
         day: i++,
         week: fixedWeek(week++),
         index: index++,
@@ -443,28 +432,19 @@ Calendar.prototype.grid = function (func) {
   }
 }
 
-each(['next', 'prev'], function (prefix) {
-  each(['year', 'month', 'day'], function (type) {
-    var _type = type.charAt(0).toUpperCase() + type.slice(1)
-    var method = prefix + _type
-    Calendar.prototype[method] = Calendar.util[method] = function (date) {
-      if (date) {
-        date = toDate(date)
-      }
-      date = date || this.date
+each(['next', 'prev'], function (action) {
+  each(['year', 'month', 'day'], function (name) {
+    var method = action + name.charAt(0).toUpperCase() + name.slice(1)
+    Calendar.prototype[method] = function () {
       var obj = {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDate()
+        year: this.date.getFullYear(),
+        month: this.date.getMonth(),
+        day: this.date.getDate()
       }
-      obj[type] = obj[type] + (prefix === 'next' ? 1 : -1)
-      var ret = calc(obj)
-      var value = toDate(ret.year, ret.month, ret.day)
-      if (this instanceof Calendar) {
-        this.date = value
-        return this
-      }
-      return value
+      obj[name] = obj[name] + (action === 'next' ? 1 : -1)
+      var ret = calc(obj.year, obj.month, obj.day)
+      this.date = toDate(ret.year, ret.month + 1, ret.day)
+      return this
     }
   })
 })
@@ -472,23 +452,23 @@ each(['next', 'prev'], function (prefix) {
 Calendar.prototype.changeyearview = function (view) {
   this.viewyear = this.viewyear || this.date.getFullYear()
   this.viewyear += view * 12
-  this.render('year')
+  return this.render('year')
 }
 
-Calendar.prototype.goto = function (date) {
-  date = toDate(date)
-  this.date = date
-  this.selected = [toString(date)]
+Calendar.prototype.set = function (date) {
+  this.date = toDate(date)
+  this.selected = this.date
   updateState.call(this)
+  this.handler(this.date)
   return this
 }
 
-Calendar.prototype.get = function () {
+Calendar.prototype.get = function (format) {
+  if (format) return formatdatetime(format, this.selected)
   return this.selected
 }
 
 Calendar.prototype.show = function () {
-  this.date = toDate(this.selected[0] || this.config.date || this.today)
   this.box.style.display = 'block'
   this.visible = true
   return this.render()

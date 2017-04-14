@@ -8,10 +8,10 @@ for (let context of contexts) {
     let value
     switch (dataset[name]) {
       case 'today':
-        value = new Date()
+        value = util.toDate()
         break
       case '+20':
-        value = new Date(new Date().getTime() + 20 * 24 * 60 * 60 * 1000)
+        value = util.toDate(new Date().getTime() + 20 * 24 * 60 * 60 * 1000)
         break
       default:
         value = dataset[name]
@@ -49,23 +49,24 @@ fixed(
   x.querySelector('.calendar').value
 )
 
-xc.handler = function (value) {
+xc.handler = function (date) {
+  var value = util.paddingDate(date)
   x.querySelector('.calendar').value = value
-  fixed(value)
+  fixed(date)
 }
 
 function fixed (value) {
+  if (typeof value === 'string') value = util.toDate(value)
   var vy = y.querySelector('.calendar').value
 
-  var min = new Date(value)
-  var max = new Date(min.getTime() + 30 * 24 * 60 * 60 * 1000)
+  var min = value
+  var max = util.toDate(min.getTime() + 30 * 24 * 60 * 60 * 1000)
   yc.setConfig({
     min: min,
     max: max
   })
-  if (!util.inRange(vy, [min, max])) {
-    yc.goto(value)
-    yc.handler(value)
+  if (!util.inRange(util.toDate(vy), [min, max])) {
+    yc.set(value)
   }
 }
 
