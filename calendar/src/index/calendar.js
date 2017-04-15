@@ -466,7 +466,6 @@ each(['next', 'prev'], function (action) {
       }
       obj[name] += action === 'next' ? 1 : -1
       var ret = calc(obj.year, obj.month, obj.day, name[0])
-      console.log(ret)
       this.date = toDate(ret.year, ret.month + 1, ret.day)
       return this
     }

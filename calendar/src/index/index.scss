@@ -2,8 +2,14 @@
   .calendar-wrap {
     position: relative;
     display: inline-block;
+    border: 1px solid #7586F7;
     .calendar {
+      padding: 0 4px;
+      height: 24px;
+      line-height: 24px;
       min-width: 240px;
+      border: 0 none;
+      outline: 0 none;
     }
   }
   .calendar-wrap:after {
@@ -20,17 +26,18 @@
 }
 
 .calendar {
+  display: none;
   position: absolute;
-  z-index: 10;
   top: 32px;
   left: 0;
   right: 0;
+  z-index: 10;
+  padding-bottom: 10px;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-top: 0;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.12);
-  display: none;
-  padding-bottom: 10px;
+  box-sizing: border-box;
   [data-action] {
     cursor: pointer;
   }
@@ -42,15 +49,16 @@
   table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
+  font-size: 14px;
 }
 
 .calendar caption {
   position: relative;
   border: 1px solid #2492d9;
-  background-color: #5094f6;
   color: #fff;
+  background-color: #5094f6;
+  -webkit-user-select: none;
   line-height: 30px;
-  -webkit-user-select: none
 }
 
 .calendar {
@@ -61,7 +69,6 @@
   }
 }
 
-// .calendar caption
 .title {
   cursor: pointer;
 }
@@ -73,11 +80,11 @@
 }
 
 .previous {
-  left: 10px;
+  left: 8px;
 }
 
 .next {
-  right: 10px;
+  right: 8px;
 }
 
 .previous:after,
@@ -96,6 +103,7 @@
   border-left-color: #fff
 }
 
+.day-view,
 .calendar tr {
   height: 24px
 }
@@ -110,7 +118,8 @@
   height: 24px;
   line-height: 24px;
   margin: 0 auto;
-  cursor: pointer
+  cursor: pointer;
+  color: #333;
 }
 
 .grid:hover {
@@ -123,18 +132,13 @@
   outline: none;
 }
 
-.month-view .item,
-.day-view .item {
-  width: 24px;
-  border-radius: 50%;
-}
-
 .weekend {
   color: #E417AA
 }
 
 .disabled {
-  color: #bcbcbc
+  color: #bcbcbc;
+  cursor: default;
 }
 
 .today,
@@ -145,7 +149,7 @@
 }
 
 .not-current-month {
-  opacity: 0.5;
+  opacity: .4;
 }
 
 .selected {
