@@ -139,7 +139,13 @@ function updateState (date) {
 
 // 修正在 next/prev 时, 月/日超过边界情况
 function calc (year, month, day) {
-  month = month % 12
+  if (month > 11) {
+    ++year
+    month = 0
+  } else if (month < 0) {
+    --year
+    month = 11
+  }
   var days = daysOfMonth(year, month + 1)
   if (day > days) {
     ++month
@@ -472,6 +478,7 @@ Calendar.prototype.get = function (format) {
 }
 
 Calendar.prototype.show = function () {
+  this.date = this.selected || this.today
   this.box.style.display = 'block'
   this.visible = true
   return this.render()
