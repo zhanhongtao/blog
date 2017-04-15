@@ -127,7 +127,8 @@ function updateState (date) {
       var value = calc(
         name === 'year' ? year + fix : year,
         name === 'month' ? month + fix : month,
-        name === 'day' ? day + fix : day
+        name === 'day' ? day + fix : day,
+        name[0]
       )
       self['cando' + action + name] = inRange(
         toDate(value.year, value.month + 1, value.day),
@@ -138,32 +139,45 @@ function updateState (date) {
 }
 
 // 修正在 next/prev 时, 月/日超过边界情况
-function calc (year, month, day) {
-  if (month > 11) {
-    ++year
-    month = 0
-  } else if (month < 0) {
-    --year
-    month = 11
+// 月的变化 -> 引起日的变化
+// 日的变化 -> 引起月的变化 -> 引起日的变化...
+function calc (year, month, day, type) {
+  var days = 0
+  if (type === 'm') {
+    if (month > 11) {
+      ++year
+      month = 0
+    } else if (month < 0) {
+      --year
+      month = 11
+    }
+    days = daysOfMonth(year, month + 1)
+    if (day > days) {
+      day = 1
+    }
   }
-  var days = daysOfMonth(year, month + 1)
-  if (day > days) {
-    ++month
-  } else if (day < 1) {
-    --month
+
+  if (type === 'd') {
+    days = daysOfMonth(year, month + 1)
+    if (day > days) {
+      ++month
+    } else if (day < 1) {
+      --month
+    }
+    if (month > 11) {
+      ++year
+      month = 0
+    } else if (month < 0) {
+      --year
+      month = 11
+    }
+    if (day <= 0) {
+      day = daysOfMonth(year, month + 1)
+    } else if (day > days) {
+      day = 1
+    }
   }
-  if (month > 11) {
-    ++year
-    month = 0
-  } else if (month < 0) {
-    --year
-    month = 11
-  }
-  if (day <= 0) {
-    day = daysOfMonth(year, month + 1)
-  } else if (day > days) {
-    day = 1
-  }
+
   return {
     year: year,
     month: month,
@@ -393,7 +407,7 @@ Calendar.prototype.grid = function (func) {
 
   // 需要补充格子 - 上个月日期
   if (paddingDays) {
-    dateobj = calc(year, month - 1, 1)
+    dateobj = calc(year, month - 1, 1, 'm')
     days = daysOfMonth(dateobj.year, dateobj.month + 1) - paddingDays
     week = this.start
     while (paddingDays > 0) {
@@ -426,7 +440,7 @@ Calendar.prototype.grid = function (func) {
 
   // 补充格子 - 下个月.
   if (index % 7 !== 0) {
-    dateobj = calc(year, month + 1, 1)
+    dateobj = calc(year, month + 1, 1, 'm')
     i = 1
     while (index % 7 !== 0) {
       func({
@@ -451,7 +465,8 @@ each(['next', 'prev'], function (action) {
         day: this.date.getDate()
       }
       obj[name] += action === 'next' ? 1 : -1
-      var ret = calc(obj.year, obj.month, obj.day)
+      var ret = calc(obj.year, obj.month, obj.day, name[0])
+      console.log(ret)
       this.date = toDate(ret.year, ret.month + 1, ret.day)
       return this
     }
