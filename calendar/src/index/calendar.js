@@ -139,7 +139,8 @@ function updateState (date) {
 
 // 修正在 next/prev 时, 月/日超过边界情况
 function calc (year, month, day) {
-  var days = daysOfMonth(year, month - 1)
+  month = month % 12
+  var days = daysOfMonth(year, month + 1)
   if (day > days) {
     ++month
   } else if (day < 1) {
@@ -153,7 +154,7 @@ function calc (year, month, day) {
     month = 11
   }
   if (day <= 0) {
-    day = daysOfMonth(year, month - 1)
+    day = daysOfMonth(year, month + 1)
   } else if (day > days) {
     day = 1
   }
@@ -213,6 +214,8 @@ Calendar.prototype.refresh = function (config) {
 
   // 记录当前日期. 默认: today
   this.date = this.date || (config.date && toDate(config.date)) || this.today
+
+  this.selected = this.date
 
   // 记录容器
   this.box = config.box
@@ -441,7 +444,7 @@ each(['next', 'prev'], function (action) {
         month: this.date.getMonth(),
         day: this.date.getDate()
       }
-      obj[name] = obj[name] + (action === 'next' ? 1 : -1)
+      obj[name] += action === 'next' ? 1 : -1
       var ret = calc(obj.year, obj.month, obj.day)
       this.date = toDate(ret.year, ret.month + 1, ret.day)
       return this

@@ -10,13 +10,26 @@
       opacity: 0;
       cursor: default;
     }
+    h2 {
+      font-size: 14px;
+      font-weight: normal;
+    }
+    section {
+      margin-top: 25px;
+    }
   </style>
-<link href="style/calendar.css?2ec5c6524fe1ec383ed93e725e3fe2fb" rel="stylesheet"></head>
+</head>
 <body>
   <section>
-    <h1>默认配置</h1>
+    <h2>默认配置</h2>
     <div class="calendar-wrap">
       <input type="text" class="calendar">
+    </div>
+  </section>
+  <section>
+    <h2>指定日期 - 2017/10/01</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-date="2017-10-01">
     </div>
   </section>
   <section>
@@ -34,7 +47,7 @@
   <section>
     <h2>定义最小值/最大值 - 在区间选择(12306购票日期)</h2>
     <div class="calendar-wrap">
-      <input type="text" class="calendar" data-min="today" data-max="+20">
+      <input type="text" class="calendar" data-date="+10" data-min="today" data-max="+20">
     </div>
   </section>
   <section>
@@ -44,7 +57,7 @@
     </div>
   </section>
   <section>
-    <h2>控件相关 - 区间最多 30 天</h2>
+    <h2>控件相关联 - 区间最多 30 天</h2>
     <div class="calendar-wrap" id="x">
       <input type="text" class="calendar">
     </div>
@@ -52,5 +65,14 @@
       <input type="text" class="calendar">
     </div>
   </section>
-<script type="text/javascript" src="script/vendor.js?a3435913dbb8ffd06822"></script><script type="text/javascript" src="script/calendar.js?14fef2a04d9fa746d8f8"></script></body>
+  <section>
+    <h2>支持前一天/后一天/今天</h2>
+    <button class="previous" data-id="dpn">前一天</button>
+    <div class="calendar-wrap" id="dpn">
+      <input type="text" class="calendar">
+    </div>
+    <button class="next" data-id="dpn">后一天</button>
+    <button class="today" data-id="dpn">Today</button>
+  </section>
+</body>
 </html>

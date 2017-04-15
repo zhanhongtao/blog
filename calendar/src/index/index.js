@@ -13,6 +13,9 @@ for (let context of contexts) {
       case '+20':
         value = util.toDate(new Date().getTime() + 20 * 24 * 60 * 60 * 1000)
         break
+      case '+10':
+        value = util.toDate(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
+        break
       default:
         value = dataset[name]
     }

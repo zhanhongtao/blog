@@ -10,13 +10,26 @@
       opacity: 0;
       cursor: default;
     }
+    h2 {
+      font-size: 14px;
+      font-weight: normal;
+    }
+    section {
+      margin-top: 25px;
+    }
   </style>
-</head>
+<link href="style/index.css?431140ce7d4b3712948673b729ed496a" rel="stylesheet"></head>
 <body>
   <section>
-    <h1>默认配置</h1>
+    <h2>默认配置</h2>
     <div class="calendar-wrap">
       <input type="text" class="calendar">
+    </div>
+  </section>
+  <section>
+    <h2>指定日期 - 2017/10/01</h2>
+    <div class="calendar-wrap">
+      <input type="text" class="calendar" data-date="2017-10-01">
     </div>
   </section>
   <section>
@@ -34,7 +47,7 @@
   <section>
     <h2>定义最小值/最大值 - 在区间选择(12306购票日期)</h2>
     <div class="calendar-wrap">
-      <input type="text" class="calendar" data-min="today" data-max="+20">
+      <input type="text" class="calendar" data-date="+10" data-min="today" data-max="+20">
     </div>
   </section>
   <section>
@@ -61,5 +74,5 @@
     <button class="next" data-id="dpn">后一天</button>
     <button class="today" data-id="dpn">Today</button>
   </section>
-</body>
+<script type="text/javascript" src="script/vendor.js?990b115a42ba5cef5066"></script><script type="text/javascript" src="script/index.js?d7ee8ff497c972114b52"></script></body>
 </html>
