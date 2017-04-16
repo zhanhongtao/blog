@@ -1,8 +1,8 @@
 import { Init as Calendar, util } from './main.js'
 
-let contexts = document.querySelectorAll('.calendar-wrap')
+let contexts = document.querySelectorAll('.calendar')
 for (let context of contexts) {
-  let dataset = context.querySelector('.calendar').dataset
+  let dataset = context.querySelector('input').dataset
   let config = {}
   for (let name in dataset) {
     let value
@@ -49,18 +49,18 @@ var xc = x.calendar
 var yc = y.calendar
 
 fixed(
-  x.querySelector('.calendar').value
+  x.querySelector('input').value
 )
 
 xc.handler = function (date) {
   var value = util.paddingDate(date)
-  x.querySelector('.calendar').value = value
+  x.querySelector('input').value = value
   fixed(date)
 }
 
 function fixed (value) {
   if (typeof value === 'string') value = util.toDate(value)
-  var vy = y.querySelector('.calendar').value
+  var vy = y.querySelector('input').value
 
   var min = value
   var max = util.toDate(min.getTime() + 30 * 24 * 60 * 60 * 1000)

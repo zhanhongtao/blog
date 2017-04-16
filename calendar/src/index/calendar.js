@@ -84,7 +84,7 @@ function toDate (year, month, day) {
   if (year instanceof Date) {
     return new Date(paddingDate(year))
   }
-  if (arguments.length === 0) {
+  if (arguments.length === 0 || year === undefined || year === null) {
     return new Date(paddingDate())
   }
   if (typeof year === 'string') {
@@ -201,6 +201,7 @@ function grid (data, type) {
 }
 
 function Calendar (config) {
+  console.log(config)
   var isInstance = this instanceof Calendar
   if (!isInstance) {
     return new Calendar(config)

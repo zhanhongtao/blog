@@ -329,6 +329,7 @@ module.exports = {
             options: {
               minimize: false,
               interpolate: 'require',
+              removeComments: true,
               attrs: ['img:src', 'link:href', 'script:src']
             }
           }

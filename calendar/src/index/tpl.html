@@ -6,7 +6,32 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>calendar</title>
   <style>
-    .calendar-wrap .notinrange {
+    .calendar {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #7586F7;
+    }
+    .calendar input {
+      box-sizing: border-box;
+      width: 100%;
+      height: 24px;
+      line-height: 24px;
+      padding: 0 4px;
+      border: 0 none;
+      outline: 0 none;
+    }
+    .calendar:after {
+      content: '';
+      background: url(${require(`./calendar.gif`)}) no-repeat 0 50%;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .calendar .notinrange {
       opacity: 0;
       cursor: default;
     }
@@ -22,54 +47,52 @@
 <body>
   <section>
     <h2>默认配置</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar">
-    </div>
+    <div class="calendar"><input type="text"></div>
   </section>
   <section>
     <h2>指定日期 - 2017/10/01</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar" data-date="2017-10-01">
+    <div class="calendar">
+      <input type="text" data-date="2017-10-01">
     </div>
   </section>
   <section>
     <h2>定义最小值 - 选择未来某天</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar" data-min="today">
+    <div class="calendar">
+      <input type="text" data-min="today">
     </div>
   </section>
   <section>
     <h2>定义最大值 - 选择生日</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar" data-max="today">
+    <div class="calendar">
+      <input type="text" data-max="today">
     </div>
   </section>
   <section>
     <h2>定义最小值/最大值 - 在区间选择(12306购票日期)</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar" data-date="+10" data-min="today" data-max="+20">
+    <div class="calendar">
+      <input type="text" data-date="+10" data-min="today" data-max="+20">
     </div>
   </section>
   <section>
     <h2>高亮指定日期 - svn 日志</h2>
-    <div class="calendar-wrap">
-      <input type="text" class="calendar" data-max="today" data-range="1">
+    <div class="calendar">
+      <input type="text" data-max="today" data-range="1">
     </div>
   </section>
   <section>
     <h2>控件相关联 - 区间最多 30 天</h2>
-    <div class="calendar-wrap" id="x">
-      <input type="text" class="calendar">
+    <div class="calendar" id="x">
+      <input type="text">
     </div>
-    <div class="calendar-wrap" id="y">
-      <input type="text" class="calendar">
+    <div class="calendar" id="y">
+      <input type="text">
     </div>
   </section>
   <section>
     <h2>支持前一天/后一天/今天</h2>
     <button class="previous" data-id="dpn">前一天</button>
-    <div class="calendar-wrap" id="dpn">
-      <input type="text" class="calendar">
+    <div class="calendar" id="dpn">
+      <input type="text">
     </div>
     <button class="next" data-id="dpn">后一天</button>
     <button class="today" data-id="dpn">Today</button>

@@ -20,9 +20,7 @@ var defaultConfig = {
   // 认为从星期几开始显示
   // 其中, 0 表示周日
   start: 0,
-  today: util.toDate(),
   min: util.toDate('1900-1-1'),
-  onclick: function () {},
   // 星期显示文本
   weekTextList: weekTextList.slice(0),
   // 样式规则.
@@ -134,14 +132,13 @@ function calendarToggleView (calendar, flag) {
 }
 
 function gridhandler (target, context, calendar) {
-  var dom = target.querySelector('.' + style.grid)
-  var disabled = dom.classList.contains(style.disabled)
-  if (disabled) return
+  if (target.classList.contains(style.disabled)) return
   var selected = style.selected
   var selectedNode = context.querySelector('.' + selected)
   if (selectedNode) selectedNode.classList.remove(selected)
-  dom.classList.add(selected)
-  var value = target.getAttribute('data-date')
+  target.classList.add(selected)
+  var td = target.parentNode
+  var value = td.getAttribute('data-date')
   calendar.set(value)
   return value
 }
@@ -236,10 +233,15 @@ var handler = (function () {
 export function Init (context, config) {
   config = util.extend(true, {}, defaultConfig, config || {})
 
+  var wrap = document.createElement('div')
+  wrap.className = style.wrap
+  context.parentNode.insertBefore(wrap, context)
+  wrap.appendChild(context)
+
   // 准备容器
   var layer = document.createElement('div')
-  layer.classList.add(style.calendar)
-  context.appendChild(layer)
+  layer.classList.add(style.helper)
+  wrap.appendChild(layer)
 
   // @todo. 延迟实例化
   // 实例
@@ -248,7 +250,7 @@ export function Init (context, config) {
   )
 
   ctx.handler = config.handler || function (date) {
-    var c = context.querySelector('.calendar')
+    var c = context.querySelector('input')
     var value = util.paddingDate(date)
     c.value = value
     try {
@@ -259,7 +261,7 @@ export function Init (context, config) {
   // 初始化
   ctx.handler(config.date || config.today || util.toDate())
 
-  context.addEventListener('click', function (e) {
+  wrap.addEventListener('click', function (e) {
     var node = walkdom(e.target, function (node) {
       if (node.classList.contains('calendar')) return node
     }, context)
@@ -269,12 +271,12 @@ export function Init (context, config) {
   })
 
   // 绑定 grid 相关事件
-  context.addEventListener('click', function (e) {
+  layer.addEventListener('click', function (e) {
     var node = walkdom(e.target, function (node) {
-      return node.nodeName === 'TD' ? node : false
+      return node.classList.contains(style.grid) ? node : false
     })
     if (node) {
-      var value = gridhandler(node, context, ctx)
+      var value = gridhandler(node, layer, ctx)
       if (value) {
         switch (ctx.viewtype) {
           case 'year':
@@ -295,7 +297,7 @@ export function Init (context, config) {
     }
   })
 
-  handler(context, ctx)
+  handler(wrap, ctx)
 
   return ctx
 }
