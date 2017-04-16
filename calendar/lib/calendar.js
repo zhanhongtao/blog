@@ -200,17 +200,16 @@ function grid (data, type) {
   return list
 }
 
-function Calendar (config) {
-  console.log(config)
-  var isInstance = this instanceof Calendar
+export function calendar (config) {
+  var isInstance = this instanceof calendar
   if (!isInstance) {
-    return new Calendar(config)
+    return new calendar(config)
   }
   this.refresh(config)
 }
 
 // 方便重写 render 方法.
-Calendar.util = {
+export let utils = {
   extend: extend,
   isLeapYear: isLeapYear,
   dayOfWeek: dayOfWeek,
@@ -221,10 +220,12 @@ Calendar.util = {
   toDate: toDate
 }
 
-Calendar.prototype.refresh = function (config) {
+calendar.prototype.refresh = function (config) {
   // 合并 config
   config = this.config = extend(true, {}, config)
   this.style = config.style
+
+  this.handler = config.handler || function () {}
 
   // 调整 week 的文案顺序
   var start = this.start = config.start
@@ -255,7 +256,7 @@ Calendar.prototype.refresh = function (config) {
 }
 
 // 更新配置信息
-Calendar.prototype.setConfig = function (config) {
+calendar.prototype.setConfig = function (config) {
   config = extend(true, this.config, config)
   return this.refresh(config)
 }
@@ -362,7 +363,7 @@ function renderyear () {
   return html
 }
 
-Calendar.prototype.render = function (type) {
+calendar.prototype.render = function (type) {
   updateState.call(this)
   type = type || 'day'
   if (type !== 'year') this.viewyear = null
@@ -387,7 +388,7 @@ Calendar.prototype.render = function (type) {
 }
 
 // 处理单个 grid 显示
-Calendar.prototype.grid = function (func) {
+calendar.prototype.grid = function (func) {
   // 初始化
   // 记录当前屏, 显示的日期
   this.views = this.views || []
@@ -459,7 +460,7 @@ Calendar.prototype.grid = function (func) {
 each(['next', 'prev'], function (action) {
   each(['year', 'month', 'day'], function (name) {
     var method = action + name.charAt(0).toUpperCase() + name.slice(1)
-    Calendar.prototype[method] = function () {
+    calendar.prototype[method] = function () {
       var obj = {
         year: this.date.getFullYear(),
         month: this.date.getMonth(),
@@ -473,13 +474,13 @@ each(['next', 'prev'], function (action) {
   })
 })
 
-Calendar.prototype.changeyearview = function (view) {
+calendar.prototype.changeyearview = function (view) {
   this.viewyear = this.viewyear || this.date.getFullYear()
   this.viewyear += view * 12
   return this.render('year')
 }
 
-Calendar.prototype.set = function (date) {
+calendar.prototype.set = function (date) {
   this.date = toDate(date)
   this.selected = this.date
   updateState.call(this)
@@ -487,24 +488,20 @@ Calendar.prototype.set = function (date) {
   return this
 }
 
-Calendar.prototype.get = function (format) {
+calendar.prototype.get = function (format) {
   if (format) return formatdatetime(format, this.selected)
   return this.selected
 }
 
-Calendar.prototype.show = function () {
+calendar.prototype.show = function () {
   this.date = this.selected || this.today
   this.box.style.display = 'block'
   this.visible = true
   return this.render()
 }
 
-Calendar.prototype.hide = function () {
+calendar.prototype.hide = function () {
   this.box.style.display = 'none'
   this.visible = false
   return this
-}
-
-export {
-  Calendar
 }

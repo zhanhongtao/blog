@@ -1,29 +1,18 @@
-import { Calendar } from './calendar.js'
+import { calendar as cal, utils } from './calendar.js'
 import style from './index.scss'
 
-export var util = Calendar.util
-
-var weekTextList = [
-  '日',
-  '一',
-  '二',
-  '三',
-  '四',
-  '五',
-  '六'
-]
+var weekTextList = ['日', '一', '二', '三', '四', '五', '六']
 
 // 默认配置
 var defaultConfig = {
   style: style,
-  // 星期规则
-  // 认为从星期几开始显示
-  // 其中, 0 表示周日
+  // 索引, 表示一周的第一天是周几
   start: 0,
-  min: util.toDate('1900-1-1'),
+  min: utils.toDate('1900-01-01'),
   // 星期显示文本
   weekTextList: weekTextList.slice(0),
-  // 样式规则.
+  // 样式规则
+  // @todo: 没必要时用多个函数...
   classes: {
     // 当天
     today: function (data, type) {
@@ -53,8 +42,8 @@ var defaultConfig = {
     },
     // 范围
     disabled: function (data) {
-      if (!util.inRange(
-        util.toDate(data.year, data.month + 1, data.day),
+      if (!utils.inRange(
+        utils.toDate(data.year, data.month + 1, data.day),
         [this.config.min, this.config.max]
       )) {
         return style.disabled
@@ -63,8 +52,8 @@ var defaultConfig = {
     // 选中样式
     selected: function (data, type) {
       if (type === 'day') {
-        var tmp = util.paddingDate(this.selected)
-        if (tmp === util.paddingDate(data.year, data.month + 1, data.day)) {
+        var tmp = utils.paddingDate(this.selected)
+        if (tmp === utils.paddingDate(data.year, data.month + 1, data.day)) {
           return style.selected
         }
       }
@@ -75,8 +64,8 @@ var defaultConfig = {
     sameday: function (data, type) {
       if (type === 'day') {
         var day = this.today.getDate()
-        var string = util.paddingDate(this.today)
-        var tmp = util.paddingDate(data.year, data.month + 1, data.day)
+        var string = utils.paddingDate(this.today)
+        var tmp = utils.paddingDate(data.year, data.month + 1, data.day)
         if (
           // 非当天
           tmp !== string &&
@@ -230,8 +219,8 @@ var handler = (function () {
 // 初始化 - 尽可能晚
 // 点击其他位置时, 要隐藏浮层
 // 支持配置
-export function Init (context, config) {
-  config = util.extend(true, {}, defaultConfig, config || {})
+function Calendar (context, config) {
+  config = utils.extend(true, {}, defaultConfig, config || {})
 
   var wrap = document.createElement('div')
   wrap.className = style.wrap
@@ -243,23 +232,22 @@ export function Init (context, config) {
   layer.classList.add(style.helper)
   wrap.appendChild(layer)
 
-  // @todo. 延迟实例化
-  // 实例
-  var ctx = new Calendar(
-    util.extend(true, { box: layer }, config)
-  )
-
-  ctx.handler = config.handler || function (date) {
+  config.handler = config.handler || function (date) {
     var c = context.querySelector('input')
-    var value = util.paddingDate(date)
+    var value = utils.paddingDate(date)
     c.value = value
     try {
       c.innerText = value
     } catch (e) {}
   }
 
+  // @todo. 延迟实例化
+  var ctx = new cal(
+    utils.extend(true, { box: layer }, config)
+  )
+
   // 初始化
-  ctx.handler(config.date || config.today || util.toDate())
+  ctx.handler(config.date || config.today || utils.toDate())
 
   wrap.addEventListener('click', function (e) {
     var node = walkdom(e.target, function (node) {
@@ -301,3 +289,5 @@ export function Init (context, config) {
 
   return ctx
 }
+
+export { utils, Calendar }

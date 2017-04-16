@@ -1,4 +1,4 @@
-import { Init as Calendar, util } from './main.js'
+import { Calendar, utils } from '../../lib/index.js'
 
 let contexts = document.querySelectorAll('.calendar')
 for (let context of contexts) {
@@ -8,13 +8,13 @@ for (let context of contexts) {
     let value
     switch (dataset[name]) {
       case 'today':
-        value = util.toDate()
+        value = utils.toDate()
         break
       case '+20':
-        value = util.toDate(new Date().getTime() + 20 * 24 * 60 * 60 * 1000)
+        value = utils.toDate(new Date().getTime() + 20 * 24 * 60 * 60 * 1000)
         break
       case '+10':
-        value = util.toDate(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
+        value = utils.toDate(new Date().getTime() + 10 * 24 * 60 * 60 * 1000)
         break
       default:
         value = dataset[name]
@@ -53,22 +53,22 @@ fixed(
 )
 
 xc.handler = function (date) {
-  var value = util.paddingDate(date)
+  var value = utils.paddingDate(date)
   x.querySelector('input').value = value
   fixed(date)
 }
 
 function fixed (value) {
-  if (typeof value === 'string') value = util.toDate(value)
+  if (typeof value === 'string') value = utils.toDate(value)
   var vy = y.querySelector('input').value
 
   var min = value
-  var max = util.toDate(min.getTime() + 30 * 24 * 60 * 60 * 1000)
+  var max = utils.toDate(min.getTime() + 30 * 24 * 60 * 60 * 1000)
   yc.setConfig({
     min: min,
     max: max
   })
-  if (!util.inRange(util.toDate(vy), [min, max])) {
+  if (!utils.inRange(utils.toDate(vy), [min, max])) {
     yc.set(value)
   }
 }
@@ -101,4 +101,3 @@ for (let todayNode of todayNodes) {
     context.set(context.today)
   })
 }
-

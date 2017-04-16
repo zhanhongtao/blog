@@ -4,12 +4,12 @@
   "description": "build",
   "system": {
     "development": {
-      "input": "./src",
+      "input": "./demo",
       "output": "./development",
       "public": ""
     },
     "production": {
-      "input": "./src",
+      "input": "./demo",
       "output": "./production",
       "public": ""
     }

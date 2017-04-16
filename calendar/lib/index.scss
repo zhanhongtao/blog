@@ -2,13 +2,13 @@
 .wrap {
   display: inline-block;
   vertical-align: middle;
-  min-width: 240px;
 }
 
 .helper {
+  display: none;
   position: relative;
   top: 1px;
-  display: none;
+  min-width: 240px;
   [data-action] {
     cursor: pointer;
   }
