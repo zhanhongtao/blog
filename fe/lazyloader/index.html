@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ImageLoader</title>
+  <style>
+    .item {
+      width: 280px;
+      height: 320px;
+      margin: 10px auto;
+      background-image: url(loading.gif);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    var fragment = document.createDocumentFragment()
+    for (var i = 0; i < 17; ++i) {
+      var src = 'http://blog.x181.cn/simpleslide/images/' + (i + 1) + '.jpg?t=' + Date.now()
+      var div = document.createElement('div')
+      div.className = 'lazyload item'
+      div.setAttribute('data-src', src)
+      fragment.appendChild(div)
+    }
+    box.appendChild(fragment)
+  </script>
+  <script src="image-loader.js"></script>
+  <script src="image-loader-trigger.js"></script>
+</body>
+</html>

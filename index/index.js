@@ -48,6 +48,7 @@ var blog = {
     {title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' }
   ],
   js: [
+    {title: 'lazyloader', address: './fe/lazyloader/' },
     {title: 'Scroll loader...', address: './fe/loader/' },
     {title: '日历控件', address: './calendar/production/'},
     {title: '星座页面开发过程', address: './xingzuo/'},
