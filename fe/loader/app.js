@@ -33,13 +33,13 @@ var handler = (function () {
       setTimeout(function () {
         if (Math.random() > 0.2) {
           render()
-          dfd.resolve(--times === 0)
+          dfd.resolve({ complete: --times === 0 })
         } else {
           dfd.reject()
         }
       }, 500)
     } else {
-      dfd.resolve(true)
+      dfd.resolve({ complete: true })
     }
     return dfd.promise()
   }
@@ -47,7 +47,12 @@ var handler = (function () {
 
 var loader = createLoaderProxy(document.getElementById('box'), handler)
 
-loader()
+var p = loader()
+if (p) {
+  p.done(function (res) {
+    console.log(res)
+  })
+}
 
 var _ = {
   decounce: function (f) {

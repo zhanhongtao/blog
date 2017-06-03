@@ -23,14 +23,17 @@ var createLoader = function (box, handler) {
   var helper = document.createElement('div')
   helper.style.cssText = 'height: 0 !important; overflow: hidden !important;'
   box.appendChild(helper)
-  return function loader (force) {
-    if ((support || force) && status === 0) {
-      if (inviewport(helper, 10)) {
+  return function loader (force, unuse, args) {
+    if (force) {
+      support = true
+      status = 0
+    }
+    if (support && status === 0) {
+      if (unuse || inviewport(helper, 10)) {
         status = 1
-        handler().done(function (ending) {
-          support = true
-          status = ending ? 2 : 0
-          if (!ending) {
+        return handler.apply(null, args || []).done(function (res) {
+          status = res.complete ? 1 : 0
+          if (status === 0) {
             setTimeout(loader, 100)
           }
         }).fail(function () {
@@ -50,41 +53,43 @@ var createLoader = function (box, handler) {
   * (3)加载失败 - 点击可重试加载
   * (4)加载结束 - 无操作
 */
-var createLoaderProxy = function (box, f) {
-  var status = 0
-  var statusMap = {
-    0: ['initial', '点击加载更多'],
-    1: ['pending', '正在加载中...'],
-    2: ['success', '加载成功'],
-    3: ['fail', '加载失败, 点击重新加载'],
-    4: ['complete', '没有更多数据']
-  }
-  var node = document.createElement('div')
-  var classname = 'loadingbar'
-  node.className = classname
-  node.addEventListener('click', function (e) {
-    if (status === 0 || status === 3) loader(true)
-  })
-  box.appendChild(node)
-  function update (s) {
-    status = s
+var createLoaderProxy = function (box, handler, config) {
+  config = config || {}
+  var classname = config.classname || 'loadingbar'
+  var update = config.update || function (node, status) {
+    var statusMap = {
+      0: ['initial', '点击加载更多'],
+      1: ['pending', '正在加载中...'],
+      2: ['success', '加载成功'],
+      3: ['fail', '加载失败, 点击重新加载'],
+      4: ['complete', '没有更多数据']
+    }
     node.className = classname + ' ' + classname + '--' + statusMap[status][0]
     node.innerHTML = '<span>' + statusMap[status][1] + '</span>'
   }
+  var node = document.createElement('div')
+  node.className = classname
+  node.addEventListener('click', function (e) {
+    if (status === 0 || status === 3) loader(true, false)
+  })
+  box.appendChild(node)
+  var status = 0
   var loader = createLoader(box, function () {
-    update(1)
+    update(node, status = 1)
     var dfd = new $.Deferred()
-    f().done(function (ending) {
-      update(ending ? 4 : 2)
-      if (!ending) {
+    handler.apply(null, arguments).done(function (res) {
+      update(node, status = res.complete ? 4 : 2, res)
+      if (status === 2) {
         setTimeout(function () {
-          update(0)
-        }, 500)
+          update(node, status = 0)
+          dfd.resolve(res)
+        }, 600)
+      } else {
+        dfd.resolve(res)
       }
-      dfd.resolve(ending)
-    }).fail(function () {
-      update(3)
-      dfd.reject()
+    }).fail(function (res) {
+      update(node, status = 3, res)
+      dfd.reject(res)
     })
     return dfd.promise()
   })
