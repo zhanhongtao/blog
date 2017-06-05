@@ -67,4 +67,13 @@ flex:initial; // flex: 0 1 auto;
 
 margin: auto; 合并剩余的空间
 
+flex-item 的 min-width 为 auto, 即内容尺寸(注意长单词/不换行问题)
+```css
+overflow-wrap: break-word;
+min-width: 0;
+// or
+word-break: break-word;
+```
+https://codepen.io/redky/pen/MoYboB/?editors=1100
+
 
