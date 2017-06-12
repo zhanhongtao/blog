@@ -154,5 +154,12 @@ root.base64Encode = base64;
 root.base64Decode = base64decode;
 root.utf82unicode = utf82unicode;
 root.unicode2utf8 = unicode2utf8;
+root.toUTF16 = function toUTF16(codePoint) {
+	if (codePoint < 0x10000) return String.fromCharCode(codePoint)
+	codePoint -= 0x10000
+	var lead = (codePoint >> 10) + 0xd800
+	var trail = (codePoint & 0x3ff) + 0xdc00
+	return String.fromCharCode(lead, trail)
+}
 
 })(this)
