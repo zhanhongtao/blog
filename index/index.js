@@ -20,7 +20,7 @@ var about = {
 
 var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues?state=open',
-  labels: [ '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'other', 'Todo' ],
+  labels: [ 'ALL', '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'Other', 'Todo' ],
   css: [
     {title: '单行居中，多行时居作对齐，最多显示三行, 多余三行时显示...', address: './fe/line.html'},
     {title: '[type="radio"]:checked', address: './fe/checked.html'},
@@ -62,8 +62,6 @@ var blog = {
     {title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自ypy.douban.com' },
     {title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3, async/await' },
     {title: 'Scroll Loading..', address: './fe/scroll/' },
-    // {title: '遍历 DOM-Tree', address: './walkdomtree/'},
-    // {title: '10 点提醒', address: './fe/reader/', description: '提醒, 且一次'},
     {title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     {title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择'},
     {title: 'customEvent', address: './fe/customEvent.html', description: '自定义事件'}

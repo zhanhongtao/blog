@@ -41,7 +41,8 @@
   -->
     <dl>
       <dt>LABELS:</dt>
-      <% for ( var i = 0, l = it.labels.length; i < l; ++i ) { %>
+      <dd><a href="<%= it.address %>">ALL</a></dd>
+      <% for ( var i = 1, l = it.labels.length; i < l; ++i ) { %>
         <dd><a href="<%= it.address + '&labels=' + encodeURIComponent(it.labels[i])
         %>"><%= it.labels[i] %></a></dd>
       <% } %>
