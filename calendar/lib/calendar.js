@@ -51,7 +51,7 @@ function dayOfYear (year, month, day) {
 function dayOfWeek (year, month, day) {
   // 公历一年一月一日是星期一，所以起始值为星期日
   var w = 1
-  // 公历星期值分部 400 年循环一次
+  // 公历星期值 400 年循环一次
   var y = (year - 1) % 400 + 1
   // 闰年次数
   var ly = Math.floor((year - 1) / 4)
