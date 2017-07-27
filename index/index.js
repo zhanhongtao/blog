@@ -20,7 +20,7 @@ var about = {
 
 var blog = {
   address: 'https://github.com/zhanhongtao/blog/issues',
-  labels: [ 'ALL', '算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'Other', 'Todo' ],
+  labels: [ 'ALL', '数据结构/算法', '二进制', '语法', 'JavaScript', 'HTML', 'CSS', 'Node', 'XSS', 'Other', 'Todo' ],
   css: [
     { title: '单行居中，多行时居作对齐，最多显示三行, 多余三行时显示...', address: './fe/line.html' },
     { title: '[type="radio"]:checked', address: './fe/checked.html' },
