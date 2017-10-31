@@ -36,6 +36,7 @@
     }
     document.addEventListener('keydown', function(e) {
       e.preventDefault();
+      // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
       log({
         key: e.key,
         which: e.which,
