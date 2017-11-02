@@ -1,13 +1,13 @@
-function fsm(config) {
-  if (!(this instanceof fsm)) return new fsm(config)
+function FSM (config) {
+  if (!(this instanceof FSM)) return new FSM(config)
   this.relationship = config.relationship
   this.state = config.defaultState
   this.statetimestamp = 0
   let noop = function () {}
   ;[
-    'onenter',
     'onbeforetransition',
-    'onaftertransition',
+    'onenter',
+    'onaftertransition'
   ].forEach(e => {
     this[e] = 'function' === typeof config[e] ? config[e] : noop
   })
@@ -17,16 +17,16 @@ function fsm(config) {
   }
 }
 
-function createUsefulTransition(context) {
+function createUsefulTransition (context) {
   let { state, statetimestamp: timestamp } = context
-  return (function (cmd, ...args) {
+  return (function (cmd) {
     if (this.state === state && this.statetimestamp <= timestamp) {
       this.transition(cmd)
     }
   }).bind(context)
 }
 
-fsm.prototype.transition = function (cmd) {
+FSM.prototype.transition = function (cmd) {
   let nextItem = this.next(cmd)
   if (nextItem) {
     let previousstate = this.state
@@ -38,7 +38,7 @@ fsm.prototype.transition = function (cmd) {
   }
 }
 
-fsm.prototype.next = function (cmd) {
+FSM.prototype.next = function (cmd) {
   let nextItem = null
   let currentstate = this.state
   let relationship = this.relationship
