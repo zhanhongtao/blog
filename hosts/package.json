@@ -1,0 +1,14 @@
+{
+  "name": "hosts",
+  "version": "1.0.0",
+  "description": "switch host quickly.",
+  "main": "index.js",
+  "bin": {
+    "q": "index.js"
+  },
+  "keywords": [
+    "host"
+  ],
+  "author": "redky",
+  "license": "MIT"
+}
