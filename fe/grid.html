@@ -10,9 +10,13 @@
       margin: 0;
     }
 
+    /*
+      https://css-tricks.com/snippets/css/complete-guide-grid/
+      https://gridbyexample.com/
+    */
     #template {
       /**
-        display: grid/inline-grid/subgrid;
+        display: grid/inline-grid/subgrid(继承 grid);
       */
       display: grid;
 
@@ -44,19 +48,30 @@
 
       /**
         auto-fill 关键字
-        分配合适的 10px, 占满 container 空间
+        分配合适的个 10px, 尽可能占满 container 空间（要看存在多少个 grid-item）
       */
       grid-template-columns: repeat(auto-fill, 10px);
+      /**
+        一共一份...
+      */
+      grid-template-columns: repeat(auto-fill, 1fr);
 
       /**
         minmax 函数.
         ex: 最小为 200px, 最大为 1fr;
         minmax(200px, 1fr);
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       */
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
       /**
-        支持使用 fr 单位 -> fractions
+        minmax + auto-fill auto-fit
+        auto-fill 使用满足条件的最小空间
+        auto-fit 使用满足条件的最大空间
+      */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      /**
+        支持使用 fr 单位 -> fractions (分数)
       */
       grid-template-rows: 1fr 1fr 100px 2fr;
 
