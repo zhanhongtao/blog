@@ -13,12 +13,13 @@
     <div class="flex-item"></div>
     <div class="flex-item"></div>
     <div class="flex-item"></div>
+    <div class="flex-item"></div>
   </section>
   <div>
     <h1>flex box width</h1>
-    <input name="width" data-fix="%" type="range" min="10" max="100" />
+    <input name="width" data-fix="%" type="range" min="10" max="100" value="100" />
     <h1>flex box height</h1>
-    <input name="height" data-fix="%" type="range" min="10" max="100">
+    <input name="height" data-fix="px" type="range" min="10" max="100" value="50">
     <h1>flex direction</h1>
     <label><input type="radio" name="flex-direction" value="row" checked>row[default]</label>
     <label><input type="radio" name="flex-direction" value="row-reverse">row-reverse</label>
@@ -45,11 +46,15 @@
     <label><input type="radio" name="flex-wrap" value="wrap-reverse">wrap-reverse</label>
     <h1>align-content(当 flex-wrap 为 wrap 时才起作用)</h1>
     <label><input type="radio" name="align-content" value="stretch" checked>stretch[default]</label>
+    <label><input type="radio" name="align-content" value="start">start</label>
     <label><input type="radio" name="align-content" value="flex-start">flex-start</label>
     <label><input type="radio" name="align-content" value="flex-end">flex-end</label>
+    <label><input type="radio" name="align-content" value="end">end</label>
+    <label><input type="radio" name="align-content" value="center">center</label>
     <label><input type="radio" name="align-content" value="space-around">space-around</label>
     <label><input type="radio" name="align-content" value="space-between">space-between</label>
-    <label><input type="radio" name="align-content" value="center">center</label>
+    <label><input type="radio" name="align-content" value="space-evenly">space-evenly</label>
+    <label><input type="radio" name="align-content" value="baseline">baseline(first baseline, last baseline)</label>
     <h1>其它各种操作</h1>
     <button id="add-flex-item">添加 flex-item 项</button>
     <button id="remove-flex-item">删除 flex-item 项</button>

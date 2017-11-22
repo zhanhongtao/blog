@@ -57,7 +57,6 @@ document.addEventListener('click', function(e) {
   if (target.matches('input[type=radio]')) {
     var name = target.getAttribute('name');
     box.style[name] = target.value;
-    e.preventDefault()
   } else {
     switch(target.id) {
       case 'set-flex-item-order-random':
@@ -74,12 +73,16 @@ document.addEventListener('click', function(e) {
 }, false);
 
 var rangeElement = document.querySelectorAll('input[type=range]');
+var fixed = {
+  width: 100,
+  height: 640
+}
 for (var i = 0, l = rangeElement.length; i < l; i++) {
   rangeElement[i].addEventListener('change', function() {
     var target = this;
     var name = target.getAttribute('name');
     var fix = target.dataset.fix;
-    box.style[name] = target.value + (fix ? fix : '');
+    box.style[name] = target.value * fixed[name] / 100 + (fix ? fix : '');
   });
 }
 
