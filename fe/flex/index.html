@@ -2,32 +2,34 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>flex</title>
+  <title>Flex</title>
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="flex.css">
 </head>
 <body>
-  <div style="width: 280px;-webkit-flex: 0 0 280px;">
-    <ul>
-      <li><a href="./flex.txt" target="_blank">flex 相关说明</a></li>
-      <li><a href="./center.html">flex - center</a></li>
-      <li><a href="./margin.html">flex - margin</a></li>
-      <li><a href="./order.html">flex - order</a></li>
-      <li><a href="./align-self.html">flex - align-self</a></li>
-    </ul>
+  <section>
+    <div class="flex-item"></div>
+    <div class="flex-item"></div>
+    <div class="flex-item"></div>
+    <div class="flex-item"></div>
+    <div class="flex-item"></div>
+  </section>
+  <div>
     <h1>flex box width</h1>
-    <input name="width" data-fix="px" type="range" min="400" max="1500" value="800" />
+    <input name="width" data-fix="%" type="range" min="10" max="100" />
     <h1>flex box height</h1>
-    <input name="height" data-fix="px" type="range" min="200" max="800" value="300">
+    <input name="height" data-fix="%" type="range" min="10" max="100">
     <h1>flex direction</h1>
-    <label><input type="radio" name="flex-direction" value="row" checked>row</label>
+    <label><input type="radio" name="flex-direction" value="row" checked>row[default]</label>
     <label><input type="radio" name="flex-direction" value="row-reverse">row-reverse</label>
     <label><input type="radio" name="flex-direction" value="column">column</label>
     <label><input type="radio" name="flex-direction" value="column-reverse">column-reverse</label>
     <h1>justify-content</h1>
-    <label><input type="radio" name="justify-content" value="flex-start" checked />flex-start</label>
+    <label><input type="radio" name="justify-content" value="start" />start</label>
+    <label><input type="radio" name="justify-content" value="flex-start" checked />flex-start[default]</label>
     <label><input type="radio" name="justify-content" value="center">center</label>
     <label><input type="radio" name="justify-content" value="flex-end">flex-end</label>
+    <label><input type="radio" name="justify-content" value="end">end</label>
     <label><input type="radio" name="justify-content" value="space-between">space-between</label>
     <label><input type="radio" name="justify-content" value="space-around">space-around</label>
     <label><input type="radio" name="justify-content" value="space-evenly">space-evenly</label>
@@ -36,25 +38,29 @@
     <label><input type="radio" name="align-items" value="center">center</label>
     <label><input type="radio" name="align-items" value="flex-end">flex-end</label>
     <label><input type="radio" name="align-items" value="baseline">baseline</label>
-    <label><input type="radio" name="align-items" value="stretch" checked>stretch</label>
+    <label><input type="radio" name="align-items" value="stretch" checked>stretch[default]</label>
     <h1>flex-wrap</h1>
     <label><input type="radio" name="flex-wrap" value="nowrap" checked>nowrap[default]</label>
     <label><input type="radio" name="flex-wrap" value="wrap">wrap</label>
     <label><input type="radio" name="flex-wrap" value="wrap-reverse">wrap-reverse</label>
-    <h1>align-content(当存在wrap时才起作用)</h1>
-    <label><input type="radio" name="align-content" value="stretch" checked>stretch</label>
+    <h1>align-content(当 flex-wrap 为 wrap 时才起作用)</h1>
+    <label><input type="radio" name="align-content" value="stretch" checked>stretch[default]</label>
     <label><input type="radio" name="align-content" value="flex-start">flex-start</label>
     <label><input type="radio" name="align-content" value="flex-end">flex-end</label>
     <label><input type="radio" name="align-content" value="space-around">space-around</label>
     <label><input type="radio" name="align-content" value="space-between">space-between</label>
     <label><input type="radio" name="align-content" value="center">center</label>
+    <h1>其它各种操作</h1>
+    <button id="add-flex-item">添加 flex-item 项</button>
+    <button id="remove-flex-item">删除 flex-item 项</button>
+    <button id="set-flex-item-order-random">随机设置各 flex-item order 属性值</button>
   </div>
-  <section>
-    <div class="flex-item"></div>
-    <div class="flex-item"></div>
-    <div class="flex-item"></div>
-    <div class="flex-item"></div>
-    <div class="flex-item"></div>
-  </section>
+  <ul>
+    <li><a href="./flex.txt" target="_blank">flex 相关说明</a></li>
+    <li><a href="./center.html">flex - center</a></li>
+    <li><a href="./margin.html">flex - margin</a></li>
+    <li><a href="./order.html">flex - order</a></li>
+    <li><a href="./align-self.html">flex - align-self</a></li>
+  </ul>
   <script src="flex.js"></script>
 </html>
