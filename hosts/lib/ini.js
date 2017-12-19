@@ -1,105 +1,101 @@
-function type(s) {
-  return Object.prototype.toString.call(s).slice(8, -1).toLowerCase()
-}
-
-function isKeyAsObjectExist (keys, index, helper) {
-  var prefix = keys.slice(0, index + 1).join('.')
-  return Object.keys(helper).some(key => key.indexOf(prefix + '.') === 0) || (helper[keys[index]] && index + 1 < keys.length)
-}
-
-function defaultHandler (key, value, o, multiple) {
-  if (multiple && value.search(/\s/) > -1) {
-    value = value.split(/\s+/)
-  }
-  if (o[key]) {
-    value = Array.isArray(value) ? value : [value]
-    value = Array.isArray(o[key]) ? [...o[key], ...value] : [o[key], ...value]
-  }
-  return [key, value]
-}
-
-function write (keystr, json, helper) {
-  var keys = keystr.split('.')
-  var length = keys.length
-  keys.reduce((json, key, index) => {
-    if (!json[key]) {
-      return json[key] = {}
+function create(object, keystr) {
+  let keys = keystr.split('.').filter(key => key.trim() !== '')
+  for (let i = 0; i < keys.length; ++i) {
+    let key = keys[i].trim()
+    let tmp = {}
+    if (object[key] == null) {
+      object[key] = tmp
+      object = object[key]
     } else {
-      if (
-        json[key] &&
-        type(json[key]) === 'object' &&
-        isKeyAsObjectExist(keys, index, helper)
-      ) {
-        return json[key]
+      let current = object[key]
+      if (i + 1 === keys.length) {
+        if (Object.prototype.toString.call(current) !== '[object Array]') {
+          object[key] = [current]
+        }
+        object[key].push(tmp)
+        object = tmp
       } else {
-        var ret = {}
-        json[key] = Array.isArray(json[key]) ? [...json[key], ret] : [json[key], ret]
-        return ret
+        object = current
       }
     }
-  }, json)
-  helper[keystr] = 1
+  }
+  return object
 }
 
-function read (key, json) {
-  if (key) {
-    var keys = key.split('.')
-    return keys.reduce((json, key) => {
-      var value = json[key] = json[key] || {}
-      return Array.isArray(value) ? value[value.length - 1] : value
-    }, json)
-  } else {
-    return json
+// 跳过空行
+var skipEmptyLinePlugin = function ({index, text}) {
+  return text.trim() === ''
+}
+
+// 跳过注释行
+var commentPlugin = function (char) {
+  return function ({index, text}) {
+    return text.trimLeft().slice(0, char.length) === char
   }
 }
 
-function parser (string, handler = defaultHandler, usecomment = true, multiple = true) {
+// 支持块格式数据
+var blockPlugin = function () {
+  var prev = null
+  return function (helper) {
+    var { index, text, data } = helper
+    // 结束块可选，也便于回到 global
+    if (/^\s*#\s*\[\/end\]/i.test(text) || helper.reset) {
+      helper.data = prev || hepler.data
+      return true
+    }
+    // TODO. 自定义 # 符号
+    var group = text.match(/^\s*#\s*\[(.+)\]/)
+    if (group) {
+      var key = group[1].trim()
+      if (key) {
+        // 约定: key 需要从第一层开始写
+        prev = prev || helper.data
+        helper.data = create(prev, key)
+        return true
+      }
+    }
+  }
+}
+
+var bindPlugin = function (build) {
+  return function(helper) {
+    let { text, data } = helper
+    text = text.trim()
+    let index = text.search(/\s+/)
+    let key = text.slice(0, index)
+    let value = text.slice(index).trim()
+    if (typeof build === 'function') {
+      build(key, value, data)
+    } else {
+      // 处理行尾注释
+      data[key] = value.replace(/#.*/, '')
+    }
+  }
+}
+
+function parser (string) {
+  var plugins = [
+    skipEmptyLinePlugin,
+    blockPlugin(),
+    commentPlugin('#'),
+    bindPlugin()
+  ]
   let json = {}
   let lines = String(string).split(/\r?\n/)
-  let key = ''
-  let helper = new Map
-  for (let i = 0; i < lines.length; ++i) {
-    let line = lines[i].trim()
-    // 过滤空行
-    if (line === '') continue
-    // 注释行
-    let out = true
-    if (line[0] === '#') {
-      if (usecomment) {
-        out = false
-        line = line.slice(1).trim()
-      } else continue
+  if (lines.length) {
+    let helper = {
+      index: 0,
+      data: json
     }
-    // 去掉行注释
-    let index = line.indexOf('#')
-    if (index > -1) {
-      line = line.slice(0, index).trim()
-    }
-    // 过滤空行
-    if (line === '') continue
-    // 查看是不是分类标记
-    if (line[0] === '[' && line[line.length - 1] === ']' && (!(usecomment && out))) {
-      key = line.slice(1, -1)
-      write(key, json, helper)
-    } else if (out) {
-      let o = read(key, json)
-      // 分割 Key/value 对
-      // 使用空白分割
-      let sp = line.search(/\s/)
-      if (sp > -1) {
-        let [k, v] = handler(
-          line.slice(0, sp),
-          line.slice(sp).trim(),
-          o,
-          multiple
-        )
-        if (k) {
-          o[k] = v
-        }
-      } else {
-        // 针对只有 key 的情况.
-        o[line] = ''
+    while (helper.index <= lines.length) {
+      helper.text = lines[helper.index] || ''
+      if (helper.index === lines.length) helper.reset = true
+      for (let i = 0; i < plugins.length; ++i) {
+        let stop = plugins[i](helper)
+        if (stop) break
       }
+      helper.index++
     }
   }
   return json
