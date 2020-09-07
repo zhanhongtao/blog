@@ -10,3 +10,21 @@ min-width: 0;
 word-break: break-word;
 ```
 https://codepen.io/redky/pen/MoYboB/?editors=1100
+
+默认值
+flex: initial;  // 0 1 auto
+flex: auto;     // 1 1 auto
+flex: none;     // 0 0 auto
+
+flex-grow: 0;
+flex-shrink: 1;
+flex-basic: auto;
+
+flex: 1;        // flex-grow: 1;
+flex: 100px;    // flex-basic: 100px;
+flex: 2 100px;  // flex-grow: 2; flex-basic: 100px;
+flex: 1 2;      // flex-grow: 1; flex-shrink: 2;
+
+旧版本浏览器 flex 容器下, flex-item 需要是块状元素(display: block).
+
+flex 已支持 gap/column-gap/row-gap 属性.
