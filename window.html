@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>window</title>
+  <style>
+    body {
+      margin: 0;
+      --helper-height: 8px;
+    }
+    .helper {
+      height: var(--helper-height);
+    }
+    .viewport {
+      position: relative;
+      width: 640px;
+      margin: 8px auto;
+      height: calc(100vh - 8px * 2 - var(--helper-height));
+      overflow: auto;
+    }
+    .item {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #666;
+      background: #f7f7f7;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="helper"></div>
+  <div class="viewport" id="viewport">
+    <div id="viewport-helper"></div>
+  </div>
+  <script>
+    function generateHeight() {
+      let min = 160, max = 320
+      return Math.floor(
+        Math.random() * (max - min) + min
+      )
+    }
+
+    // 准备 2k 条基础数据
+    let list = []
+    for (let i = 0; i < 2000; ++i) {
+      list.push({
+        index: i,
+        width: 150,
+        height: generateHeight(),
+      })
+    }
+
+    function getLowIndex(grids) {
+      let index = 0
+      for (let i = 1; i < grids.length; ++i) {
+        if (grids[i] < grids[index]) index = i
+      }
+      return index
+    }
+
+    function prepareAllDataList(list) {
+      let count = 4
+      let grids = Array.from({ length: count }, _ => 0)
+      let spaceX = 8
+      let spaceY = 8
+      let margin = 5
+      let cols = Array.from({ length: count }, _ => [])
+      list.forEach(item => {
+        let index = getLowIndex(grids)
+        let x = index * item.width + index * spaceX + margin
+        let y = grids[index]
+        grids[index] += (item.height + spaceY)
+        cols[index].push({
+          ...item,
+          x,
+          y,
+        })
+      })
+      return {
+        height: Math.max(...grids),
+        cols,
+      }
+    }
+
+    function render(list, box) {
+      box.innerHTML = ''
+      let fragment = document.createDocumentFragment()
+      list.forEach(item => {
+        let div = document.createElement('div')
+        div.classList.add('item')
+        div.style.cssText = `transform: translate(${ item.x }px, ${ item.y }px); width: ${ item.width }px; height: ${ item.height }px; line-height: ${ item.height }px;`
+        div.appendChild(
+          document.createTextNode(
+            item.index
+          )
+        )
+        fragment.appendChild(div)
+      })
+      box.appendChild(fragment)
+    }
+
+    function isInViewport(y, h, vh, st) {
+      return !(y + h < st || y > st + vh)
+    }
+
+    function calculateRenderList(list, windowHeight, scrollTop, fixedTop) {
+      function find(list, low, high, reverse) {
+        while(low < high) {
+          let mid = Math.floor((high - low) / 2) + low
+          let item = list[mid]
+          let top = item.y + fixedTop
+          if (isInViewport(top, item.height, windowHeight, scrollTop)) {
+            if (reverse) low = mid + 1
+            else high = mid
+          } else {
+            if (top < scrollTop) {
+              low = mid + 1
+            } else {
+              high = mid
+            }
+          }
+        }
+        return low
+      }
+
+      let res = []
+      list.forEach(col => {
+        let start = find(col, 0, col.length)
+        let end = find(col, start, col.length, true)
+        let tmp = col.slice(start, end + 1)
+        res = [...res, ...tmp]
+      })
+      return res
+    }
+
+    function getElementClientHeight(node) {
+      if (node === window) return window.innerHeight
+      let rect = node.getBoundingClientRect()
+      // height + border + padding-top
+      return rect.height
+    }
+
+    function getElementScrollTop(node) {
+      if (node === window) return window.pageYOffset
+      return node.scrollTop
+    }
+
+    function getOffsetTop(node) {
+      if (node === window) return 0
+      let rect = node.getBoundingClientRect()
+      return rect.top + window.pageYOffset
+    }
+
+    function handler() {
+      let flag = 'handle' + Date.now()
+      console.time(flag)
+      let viewportScrollTop = getElementScrollTop(viewport)
+      let shouldRenderedList = calculateRenderList(
+        raw.cols,
+        viewportHeight,
+        viewportScrollTop,
+        viewportOffsetTop
+      )
+      console.timeEnd(flag)
+      render(shouldRenderedList, viewportHelper)
+    }
+
+    let raw = prepareAllDataList(list)
+    let viewport = document.getElementById('viewport') || window
+    let viewportHelper = document.getElementById('viewport-helper')
+    let viewportHeight = getElementClientHeight(viewport)
+    let viewportOffsetTop = getOffsetTop(viewportHelper)
+    viewportHelper.style.height = `${ raw.height }px`
+    viewport.addEventListener('scroll', handler)
+    window.addEventListener('resize', handler)
+    handler()
+  </script>
+</body>
+</html>
