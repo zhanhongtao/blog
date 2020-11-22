@@ -62,6 +62,7 @@ var blog = {
     { title: '图片固定尺寸效果', address: './fe/ypy.douban.html', description: '来自ypy.douban.com' },
     { title: 'Queue', address: './queue/', description: 'es3, Yield, Promise, CSS3, async/await' },
     { title: 'Scroll Loading..', address: './fe/scroll/' },
+    { title: '高性能渲染大列表', address: './fe/window.html' },
     { title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     { title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择' },
     { title: 'customEvent', address: './fe/customEvent.html', description: '自定义事件' }
