@@ -1,0 +1,195 @@
+@media screen {
+    body {
+        margin: 0;
+        padding: 0;
+        /* -webkit-user-select: none;
+        overflow-x: hidden;
+        -webkit-text-size-adjust: none; */
+    }
+    body.mac {
+        background-color: transparent;
+    }
+
+    #article {
+        pointer-events: auto;
+        -webkit-user-select: auto;
+        overflow: visible;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    #article:focus {
+        outline: none;
+    }
+
+    .page-number {
+        display: block;
+    }
+
+    #article :nth-child(1 of .page):nth-last-child(1 of .page) .page-number {
+        display: none;
+    }
+    body.watch #article :nth-child(1 of .page):nth-last-child(1 of .page) {
+        padding-top: 0.15em;
+    }
+
+    .page-number, #incoming-page-corner {
+        font-weight: bold;
+        position: absolute;
+        -webkit-user-select: none;
+        font: 12px "Helvetica Neue";
+        color: rgb(168, 168, 168);
+        cursor: default;
+    }
+    body.watch :matches(.page-number, #incoming-page-corner) {
+        top: 8px;
+        right: 16px;
+    }
+
+    .page {
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 35px;
+        padding-bottom: 35px;
+        position: relative;
+    }
+    body.watch .page {
+        padding: 0 4px;
+    }
+    .page:last-of-type {
+        padding-bottom: 45px;
+    }
+
+    .page video {
+        height: auto;
+        position: relative;
+    }
+
+    #incoming-page-placeholder {
+        height: 30px;
+        margin-bottom: 0;
+    }
+
+    #incoming-page-corner {
+        position: absolute;
+        right: 10px;
+        top: 8px;
+    }
+
+    #incoming-page-text {
+        float: right;
+        -webkit-user-select: none;
+    }
+
+    #next-page-container {
+        position:absolute;
+        /* Workaround for <rdar://problem/8662842> iOS Reader: loading multiple pages stops at the 2nd page. */
+        left: -1000px;
+        /* The iframe needs to be wider than the width threshold value for Reader detection, see <rdar://problem/9599297>. */
+        width: 320px;
+        height: 0px;
+    }
+
+    .page div.scrollable {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:2) {
+    .page {
+        border-top-width: 0.5px;
+    }
+
+    hr {
+        height: 0.5px;
+    }
+}
+
+iframe {
+    border: 0;
+}
+
+@media only screen and (min-width: 780px) {
+    #article {
+        width: 61.8%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .page {
+        /* We don't want the lines seperating pages to extend beyond the primary text column. */
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+}
+
+#article {
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Reader's paper appearance. */
+html.paper {
+    height: 100%;
+}
+
+html.paper body {
+    height: calc(100% - 44px);
+}
+
+html.paper body:after {
+    content: "";
+    height: 22px;
+    display: block;
+}
+
+/* Clearfix */
+html.paper .page::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+html.paper #article {
+    min-height: 100%;
+    margin: 22px auto 0 auto;
+}
+
+html.paper #article :nth-child(1 of .page), html.paper #article :nth-child(1 of .page):nth-last-child(1 of .page) {
+    padding-top: 53px;
+}
+
+html.paper #article .page-number, html.paper #article #incoming-page-corner {
+    /* Stop lining this text up with .page's right margin. */
+    top: 14px;
+    right: 0px;
+}
+/* End Reader's paper appearance. */
+
+/* Use slightly smaller page padding when vertically constrained. */
+@media screen and (max-height: 700px) {
+    .page {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+}
+#article {
+  line-height: 1.8;
+}
+body {
+  background-color: rgb(230, 218, 201)
+}
+
+.prevPage,
+.nextPage {
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+.prevPage {
+  float: left;
+}
+.nextPage {
+  float: right;
+}
