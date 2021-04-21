@@ -45,7 +45,8 @@ var blog = {
     { title: 'CSS layout', address: './layout/', description: 'Alt + Number 切换 css 文件' },
     { title: 'CSS - Animation', address: './fe/animation.html' },
     { title: 'overlay', address: './fe/overflow-overlay.html', description: '不占空间的滚动条(fixed)' },
-    { title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' }
+    { title: 'CSS - Auto Transition', address: './fe/auto-transition.html', description: '自动 transition' },
+    { title: 'Font-Face', address: './font/font-face.html' },
   ],
   js: [
     { title: 'lazyloader', address: './fe/lazyloader/' },
@@ -65,7 +66,8 @@ var blog = {
     { title: '高性能渲染大列表', address: './fe/window.html' },
     { title: 'simple-slide', address: './simpleslide/', description: '支持 Touch 事件' },
     { title: 'expand-select', address: './expandselect/', description: 'shift 辅助选择' },
-    { title: 'customEvent', address: './fe/customEvent.html', description: '自定义事件' }
+    { title: 'customEvent', address: './fe/customEvent.html', description: '自定义事件' },
+    { title: '九宫格图片', address: './9/' }
   ],
   tools: [
     { title: 'FX.js', address: 'http://github.com/zhanhongtao/fx.js', description: '前端动画骨架' },
