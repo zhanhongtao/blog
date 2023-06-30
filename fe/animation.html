@@ -74,8 +74,8 @@
     width: 48px;
     height: 48px;
     background: url(./images/step-demo.png) no-repeat 0 0;
-    -webkit-animation: step-demo 1.5s steps(3, end) infinite;
     animation: step-demo 1.5s steps(3, end) infinite both;
+    animation: step-demo 1.5s steps(3, jump-none) infinite both;
   }
   @-webkit-keyframes step-demo {
     to {
@@ -91,6 +91,7 @@
         -144px 0;
        */
       background-position: -144px 0;
+      background-position: 100% 0;
     }
   }
 
@@ -197,7 +198,7 @@
   <dl>
     <dt>animation-timing-function</dt>
     <dd>设置动画速度函数 - 动画在关键帧之间是如何变化. [ease]/linear/ease-in/ease-out/ease-in-out/<a href="http://cubic-bezier.com" target="_blank">cubic-bezier</a>(x1, y1, x2, y2)</dd>
-    <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[start/end]) -> start: 在开始时切换关键帧; end: 在结束时切换关键帧;</dd>
+    <dd><div class="step-demo"></div>step-start/step-end/steps(n, pos[jump-start|end|both|none/start/end]) -> jump-start: 在开始时切换关键帧; jump-end: 在结束时切换关键帧;</dd>
     <dd>可在 @keyframes 中不同时间段定义不同的 animation-timing-function - 自定义(<mark>手写</mark>)</dd>
     <dd>DEMO: <div class="timing-function"></div></dd>
   </dl>
