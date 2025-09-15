@@ -15,14 +15,17 @@
   <h2>CSS<div class="step-twitter-love"></div></h2>
   <dl>
     <dt>animation-name</dt>
-    <dd>@keyframes 指定的关键帧名称。none 表示无动画。(不建议使用关键字做 name)</dd>
+    <dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" target="_blank">@keyframes</a> 指定的关键帧名称。none 表示无动画。(不建议使用关键字做 name)</dd>
   </dl>
   <dl>
-    <dt>animation-duration</dt>
-    <dd>设置动画一周期的时长。[0]</dd>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration" target="_blank">animation-duration</a></dt>
+    <dd>设置动画一周期[one cycle]的时长。default: auto[0]</dd>
+    <dd>设置为 0 时, 会自动触发 animationstart 和 animationend 事件</dd>
+    <dd>但在 scroll-driven-animations 里, auto 覆盖整个周期; 设置具体的值, 同样是无效的</dd>
+    <dd>对于 scroll-driven-animations , firefox 下, 需要设置 animation-duration: 1ms; 才能生效</dd>
   </dl>
   <dl>
-    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function"target="_blank">animation-timing-function</a></dt>
+    <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function" target="_blank">animation-timing-function</a></dt>
     <dd>设置动画速度函数 - 动画在关键帧之间是如何变化。</dd>
     <dd>[ease]/linear/ease-in/ease-out/ease-in-out/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier" target="_blank">cubic-bezier(x1, y1, x2, y2)</a>/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear" target="_blank">linear()</a></dd>
     <dd>step-start/step-end/steps(n,pos[jump-start|jump-end|jump-both|jump-none])/start[=steps(n, jump-start)]/end[=steps(n, jump-end)]</dd>
@@ -51,8 +54,7 @@
     <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode">animation-fill-mode</a></dt>
     <dd>描述动画开始前/结束后，@keyframes 中定义的样式对元素本身样式的影响</dd>
     <dd>none 默认情况下，动画开始前 [animation-delay 这段时间] 和动画结束后，保留元素最初样式</dd>
-    <dd>backwards 动画开始前，应用动画定义中的开始样式，动画结束后，回退到元素初始样式。受 animation-direction/animation-iteration-count 影响。单次情况下：direction
-      为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
+    <dd>backwards 动画开始前，应用动画定义中的开始样式，动画结束后，回退到元素初始样式。受 animation-direction/animation-iteration-count 影响。单次情况下：direction 为 normal/alternate 时，应用 from 样式; 为 reverse/alternate-reverse 时，应用 to 样式;</dd>
     <dd>forwards 动画开始前，保持元素最初样式，动画结束后，应用动画定义中的结束样式。当 animation-iteration-count 为 0 时，forwards 和 backwards 相同;</dd>
     <dd>both 同时使用 backwards 和 forwards 规则; 即：动画开始前应用动画定义中的开始样式，动画结束后应用动画定义中的结束样式</dd>
     <dd>ps: 添加 <code>animation-delay: 1s;</code> 看动画效果</dd>
@@ -222,7 +224,7 @@
       <dd>scroll(root) 用文档的根元素做 scroller</dd>
       <dd>scroll(self) 元素自身做 scroller; ps: 尽管设置 overflow: hidden, 但如果内容使 scroller 存在 [隐藏滚动条] 时，同样可以让 animation 生效</dd>
       <dd>scroll(block[default]/inline/x/y)</dd>
-      <dd>scroll(nearest, inline), scroll(x nearest) 关键字是固定的几个，位置舒徐可以任意写，都可以识别</dd>
+      <dd>scroll(nearest, inline), scroll(x nearest) 关键字是固定的几个，位置任意写，都可以识别</dd>
       <dd>
         <div class="scroller-wrap">
           <div class="scroller use-scroll-fn">
@@ -258,6 +260,7 @@
       <dd>和 animation-range 作用类似，用于定义位置来计算 timeline; 和 scroll-padding 一样扩展 viewport 区间，定义 port 点</dd>
       <dt>view()</dt>
       <dd>可以理解成 view-timeline-axis 和 view-timeline-inset 的简写形式</dd>
+      <dd>@keyframes 支持 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes#timeline-range-name" target="_blank"><code>animation-range percentage</code></a></dd>
     </dl>
 
     <h3>scope</h3>
@@ -302,7 +305,7 @@
   <h2>Animation Event</h2>
   <dl>
     <dt>animationstart</dt>
-    <dd>event.animationName - @keyframe 名称</dd>
+    <dd>event.animationName - @keyframes 名称</dd>
     <dd>event.elapsedTime - 动画开始与现在的时间间隔</dd>
     <dt>animationiteration</dt>
     <dt>animationend</dt>

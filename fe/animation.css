@@ -375,7 +375,7 @@ pre {
   /*
     animation 需要在 animation-timeline 前面，
     MDN 中有说明，animation 会把 animation-timeline 重置
-    当 scroll(self) 时，尽管设置了 overflow: hidden, 内容使 scroller 用滚动条时，一样可以让 animation 生效
+    当 scroll(self) 时，尽管设置了 overflow: hidden, 内容使 scroller 有滚动条时，一样可以让 animation 生效
   */
   overflow: hidden;
   animation: scroll-self 1s;
@@ -443,7 +443,6 @@ pre {
 }
 
 @keyframes scroll-self {
-
   from,
   to {
     z-index: 1;
@@ -451,6 +450,9 @@ pre {
 }
 
 @keyframes scroll {
+  from {
+    width: 0%
+  }
   to {
     width: 100%;
   }
