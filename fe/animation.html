@@ -27,9 +27,9 @@
   <dl>
     <dt><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function" target="_blank">animation-timing-function</a></dt>
     <dd>设置动画速度函数 - 动画在关键帧之间是如何变化。</dd>
-    <dd>[ease]/linear/ease-in/ease-out/ease-in-out/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier" target="_blank">cubic-bezier(x1, y1, x2, y2)</a>/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear" target="_blank">linear()</a></dd>
+    <dd>linear[=linear(0,1)]/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear" target="_blank">linear()</a>/ease/ease-in/ease-out/ease-in-out/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier" target="_blank">cubic-bezier(x1, y1, x2, y2)</a></dd>
     <dd>step-start/step-end/steps(n,pos[jump-start|jump-end|jump-both|jump-none])/start[=steps(n, jump-start)]/end[=steps(n, jump-end)]</dd>
-    <dd>jump-start: 跳过第一帧; jump-end: 跳过最后一帧; jump-body: 同时跳过第一和最后一帧; jump-none: 不跳过任何一帧</dd>
+    <dd>jump-start: 跳过第一帧; jump-end: 跳过最后一帧; jump-both: 同时跳过第一和最后一帧; jump-none: 不跳过任何一帧</dd>
     <dd><div class="steps"></div></dd>
     <dd>可在 @keyframes 中不同时间段定义不同的 animation-timing-function - 自定义 (<mark>手写</mark>)</dd>
     <dd>DEMO: <div class="timing-function"></div></dd>
